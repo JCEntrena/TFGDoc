@@ -1,0 +1,123 @@
+%************************************************
+\chapter{Introducción}\label{ch:introduccion}
+%************************************************
+
+\begin{definition}
+Un p-símplice $s_p$ en $\mathbb{R}^n$ es la envolvente conexa de $p+1$ puntos afínmente independientes, a los que llamaremos vértices, $\{x_0, \dots, x_n\}$.
+\end{definition}
+
+Si $x_i = (0, \dots, 1, \dots, 0)$, llamaremos al p-símplice estándar, y lo notaremos $\sigma_p \in \mathbb{R}^{n+1}$ \\
+
+Podemos establecer un homeomorfismo de forma: \[ h \colon \sigma_p \to s_p  \quad t_i \to \sum_{i=0} t_i x_i \]
+
+\begin{definition}
+Un p-símplice singular en un espacio topológico $\mathbb{X}$ es una aplicación continua $\phi \colon \sigma_p \to \X \text{, } p \geq 0$
+\end{definition}
+
+Representaremos los p-símplices singulares de $\mathbb{X}$ como
+\[F_p(\mathbb{X}) = \{\phi \colon \sigma_p \to \mathbb{X} \mid \phi \text{ es p-símplice singular}\}\]
+Es claro que $\mathbb{F}_0(\mathbb{X}) = \mathbb{X}$. Además, $F_1(\mathbb{X})$ son los arcos en $\X$, identificables por
+$\mathbb \mathcal{C}([0,1], \X)$
+
+Si definimos una aplicación continua entre espacios topológicos
+\[f \colon \X \to \Y \]
+
+podemos definir
+\[f_{\#} \colon F_p(\X) \to F_p(\Y)  \quad \text{ con }  \quad f_{\#} = f \circ \phi \colon \sigma_p \to Y \]
+aplicación entre los p-símplices singulares de ambos espacios.
+
+Se verifica trivialmente que $I_\# = Id$, puesto que $I_\#(\phi) = I \circ \phi = \phi$.
+Además, se tiene que $(g \circ f)_\# = g_\# \circ f_\#$.
+
+\begin{definition}
+  Sea $p \geq 1$, $0 \leq i < p$. Definimos $F_p^i$ como la aplicación de un p-1 símplice a un p-símplice de la siguiente forma:
+  \begin{align*}
+    F_p^i \colon \sigma_{p-1} &\to \sigma_p\\
+    (t_0, \dots, t_p) &\mapsto (t_0, \dots, t_{i-1}, 0, t_i, \dots, t_p)
+  \end{align*}
+
+  Podemos definir una nueva aplicación a partir de esta, a la que llamaremos \textbf{i-esima cara}:
+  \begin{align*}
+    \partial_i \colon F_p(\X) &\to F_{p-1}(\X)\\
+    \partial_i(\phi) &= \phi \circ F_p^i
+  \end{align*}
+\end{definition}
+
+Vamos a probar un resultado sobre la aplicación que acabamos de definir.
+
+\begin{lemma}
+  Se verifica que $F_p^i \circ F_{p-1}^j = F_p^j \circ F_{p-1}^{i-1} \quad \quad \forall p \geq 2$, $\forall i, j \colon 0 \leq j < i \leq p$
+\end{lemma}
+
+\begin{proof}
+Lo comprobamos realizando los cálculos pertinentes \\
+    $ F_p^i \circ F_{p-1}^j (t_0, \dots, t_{p-2}) = F_p^i (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{p-2}) = \\
+    (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = \\
+    F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2}) $
+\end{proof}
+
+Se deduce directamente este corolario:
+
+\begin{corollary}
+  Para $p \geq 2, 0 \leq j < i \leq p$, se verifica $\partial_j \circ \partial_i = \partial_{i-1} \circ \partial_j$
+\end{corollary}
+
+Debido a que $F_p(\X)$ no está dotado de estructura algebraica, es posible realizar la siguiente construcción:
+
+\begin{definition}
+  Si $\X$ es un espacio topológico, y $p \geq 0$, se define el grupo de p-cadenas singulares de $\X$
+  como el grupo abeliano libre generado por $F_p(\X)$
+  \[ S_p(\X) = \{\sum_{\phi \in F_p(\X)} n_\phi \cdot \phi  \mid n_\phi \in \Z \text{, todos cero salvo un número finito} \}\]
+
+  Podemos definir un operador borde $\partial$ con las aplicaciones cara $\partial_i$ de la siguiente forma:
+  \begin{align*}
+    \partial \colon S_p(\X) &\to S_{p-1}(\X)\\
+    \partial(\phi) &= \sum_{i = 0}^p (-1)^i \partial_i(\phi)  \hspace{1cm} (p \geq 1)
+  \end{align*}
+  considerando $\partial_i$ como una extensión de la aplicación cara a un homomorfismo.
+  \[\partial_i(\sum_{\phi \in F_p} n_\phi \cdot \phi) = \sum_{\phi \in F_p} n_\phi \cdot \partial_i(\phi) \]
+\end{definition}
+
+Por conveniencia, consideraremos que $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
+
+% Motivar el resultado siguiente?
+
+\begin{proposition}
+  $\partial \circ \partial = 0$
+\end{proposition}
+
+\begin{proof}
+  Consideramos $S_p(\X) \xrightarrow{\partial} S_{p-1}(\X) \xrightarrow{\partial} S_{p-2}(\X)$ \\
+  Es claro que si $p = 0, 1$, la cuestión es trivial, pues $S_{-1} = \{0\}$. Tomaremos $p > 1$.
+
+  Sea $\phi \in F_p(\X)$.
+  \begin{align*}
+    \partial^2(\phi) &= \partial(\sum_{i = 0}^p (-1)^i \partial_i(\phi)) = \sum_{i = 0}^p (-1)^i \partial(\partial_i(\phi)) \\
+                     &= \sum_{i = 0}^p (-1)^i \sum_{j = 0}^{p-1} (-1)^j \partial_j \partial_i(\phi) \\
+                     &= \sum_{0 \leq j < i \leq p} (-1)^{i + j} \partial_j \partial_i(\phi)
+                        + \sum_{0 \leq i \leq j \leq p-1} (-1)^{i + j} \partial_j \partial_i(\phi) \\
+                     &= \sum_{0 \leq j < i \leq p} (-1)^{i + j} \partial_{i-1} \partial_j(\phi)
+                        + \sum_{0 \leq i \leq j \leq p-1} (-1)^{i + j} \partial_j \partial_i(\phi) \\
+                     &= \sum_{0 \leq j \leq i-1 \leq p} (-1)^{i + j} \partial_{i-1} \partial_j(\phi)
+                        + \sum_{0 \leq i \leq j \leq p-1} (-1)^{i + j} \partial_j \partial_i(\phi) \\
+                     &= 0 \quad \text{pues son iguales salvo el signo.}
+  \end{align*}
+\end{proof}
+
+Hasta ahora, hemos tomado un espacio topológico $\X$ y le hemos asignado un conjunto de p-símplices singulares $F_p(\X)$, del que
+hemos tomado un $\Z$-módulo, obteniendo el grupo abeliano libre de p-cadenas singulares, $S_p(\X)$. Sobre él, hemos definido un
+operador borde $\partial$, que verifica $\partial^2 = 0$. A la familia $\{S_p(\X), \partial\}$ se le llama el complejo de cadenas
+singular asociado a $\X$.
+
+En $S_p(\X)$ seguiremos designando la composición entre $f \colon \X \to \Y$ y $\phi \in S_p(\X)$ como $f_\# \colon S_p(\X) \to S_p(\Y)$
+extensión de $f_\# \colon F_p(\X) \to F_p(\Y)$.
+\[ f_\#(\sum_\phi n_\phi \cdot \phi) = \sum_\phi n_\phi \cdot (f \circ \phi) \]
+
+Vamos a ver que esta aplicación conmuta con el borde, haciendo conmutativo el siguiente diagrama:
+
+\begin{displaymath}
+  \begin{tikzcd}
+    \dots S_{p+1}(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & B \\
+    \dots S_{p+1}(\Y)
+  \end{tikzcd}
+\end{displaymath}
