@@ -283,6 +283,7 @@
 % Espacios en el documento:
 \linespread{1.01}                        % Espacio entre líneas.
 \setlength\parindent{0pt}               % Selecciona la indentación para cada inicio de párrafo.
+\newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}  % Para obligar a indentar
 \usepackage[parfill]{parskip}						% Línea en blanco después de párrafo
 
 % Color
@@ -344,25 +345,23 @@
 % \thetheorem}.}
 % }{}
 
-% Custom commands - Added by Alejandro García
+% Custom commands - Taken from Alejandro García and modified by me.
+
+% Ker and Img.
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Img}
+
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
-% \newcommand{\H}{\mathbb{H}}
 
 \def\Q{{\mathbb Q}}
 \def\N{{\mathbb N}}
-% \def\C{{\mathbb C}}
 \def\S{{\mathbb S}}
 \def\L{{\mathbb L}}
 \def\H{{\mathbb H}}
 \def\K{{\mathbb K}}
 \def\X{{\mathbb X}}
 \def\Y{{\mathbb Y}}
-% \def\Z{{\mathbb Z}}
-\def\A{{\mathbb A}}
-\def\J{{\mathbb J}}
-\def\I{{\mathbb I}}
-\def\T{{\mathbb T}}
 
 
 \makeatletter
@@ -372,6 +371,7 @@
                      =}
 \makeatother
 
+% Diagrams.
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \tikzcdset{every label/.append style = {font = \normalsize}}
