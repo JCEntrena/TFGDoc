@@ -153,7 +153,7 @@ $B_p(\X) = \Img (\partial \colon S_{p+1}(\X) \to S_p(\X)) $
 Ambos son subgrupos de $S_p(\X)$, llamados grupos de los ciclos y los bordes, respectivamente. Como hemos visto que $\partial^2 = 0$, se deduce
 inmediatamente que $B_p(\X) \subseteq Z_p(\X)  \forall p \geq 0$, luego se puede construir el grupo cociente.
 \begin{equation*}
-  H_p(\X) = \frac{Z_p(\X)}{B_p(\X)}
+  H_p(\X) = \ddfrac{Z_p(\X)}{B_p(\X)}
 \end{equation*}
 grupo abeliano, \underline{\smash{p-ésimo grupo de homología singular}}.
 
@@ -213,7 +213,7 @@ $H_p(\{x\}) = 0$
 
 Si p es par, con $p > 0$, $Z_p(\{x\}) = B_p(\{x\}) = 0$, y $H_p(\{x\}) = 0$.
 
-Por último, si $ p = 0, H_0(\{x\}) = \frac{S_0(\{x\})}{B_0(\{x\})} = S_0(\{x\}) \cong \mathbb Z$.
+Por último, si $ p = 0, H_0(\{x\}) = \ddfrac{S_0(\{x\})}{B_0(\{x\})} = S_0(\{x\}) \cong \mathbb Z$.
 
 Así, $H_p(\{x\}) = 0 \hspace{1em} \forall p \geq 1, \hspace{1em} H_0(\{x\}) \cong \mathbb Z$
 
@@ -224,6 +224,40 @@ sobre el que trabajamos es arcoconexo.
 
 \begin{proposition}
   Sea $\X$ un espacio topológico arcoconexo. Entonces $H_0(\X) \cong \mathbb Z$.
+\end{proposition}
+
+\begin{proof}
+  Consideramos $\SX{1} \xrightarrow{\partial} \SX{0} \to \{0\}$ \\
+  $H_0(\X) = \ddfrac{Z_0(\X)}{B_0(\X)} = \ddfrac{S_0(\X)}{\Img \partial}$ \\
+  Sea $\epsilon \colon S_0(\X) \to \Z$ definido por \[\epsilon(\sum n_\phi \phi) = \epsilon(\sum n_x \cdot x) = \sum n_x \]
+  suma finita, por cómo definimos $S_0$.
+
+  Se verifica que $\epsilon$ es un epimorfismo de grupos, pues podemos definir el conveniente elemento de $S_0(\X)$ para obtener
+  cualquer entero. Calculamos el núcleo de la aplicación:
+  \[ \epsilon \circ \partial(\phi_1) = \epsilon(\sum_{i=0}^1 \partial_i(\phi_i)) = 1 - 1 = 0\]  Así, $\Img \partial \subseteq \Ker \epsilon$.
+
+  Sea ahora $\sum n_x \cdot x \in \Ker \epsilon$, esto es, $\sum n_x = 0$. \\
+  $\sum n_x \cdot x = n_1 x_1 + \dots + n_k x_k$ con $\sum\limits_{i=1}^k = 0, x_i \in \X$. \\
+  Sean $\phi^i \colon \sigma_1 \ to \X$ arcos tales que $\phi^i(e_1) = x_i, \phi^i(e_0) = x$,
+  donde $e_1, e_0$ representan los vértices de $\sigma_1$ y $x \in \X$ es un punto fijo.
+  Es posible hacer esta construcción gracias a la arcoconexión de $\X$. De esta forma:
+  \begin{align*}
+    &\sum_i n_i \phi^i \in \SX{1}, \partial(\sum_i n_i \phi^i) = \sum_i n_i \partial(\phi^i) =\\
+    &= \sum_i n_i(x_i - x) = (\sum_i n_i x_i) - (\sum_i n_i) x = \sum_i n_i x_i
+  \end{align*}
+  De aquí se deduce que $\Ker \epsilon \subseteq \Img \partial$.
+
+  Finalmente como $\Ker \epsilon = \Img \partial$, entonces $H_0(\X) = \ddfrac{S_0(\X)}{\Ker \epsilon} \cong \Z$, al ser $\epsilon$ epimorfismo.
+\end{proof}
+
+\begin{proposition}
+  Sea $\X$ un espacio topológico, $\X = \bigcup\limits_{\alpha \in A} \X_\alpha$ su descomposición en componentes arcoconexas. Entonces se verifican:
+  \begin{itemize}
+    \item[a)] $\forall \alpha \in A$, la función $i_\alpha* \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo, siendo
+              $i_\alpha \colon \X_\alpha \to \X$ la inclusión.
+    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_\alpha*(H_p(\X)) \quad \forall p \geq 0$. En particular, por la inyectividad de $i_\alpha*$,
+              \[ H_p(\X) \cong \bigoplus_{\alpha \in A} H_p(\X_\alpha) \]
+  \end{itemize}
 \end{proposition}
 
 \begin{proof}
