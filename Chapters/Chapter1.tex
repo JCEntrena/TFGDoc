@@ -2,6 +2,8 @@
 \chapter{Introducción}\label{ch:introduccion}
 %************************************************
 
+\section{Definiciones iniciales}
+
 \begin{definition}
 Un p-símplice $s_p$ en $\mathbb{R}^n$ es la envolvente conexa de $p+1$ puntos afínmente independientes, a los que llamaremos vértices, $\{x_0, \dots, x_n\}$.
 \end{definition}
@@ -78,7 +80,7 @@ Debido a que $F_p(\X)$ no está dotado de estructura algebraica, es posible real
   \[\partial_i(\sum_{\phi \in F_p} n_\phi \cdot \phi) = \sum_{\phi \in F_p} n_\phi \cdot \partial_i(\phi) \]
 \end{definition}
 
-Por conveniencia, consideraremos que $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
+Por conveniencia, consideraremos $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
 
 % Motivar el resultado siguiente?
 
@@ -109,15 +111,87 @@ hemos tomado un $\Z$-módulo, obteniendo el grupo abeliano libre de p-cadenas si
 operador borde $\partial$, que verifica $\partial^2 = 0$. A la familia $\{S_p(\X), \partial\}$ se le llama el complejo de cadenas
 singular asociado a $\X$.
 
-En $S_p(\X)$ seguiremos designando la composición entre $f \colon \X \to \Y$ y $\phi \in S_p(\X)$ como $f_\# \colon S_p(\X) \to S_p(\Y)$
+En $S_p(\X)$ seguiremos designando la composición entre $f \colon \X \to \Y$, continua, y $\phi \in S_p(\X)$ como $f_\# \colon S_p(\X) \to S_p(\Y)$
 extensión de $f_\# \colon F_p(\X) \to F_p(\Y)$.
 \[ f_\#(\sum_\phi n_\phi \cdot \phi) = \sum_\phi n_\phi \cdot (f \circ \phi) \]
 
-Vamos a ver que esta aplicación conmuta con el borde, haciendo conmutativo el siguiente diagrama:
+Vamos a ver que esta aplicación conmuta con el borde, es decir, $f_\# \circ \partial = \partial \circ f_\#$. Esto hace conmutativo el siguiente diagrama:
+
+\begin{centering}
+  \begin{displaymath}
+    \begin{tikzcd}
+      \dots S_{p+1}(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & S_p(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & S_{p-1}(\X) \arrow{d}{f_\#} \dots \\
+      \dots S_{p+1}(\Y) \arrow{r}{\partial}                 & S_p(\Y) \arrow{r}{\partial}                 & S_{p-1}(\Y) \dots
+    \end{tikzcd}
+  \end{displaymath}
+\end{centering}
+
+Esto es casi inmediato, pues se tiene que \[ f_\# \circ \partial_i(\phi) = f_\#(\phi \circ F_p^i) = f \circ \phi \circ F_p^i
+                                             = \partial_i(f \circ \phi) = \partial_i \circ f_\#(\phi) \]
+
+El resultado obtenido implica, por la definición de $\partial$, que $\partial f_\# = f_\# \partial$. No obstante, es más fuerte, pues vemos
+como las aplicaciones cara conmutan con el homomorfismo $f_\#$.
+
+A esta aplicación entre complejos de cadenas se le llama en álgebra una aplicación de cadenas. Nos referiremos a ella como la aplicación de cadenas
+inducida por la aplicación continua f.
+
+\begin{definition}
+  Diremos que $c \in S_p(\X)$ es un p-ciclo si $\partial(c) = 0$. \\
+  Diremos que $c \in S_p(\X)$ es un p-borde si $\exists d \in S_{p+1}(\X) \text{ tal que } \partial(d) = c$.
+\end{definition}
+
+% ¿Indentar los conjuntos?
+
+Representaremos por: \\
+$Z_p(\X) = \{c \in S_p(\X) \mid \text{ c es un p-ciclo}\}$ \\
+$B_p(\X) = \{c \in S_p(\X) \mid \text{ c es un p-borde}\} $
+
+Se verifica que: \\
+$Z_p(\X) = \Ker (\partial \colon S_p(\X) \to S_{p-1}(\X)) $ \\
+$B_p(\X) = \Img (\partial \colon S_{p+1}(\X) \to S_p(\X)) $
+
+Ambos son subgrupos de $S_p(\X)$, llamados grupos de los ciclos y los bordes, respectivamente. Como hemos visto que $\partial^2 = 0$, se deduce
+inmediatamente que $B_p(\X) \subseteq Z_p(\X)  \forall p \geq 0$, luego se puede construir el grupo cociente.
+\begin{equation*}
+  H_p(\X) = \frac{Z_p(\X)}{B_p(\X)}
+\end{equation*}
+grupo abeliano, \underline{\smash{p-ésimo grupo de homología singular}}.
+
+\begin{remark}
+  Nótese que $Z_0(\X) = S_0(\X)$, por lo que $\partial(S_0(X) = 0)$
+\end{remark}
+
+A los elementos de $H_p(\X)$ los notaremos $[c]$, con $\partial(c) = 0$, esto es, $c \in Z_p(\X)$, y los llamaremos clases de homología.
+
+Tomemos nuevamente una función continua $f \colon \X \to \Y$, y definimos
+\[ f_* \colon H_p(\X) \to H_p(\Y) \quad f_*([c]) = [f_\#(c)]  \]
+
+Comprobemos que está bien definida, esto es, que no depende del representante elegido. \\
+Sean $[c_1] = [c_2], c_1 - c_2 \in B_p(\X)$. Por tanto existe $d \in S_{p+1}(\X)$ tal que $\partial(d) = c_1 - c_2.$ Así,
+$f_\#(c_1) - f_\#(c_2) = f_\#(c_1 - c_2) = f_\#(\partial(d)) = \partial(f_\#(d))$ \\
+Como $f_\#(d) \in S_{p+1}(\X), \text{ se tiene } [f_\#(c_1)] = [f_\#(c_2)]$
+
+Además, $\partial(f_\#(c)) = f_\#(\partial(c)) = 0$, por lo que $f_\#(c)$ es un ciclo en $\Y$. Con esto hemos visto que $f_*$ está bien definida,
+y es un homomorfismo, al serlo $f_\#$, al que llamaremos homomorfismo inducido por f en la homología.
+
+De las propiedades de $f_\#$ obtenemos directamente que:
+\begin{itemize}
+  \item $(g \circ f)_* = g_* \circ f_*$
+  \item $I_* = Id$
+\end{itemize}
+
+Así, hemos construído un funtor covariante de la categoría de espacios topológico en la categoría de grupos abelianos,
+el funtor de la homología singular.
 
 \begin{displaymath}
   \begin{tikzcd}
-    \dots S_{p+1}(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & B \\
-    \dots S_{p+1}(\Y)
+    \X \arrow{r} \arrow{d}{f} & [5em] H_p(\X) \arrow{d}{f_*} \\
+    \Y \arrow{r}  & H_p(\Y)
   \end{tikzcd}
 \end{displaymath}
+
+Si $\X$ e $\Y$ son homeomorfos, el homomorfismo que induce dicho homeomorfismo en la homología es un isomorfismo de grupos de homología.
+
+\section{Homología de un punto}
+
+Sea $\X$ un espacio topológico formado por un punto, $\X = \{x\}$.
