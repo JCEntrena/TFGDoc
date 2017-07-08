@@ -25,7 +25,7 @@ Si definimos una aplicación continua entre espacios topológicos
 \[f \colon \X \to \Y \]
 
 podemos definir
-\[f_{\#} \colon F_p(\X) \to F_p(\Y)  \quad \text{ con }  \quad f_{\#} = f \circ \phi \colon \sigma_p \to Y \]
+\[f_{\#} \colon \FX{p} \to \FY{p}  \quad \text{ con }  \quad f_{\#} = f \circ \phi \colon \sigma_p \to Y \]
 aplicación entre los p-símplices singulares de ambos espacios.
 
 Se verifica trivialmente que $I_\# = Id$, puesto que $I_\#(\phi) = I \circ \phi = \phi$.
@@ -40,7 +40,7 @@ Además, se tiene que $(g \circ f)_\# = g_\# \circ f_\#$.
 
   Podemos definir una nueva aplicación a partir de esta, a la que llamaremos \textbf{i-esima cara}:
   \begin{align*}
-    \partial_i \colon F_p(\X) &\to F_{p-1}(\X)\\
+    \partial_i \colon \FX{p} &\to \FX{p-1}\\
     \partial_i(\phi) &= \phi \circ F_p^i
   \end{align*}
 \end{definition}
@@ -64,12 +64,12 @@ Se deduce directamente este corolario:
   Para $p \geq 2, 0 \leq j < i \leq p$, se verifica $\partial_j \circ \partial_i = \partial_{i-1} \circ \partial_j$
 \end{corollary}
 
-Debido a que $F_p(\X)$ no está dotado de estructura algebraica, es posible realizar la siguiente construcción:
+Debido a que $\FX{p}$ no está dotado de estructura algebraica, es posible realizar la siguiente construcción:
 
 \begin{definition}
   Si $\X$ es un espacio topológico, y $p \geq 0$, se define el grupo de p-cadenas singulares de $\X$
-  como el grupo abeliano libre generado por $F_p(\X)$
-  \[ S_p(\X) = \{\sum_{\phi \in F_p(\X)} n_\phi \cdot \phi  \mid n_\phi \in \Z \text{, todos cero salvo un número finito} \}\]
+  como el grupo abeliano libre generado por $\FX{p}$
+  \[ S_p(\X) = \{\sum_{\phi \in \FX{p}} n_\phi \cdot \phi  \mid n_\phi \in \Z \text{, todos cero salvo un número finito} \}\]
 
   Podemos definir un operador borde $\partial$ con las aplicaciones cara $\partial_i$ de la siguiente forma:
   \begin{align*}
@@ -92,7 +92,7 @@ Por conveniencia, consideraremos $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
   Consideramos $S_p(\X) \xrightarrow{\partial} S_{p-1}(\X) \xrightarrow{\partial} S_{p-2}(\X)$ \\
   Es claro que si $p = 0, 1$, la cuestión es trivial, pues $S_{-1} = \{0\}$. Tomaremos $p > 1$.
 
-  Sea $\phi \in F_p(\X)$.
+  Sea $\phi \in \FX{p}$.
   \begin{align*}
     \partial^2(\phi) &= \partial(\sum_{i = 0}^p (-1)^i \partial_i(\phi)) = \sum_{i = 0}^p (-1)^i \partial(\partial_i(\phi)) \\
                      &= \sum_{i = 0}^p (-1)^i \sum_{j = 0}^{p-1} (-1)^j \partial_j \partial_i(\phi) \\
@@ -106,13 +106,13 @@ Por conveniencia, consideraremos $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
   \end{align*}
 \end{proof}
 
-Hasta ahora, hemos tomado un espacio topológico $\X$ y le hemos asignado un conjunto de p-símplices singulares $F_p(\X)$, del que
+Hasta ahora, hemos tomado un espacio topológico $\X$ y le hemos asignado un conjunto de p-símplices singulares $\FX{p}$, del que
 hemos tomado un $\Z$-módulo, obteniendo el grupo abeliano libre de p-cadenas singulares, $S_p(\X)$. Sobre él, hemos definido un
 operador borde $\partial$, que verifica $\partial^2 = 0$. A la familia $\{S_p(\X), \partial\}$ se le llama el complejo de cadenas
 singular asociado a $\X$.
 
 En $S_p(\X)$ seguiremos designando la composición entre $f \colon \X \to \Y$, continua, y $\phi \in S_p(\X)$ como $f_\# \colon S_p(\X) \to S_p(\Y)$
-extensión de $f_\# \colon F_p(\X) \to F_p(\Y)$.
+extensión de $f_\# \colon \FX{p} \to \FY{p}$.
 \[ f_\#(\sum_\phi n_\phi \cdot \phi) = \sum_\phi n_\phi \cdot (f \circ \phi) \]
 
 Vamos a ver que esta aplicación conmuta con el borde, es decir, $f_\# \circ \partial = \partial \circ f_\#$. Esto hace conmutativo el siguiente diagrama:
@@ -192,6 +192,40 @@ el funtor de la homología singular.
 
 Si $\X$ e $\Y$ son homeomorfos, el homomorfismo que induce dicho homeomorfismo en la homología es un isomorfismo de grupos de homología.
 
+\pagebreak
+
 \section{Homología de un punto}
 
-Sea $\X$ un espacio topológico formado por un punto, $\X = \{x\}$.
+Vamos a calcular los grupos de homología singular de los puntos, sin más que ver como se comporta la función borde
+en ellos y utilizando la definición de los grupos de ciclos y bordes como núcleo e imagen de dicha aplicación.
+
+Sea $\X$ un espacio topológico formado por un punto, $\X = \{x\}$. \\
+$\FX{p} = \{ \phi \colon \sigma_p \to \{x\} \} = \{\phi_p\}$ donde $\phi_p$ es la función cte.
+
+$S_p{\{x\}}$ son grupos abelianos libres con $\phi_p$ como generador. Además, $\partial \colon \SX{p} \to \SX{p-1}$ verifica:
+\[\partial(\phi_p) = \sum_{i = 0}^p (-1)^i \partial_i(\phi_p) =  \sum_{i = 0}^p (-1)^i \phi_{p-1} = \begin{cases}
+                                                                                                            0 & p \text{ es impar} \\
+                                                                                                            \phi_{p-1} & p \text{ es par}
+                                                                                                    \end{cases}   \]
+
+Así, si p es impar, $S_{p+1}(\{x\}) \to S_p(\{x\}) \xrightarrow{0} S_{p-1}(\{x\})$ y $Z_p(\{x\}) = B_p(\{x\}) = S_p(\{x\})$, luego
+$H_p(\{x\}) = 0$
+
+Si p es par, con $p > 0$, $Z_p(\{x\}) = B_p(\{x\}) = 0$, y $H_p(\{x\}) = 0$.
+
+Por último, si $ p = 0, H_0(\{x\}) = \frac{S_0(\{x\})}{B_0(\{x\})} = S_0(\{x\}) \cong \mathbb Z$.
+
+Así, $H_p(\{x\}) = 0 \hspace{1em} \forall p \geq 1, \hspace{1em} H_0(\{x\}) \cong \mathbb Z$
+
+\section{El grupo $H_0(\X)$ y la arcoconexión}
+
+En esta sección vamos a estudiar algunas de las propiedades de los grupos de homología singular asumiendo que el espacio topológico
+sobre el que trabajamos es arcoconexo.
+
+\begin{proposition}
+  Sea $\X$ un espacio topológico arcoconexo. Entonces $H_0(\X) \cong \mathbb Z$.
+\end{proposition}
+
+\begin{proof}
+
+\end{proof}
