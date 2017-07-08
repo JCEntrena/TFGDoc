@@ -281,7 +281,7 @@
 % ****************************************************************************************************
 
 % Espacios en el documento:
-\linespread{1.01}                        % Espacio entre líneas.
+\linespread{1}                        % Espacio entre líneas.
 \setlength\parindent{0pt}               % Selecciona la indentación para cada inicio de párrafo.
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}  % Para obligar a indentar
 \usepackage[parfill]{parskip}						% Línea en blanco después de párrafo
@@ -363,6 +363,15 @@
 \def\X{{\mathbb X}}
 \def\Y{{\mathbb Y}}
 
+% Singular simplex
+\newcommand{\FX}[1]{F_{#1}(\X)}
+\newcommand{\FY}[1]{F_{#1}(\Y)}
+\newcommand{\SX}[1]{S_{#1}(\X)}
+\newcommand{\SY}[1]{S_{#1}(\Y)}
+
+% Functions
+\newcommand{\FA}[1]{f_\#(#1)}
+\def\FAF{{f_\#}}
 
 \makeatletter
 \newcommand*{\defeq}{\mathrel{\rlap{%
@@ -413,7 +422,9 @@
 % Defines xmapsto, xarrows
 \usepackage{mathtools}
 
+% Fractions
 \usepackage[nice]{nicefrac}
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
 
 % Defines a pointing arrow to a symbol with a note below.
 % From http://tex.stackexchange.com/a/117408
