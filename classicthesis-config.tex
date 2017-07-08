@@ -283,6 +283,7 @@
 % Espacios en el documento:
 \linespread{1.01}                        % Espacio entre líneas.
 \setlength\parindent{0pt}               % Selecciona la indentación para cada inicio de párrafo.
+\usepackage[parfill]{parskip}						% Línea en blanco después de párrafo
 
 % Color
 \usepackage{xcolor}
@@ -297,23 +298,25 @@
 \usepackage{amsthm}
 
 \newtheoremstyle{break}
-  {\topsep}{\topsep}%
-  {\itshape}{}%
-  {\bfseries}{}%
-  {\newline}{}%
+  {1em} % measure of space to leave above the theorem.
+	{\topsep} % measure of space to leave below the theorem.
+  {\itshape} % name of font to use in the body of the theorem
+	{} % measure of space to indent
+  {\bfseries} % name of head font
+	{} % punctuation between head and body
+  {\newline} % space after theorem head; " " = normal interword space
+	{} %
 
 \theoremstyle{break}
 \newtheorem{theorem}{Teorema}[chapter]
 \newtheorem{corollary}{Corolario}[chapter]
 \newtheorem{proposition}{Proposición}[chapter]
 \newtheorem{lemma}{Lema}[chapter]
-
-\theoremstyle{definition}
 \newtheorem{definition}{Definición}[chapter]
-\newtheorem{example}{Ejemplo}[chapter]
 
 \theoremstyle{remark}
 \newtheorem{remark}{Nota}[chapter]
+\newtheorem{example}{Ejemplo}[chapter]
 
 
 \def\vs{\vspace{5mm}}
