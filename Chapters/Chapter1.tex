@@ -302,12 +302,12 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   El caso $p = 0$ está claro, pues un conjunto estrellado es, en particular, arcoconexo, por lo que solo hemos de aplicar el resultado ya demostrado.
   Suponemos $p > 0$.
 
-  Vamos a construir un homomorfismo $\mathcal T: \SX{p} \to \SX{p+1}$ tal que $\mathcal T \partial + \partial \mathcal T = Id_{\SX{p}}$ para $p > 0$.
+  Vamos a construir un homomorfismo $ T: \SX{p} \to \SX{p+1}$ tal que $ T \partial + \partial  T = Id_{\SX{p}}$ para $p > 0$.
 
-  Si $[c] \in H_p(\X), c \in Z_p(\X)$, luego $\partial(c) = 0$ y $c \in S_p(\X)$. En consecuencia, $c = (\partial \mathcal T + \mathcal T \partial)(c)
-  = \partial(\mathcal T(c))$ con $\mathcal T(c) \in \SX{p+1}$. Por tanto, $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
+  Si $[c] \in H_p(\X), c \in Z_p(\X)$, luego $\partial(c) = 0$ y $c \in S_p(\X)$. En consecuencia, $c = (\partial  T +  T \partial)(c)
+  = \partial( T(c))$ con $ T(c) \in \SX{p+1}$. Por tanto, $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
 
-  Definamos $\mathcal T$: \\
+  Definamos $ T$: \\
   Sean $x_0 \in \X$ el punto de estrella, $\phi \colon \sigma_p \to \X$ un p-símplice singular. Tomemos $T(\phi) \colon \sigma_{p+1} \to \X$ dado por:
   \[ T(\phi)(t_0,\dots,t_{p+1}) = \begin{cases} x_0 & \text{ si } t_0 = 1 \\
                                                 (1-t_0)\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) + t_0 x_0 & \text{ si } t_0 < 1
@@ -324,24 +324,77 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
   Así, $\lim\limits_{t_0 \to 1} T(\phi) = x_0$
 
-  Queda claro que $\partial_0(T(\phi)) = \phi$. Si representamos por $\mathcal T$ el homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
-  \[ \mathcal T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ \mathcal T = I \]
-  Si $p = 0 \implies i = 1$ y $\partial_1(\mathcal T(\phi)) = x_0$
+  Queda claro que $\partial_0(T(\phi)) = \phi$. Si representamos por $ T$ el homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
+  \[  T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ  T = I \]
+  Si $p = 0 \implies i = 1$ y $\partial_1( T(\phi)) = x_0$
 
   Si $1 \leq i \leq p+1$, entonces:
   \begin{align*}
-    &\partial_i(\mathcal T(\phi)=(t_0,\dots,t_p)) = \mathcal T(\phi)(t_0, \dots, t_{i-1} \circ t_i, \dots, t_p) \\
+    &\partial_i( T(\phi)=(t_0,\dots,t_p)) =  T(\phi)(t_0, \dots, t_{i-1} \circ t_i, \dots, t_p) \\
     &= (1-t_0)\phi(\frac{t_1}{1-t_0}, \dots, frac{t_{i-1}}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
     &= (1-t_0)\partial_{i-1}(\frac{t_1}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
-    &= \mathcal T(\partial_{i-1} \phi)(t_0, \dots, t_p)
+    &=  T(\partial_{i-1} \phi)(t_0, \dots, t_p)
   \end{align*}
   Como consecuencia:
   \begin{align*}
-    \partial(\mathcal T(\phi)) &= \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i \mathcal T(\phi) =
-    \phi + \sum\limits_{i = 1}^{p+1} (-1)^i \mathcal T \partial_{i-1}(\phi) = \\
-    &= \phi - \sum\limits_{j = 0}^p (-1)^j \mathcal T \partial_j(\phi) = \phi - \mathcal T \partial(\phi)
+    \partial( T(\phi)) &= \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i  T(\phi) =
+    \phi + \sum\limits_{i = 1}^{p+1} (-1)^i  T \partial_{i-1}(\phi) = \\
+    &= \phi - \sum\limits_{j = 0}^p (-1)^j  T \partial_j(\phi) = \phi -  T \partial(\phi)
   \end{align*}
 
-  De donde se obtiene directamente que $\partial \mathcal T + \mathcal T \partial = Id$
+  De donde se obtiene directamente que $\partial  T +  T \partial = Id$
+\end{proof}
+
+\begin{theorem}[Invarianza homotópica de la homología singular]
+  Sean $\X, \Y$ espacios topológicos y $f, g \colon \X \to \Y$ aplicaciones continuas. Si $f$ es homotópica a $g$,
+  entonces $f_* = g_* \colon H_p(\X) \to H_p(\Y) \hspace{0.5em} \forall p \geq 0$
+\end{theorem}
+
+\begin{proof}
+  Supongamos que $\forall p \geq 0$ podemos definir homomorfismos \[T: \SX{p} \to \SX{p+1} \] tales que $T\partial + \partial T = f_\# - g_\#$,
+  esto es, $f$ y $g$ son homotópicas como aplicaciones de cadenas. Entonces, $\forall [c] \in H_p(\X)$ se tiene:
+  \[ (f_* - g_*)([c]) = [f_\#(c) - g_\#(c)] = [(T\partial + \partial T)(c)] = [\partial(T(c))] = 0\]
+  de donde se deduce $f_* = g_*$.
+
+  Veamos la definición de dicho $T$.
+
+  Sea $H \colon \X \times I \to \Y$ la homotopía entre f y g, esto es, \[H(x, 0) = f(x), \quad H(x, 1) = g(x)\] donde $I$ representa el intervalo unidad.
+
+  Sean $i_0, i_1 \colon \X \to \X \times I$ dados por $i_0(x) = (x, 0), i_1(x) = (x, 1)$. Es claro que $f = H \circ i_0, g = H \circ i_1$, de donde
+  se tiene \[ f_\# - g_\# = H_\# \circ i_{0\#} - H_\# \circ i_{1\#} = H_\# \circ (i_{0\#} - i_{1\#}) \]
+
+  Si somos capaces de construir $\tau \colon \SX{p} \to S_{p+1}(\X \times I)$ tal que $\partial \tau + \tau \partial = i_{0\#} - i_{1\#}$, definiendo
+  $T = H_\# \circ \tau$, se tiene que:
+  \[ \partial \tau + \tau \partial = \partial(H_\# \circ \tau) + (H_\# \circ \tau)\partial = H_\#(i_{0\#} - i_{1\#}) = f_\# - g_\#  \]
+  lo que demostraría el teorema.
+
+  Construiremos $\tau$ por inducción. Para ello, vamos a probar el siguiente resultado:
+  \begin{lemma}
+    Para todo $p \geq 0$ y para todo espacio topológico $\X$, existe un homomorfismo de grupos $T^\X \colon \SX{p} \to S_{p+1}(\X \times I)$ verificando:
+    \begin{itemize}
+      \item[a)] $\partial T^\X + T^\X \partial = (i_0^\X)_\# - (i_1^\X)_\#$
+      \item[b)] (Condición de naturalidad) Para todo espacio topológico $\Y$ y toda aplicación continua $h \colon \X \to \Y$, el diagrama
+
+      \begin{tikzcd}
+        \SX{p} \arrow{r}{T^\X} \arrow{d}{h_\#} & [2em] S_{p+1}(\X \times I) \arrow{d}{(h \times Id)_\#} \\
+        \SY{p} \arrow{r}{T^\Y}                 & S_{p+1}(\X \times I)
+      \end{tikzcd}
+      \quad es conmutativo.
+    \end{itemize}
+    Nótese que en b) pedimos más de lo requerido, pero nos sirve para definir $T^\X$.
+  \end{lemma}
+
+  Demostrémoslo para $p = 0$. \\
+  Tomamos $\X = \sigma_0$ e intentamos definir $T^{\sigma_0} \colon S_0(\sigma_0) \to S_1(\sigma_0 \times I)$ \\
+  Si $\tau_0 \colon \sigma_0 \to \sigma_0$ es la identidad, entonces $\tau_0$ genera $S_0(\sigma_0)$. Como $T^{\sigma_0}$
+  debe verificar $\partial T^\sigma_0 + T^\sigma_0 \partial = (i_0^{\sigma_0})_\# - (i_1^{\sigma_0})_\#$, se deduce
+  $\partial T^{\sigma_0}(\sigma_0) = (i_0^{\sigma_0})_\# (\tau_0) - (i_1^{\sigma_0})_\# (\tau_0)$
+
+  Definiendo:
+  \begin{align*}
+    T^{\sigma_0}(\tau_0) \colon \sigma_1 &\to \sigma_0 \times I \\
+                       (t, 1-t) &\mapsto (\sigma_0, 1-t)
+  \end{align*}
+  es claro que verifica lo anterior.
 
 \end{proof}
