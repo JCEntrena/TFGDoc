@@ -253,13 +253,95 @@ sobre el que trabajamos es arcoconexo.
 \begin{proposition}
   Sea $\X$ un espacio topológico, $\X = \bigcup\limits_{\alpha \in A} \X_\alpha$ su descomposición en componentes arcoconexas. Entonces se verifican:
   \begin{itemize}
-    \item[a)] $\forall \alpha \in A$, la función $i_\alpha* \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo, siendo
+    \item[a)] $\forall \alpha \in A$, la función $i_{\alpha*} \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo, siendo
               $i_\alpha \colon \X_\alpha \to \X$ la inclusión.
-    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_\alpha*(H_p(\X)) \quad \forall p \geq 0$. En particular, por la inyectividad de $i_\alpha*$,
+    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_{\alpha*}(H_p(\X)) \quad \forall p \geq 0$. En particular, por la inyectividad de $i_{\alpha*}$,
               \[ H_p(\X) \cong \bigoplus_{\alpha \in A} H_p(\X_\alpha) \]
   \end{itemize}
 \end{proposition}
 
 \begin{proof}
+  Sea $\phi \colon \sigma_p \to \X$ un p-símplice singular. Como $\sigma_p$ es convexo y $\phi$ es continua, $\phi(\sigma_p) \subseteq \X_\alpha$, para algún
+  $\alpha \in A$, por lo que $\phi = i_{\alpha*}(\phi)$ para dicho $\alpha$. \\
+  Si $c = \sum n_\phi \cdot \phi$ es una p-cadena, poniendo cada $\phi$ de la forma anterior y agrupando por componentes conexas:
+  \begin{equation}\label{eq1}
+    c = \sum\limits_{\alpha \in A} i_{\alpha*}(c_\alpha) \quad c_\alpha \in S_p(\X_\alpha)  \tag{*}
+  \end{equation}
+
+  Sea $[c]_\alpha \in H_p(\X_\alpha)$, y supongamos que $i_{\alpha*}[c]_\alpha = 0$ eb $\H_p(\X)$. En ese caso, $[i_{\alpha*}(c)]_\X = 0$,
+  luego existe $d \in \SX{p+1}$ tal que $i_{\alpha\#}(c) = \partial(d)$, y además: \\
+  \[\partial(d) = \sum\limits_{\alpha \in A} i_{\alpha\#}(\partial(d_\alpha)) = i_{\alpha\#} \text{ por lo que se tiene:} \]\\
+  $c = \partial(d_\alpha), \partial(d_\beta) = 0 \quad \forall \beta \neq \alpha$. Así, $[c]_\alpha = 0$ y $i_{\alpha*}$ es un monomorfismo.
+  Esto prueba a)
+
+  Observamos que la suma en (*) es finita, pues si no, habría un número no finito de generadores en la expresión de c. Así:
+  \[  [c] = \sum\limits_{\alpha \in A} [i_{\alpha\#}(c_\alpha)] =  \sum\limits_{\alpha \in A} id_*([c_\alpha]_\alpha)\]
+
+  Como $\partial(c) = 0 \iff \partial(c_\alpha) = 0 \hspace{0.5em} \forall \alpha \in A$, se obtiene directamente b), como consecuencia de a).
+
+\end{proof}
+
+En particular, para $H_0(\X)$, por el resultado anterior, se tiene que $H_0(\X)$ es el grupo abeliano libre con tantos generadores como
+componentes arcoconexas tenga $\X$.
+
+\section{Invarianza homotópica de la homología singular}
+
+En esta sección demostraremos la invarianza de los grupos de homología singular en espacios homotópicamente equivalentes, viendo antes como
+dos aplicaciones homotópicas inducen el mismo homomorfismo en la homología.
+
+Vamos a comenzar demostrando el llamado Lema de Poincaré.
+
+\begin{lemma}[Lema de Poincaré]
+  Sea $\X \subseteq \R^n$ estrellado desde algún punto. Entonces:
+  \[ H_p(\X) = \begin{cases}  \Z & \text{ si } p = 0 \\
+                              0  & \text{ si } p \neq 0
+                            \end{cases} \]
+\end{lemma}
+
+\begin{proof}
+  El caso $p = 0$ está claro, pues un conjunto estrellado es, en particular, arcoconexo, por lo que solo hemos de aplicar el resultado ya demostrado.
+  Suponemos $p > 0$.
+
+  Vamos a construir un homomorfismo $\mathcal T: \SX{p} \to \SX{p+1}$ tal que $\mathcal T \partial + \partial \mathcal T = Id_{\SX{p}}$ para $p > 0$.
+
+  Si $[c] \in H_p(\X), c \in Z_p(\X)$, luego $\partial(c) = 0$ y $c \in S_p(\X)$. En consecuencia, $c = (\partial \mathcal T + \mathcal T \partial)(c)
+  = \partial(\mathcal T(c))$ con $\mathcal T(c) \in \SX{p+1}$. Por tanto, $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
+
+  Definamos $\mathcal T$: \\
+  Sean $x_0 \in \X$ el punto de estrella, $\phi \colon \sigma_p \to \X$ un p-símplice singular. Tomemos $T(\phi) \colon \sigma_{p+1} \to \X$ dado por:
+  \[ T(\phi)(t_0,\dots,t_{p+1}) = \begin{cases} x_0 & \text{ si } t_0 = 1 \\
+                                                (1-t_0)\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) + t_0 x_0 & \text{ si } t_0 < 1
+                                  \end{cases} \]
+  Como $\X$ es estrellado, $\Img(T(\phi)) \subseteq \X$.
+
+  Veamos que $T(\phi)$ es continuo. \\
+  La continuidad está clara para $t_0 < 1$, por lo que la vemos para $t_0 = 1$. Se verifica
+  \begin{align*}
+    &|T(\phi)(t_0,\dots,t_{p+1}) - x_0| = |t_0 x_0 + (1-t_0)\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) - x_0| \\
+    &= (1-t_0)|\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) - x_0| \leq (1-t_0)(c + |x_0|) \\
+    & \text{ pues $\phi$ está acotada.}
+  \end{align*}
+
+  Así, $\lim\limits_{t_0 \to 1} T(\phi) = x_0$
+
+  Queda claro que $\partial_0(T(\phi)) = \phi$. Si representamos por $\mathcal T$ el homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
+  \[ \mathcal T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ \mathcal T = I \]
+  Si $p = 0 \implies i = 1$ y $\partial_1(\mathcal T(\phi)) = x_0$
+
+  Si $1 \leq i \leq p+1$, entonces:
+  \begin{align*}
+    &\partial_i(\mathcal T(\phi)=(t_0,\dots,t_p)) = \mathcal T(\phi)(t_0, \dots, t_{i-1} \circ t_i, \dots, t_p) \\
+    &= (1-t_0)\phi(\frac{t_1}{1-t_0}, \dots, frac{t_{i-1}}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
+    &= (1-t_0)\partial_{i-1}(\frac{t_1}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
+    &= \mathcal T(\partial_{i-1} \phi)(t_0, \dots, t_p)
+  \end{align*}
+  Como consecuencia:
+  \begin{align*}
+    \partial(\mathcal T(\phi)) &= \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i \mathcal T(\phi) =
+    \phi + \sum\limits_{i = 1}^{p+1} (-1)^i \mathcal T \partial_{i-1}(\phi) = \\
+    &= \phi - \sum\limits_{j = 0}^p (-1)^j \mathcal T \partial_j(\phi) = \phi - \mathcal T \partial(\phi)
+  \end{align*}
+
+  De donde se obtiene directamente que $\partial \mathcal T + \mathcal T \partial = Id$
 
 \end{proof}
