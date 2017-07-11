@@ -423,7 +423,41 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
     &(T^\Y \circ h_\#)(\phi) = T^\Y(h \circ \phi) = (h\phi \times I)_\# T^{\sigma_0}(\tau_0) \\
     &= ((h \times I)_\# \circ (\phi \times I)_\#) (T^{\sigma_0}(\tau_0)) = ((h \times I)_\# \circ T^\X)(\phi)
   \end{align*}
+  lo que finaliza la demostración para $p = 0$.
 
+  Suponemos el resultado cierto para $1, \dots, p-1$ y lo probamos para $p$. \\
+  El razonamiento es similar al anterior.
+
+  Tomemos $\X = \sigma_p$, y vamos a tratar de definir $T^{\sigma_p} \colon S_p(\sigma_p) \to S_{p+1}(\sigma_p \times I)$.
+  De nuevo, como $T^{\sigma_p}$ debe verificar a), se tiene que $\forall \phi in F_(\sigma_p), T^{\sigma_p}(\phi)$ ha de satisfacer
+  \[ \partial(T^{\sigma_p}(\phi)) = (i_0^{\sigma_p})_\# (\phi) - (i_1^{\sigma_p})_\# (\phi) - T^{\sigma_p}(\partial(\phi)) \]
+  donde $T^{\sigma_p}(\partial(\phi))$ está bien definida por hipótesis de inducción.
+
+  Sea $d = (i_0^{\sigma_p})_\# (\phi) - (i_1^{\sigma_p})_\# (\phi) - T^{\sigma_p}(\partial(\phi)) \in S_p(\sigma_p \times I)$.
+  Entonces:
+  \begin{align*}
+    \partial(\phi) &= (i_0^{\sigma_p})_\# (\partial(\phi)) - (i_1^{\sigma_p})_\# (\partial(\phi)) - \partial T^{\sigma_p}(\partial(\phi)) \\
+                   &\stackrel{\text{h.i.}}{=} (i_0^{\sigma_p})_\#(\partial(\phi)) - (i_1^{\sigma_p})_\#(\partial(\phi)) \\
+                   &- [ - T^{\sigma_p}(\partial^2(\phi)) + (i_0^{\sigma_p})_\#(\partial(\phi)) - (i_1^{\sigma_p})_\#(\partial(\phi)) ] = 0
+  \end{align*}
+  y por tanto d es un ciclo.
+
+  Como $p \geq 1$ y $\sigma_p \times I$ es convexo, por el lema de Poincaré, $d$ es un borde, luego existe $e \in S_{p+1}(\sigma_p \times I)$
+  tal que $\partial(e) = d$. Definimos $T^{\sigma_p}(\phi) = e$. Notemos que si bien $e$ no tiene por qué ser único, podemos hacer una elección
+  entre los existentes.
+
+  Extendiendo por linealidad, conseguimos construir $T^{\sigma_p}$ verificando a).
+
+  Sean ahora $\X, \phi \colon \sigma_p \to \X$ u p-símplice singular. De nuevo, al tener que verificar b), el diagrama \\
+  \begin{tikzcd}
+    S_p(\sigma_p) \arrow{r}{T^{\sigma_p}} \arrow{d}{\phi_\#} & [2em] S_{p+1}(\sigma_p \times I) \arrow{d}{(\phi \times Id)_\#} \\
+    \SX{p} \arrow{r}{T^\X}                 & S_{p+1}(\X \times I)
+  \end{tikzcd} \\
+  ha de ser conmutativo.
+
+  Si $\tau_p \colon \sigma_p \to \sigma_p$ es la identidad (que es p-símplice singular en $\sigma_p$), $\phi_\#(\tau_p) = \phi$,
+  de donde definimos $T^\X(\phi) = (\phi \times I)_\# T^{\sigma_p}(\tau_p)$. \\
+  Como los $\phi$ son la base de $\SX{p}, T^\X$ se extiende por linealidad a un homomorfismo. Veamos que verifica a) y b).
 
 
 \end{proof}
