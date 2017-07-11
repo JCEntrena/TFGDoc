@@ -397,4 +397,33 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   \end{align*}
   es claro que verifica lo anterior.
 
+  Sea ahora $\X$ espacio topológico, y sea $\phi \in S_0(\X)$ un generador, $\phi \colon \sigma_0 \to \X$.
+  Entonces, como la construcción debe ser natural, el diagrama \\
+  \begin{tikzcd}
+    S_0(\sigma_0) \arrow{r}{T^{\sigma_0}} \arrow{d}{\phi_\#} & [2em] S_1(\sigma_0 \times I) \arrow{d}{(\phi \times Id)_\#} \\
+    \SX{0} \arrow{r}{T^\X}                 & S_1(\X \times I)
+  \end{tikzcd} \\
+  debe ser conmutativo, luego $T^\X \circ \phi_\# = (\phi \times I)_\# \circ T^{\sigma_0}$
+
+  Como $\phi_\#(\tau_0) = \phi$, se tiene $T^\X(\phi) = (\phi \times I)_\# \circ T^{\sigma_0}(\tau_0)$
+
+  Definimos $T^\X$ de esta manera sobre los generadores, y lo extendemos por linealidad. Veamos que verifica a) y b).
+
+  a)
+  \begin{align*}
+    \partial T^\X(\phi) &= \partial(\phi \times I)_\# T^{\sigma_0}(\tau_0) = (\phi \times I)_\# \partial T{ \sigma_0}(\tau_0) \\
+                        &= (\phi \times I)_\# ((i_0)_\#^{\sigma_0}(\tau_0) - (i_1)_\#^{\sigma_0}(\tau_0)) \\
+                        &= ((\phi \times I) (i_0)_\#^{\sigma_0}) - (\phi \times I) (i_1)_\#^{\sigma_0}))(\tau_0) \\
+                        &= ((i_0^\X \circ \phi)_\# - (i_1^\X \circ \phi)_\#) (\tau_0) = ((i_0^\X)_\# - (i_1^\X)_\#)(\phi)
+  \end{align*}
+  de donde se obtiene $\partial T^\X + T^\X \partial = (i_0^\X)_\# - (i_1^\X)_\#$
+
+  b) Si $h \colon \X \to \Y$ es continua, entonces:
+  \begin{align*}
+    &(T^\Y \circ h_\#)(\phi) = T^\Y(h \circ \phi) = (h\phi \times I)_\# T^{\sigma_0}(\tau_0) \\
+    &= ((h \times I)_\# \circ (\phi \times I)_\#) (T^{\sigma_0}(\tau_0)) = ((h \times I)_\# \circ T^\X)(\phi)
+  \end{align*}
+
+
+
 \end{proof}
