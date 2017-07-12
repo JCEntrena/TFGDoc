@@ -496,6 +496,47 @@ Consideremos $i \colon A \xhookrightarrow{} \X$ la inclusión, $i_\# \colon S_p(
 Entonces $i\#(\sum\limits_{j = 1}^n n_j \phi_j) = \sum\limits_{j = 1}^n n_j i_\#(\phi_j) = \sum\limits_{j = 1}^n n_j (i \circ \phi_j) = \sum\limits_{j = 1}^n n_j \phi_j$,
 luego $i_\#$ es un monomorfismo.
 
-Definimos $S_p(\X, A) = \frac{\SX{p}}{i_\#(S_p(A))} = \frac{\SX{p}}{S_p(A)} = \{\bar{c} \mid c \in \SX{p} \}$ con $\bar{c} = c + S_p(A)$.
-Este grupo se corresponde con el grupo abeliano libre generado por $\{\bar{\phi} \mid \phi \in \FX{p}\}$, ya que
-$\bar{c} = \overline{\sum_i n_i \phi_i} = \sum_i n_i \overline{\phi_i} $
+Definimos $S_p(\X, A) = \frac{\SX{p}}{i_\#(S_p(A))} = \frac{\SX{p}}{S_p(A)} = \{\overline{c} \mid c \in \SX{p} \}$ con $\overline{c} = c + S_p(A)$.
+Este grupo se corresponde con el grupo abeliano libre generado por $\{\overline{\phi} \mid \phi \in \FX{p}\}$, ya que
+\[\overline{c} = \overline{\sum_i n_i \phi_i} = \sum_i n_i \overline{\phi_i}, \quad c \in \SX{p} \]
+
+Llamamos a $S_p(\X, A)$ el grupo de p-cadenas singulares del par $(\X, A)$. \\
+Podemos definir un operador borde, que seguiremos notando $\partial$:
+\begin{align*}
+  \partial \colon S_p(\X, A) &\to S_{p-1}(\X, A) \\
+  \partial \overline{c} &= \overline{\partial c}
+\end{align*}
+bien definido, pues si $\overline{c} = \overline{d}$; entonces $d = c + a, a \in \S_p(A)$ y
+$\partial d = \partial c + \partial a \implies \overline{\partial d} = \overline{\partial c} + \overline{\partial a} =  $ % TODO
+
+Es claro, por la definición que hemos hecho, que el operador borde es un homomorfismo de clases y que $\partial^2 = 0$. \\
+Con esto, hemos construído un complejo de cadenas $\{S_p(\X, A), \partial\}_{p \geq 0}$ al que llamaremos el complejo de cadenas singulares del par $(\X, A)$.
+
+Para cada $p \geq 0$ definimos: \\
+$Z_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \partial\overline{c} = 0\}$ p-ciclos \\
+$B_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \overline{c} = \partial\overline{d} \}$ p-bordes
+
+por lo que podemos considerar
+\[H_p(\X, A) = \frac{Z_p(\X, A)}{B_p(\X, A)} \quad \forall p \geq 0 \]
+que llamamos el p-ésimo grupo de homología singular del par $(\X, A)$.
+
+Dados dos pares $(\X, A)$ y $(\Y, B)$, una aplicación continua $f \colon (\X, A) \to (\Y, B)$ es una aplicación continua
+$f \colon \X \to \Y$ tal que $f(A) \subseteq B$. \\
+Si $f$ es tal aplicación, definimos:
+\begin{align*}
+  f_\# \colon S_p(\X, A) &\to S_p(\Y, B) \hspace{4em} \text{que está bien definida.} \\
+  f_\#(\overline{c}) &= \overline{f_\#(c)}
+\end{align*}
+
+Con esto, hemos hecho conmutativo el diagrama \\
+\begin{tikzcd}
+  S_p(\X) \arrow{r}{f_\#} \arrow{d}{\pi} & S_p(\Y) \arrow{d}{\pi} \\
+  S_p(\X, A) \arrow{r}{f_\#} & S_p(\Y, B)
+\end{tikzcd}
+\hspace{2em} con $\pi(c) = \overline{c}$
+
+Es claro que $\partial f_\#(\overline{c}) = \partial \overline{f_\#(c)} = \overline{\partial f_\#(c)} = f_\# \partial(c) = f_\# \partial(\overline{c})$,
+de donde $\partial f_\# = f_\# \partial$.
+
+A la función $f_\# \colon S_*(\X, A) \to S_*(\Y, B)$ la llamamos la aplicación de cadenas inducida por la aplicación de pares $f$. \\
+Nuevamente, se verifica que $(g \circ f)_\# = g_\# \circ f_\#$ y $Id_\# = Id$.
