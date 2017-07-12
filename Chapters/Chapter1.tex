@@ -459,5 +459,18 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   de donde definimos $T^\X(\phi) = (\phi \times I)_\# T^{\sigma_p}(\tau_p)$. \\
   Como los $\phi$ son la base de $\SX{p}, T^\X$ se extiende por linealidad a un homomorfismo. Veamos que verifica a) y b).
 
+  a)
+  \begin{align*}
+    &(\partial T^\X + T^\X \partial)(\phi) = \partial((\phi \times I)_\# T^{\sigma_p})) + T^\X \partial(\phi_\# \tau_p) \\
+    &= (\phi \times I)_\# \partial T^\sigma_p(\tau_p) + T^\X \phi_\#(\partial(\tau_p)) \\
+    &= (\phi \times I)_\# (- T^{\sigma_p} \partial(\tau_p) + (i_0^{\sigma_p})_\# (\tau_p) - (i_1^{\sigma_p})_\# (\tau_p)) + (\phi \times I)_\# T^{\sigma_p}\partial(\tau_p) \\
+    &= (\phi \times I)_\# (i_0^{\sigma_p})_\#(\tau_p) - (\phi \times I)_\# (i_1^{\sigma_p})_\#(\tau_p) \\
+    &= (i_0^\X)_\# \phi_\#(\tau_p) - (i_1^\X)_\# \phi_\#(\tau_p) = ((i_0^\X)_\# - (i_1^\X)_\#) (\phi)
+  \end{align*}
 
+  b) Sea $h\colon \X \to \Y$ continua y $\phi \colon \sigma_p \to \X$ un generador de $\SX{p}$. Entonces:
+  \begin{align*}
+    &T^\Y(h_\#(\phi)) = T^\Y(h \circ \phi) = ((h \circ \phi) \times I)_\# T^{\sigma_p}(\tau_p) \\
+    &= (h \times I)_\# (\phi \times I)_\# T^{\sigma_p} (\tau_p) = (h \times I)_\# T^\X(\phi)
+  \end{align*}
 \end{proof}
