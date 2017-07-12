@@ -474,3 +474,28 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
     &= (h \times I)_\# (\phi \times I)_\# T^{\sigma_p} (\tau_p) = (h \times I)_\# T^\X(\phi)
   \end{align*}
 \end{proof}
+
+\begin{corollary}
+  Si $\X$ e $\Y$ son espacios homotópicamente equivalentes, entonces \[H_p(\X) = H_p(\Y) \quad \forall p \geq 0\]
+\end{corollary}
+
+\begin{proof}
+  Sea $f$ la equivalencia homotópica de $\X$ en $\Y$. Entonces existe su inversa, $g$, que verifica $g \circ f = Id_\X, f \circ g = Id_\Y$.
+  Así, $(f \circ g)_* = Id_{H_p(\Y)},$ y $(g \circ f)_* = Id_{H_p(\X)}$. Como $(g \circ f)_* = g_* \circ f_*, f_*$ tiene inverso y es un isomorfismo
+  entre $H_p(\X)$ y $H_p(\Y)$
+\end{proof}
+
+\section{Homología singular de un par}
+
+Sea $A \subseteq \X$. Vamos a tratar de cuantificar la relación existente entre $H_*(A)$ y $H_*(\X)$.
+
+Para ello, vamos a definir la homología singular del par $(\X, A)$, que será una extensión de la homología singular de un espacio, en el sentido
+\[H_*(\X, \phi) = H_*(\X)\]
+
+Consideremos $i \colon A \xhookrightarrow{} \X$ la inclusión, $i_\# \colon S_p(A) \to \SX{p}$ el homomorfismo inducido.
+Entonces $i\#(\sum\limits_{j = 1}^n n_j \phi_j) = \sum\limits_{j = 1}^n n_j i_\#(\phi_j) = \sum\limits_{j = 1}^n n_j (i \circ \phi_j) = \sum\limits_{j = 1}^n n_j \phi_j$,
+luego $i_\#$ es un monomorfismo.
+
+Definimos $S_p(\X, A) = \frac{\SX{p}}{i_\#(S_p(A))} = \frac{\SX{p}}{S_p(A)} = \{\bar{c} \mid c \in \SX{p} \}$ con $\bar{c} = c + S_p(A)$.
+Este grupo se corresponde con el grupo abeliano libre generado por $\{\bar{\phi} \mid \phi \in \FX{p}\}$, ya que
+$\bar{c} = \overline{\sum_i n_i \phi_i} = \sum_i n_i \overline{\phi_i} $
