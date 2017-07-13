@@ -540,3 +540,36 @@ de donde $\partial f_\# = f_\# \partial$.
 
 A la función $f_\# \colon S_*(\X, A) \to S_*(\Y, B)$ la llamamos la aplicación de cadenas inducida por la aplicación de pares $f$. \\
 Nuevamente, se verifica que $(g \circ f)_\# = g_\# \circ f_\#$ y $Id_\# = Id$.
+
+Definimos $f_* \colon H_p(\X, A) \to H_p(\Y, B)$ por $f_*([\overline{c}]) = [f_\# \overline{c}]$, que está bien definida. \\
+Claramente, $f_*$ es un homomorfismo de grupos, que verifica $(g \circ f)_* = g_* \circ f_*$ y $Id_* = Id$.
+
+Con esto, hemos construído un funtor covariante de la categoría de pares y aplicaciones entre pares en la de grupos graduados y homomorfismos,
+el funtor de la homología singular.
+
+\begin{tikzcd}
+  (\X, A) \arrow{r} \arrow{d}{f} & [3em] \{H_p(\X, A)\}_{p \geq 0} \arrow{d}{f_*} \\
+  (\Y, B) \arrow{r} & \{H_p(\Y, B)\}_{p \geq 0}
+\end{tikzcd}
+
+Tenemos un resultado de obtención directa:
+
+\begin{corollary}
+  Si $h \colon (\X, A) \to (\Y, B)$ es un homeomorfismo de $\X$ sobre $\Y$ que verifica $h(A) = B$, entonces
+  $h_* \colon H_p(\X, A) \to H_p(\Y, B)$ es un isomorfismo de grupos $\forall p \geq 0$
+\end{corollary}
+
+\begin{proposition}
+  Si $\X$ es arcoconexo y $A \neq \emptyset$, se tiene $H_0(\X, A) = 0$
+\end{proposition}
+
+\begin{proof}
+  Sea $[\overline{c}] \in H_0(\X, A)$. $\partial\overline{c} = 0$, con $c = \sum\limits_{i = 1}^n n_i x_i \quad x_i \in \X$. \\
+  $\overline{c} = \sum\limits_{i = 1}^n n_i \overline{x_i}$ y así, tenemos $[\overline{c}] = \sum\limits_{i = 1}^n n_i [\overline{x_i}]$ \\
+  Veamos que $\forall x \in \X, [\overline{x}] = 0$. 
+
+  Como $A \neq \emptyset$, sea $a \in A$. Por arcoconexión, tomamos $\alpha \colon \sigma_1 \to \X$ verificando $\alpha(0, 1) = x, \alpha(1, 0) = a$.
+  Se cumple que $\overline{\alpha} \in S_1(\X, A)$ y $\partial\overline{\alpha} = \overline{p\partial\alpha} = \overline{x - a} = \overline{x} - \overline{a}
+  = \overline{x}$, pues $a \in S_0(A) \implies \overline{a} = 0$. \\
+  De esta forma, $[\overline{x}] = [\partial\overline{a}] = 0$, ya que es un borde.
+\end{proof}
