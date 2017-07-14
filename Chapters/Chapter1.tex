@@ -566,10 +566,22 @@ Tenemos un resultado de obtención directa:
 \begin{proof}
   Sea $[\overline{c}] \in H_0(\X, A)$. $\partial\overline{c} = 0$, con $c = \sum\limits_{i = 1}^n n_i x_i \quad x_i \in \X$. \\
   $\overline{c} = \sum\limits_{i = 1}^n n_i \overline{x_i}$ y así, tenemos $[\overline{c}] = \sum\limits_{i = 1}^n n_i [\overline{x_i}]$ \\
-  Veamos que $\forall x \in \X, [\overline{x}] = 0$. 
+  Veamos que $\forall x \in \X, [\overline{x}] = 0$.
 
   Como $A \neq \emptyset$, sea $a \in A$. Por arcoconexión, tomamos $\alpha \colon \sigma_1 \to \X$ verificando $\alpha(0, 1) = x, \alpha(1, 0) = a$.
   Se cumple que $\overline{\alpha} \in S_1(\X, A)$ y $\partial\overline{\alpha} = \overline{p\partial\alpha} = \overline{x - a} = \overline{x} - \overline{a}
   = \overline{x}$, pues $a \in S_0(A) \implies \overline{a} = 0$. \\
   De esta forma, $[\overline{x}] = [\partial\overline{a}] = 0$, ya que es un borde.
 \end{proof}
+
+\begin{proposition}
+  Sea $X = \bigcup\limits_{\alpha \in A} \X_\alpha$ la descomposición de $\X$ en componentes arcoconexas, y sea $A \subseteq \X$. Entonces se verifica:
+  \begin{itemize}
+    \item[a)] $\forall \alpha, i_{\alpha *} \colon H_p(\X_\alpha, \X_alpha \cap A) \to H_p(\X, A)$ es un monomorfismo, con $i$ la inclusión.
+    \item[b)] $H_p(\X, A) = \bigoplus\limits_{\alpha \in A}  i_{\alpha *}(H_p(\X_\alpha, \X_\alpha \cap A))$
+  \end{itemize}
+\end{proposition}
+
+\textit{La demostración es similar al caso visto para espacios simples. No la repetimos, pues no aporta nada nuevo.}
+
+Sea ahora $\pi_* \colon H_*(\X) \to H_*(\X, A)$ el homomorfismo inducido por $\pi$.
