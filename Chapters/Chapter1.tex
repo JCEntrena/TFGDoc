@@ -632,3 +632,70 @@ $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un 
 \end{proof}
 
 \textit{Para p mayor que 1 no podemos asegurar que sea un ciclo, por lo que el resultado solo vale para el caso visto.}
+
+\begin{proposition}
+  Para todo $p \geq 1$ existe un homomorfismo $\Delta \colon H_p(\X, A) \to H_{p-1}(\X, A)$ tal que $\Ker \Delta = \Img \pi_*$ y $\Img \Delta = \Ker i_*$
+
+  A la sucesión exacta así construída:
+  \[\dots H_{p+1}(\X, A) \xrightarrow{\Delta} H_p(A) \xrightarrow{i_*} H_p(\X) \xrightarrow{\pi_*} H_p(\X, A) \xrightarrow{\Delta} H_{p-1}(A) \dots\]
+  se le llama la \underline{\smash{sucesión exacta del par $(\X, A)$.}}
+\end{proposition}
+
+\begin{proof}
+  En primer lugar, vamos a definir $\Delta$.
+  
+  Sea $[\overline{c}] \in H_p(\X, A)$, con $\overline{c} \in S_p(\X, A)$ y $\partial \overline{c} = 0$. Como $\partial \overline{c} = \overline{\partial c} = 0,
+  \partial c \in i_\#(S_{p-1}(A))$. Por la inyectividad de $i_\#$, existe un único $a \in S_{p-1}(A)$ tal que $\partial c = i_\#(a)$. \\
+  Además, $i_\# \partial a = \partial i_\#(a) = \partial^2 c = 0$, y al ser $i_\#$ monomorfismo, $\partial a = 0$ luego $a \in Z_{p-1}(A), [a] \in H_{p-1}(A)$.
+
+  Definimos pues $\Delta([\overline{c}]) = [a]$, que está bien definido, ya que:
+  \begin{align*}
+    &[\overline{c}] = [\overline{d}] \implies \overline{d} = \overline{c} + \partial \overline{h} \implies d = c + \partial h + i_\#(e) \implies \\
+    &\partial d = \partial c + i_\#(\partial e) = i_\#(a) + i_\#(\partial e) = i_\#(a + \partial e) \implies \\
+    &\Delta([\overline{d}]) = [a + \partial e] = [a] = \Delta([\overline{c}])
+  \end{align*}
+
+  Veamos que $\Delta$ es homomorfismo, es decir, $\Delta([\overline{c_1}] + [\overline{c_2}]) = \Delta([\overline{c_1 + c_2}])$
+
+  $\Delta([\overline{c_1}]) = [a_1]$ con $\partial c_1 = i_\#(a_1)$ \\
+  $\Delta([\overline{c_2}]) = [a_2]$ con $\partial c_2 = i_\#(a_2)$
+
+  De esta forma, $\partial(c_1 + c_2) = i_\#(a_1 + a_2)$ y $\Delta([\overline{c_1 + c_2}]) = [a_1 + a_2]$
+
+  Veamos que $\Img \Delta = \Ker i_*$
+
+  $i_*(\Delta([\overline{c}])) = i_*[a] = [i_\#(a)] = [\partial c] = 0$, de donde $\Img \Delta \subseteq \Ker i_*$
+
+  Si $[a] \in H_{p-1}(A)$ verificando $i_*(a) = 0$, entonces $[i_\#(a)] = 0$, y eso nos dice que $i_\#(a) = \partial b, b \in S_p{\X}$.
+  Además, $\overline{\partial b} = \overline{i_\#(a)} = 0$, y como $\overline{\partial b} = \partial \overline{b}, b \in Z_p(\X, A)$ con
+  $\partial b = i_\#(a)$. Por definición, $\Delta([\overline{b}]) = [a]$. Así se da la igualdad.
+
+  Veamos que $\Ker \Delta = \Img \pi_*$
+
+  $\Delta\pi_*([c]) = \Delta([\overline{c}]) = [a]$, con $\partial c = i_\#(a)$. \\
+  Como $c$ es un ciclo, $i_\#(a) = 0$, y al ser $i_\#$ un monomorfismo, $a = 0$, luego $[a] = 0$. Así, $\Img \pi_* \subseteq \Ker \Delta$.
+
+  Si $[\overline{c}] \in \Ker \Delta, \Delta[\overline{c}] = [\overline{a}] = 0$, con $\partial c = i_\#(a)$. Como $[a] = 0, a = \partial b, b \in \S_p(A)$.
+  Así, $\partial(c - i_\#(b)) = 0$, y $c - i_\#(b) \in Z_p(\X)$, de donde obtenemos $[c - i_\#(b)]$. \\
+  $\pi_*([c . i_\#(b)]) = \pi_*([c]) + e = [\overline{c}]$. Con esto, $\Img \pi_* = \Ker \Delta$
+\end{proof}
+
+\begin{proposition}[Naturalidad de la sucesión exacta]
+  Sea $f \colon (\X, A) \to (\Y, B)$ una aplicación de pares. Entonces el diagrama siguiente es conmutativo:
+
+  \begin{tikzcd}
+    \dots H_p(A) \arrow{r}{i_*} \arrow{d}{f_{|A}} & H_p(\X) \arrow{r}{\pi_*} \arrow{d}{f_*} & H_p(\X, A) \arrow{r}{\Delta} \arrow{d}{f_*} & H_{p-1}(A) \dots \arrow{d}{f_{|A}} \\
+    \dots H_p(B) \arrow{r}{i_*} & H_p(Y) \arrow{r}{\pi_*} & H_p(\Y, B) \arrow{r}{\Delta} & H_{p-1}(B) \dots
+  \end{tikzcd}
+\end{proposition}
+
+\begin{proof}
+  Nos basta con que $\Delta \circ f_* = f_{|A} \circ \Delta$, pues ya conocemos el resto.
+
+  $
+    (\Delta \circ f_*)([c]) = \Delta([f_\#(\overline{c}]) = \Delta([\overline{f_\#(c)}]) \stackrel{(*)}{=} [(f_{|A})_\#(a)]
+    = (f_{|A})_*[a] = (f_{|A})_* \Delta[\overline{c}]
+  $
+
+  Donde en $(*)$ estamos usando que $\partial(f_\#(c)) = f_\# \partial c = f_\# i_\#(a) = i_\#(f_{|A})_\#(a)$, con $\partial c = i_\#(a).$
+\end{proof}
