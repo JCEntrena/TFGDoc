@@ -1,0 +1,124 @@
+%************************************************
+\chapter{Algoritmos}\label{ch:algoritmos}
+%************************************************
+
+En este capítulo se tratarán los diferentes algoritmos considerados en el trabajo, desde su
+fundamento teórico hasta su implementación concreta.
+
+
+\section{Algoritmos \textit{greedy}}
+
+Los algoritmos voraces, o algoritmos \textit{greedy}, son aquellos que resuelven problemas tomando
+las decisiones óptimas en cada instante. Esto no lleva necesariamente a un óptimo global, pero puede
+aproximarlo de forma razonable en un periodo de tiempo generalmente muy pequeño. Este tipo de algoritmos
+basan sus decisiones en las decisiones que ya se han tomado, pero nunca en lo que podría suceder más
+adelante.
+
+Por lo general, en los algoritmos \textit{greedy} tendremos un conjunto de candidatos, una función
+de selección, que se encarga de elegir al mejor candidato en cada momento, una función objetivo, que
+da un valor a cada solución, una función de factibilidad, que elige los candidatos que se pueden incluir
+en una solución, y una función que nos dice si tenemos una solución.
+
+Este tipo de algoritmos suelen ser irreversibles, esto es, no se pueden deshacer elecciones ya hechas.
+No obstante, existen varios tipos de algoritmos \textit{greedy}, en los que esta condición se relaja. Así,
+distinguiremos entre algoritmos \textit{greedy} puros, relajados y ortogonales. En este trabajo se han
+considerado únicamente los primeros.
+
+\subsection{\textit{Greedy} en MCP}
+
+En este problema, los algoritmos \textit{greedy} tienen dos enfoque principales: o bien se parte de un conjunto
+vacío y se añaden vértices, respetando la estructura de clique, hasta que no sea posible añadir más, o partimos
+del conjunto total de vértices y vamos eliminando hasta que el obtenido sea un clique.
+
+\subsection{Algoritmos implementados}
+
+Los dos algoritmos que he implementado siguen el primer enfoque de los detallados anteriormente.
+No obstante, actúan de forma distinta a la hora de elegir el vértice a añadir. Uno de ellos considera
+también la posibilidad de intercambiar un vértice del clique con otro de fuera, el cual, al añadirlo,
+siga respetando la estructura de clique.
+
+A continuación, se detallan en más profundidad los dos algoritmos implementados:
+
+\subsubsection{Primer algoritmo}
+
+Este algoritmo es el enfoque más básico posible dentro de los algoritmos voraces para MCP.
+Comenzando desde un clique vacío, añade elementos al clique, respetando la estructura, hasta
+que no se pueda añadir ninguno más. Para elegir el vértice que añadir, toma, de aquellos que
+pueden añadirse, el que tiene mayor número de adyacencias globales. En caso de haber varios,
+toma el primero de ellos. A esta estrategia la llamaremos \textit{add}.
+
+Vemos a continuación el pseudocódigo del algoritmo. Notaremos $C_=$ el conjunto de posibles adiciones.
+
+\begin{algorithm}[H]
+\caption{Greedy}
+  \begin{algorithmic}
+  \State $Clique = [ ]$
+  \State $C_0 = $ Vértices
+  \Repeat
+    \State{Añadir $v \in C_0$ con más adyacencias}
+    \State{Actualizar $C_0$}
+  \Until{$C_0 = \emptyset$}
+  \State{Devolver clique}
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{Segundo algoritmo}
+
+En este algoritmo, se han seguido las ideas de Grosso, Locatelli y Della Croce, usando un algoritmo
+que nos permite deshacer, en cierta forma, decisiones tomadas anteriormente. La idea es no solo
+considerar aquellos vértices que pueden ser añadidos al clique, sino también tomar aquellos que
+pueden ser intercambiados por uno del clique, manteniendo la estructura, es decir, los que
+están conectados a todos los vértices del clique salvo uno. De esta forma conseguimos ampliar el
+entorno de búsqueda, con los movimientos \textit{add} y los nuevos, que llamaremos \textit{swap}.
+
+El criterio para elegir un nodo será el número de conexiones con el conjunto de posibles adiciones
+al clique, buscando maximizar este número.
+La idea detrás de esto, es que así tendremos un mayor número de adiciones, que
+representan una cota superior para el tamaño del clique, pues este no puede ampliar su tamaño
+más que el tamaño de la lista de posibles adiciones.
+
+Antes de considerar intercambios, queremos que el clique tenga un tamaño mínimo. Se ha fijado
+dicho tamaño en $4$, valor a partir del cual se empiezan a considerar los intercambios y no
+solo las adiciones. Como criterio de parada, se ha establecido un número de intercambios máximo,
+además de comprobar siempre que el entorno no sea vacío. Una vez satisfecha alguna de estas
+condiciones, el clique que tengamos será ampliado hasta su límite y el algoritmo finaliza.
+
+Para evitar swaps inútiles, en caso de intercambiar dos nodos en el clique, guardaremos el que
+sale del clique para no tenerlo en cuenta en la siguiente iteración.
+
+Vemos a continuación el pseudocódigo de la parte adaptativa del algoritmo.
+Notaremos $C_1$ al conjunto de elementos conectados a todos los vértices del clique salvo uno.
+
+
+\begin{algorithm}[H]
+\caption{Greedy adaptativo}
+  \begin{algorithmic}
+  \State $Clique = [ ]$
+  \State $C_0 = $ Vértices
+  \State $C_1 = [ ]$
+  \State $i = 0$
+  \Repeat
+    \State Tomar $v \in C_0 \cup C_1 - Swap$ que maximice adyacencias con $C_0$
+    \If {$v \in C_0$}
+      \State Añadir $v$ a $Clique$
+    \Else
+      \State Hacer intercambio
+      \State Actualizar $Swap$, $i += 1$
+    \EndIf
+    \State{Actualizar $C_0, C_1$}
+  \Until{$C_0 = \emptyset$ o $i = limite$}
+  \State{Devolver clique}
+  \end{algorithmic}
+\end{algorithm}
+
+
+\section{Búsqueda local}
+
+Los algoritmos de búsqueda local son aquellos que se centran en el entorno de una solución
+para buscar nuevas soluciones que sean mejores que la anterior. Dentro del espacio de soluciones
+cada solución tendrá un entorno, compuesto por sus soluciones vecinas, que serán las que exploremos
+sucesivamente.
+
+Las técnicas de búsqueda local se utilizan no solo como heurísticas para resolver problemas,
+sino como complementos de otras,
