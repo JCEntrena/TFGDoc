@@ -1,0 +1,22 @@
+%************************************************
+\chapter{Cálculo de la homología singular}\label{ch:introduccion}
+%************************************************
+
+En esta parte, vamos a enunciar y demostrar el teorema de subdivisión baricéntrica,
+el cual nos permite calcular directa o indirectamente (a través de sus consecuencias)
+el grupo de homología de ciertos espacios topológicos, como haremos con las esferas
+n-dimensionales.
+
+\section{Teorema de subdivisión baricéntrica}
+
+\begin{definition}
+  Sea $\X$ un espacio topológico. Diremos que $\U \subseteq \mathcal P(\X)$ es un recubrimiento de $\X$ si $\X = \bigcup\limits_{U \in \U} U$.
+\end{definition}
+
+Tomemos ahora $\X$ un espacio topológico y $\U$ un recubrimiento suyo. Para $ p \geq 0$, podemos definir
+\[ F_p^\U(\X) = \{\phi \in F_p(\X) \mid \exists U \in \U \text{ tal que } \Img \phi \subseteq U\} \]
+que es, por definición, subconjunto de $F_p(\X)$.
+
+Si $S_p^\U(\X)$ es el grupo abeliano libre generado por $F_p^\U(\X)$, por $F_p^\U(\X) \subseteq F_p(\X)$, se tiene
+que $S_p^\U(\X)$ es un subgrupo de $S_p(\X)$. Si consideramos la inclusión $i \colon S_p^\U(\X) \to S_p(\X)$, si
+$\phi \in F_p^\U(\X)$, entonces $\partial_i(\phi) \in F_{p-1}^\U(\X)$ y así, $\partial(\phi) \in S_{p-1}^\U(\X)$.
