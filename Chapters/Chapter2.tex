@@ -19,4 +19,93 @@ que es, por definición, subconjunto de $F_p(\X)$.
 
 Si $S_p^\U(\X)$ es el grupo abeliano libre generado por $F_p^\U(\X)$, por $F_p^\U(\X) \subseteq F_p(\X)$, se tiene
 que $S_p^\U(\X)$ es un subgrupo de $S_p(\X)$. Si consideramos la inclusión $i \colon S_p^\U(\X) \to S_p(\X)$, si
-$\phi \in F_p^\U(\X)$, entonces $\partial_i(\phi) \in F_{p-1}^\U(\X)$ y así, $\partial(\phi) \in S_{p-1}^\U(\X)$.
+$\phi \in F_p^\U(\X)$, entonces $\partial_i(\phi) \in F_{p-1}^\U(\X)$ y así, $\partial(\phi) \in S_{p-1}^\U(\X)$. \\
+En consecuencia, la restricción del borde a $S_p^\U(\X)$ define un homomorfismo borde, y así, construímos un complejo
+de cadenas $S_*^\U(\X) = \{S_p^\U(\X), \partial\}_{p \geq 0}$.
+
+Este complejo es un subcomplejo de $S_*(\X)$. Si tomamos la inclusión $i \colon S_*^\U(\X) \to S_*(\X)$, induce un
+homomorfismo en la homología, $i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \hspace{0.2em} \forall p \geq 0$, donde
+$H_p(S_*^\U(\X)) = \frac{\Ker \partial}{\Img \partial}$
+
+Sea ahora $\Y$ otro espacio topológico, y $\V$ un recubrimiento suyo. Diremos que una función continua $f \colon \X \to \Y$ es compatible
+con $\U, \V$ si $\forall U \in \U \exists V \in \V$ tal que $f(U) \subseteq V$. En tal caso, puede definirse un homomorfismo
+$f_\# \colon S_p^\U(\X) \to S_p^\V(\Y)$ dado por la restricción de $f_\# \colon \SX{p} \to \SY{p} a S_p^\U(\X)$.
+
+Esto hace que el siguiente diagrama sea conmutativo:
+\[ \begin{tikzcd}
+  S_p^\U(\X) \arrow{r}{f_\#} \arrow{d}{i} & S_p^\V(\Y) \arrow{d}{i} \\
+  \SX{p} \arrow{r}{f_\#} & \SY{p}
+\end{tikzcd} \]
+
+\begin{remark}
+  El diagrama conmutativo está bien definido, pues si $\phi \in F_p^\U(\X)$, entonces existe $U \in \U$ con $\Img \phi \subseteq U$, de donde
+  $f_\#(\phi) = f \circ \phi$ verifica $\Img(f \circ \phi) \subseteq f(U) \subseteq V \in \V$.
+\end{remark}
+
+Como $f_\# \partial = \partial f_\#$, $f$ induce $f_* \colon H_p(S_p^\U(\X)) \to H_p(S_p^\V(\Y))$.
+
+\begin{theorem}[Teorema de subdivisión baricéntrica]
+  Sean $\X$ un espacio topológico y $\U$ un recubrimiento de $\X$ tal que $\interior{\U} = \{\interior{U} \mid U \in \U\}$
+  también recubra a $\X$. Entonces la aplicación
+  \[ i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \]
+  es un isomorfismo, $\forall p \geq 0$.
+
+  Además, si $(\Y, \V)$ es otro par de las mismas características, y $f \colon \X \to \Y$ es una función continua
+  compatible con $\U, \V$, entonces el siguiente diagrama es conmutativo:
+  \[ \begin{tikzcd}
+    H_p(S_*^\U(\X)) \arrow{r}{i_*} \arrow{d}{f_*} & H_p(\X) \arrow{d}{f_*} \\
+    H_p(S_*^\V(\Y)) \arrow{r}{i_*} & H_p(\Y)
+  \end{tikzcd} \]
+
+\end{theorem}
+
+Antes de pasar a la demostración del teorema, necesitaremos introducir nuevos conceptos. La idea es definir la subdivisión
+de símplices singulares mediante la subdivisión baricéntrica de símplices, que nos llevan a poder dar una especie de
+inversa homotópica de la inclusión.
+
+\section{Subdivisión de símplices}
+
+\begin{definition}
+  Sea $s_p = (a_0, \dots, a_p)$ un p-símplice. Definimos el baricentro de $s_p$ como
+  \[b(s_p) = \frac{a_0 + \dots + a_p}{p+1}\]
+\end{definition}
+
+Los puntos $\{b(s_p), a_0, \dots, a_{i-1}, a_{i+1}, \dots, a_p\}$ genera un p-símplice $\forall i = 0, \dots, p$.
+Definimos la subdivisión baricéntrica del símplice $s_p$ por inducción sobre $p$, y la notamos $Sd(s_p)$.
+\begin{itemize}
+  \item $Sd(s_0) = s_0$
+  \item $Sd(s_p) = (b(s_p), t_0, \dots, t_{p-1}) \mid (t_0, \dots, t_{p-1}) \in Sd(\U_{p-1}), \U_{p-1} \in \interior{S_p}$
+        siendo $\interior{S_p}$ el conjunto de caras de orden $p-1$ de $S_p$.
+\end{itemize}
+
+\begin{remark}
+  Es importante destacar que el orden en el que se ponen los puntos es importante, pues si el baricentro fuera en otro lugar,
+  la orientación del símplice cambiaría, y afectaría al cálculo del borde.
+\end{remark}
+
+Si $K$ es un conjunto de símplices, la subdivisión de $K$ vienen dada por $Sd(K) = \bigcup\limits_{s_p \in K} Sd(s_p)$.
+
+Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ con } Sd^1 = Sd \]
+
+\begin{proposition}
+  Sea $t_p \in Sd(s_p)$ un p-símplice de la subdivisión. Entonces $diam(t_p) \leq \frac{p}{p+1} diam(s_p)$.
+\end{proposition}
+
+\begin{proof}
+  Haremos la demostración por inducción sobre $p$.
+
+  Para $p = 0$, se tiene $0 = 0$.
+
+  Supuesto cierto hasta $p-1$, lo probamos para $p$.
+
+  Sea $s_p = (a_0, \dots, a_p)$. Se verifica que $diam(s_p) = \max\limits_{i,j} |a_i - a_j|$.
+  Como $t_p \in Sd(s_p), t_p = (b(s_p), t_0, \dots, t_{p-1}) \in Sd(\U_{p-1})$.
+  Entonces, $diam(t_p) = max\{|b(s_p) - t_i|,\hspace{0.2em} |t_i - t_j|, i,j = 0, \dots, p-1\}$.
+
+  Por h. de inducción sabemos que $|t_i - t_j| \leq diam(t_0, \dots, t_{p-1}) \leq \frac{p-1}{p} diam(\U_{p-1})$.
+  Como $U_{p-1} \subseteq s_p$, entonces $diam(U_{p-1}) \leq diam(s_p)$, y como $\frac{p-1}{p} \leq \frac{p}{p+1}$
+  se tiene $|t_i - t_j| \leq \frac{p}{p+1} diam(s_p)$
+
+  Además, $|b(s_p) - t_i| \leq \max\limits_i |b(s_p) - a_i| = \max\limits_i |\frac{a_0 + \dots + a_p}{p-1} - a_i| =
+  \max\limits_i | \frac{\sum\limits_{i \neq j} |a_j - a_i|}{p+1} \leq \frac{p}{p+1} diam(s_p)$
+\end{proof}
