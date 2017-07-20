@@ -109,3 +109,67 @@ Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ 
   Además, $|b(s_p) - t_i| \leq \max\limits_i |b(s_p) - a_i| = \max\limits_i |\frac{a_0 + \dots + a_p}{p-1} - a_i| =
   \max\limits_i | \frac{\sum\limits_{i \neq j} |a_j - a_i|}{p+1} \leq \frac{p}{p+1} diam(s_p)$
 \end{proof}
+
+\begin{definition}
+  Sea $\varphi$ una colección de subconjuntos acotados de un espacio euclídeo. Definimos $malla \varphi = \sup\limits{c \in \varphi} diam(c)$
+\end{definition}
+
+\begin{corollary}
+  Si $K$ es una colección de p-símplices, se verifica \[malla(Sd(K)) \leq \frac{p}{p+1} malla(K) \]
+\end{corollary}
+
+\begin{corollary}
+  Si $K$ es una colección finita de p-símplices, entonces $\forall \epsilon > 0, \exists n \in \N$ tal que \\$malla(Sd^n(k)) < \epsilon$
+\end{corollary}
+
+\begin{proof}
+  Simplemente aplicamos $\lim\limits_{n \to \infty}(\frac{p}{p+1})^n = 0$
+\end{proof}
+
+\section{Subdivisión baricéntrica de símplices singulares afines}
+
+Vamos a tratar ahora la subdivisión de símplices singulares afines. Estos nos permitirán aproximar la
+subdivisión de cualquier símplice singular, por lo que su estudio nos resulta de gran interés.
+
+Sea $C$ un subconjunto convexo del espacio euclídoe en el que trabajamos. Para todo $p \geq 0$, sea
+\[F_p^A(C) = \{ \phi \in F_p(C) \mid \phi \text{ es una aplicación afín}\} \]
+es decir, $\phi \colon \sigma_p \to C \quad$ verifica \[\phi(ta + (1-t)b) = t\phi(a) + (1-t)\phi(b) \hspace{1em} \forall t \in [0,1]\]
+
+Sea $A_p(C)$ el grupo abeliano libre generado por $F_p^A(C)$, subgrupo libre de $S_p(C)$. Si $\phi \in F_p^A(C), \partial_i \phi = \phi \circ F_p^i$,
+y como $\phi$ es afín y $F_p^i$ también, $\partial_i \phi$ es afín. Así:
+\[\partial \phi = \sum\limits_{i = 0}^p (-1)^1 \partial_i \phi \hspace{0.5em} \in A_{p-1}(C)\]
+
+Es consecuencia, podemos restringir el borde a $A_p(C)$, haciendo conmutativo
+\[ \begin{tikzcd}
+      A_p(C) \arrow{r}{\partial} \arrow{d}{i} & A_{p-1}(C) \arrow{d}{i} \\
+      S_p(C) \arrow{r}{\partial} & S_{p-1}(C)
+\end{tikzcd} \]
+
+Tenemos pues un complejo de cadenas $A_*(C) = \{A_p(C), \partial\}_{p \geq 0}$, para todo convexo $C$.
+
+Si $\phi \in F_p^A(C), \phi \colon \sigma_p \to C$ afín. Notando $\sigma_p = (v_0, \dots, v_p)$, entonces
+${x_i = \phi(v_i) \in C}$ determinan unívocamente a $\phi$, pues si $v = \sum\limits_{i = 0}^p \alpha_i v_i$, entonces
+$\phi(v) = \sum\limits_{i = 0}^p \alpha_i \phi(v_i)$ por afinidad. Por tanto, todo elemento de $\phi \in F_p^A(C)$ se
+identifica con $p+1$ puntos de $C$.
+\[\phi \in F_p^A(C) \equiv \{x_0, \dots, x_p\} \subseteq C\]
+
+Además, $\partial \phi = \sum\limits_{i = 0}^p (-1)^i \partial_i \phi$, con $\partial_i \phi = \{x_0, \dots, \hat{x_i}, \dots, x_p\}$
+
+En consecuencia, $A_p(C)$ es el grupo abeliano libre sobre:
+\[\{(x_0, \dots, x_p) \mid x_i \in C\} \equiv C \times \dots \times C \]
+y el operador borde lo da $\partial(\{x_0, \dots, x_p\}) = \sum\limits_{i = 0}^p (-1)^i \{x_0, \dots, \hat{x_i}, \dots, x_p\}$
+
+Si tenemos $C, C'$ convexos, y $f \colon C \to C'$ es una aplicación afín (y por tanto continua), al tomar la restricción de $f_\#$
+a $A_p(C)$, se tiene que si ${\phi \in F_p^A(C)}$ entonces $f_\#(\phi) = {f \circ \phi \in F_p^A(C')} \implies {f_\#(A_p(C)) \subseteq A_p(C')}$
+
+En consecuencia, $\partial f_\# = f_\# \partial$ y $f_\# \colon A_*(C) \to A_*(C')$ es una aplicación de cadenas. Además,
+${f_\#(\{x_0, \dots, x_p\}) = \{f(x_0), \dots, f(x_p)\}}$
+
+\begin{definition}
+  Sea $x \in C$ Definimos
+  \begin{align*}
+    \C_x \colon A_p(C) &\to A_{p+1}(C) \\
+    \{x_0, \dots, x_p\} &\mapsto \{x, x_0, \dots, x_p\}
+  \end{align*}
+  y la extendemos por linealidad a un homomorfismo, pues tenemos los valores de los generadores.
+\end{definition}
