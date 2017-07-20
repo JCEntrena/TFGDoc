@@ -173,3 +173,42 @@ ${f_\#(\{x_0, \dots, x_p\}) = \{f(x_0), \dots, f(x_p)\}}$
   \end{align*}
   y la extendemos por linealidad a un homomorfismo, pues tenemos los valores de los generadores.
 \end{definition}
+
+\begin{proposition}
+  Veamos que:
+  \begin{itemize}
+    \item[a)] $\partial \C_x + \C_x \partial = Id_{A_p(C)} \quad \forall p \geq 1$
+    \item[b)] $f_\# \C_x = \C_{f(x)} f_\# \quad \forall f \colon C \to C'$ afín.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  a) $\partial \C_x(x_0, \dots, x_p) = \partial(x, x_0, \dots, x_p) = \{x_0, \dots, x_p\} + \\ \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i (x, x_0, \dots, x_p)
+  = \{x_0, \dots, x_p\} + \sum\limits_{j = 0}^{p} (-1)^{j+1} \partial_{j+1} (x, x_0, \dots, x_p)
+  = \{x_0, \dots, x_p\} - \sum\limits_{j = 0}^{p} (-1)^j \C_x(x_0, \dots, \hat{x_j}, \dots, x_p) = \{x_0, \dots, x_p\} - \C_x \partial(x_0, \dots, x_p)$
+
+  b) $f_\# \C_x(x_0, \dots, x_p) = f_\#(x, x_0, \dots, x_p) = (f(x), f(x_0), \dots, f(x_p)) = \C_{f(x)} f_\#(x_0, \dots, x_p)$
+\end{proof}
+
+Ahora podemos definir una subdivisión para símplices o cadenas afines. Lo haremos por inducción, definiendo ${Sd' \colon A_p(C) \to A_p(C)}$
+
+$\fbox{p = 0}$
+\[Sd' = Id_{A_p(C)}\]
+
+$\fbox{p > 0}$, supuesto definido hasta $p-1$
+\[ Sd'(\phi) = \C_{b(\phi)}(Sd' \circ \partial \phi) \]
+donde $b(\phi) = \frac{x_0 + \dots + x_p}{p+1}$, siendo $\phi = \{x_0, \dots, x_p\}$ y extendido linealmente.
+
+Veamos algunas propiedades. Debido a que la definición se hizo por inducción, todas las demostraciones serán por inducción.
+
+a) $\partial \circ Sd' = Sd' \circ \partial$
+
+\begin{proof}
+  Para $p = 0$ la demostración es trivial, por la definición de $Sd'$. Suponemos $p \geq 1$.
+
+  Sea $\phi \in F_p^A(C)$, entonces
+  \begin{align*}
+    \partial \circ Sd'(\phi) &= \partial \C_{b(\phi)} Sd' \partial \phi = Sd'(\partial \phi) - \C_{b(\phi)} \partial Sd'(\partial \phi) \\
+    &= Sd'(\partial \phi) - \C_{b(\phi)} Sd'(\partial^2 \phi) = Sd'(\partial \phi)
+  \end{align*}
+\end{proof}
