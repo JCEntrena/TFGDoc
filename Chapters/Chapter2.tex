@@ -283,3 +283,35 @@ $\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) 
   Así, $\Img(\C_{b(\tau_p)}(F_p^i)_\# (\phi_j)) \subseteq \C_{b(\tau_p)}(U_{p-1}^{i, j}) = (b(\sigma_p), t_0, \dots, t_{p-1}) \in Sd(\sigma_p)$.\\
   (Donde $U_{p-1}^{i,j} = (t_0, \dots, t_p)$)
 \end{proof}
+
+\section{Subdivisión de símplices singulares}
+
+% Introducción
+
+Nos basaremos en el caso afín.
+
+\begin{proposition}
+  Sea $\X$ un espacio topológico. Entonces, para todo $p \geq 0$ existe
+  \[Sd\colon S_p{\X} \to S_p{\X} \] homomorfismo, verificando:
+  \begin{itemize}
+    \item[a)] Si $\X$ es un convexo de un espacio euclídeo, $\frac{Sd}{A_p(C)} = Sd'$
+    \item[b)] $Sd \circ \partial = \partial \circ Sd$
+    \item[c)] $Sd \circ f_\# = f_\# \circ Sd \quad \forall f \colon \X \to \Y$ continua
+    \item[d)] Existe un homomorfismo $\tau \colon \SX{p} \to S_{p+1}(\X)$ tal que ${\partial \tau + \tau \partial = Sd - Id_{S_p(\X)}}$
+              $\forall p \geq 0$ y $\tau f_\# = f_\# \tau \quad \forall f \colon \X \to \Y$ continua
+    \item[e)] Si $\phi \in F_p(\X)$ y $Sd(\phi) = \sum_i n_i \phi_i$, entonces $\forall i \exists t_p^i \in Sd(\sigma_p)$ tal que
+              $\Img(\phi_i) \subseteq \phi(t_p^i)$
+
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Sea $\phi \in F_p(\X)$. Entonces, si $\tau_p \colon \sigma_p \to sigma_p$ es el p-símplice identidad, se tiene que
+  $\phi = \phi_\#(\tau_p)$. En consecuencia, $Sd(\phi)$ debe verificar $Sd(\phi_\#)(\tau_p) = \phi_\#(Sd(\tau_p)) = \phi_\# Sd'(\tau_p)$. \\
+  Definimos $Sd(\phi) = \phi_\#(Sd'(\tau_p))$ y lo extendemos por linealidad.
+
+  Veamos ahora las propiedades.
+
+  a) Si $\X$ es convexo, $\phi \in F_p^A(\X)$, y entonces, $Sd(\phi) = \phi_\# Sd'(\tau_p) = (Sd' \circ \phi_\#)(\tau_p) = Sd'(\phi)$
+  pues ya lo hemos probado en este caso. 
+\end{proof}
