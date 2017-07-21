@@ -216,6 +216,70 @@ a) $\partial \circ Sd' = Sd' \circ \partial$
 b) Si $f \colon C \to C'$ es afín, entonces $f_\# \circ Sd' = Sd' \circ f_\#$
 
 \begin{proof}
-  $(f_\# Sd')(\phi) = f_\#(\C_{b(\phi)} Sd'(\partial(\phi))) = \C_{f(b(\phi))} f_\# Sd'(\partial(\phi))\\ \stackrel{\text{h. de i}}{=} 
+  $(f_\# Sd')(\phi) = f_\#(\C_{b(\phi)} Sd'(\partial(\phi))) = \C_{f(b(\phi))} f_\# Sd'(\partial(\phi))\\ \stackrel{\text{h. de i}}{=}
   \C_{f(b(\phi))} Sd'(f_\#(\partial(\phi))) = \C_{f(b(\phi))} Sd'(\partial(f_\#(\phi))) = Sd'(f_\#(\phi))$
+\end{proof}
+
+c) Existe un homomorfismo $\tau' \colon A_p(C) \to A_{p+1}(C)$ tal que ${\partial \tau' + \tau' \partial = Sd' - Id_{A_p(C)}}$,
+es decir, $Sd'$ es, como aplicación de cadenas, homotópica a la identidad.
+
+\begin{proof}
+  Para $p = 0$, tomamos $\tau' = 0$
+
+  Supuesto cierto hasta $p-1$, buscamos $\tau' \colon A_p(C) \to A_{p+1}(C)$ verificando
+  \[\partial \tau' = Sd' - I_{A_p(C)} - \tau' \partial\]
+
+  Como el segundo miembro es conocido, entonces si $\phi \in F_p^A(C), \tau'(\phi)$ ha de verificar
+  \[\partial(\tau'(\phi)) = Sd'(\phi) - \phi - \tau'(\partial(\phi))\]
+  lo calculamos
+  \begin{align*}
+    &\partial(Sd'(\phi) - \phi - \tau'(\partial(\phi)) = Sd'(\partial(\phi)) - \partial(\phi) - \partial(\tau' \partial(\phi)) \\
+    &= Sd'(\partial(\phi)) - \partial(\phi) + \tau'(\partial^2(\phi)) - Sd'(\partial(\phi)) + \partial(\phi) = 0
+  \end{align*}
+  Definiendo $\tau'(\phi) = \C_{b(\phi)}(Sd'(\phi) - \phi - \tau'(\partial(\phi))$, entonces
+  \begin{align*}
+    &\partial(\tau'(\phi)) = \partial \C_{b(\phi)}(Sd'(\phi) - \phi -\tau'(\partial(\phi))) = (Sd'(\phi) - \phi - \tau' \partial(\phi)) \\
+    &- \C_{b(\phi)} \partial(Sd'(\phi) - \phi - \tau'(\partial(\phi))) = Sd'(\phi) - \phi - \tau'(\partial(\phi))
+  \end{align*}
+\end{proof}
+
+d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# \tau' = \tau' f_\#$
+
+\begin{proof}
+  Para $p = 0$ es trivial por definición.
+
+  Suponemos cierto hasta $p-1$. Sea $\phi \in F_p^A(C)$, entonces
+  \begin{align*}
+    &f_\#(\tau'(\phi)) = f_\#(\C_{b(\phi)}(Sd'(\phi) - \phi - \tau'(\partial(\phi))) \\
+    &= \C_{f(b(\phi))} f_\#(Sd'(\phi) - \phi - \tau(\partial(\phi))) \\
+    &= \C_{f(b(\phi))}(Sd'(f_\# \phi) - f_\# \phi - \tau'(f_\# \partial(\phi))) = \tau'(f_\#(\phi))
+  \end{align*}
+\end{proof}
+
+e) Propiedad técnica. Nos permitirá subdividir símplices hasta que estos queden dentro del recubrimiento.
+
+Sea $c = \sigma_p$ y $\tau_p \colon \sigma_p \to \sigma_p$ la identidad ($\tau_p \in F_p^A(\sigma_p)$). \\
+Si $Sd'(\tau_p) = \sum_i n_i \phi_i$ (que ocurre siempre), con $\phi_i \colon \sigma_p \to \sigma_p$ afines, entonces
+$\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) \subseteq t_p^i$.
+
+\begin{proof}
+  Para $p = 0$, $Sd'(\tau_0) = \tau_0 = \sigma_0$. Siendo $t_0^i = \sigma_0 = Sd'(\sigma_0)$.
+
+  Supuesto cierto hasta $p-1$, sea $Sd'(\tau_p) = \C_{b(\tau_p)} Sd'(\partial(\tau_p))$
+  \begin{align*}
+    &\partial(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \tau_p \circ F_p^i = (por ser la identidad) \\
+    &= \sum\limits_{i = 0}^p (-1)^i F_p^i \circ \tau_{p-1} = \sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# (\tau_{p-1}) \text{. De esta forma:} \\
+    &Sd'(\tau_p) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i Sd'(F_p^i)_\# (\tau_{p-1})) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# Sd'(\tau_{p-1})) \\
+  \end{align*}
+  Si $Sd'(\tau_{p-1}) = \sum\limits_j m_j \psi_j$, entonces, por inducción, $\forall j$ existe $t_{p-1}^j \in Sd(\sigma_{p-1})$ tal que
+  $\Img(\psi_j) \subseteq t_{p-1}^j$.
+
+  Por tanto, $Sd'(\tau_p) = \sum\limits_{i = 0}^p \sum\limits_j (-1)^i m_j C_{b(\tau_p)}(F_p^i)_\# (\psi_j)$
+
+  Como $\Img(\psi_j) \subseteq t_{p-1}^j \in Sd(\sigma_{p-1})$
+  $\Img((F_p^i)_\# (\psi_j)) = \Img(F_p^i \circ \psi_j) \subseteq F_p^i(\Img(\psi_j)) \subseteq F_p^i(t_{p-1}^j) \in Sd(\interior{\sigma_p})$,
+  luego $\Img((F_p^i)_\# (\psi_j)) \subseteq U_{p-1}^{i,j} \in Sd(\interior{\sigma_p})$.
+
+  Así, $\Img(\C_{b(\tau_p)}(F_p^i)_\# (\phi_j)) \subseteq \C_{b(\tau_p)}(U_{p-1}^{i, j}) = (b(\sigma_p), t_0, \dots, t_{p-1}) \in Sd(\sigma_p)$.\\
+  (Donde $U_{p-1}^{i,j} = (t_0, \dots, t_p)$)
 \end{proof}
