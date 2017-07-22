@@ -313,5 +313,37 @@ Nos basaremos en el caso afín.
   Veamos ahora las propiedades.
 
   a) Si $\X$ es convexo, $\phi \in F_p^A(\X)$, y entonces, $Sd(\phi) = \phi_\# Sd'(\tau_p) = (Sd' \circ \phi_\#)(\tau_p) = Sd'(\phi)$
-  pues ya lo hemos probado en este caso. 
+  pues ya lo hemos probado en este caso.
+
+  b) \begin{align*}
+    &(\partial \circ Sd)(\phi) = \partial \phi_\# Sd'(\tau_p) = \phi_\# \partial Sd'(\tau_p) = \phi_\# Sd'(\partial \tau_p) \\
+    &= \phi_\#(Sd'(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# (\tau_{p-1}))) = \phi_\#(\sum\limits{i = 0}^p (-1)^i Sd' \circ (F_p^i)_\#(\tau_{p-1}))\\
+    &= \text{(caso afín)} = \phi_\#(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# Sd'(\tau_{p-1})) = \sum\limits_{i = 0}^p (-1)^i (\phi \circ F_p^i)_\# Sd'(\tau_{p-1}) \\
+    &= (\partial_i \phi)_\# (\sum\limits_{i = 0}^p (-1)^i Sd'(\tau_{p-1})) = \sum\limits_{i = 0}^p (-1)^i Sd(\partial_i \phi) = Sd(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
+    &= (Sd \circ \partial)(\phi)
+  \end{align*}
+
+  c) $(f_\# \circ Sd)(\phi) = f_\# \phi_\# Sd'(\tau_p) = (f \circ \phi)_\# Sd'(\tau_p) = Sd(f_\#(\phi))$
+
+  d) Definimos \[\tau(\phi) = \phi_\#(\tau'(\tau_p)) \quad \text{con} \quad \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X) \]
+  Entonces, se tiene:
+  \begin{align*}
+    &(\partial \tau + \tau \partial)(\phi) \partial(\phi_\# \tau'(\tau_p)) + \tau(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
+    &= \phi_\#(\partial \tau'(\tau_p)) + \sum\limits_{i = 0}^p (-1)^i((\partial_i \phi)_\#(\tau'(\tau_{p-1})) = \phi_\#(\partial \tau'(\tau_p)) \\
+    &+ \phi_\#(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# (\tau'(\tau_{p-1}))) = \text{caso afín} = \phi_\#(\partial \tau'(\tau_p)) \\
+    &+ \phi_\#(\tau'(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\#(\tau_{p-1})) = \phi_\#(\partial \tau'(\tau_p)) + \phi_\#(\tau'\partial(\tau_p)) \\
+    &= \phi_\#(\partial \tau' + \tau' \partial)(\tau_p) = \text{caso afín} = \phi_\#(Sd' - Id)(\tau_p) = Sd(\phi) - \phi
+  \end{align*}
+
+  e) Como $Sd(\phi) = \phi_\#(Sd'(\tau_p))$, entonces si $Sd'(\tau_p) = \sum_i n_i \psi_i, \phi_i = \phi_\#(\psi_i)$
+
+  Como existe $t_p^i \in Sd(\sigma_p)$ tal que $\Img(\psi_i) \subseteq t_p^i$, entonces
+  \[\Img(\phi_i) = \Img(\phi_\#(\psi_i)) = \phi(\Img(\psi_i)) \subseteq \phi(t_p^i)\]
+
+  \begin{remark}
+
+  \end{remark}
+
 \end{proof}
+
+Demostremos ya el teorema de subdivisión baricéntrica.
