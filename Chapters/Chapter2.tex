@@ -341,9 +341,42 @@ Nos basaremos en el caso afín.
   \[\Img(\phi_i) = \Img(\phi_\#(\psi_i)) = \phi(\Img(\psi_i)) \subseteq \phi(t_p^i)\]
 
   \begin{remark}
-
+    Probar que si $\phi \in F_p(\X)$ y $Sd^n(\phi) = \sum_i n_i \phi_i \implies \forall i \exists t_p^i \in Sd^n(\sigma_p)$ tal que
+    $\Img(\phi_i) \subseteq \phi(t_p^i)$, consiste en reiterar la propiedad e) ya demostrada.
   \end{remark}
 
 \end{proof}
 
-Demostremos ya el teorema de subdivisión baricéntrica.
+Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado.
+
+\begin{theorem}[Teorema de subdivisión baricéntrica]
+  Sean $\X$ un espacio topológico y $\U$ un recubrimiento de $\X$ tal que $\interior{\U} = \{\interior{U} \mid U \in \U\}$
+  también recubra a $\X$. Entonces la aplicación
+  \[ i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \]
+  es un isomorfismo, $\forall p \geq 0$.
+
+  Además, si $(\Y, \V)$ es otro par de las mismas características, y $f \colon \X \to \Y$ es una función continua
+  compatible con $\U, \V$, entonces el diagrama que obtenemos considerando $f_* e i_*$ es conmutativo.
+\end{theorem}
+
+\begin{proof}
+  Sea $\X$ un espacio topológico, y sea $\U$ un recubrimiento de $\X$ tal que $\interior{\U}$ tambień recubre a $\X$.
+
+  Si $\phi \in F_p(\X)$, esto es, $\phi \colon \sigma_p \to \X$ es continua, sea $V = \{\phi^{-1}(U) \mid U \in \U\}$, recubrimiento
+  abierto de $\sigma_p$ como espacio métrico compacto. Sea $\epsilon(\phi)$ el número de Lebesgue de dicho recubrimiento.
+  Así, si $A \subseteq \sigma_p$ y $diam(A) < \epsilon(\phi)$ entonces existe $U \in \U$ tal que $A \subseteq \phi^{-1}(U)$ y entonces
+  $\phi(A) \subseteq U$
+
+  En consecuencia, $\forall \phi \in F_p(\X) \quad \exists \epsilon(\phi) > 0$ tal que si $A \subseteq \sigma_p, diam(A) < \epsilon(\phi)$,
+  entonces existe $U \in \U$ tal que $\phi(A) \subseteq(U)$
+
+  Por un corolario que ya hemos visto, dado $\epsilon(\phi)$, existe $n(\phi)$ tal que \\
+  ${malla(Sd^{n(\phi)}(\sigma_p)) < \epsilon(\phi)}$. Si $t_p \in Sd^{n(\phi)}(\sigma_p), diam(t_p) < \epsilon(\phi)$,
+  luego existe $U \in \U$ con $\phi(t_p) \subseteq U$. En consecuencia, si $Sd^{n(\phi)}(\phi) = \sum_i n_i \phi_i$,
+  entonces $\Img(\phi_i) \subseteq \phi(t_p^i)$ con $t_p^i \in Sd^{n(\phi)}(\sigma_p)$,
+  por lo que existirá $U_i \in \U$ con $\Img(\phi_i) \subseteq \phi(t_p^i) \subseteq U_i$ \\
+  Así, $Sd^{n(\phi)}(\phi) \in S_p^\U(\X)$
+
+  Sea $m(\phi) = \inf\{n(\phi) \mid Sd^{n(\phi)}(\phi) \in S_p^\U(\X)\}$
+
+\end{proof}
