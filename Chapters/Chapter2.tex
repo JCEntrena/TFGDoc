@@ -347,6 +347,8 @@ Nos basaremos en el caso afín.
 
 \end{proof}
 
+\section{Demostración del teorema}
+
 Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado.
 
 \begin{theorem}[Teorema de subdivisión baricéntrica]
@@ -448,5 +450,44 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
   Como $H_1(\R) = 0$, existe $d_2$, una 2-cadena en $S^1 - \{N\}$ tal que $\partial d_2 = c_2$. Así, $d_2$ es también cadena en $S_2^\U(S^1)$, y se tiene
   $c = n\phi + \partial d_2 = n \partial \overline{\phi} + \partial d_2 = \partial(n\overline{\phi}  d_2) \implies [c] = 0$ por ser un borde.
 
-  Por tanto, $H_1(S_*^\U(S^1)) = 0$ y $H_1(S^1) \cong \Z$, que no son isomorfos. 
+  Por tanto, $H_1(S_*^\U(S^1)) = 0$ y $H_1(S^1) \cong \Z$, que no son isomorfos.
+\end{proof}
+
+\section{Consecuencias del teorema de subdivisión baricéntrica}
+
+Vamos a tratar ahora algunas de las principales consecuencias del teorema de subdivisión baricéntrica.
+
+\begin{theorem}[Sucesión de Mayer-Vietoris]
+  Sea $\X$ un espacio topológico y $\{U, V\}$ un recubrimiento de $\X$ tal que $\interior{U} \cup \interior{V} = \X$. Consideramos las inclusiones
+  \begin{align*}
+    & i \colon U \cap V \to U &\quad k \colon U \to \X \\
+    & j \colon U \cap V \to V &\quad l \colon V \to \X
+  \end{align*}
+  En este caso, existe un homomorfismo $\Delta \colon H_p(\X) \to H_{p-1}(U \cap V)$ tal que la siguiente sucesión es exacta para todo $p \geq 1$:
+  \[ \dots \to H_p(U \cap V) \xrightarrow{G} H_p(U) \oplus H_p(V) \xrightarrow{H} H_p(\X) \xrightarrow{\Delta} H_{p-1}(U \cap V) \to \dots \]
+  donde $G([c]) = (i_*[c], j_*[c]), \quad H([c_1], [c_2]) = k_*([c_1]) - l_*([c_2])$
+
+  Además, esta construcción es natural, pues si $(\Y, \{R, S\})$ está en las condiciones del teorema, y $f \colon \X \to \Y$ es continua con
+  $f(U) \subseteq R, f(V) \subseteq S$, entonces el diagrama resultante es conmutativo.
+  \[ \begin{tikzcd}
+    H_p(U \cap V) \arrow{r}{G} \arrow{d}{f*} & H_p(U) \oplus H_p(V) \arrow{r}{H} \arrow{d}{f_*  \oplus f_*} & H_p(\X) \arrow{r}{\Delta} \arrow{d}{f_*} & H_{p-1}(U \cap V) \arrow{d}{f_*} \\
+    H_p(R \cap S) \arrow{r}  & H_p(R) \oplus H_p(S) \arrow{r} & H_p(\Y) \arrow{r} & H_{p-1}(R \cap S)
+  \end{tikzcd} \]
+
+\end{theorem}
+
+\begin{proof}
+  Consideramos la siguiente sucesión:
+  \begin{align*}
+    0 \to S_p(U \cap V) &\to S_p(U) \oplus S_p(V) \to S_p^U(\X) \to 0 \\
+                    c &\mapsto (i_\#(c), j_\#(c)) =  (c_1, c_2) \mapsto k_\#(c_1) - l_\#(c_2)
+  \end{align*}
+
+  Veamos que es exacta.
+
+  Claramente, $(i_\#, j_\#)$ es inyectiva, pues las aplicaciones $i_\#, j_\#$ lo son. \\
+  Si $d \in S_p^U(\X)$, podemos expresar $d$ como $d = d_1 + d_2$, con $d_1 = \sum_i n_i \phi_i, d_2 = \sum_j m_j \psi_j,
+  \Img \phi_i \subseteq U, \Img \psi_j \subseteq V$. De esta forma, $d_1 = k_\#(d_1), -d_2 = l_\#(d_2)$, y $d = k_\#(d_1) - l_\#(-d_2)$.
+  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$
+
 \end{proof}
