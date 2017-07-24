@@ -377,6 +377,76 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
   por lo que existirá $U_i \in \U$ con $\Img(\phi_i) \subseteq \phi(t_p^i) \subseteq U_i$ \\
   Así, $Sd^{n(\phi)}(\phi) \in S_p^\U(\X)$
 
-  Sea $m(\phi) = \inf\{n(\phi) \mid Sd^{n(\phi)}(\phi) \in S_p^\U(\X)\}$
+  Sea $m(\phi) = \inf\{n(\phi) \mid Sd^{n(\phi)}(\phi) \in S_p^\U(\X)\}$, que puede ser $0$, si, por ejemplo, $\phi \in S_p^\U(\X)$
 
+  Definimos $\psi \colon S_p(\X) \to S_p^\U(\X)$ por
+  \[\psi(\phi) = Sd^{m(\phi)}(\phi) - \sum\limits_{i = 0}^p (-1)^i \tau(Sd^{m(\partial_i(\phi))} + \dots + Sd^{m(\phi) - 1}) \partial_i \phi \]
+  y si $m(\partial_i \phi) = m (\phi)$, el sumando $i$ no aparece en la expresión de $\psi$.
+
+  Hay que ver que está bien definido, para lo que comprobamos:
+  \begin{itemize}
+    \item[i)] $m(\partial_i(\phi)) \leq m(\phi)$
+    \item[ii)] $\tau(S_{p-1}^\U(\X)) \subseteq S_p^\U(\X)$
+  \end{itemize}
+
+  i) $Sd^n(\partial_i(\phi)) = \sum_\alpha n_\alpha \psi_\alpha$, con $\Img(\psi_\alpha \subseteq (\partial_i \phi)(t_{p-1}^\alpha), t_{p-1}^\alpha \in Sd^n(\sigma_{p-1})$. \\
+  Como $\partial_i \phi = \phi \circ F_p^i$, se tiene:
+  \[ \Img(\phi_\alpha) \subseteq (\phi \circ F_p^i)(t_{p-1}^i) \subseteq \phi(\U_{p-1}^\alpha) \subseteq \phi((b(\sigma_p), \U_ {p-1}^\alpha)) = \phi(S_p^\alpha)\]
+  con $S_p^\alpha \in Sd^n(\sigma_p)$
+
+  Si $Sd^n(\phi) \in S_p^\U(\X)$, entonces $\phi(S_p^\alpha) \subseteq U_\alpha \in \U$, luego se verifica
+  \[ \Img(\psi_\alpha) \subseteq U_\alpha \in \U \implies Sd^n(\partial_i \phi) \in S_{p-1}^\U(\X) \]
+  De esta forma, $M(\partial_i \phi) = \inf\{n(\phi) \mid Sd^n(\partial_i \phi) \in S_{p-1}\U(\X) \leq m(\phi)$
+
+  ii) Como $\tau(\phi) = \phi_\# \tau'(\tau_p))$, sea $\phi \colon \sigma_{p-1} \to \X$ continua con $\Img(\phi) \subseteq U \in \U$, esto es,
+  un generador de $S_{p-1}^\U(\X)$. Entonces
+  \[ \tau(\phi) = \phi_\#(\tau'(\tau_p)) = \phi_\#(\sum_i n_i \phi_i) = \sum_i n_i \phi_\#(\phi_i) \]
+  Como $\Img(\phi_\#(\phi_)) \subseteq \Img(\phi) \subseteq U \in \U, \tau(\phi) \in S_p^\U(\X)$
+
+  Una vez probada la buena definición de $\psi$, definimos:
+  \begin{align*}
+    T \colon S_p(\X) &\to \SX{p+1} \quad \text{ por}
+    T(\phi) &= \tau(Sd^0 + Sd + Sd^2 + \dots + Sd^{m(\phi) - 1}
+  \end{align*}
+  Vamos a ver que:
+  \begin{itemize}
+    \item[a)] $\psi \circ i = Id_{S_p^\U(\X)}$
+    \item[b)] $i \circ \psi - Id_{\SX{p}} = \partial T - T \partial$
+  \end{itemize}
+  En tal caso, $i \circ \psi$ y la identidad serían aplicaciones de cadenas homotópicas, e inducirían los mismos homomorfismos en la homología.
+  Esto, junto a que $\psi \circ i = Id$, nos dice que $i_* \colon H_p^{\U(\X)} \to H_p(\X)$ es un isomorfismo $\hspace{0.2em} \forall p$, con inverso $\psi_*$.
+  Concluímos la demostración probando a) y b).
+
+  a) $(\psi \circ i)(\phi) = \psi(\phi)$ con $\phi \in F_p^\U(\X)$. Como $m(\phi) = 0$ en este caso, $\psi(\phi) = \phi - 0 = \phi$
+
+  b) Sabemos que $\partial \tau + \tau \partial = Sd - Id$, por lo que \\
+  \[ \partial \tau Sd - \tau Sd \partial = \partial \tau Sd - \tau \partial Sd = Sd^2 - Sd \]
+  Repitiendo este proceso sucesivamente, se tiene
+  \[ \partial \tau Sd^{m - 1} - \tau Sd^{m-1} \partial = Sd^m - Sd^{m-1} \]
+  Si los sumamos todos, $\partial \tau(I  Sd + \dots + Sd^{m-1}) - \tau(I  Sd + \dots + Sd^{m-1}) \partial = Sd^m - I$ \\
+  De esta forma
+  \begin{align*}
+    &(\partial T + T \partial)(\phi) = \partial \tau(I  Sd + \dots + Sd^{m-1}) \phi + T(\sum\limits_{i = 0}^p (-1)^i \partial_i(\phi)) \\
+    &= \partial \tau(I  Sd + \dots + Sd^{m(\phi)-1}) \phi + \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
+    &= Sd^{m(\phi)}(\phi) - \phi - \tau(I + Sd + \dots + Sd^{m(\phi)-1})(\partial \phi)  \\
+    &+ \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
+    &= Sd^{m(\phi)}(\phi) - \phi - \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\phi) - 1}) \partial_i \phi \\
+    &+ \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1}) \partial_i \phi \\
+    &= Sd^{m(\phi)}(\phi) - \phi - \sum\limits_{i = 0}^p (-1)^i \tau(Sd^{m(\partial_i(\phi))} + \dots + Sd^{m(\phi) - 1}) \partial_i \phi = \psi(\phi) - \phi
+  \end{align*}
+  de donde se sigue b).
+
+  Para finalizar, veremos que la hipótesis de que $\interior{\U}$ sea recubrimiento es esencial.
+
+  Sea $\X = S^1, \U = \{\{N\}, S^1 - \{N\}\}$ donde $N$ representa el polo norte, $(0, 1)$. Es claro que $\U$ recubre a $\X$, pero no su interior.
+
+  Veamos que $i_* \colon H_1(S_*^\U(S^1)) \to H_1(S^1)$ no es un isomorfismo. \\
+  Sea $[c] \in H_1(S_*^\U(S^1)), c \in S_1^\U(\S^1), \partial c = 0$. Entonces, $c = c_1 + c_2$, y si $\phi \colon \sigma_1 \to \{N\}$ es la función
+  (única) continua, entonces, $c_1 = n\phi, n \in \Z$. Así, $\partial = \partial c = n \partial \phi + \partial c_2 = \partial c_2$, con $c_2$ una
+  1-cadena en $S^1 - \{N\} \equiv \R$, que es un ciclo.
+
+  Como $H_1(\R) = 0$, existe $d_2$, una 2-cadena en $S^1 - \{N\}$ tal que $\partial d_2 = c_2$. Así, $d_2$ es también cadena en $S_2^\U(S^1)$, y se tiene
+  $c = n\phi + \partial d_2 = n \partial \overline{\phi} + \partial d_2 = \partial(n\overline{\phi}  d_2) \implies [c] = 0$ por ser un borde.
+
+  Por tanto, $H_1(S_*^\U(S^1)) = 0$ y $H_1(S^1) \cong \Z$, que no son isomorfos. 
 \end{proof}
