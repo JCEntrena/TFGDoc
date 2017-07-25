@@ -485,9 +485,45 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Veamos que es exacta.
 
-  Claramente, $(i_\#, j_\#)$ es inyectiva, pues las aplicaciones $i_\#, j_\#$ lo son. \\
+  Claramente, $(i_\#, j_\#)$ es inyectiva, pues las aplicaciones $i_\#, j_\#$ lo son.
+
   Si $d \in S_p^U(\X)$, podemos expresar $d$ como $d = d_1 + d_2$, con $d_1 = \sum_i n_i \phi_i, d_2 = \sum_j m_j \psi_j,
   \Img \phi_i \subseteq U, \Img \psi_j \subseteq V$. De esta forma, $d_1 = k_\#(d_1), -d_2 = l_\#(d_2)$, y $d = k_\#(d_1) - l_\#(-d_2)$.
-  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$
+  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$, y si $c_1 = \sum_i n_i \phi_i,
+  c_2 = \sum_j m_j \psi_j$, entonces $\Img(\phi_i) \subseteq U \cap V, \Img(\psi_j) \subseteq U \cap V$, y así $c_1 = i_\#(c), c_2 = j_\#(c)$,
+  de donde se sigue la exactitud.
 
+  Tenemos una sucesión exacta corta de complejos de cadenas:
+  \[ 0 \to S_*(U \cap V) \to S_*(U) \oplus S_*(V) \to S_*(\X) \to 0 \]
+  donde el borde en $S_*(U) \oplus S_*(V)$ lo da $\partial \oplus \partial$.
+
+  Usando el teorema de homología (que veremos más adelante), y teniendo en cuenta que $H_p(S_*(U) \oplus S_*(V)) = H_p(U) \oplus H_p(V)$,
+  entonces existe un homomorfismo $\overline{\Delta} \colon H_p(S_*^U(\X) \to H_{p-1}(U \cap V)$ tal que la siguiente sucesión es exacta:
+  \[ \dots \to H_p(U \cap V) \xrightarrow{G} H_p(U) \oplus H_p(V) \xrightarrow{\overline{H}} H_p(S_*^U(\X)) \xrightarrow{\overline{\Delta}} \dots \]
+  con $\overline{H}([c_1], [c_2]) = [k_\#(c_1) - l_\#(c_2)]$.
+
+  Aplicando el teorema de subdivisión baricéntrica, $i_* \colon H_p(S_*^U(\X)) \to H_p(\X)$ es un isomorfismo.
+
+  Así, si $\Delta = \overline{\Delta} \circ i_*^{-1}$, entonces, como $i_* \circ \overline{H} = H$, la sucesión anterior se convierte
+  en la sucesión de Mayer-Vietoris.
+
+  Como la sucesión exacta larga asociada a una corta es natural, se sigue directamente la naturalidad de la sucesión de Mayer-Vietoris.
 \end{proof}
+
+\begin{theorem}[Teorema de homología]
+  Sean $\mathcal{E} = \{E_p, \partial\}, \mathcal{F} = \{F_p, \partial\}, \mathcal{G} = \{G_p, \partial\}$ complejos de cadenas. \\
+  Si $0 \to \mathcal{E} \xrightarrow{f} \mathcal{F} \xrightarrow{g} \mathcal{G} \to 0$ es una sucesión exacta corta de complejos
+  de cadenas, entonces existe un homomorfismo $\Delta \colon H_p(\mathcal{G}) \to H_{p-1}(\mathcal{E})$ tal que la siguiente
+  sucesión es exacta:
+  \[ H_p(\mathcal{E}) \xrightarrow{f_*} H_p(\mathcal{F}) \xrightarrow{g_*} H_p(\mathcal{G}) \xrightarrow{\Delta} H_{p-1}(\mathcal{E}) \dots \]
+  donde $f_*([e]) = [f(e)], g_*([c]) = [g(c)]$.
+
+  Además, la solución admite una construcción natural
+  \[ \begin{tikzcd}
+    0 \arrow{r} & \mathcal{E} \arrow{r}{f} \arrow{d}{h_1} & \mathcal{F} \arrow{r}{g} \arrow{d}{h_2} & \mathcal{G} \arrow{r} \arrow{d}{h_3} & 0 \\
+    0 \arrow{r} & \overline{\mathcal{E}} \arrow{r}{\overline{f}} & \overline{\mathcal{F}} \arrow{r}{\overline{g}} & \overline{\mathcal{G}} \arrow{r} & 0
+  \end{tikzcd} \]
+  donde $h_2 \circ f = \overline{f} \circ h_1, h_3 \circ g = \overline{g} \circ h_2$, con $h_i$ aplicaciones de cadenas.
+
+  Entonces, el diagrama inducido en la homología es conmutativo.
+\end{theorem}
