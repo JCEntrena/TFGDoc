@@ -299,6 +299,7 @@
 \counterwithin{figure}{chapter}
 
 \usepackage{amsthm}
+\usepackage{accents}
 
 \newtheoremstyle{break}
   {1em} % measure of space to leave above the theorem.
@@ -351,11 +352,15 @@
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\Img}{Img}
 
+\newcommand{\interior}[1]{\accentset{\smash{\raisebox{-0.12ex}{$\scriptstyle\circ$}}}{#1}\rule{0pt}{2.3ex}}
+
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 
 \def\Q{{\mathbb Q}}
 \def\I{{\mathbb I}}
+\def\U{{\mathbb U}}
+\def\V{{\mathbb V}}
 \def\N{{\mathbb N}}
 \def\S{{\mathbb S}}
 \def\L{{\mathbb L}}
@@ -385,6 +390,7 @@
 % Diagrams.
 \usepackage{tikz}
 \usepackage{tikz-cd}
+\usepackage{arcs}
 \tikzcdset{every label/.append style = {font = \normalsize}}
 
 \usetikzlibrary{matrix,shapes,arrows}
@@ -436,3 +442,4 @@
 % Algorithms
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+\usepackage{algorithmicx}
