@@ -527,3 +527,38 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Entonces, el diagrama inducido en la homología es conmutativo.
 \end{theorem}
+
+\begin{theorem}
+  Vamos a definir $\Delta$. \\
+  Sea $[c] \in H_p(\mathcal G)$ con $c \in \mathcal G_p$ y $\partial c = 0$. Como $g$ es sobreyectiva, $c = g(d), d \in \mathcal F_p$.
+  Además, $0 = \partial c = \partial g(d) = g(\partial d)$, y así, $\partial d \in \Ker g = \Img f$, luego existe un único $e \in \mathcal E_{p+1}$
+  tal que $f(e) = \partial d$, con $g(d) = c$. \\
+  Definimos $\Delta([c]) = [e]$.
+
+  Veamos que está bien definido. \\
+  Si $[c] = [c']$, existe $d'$ con $g(d') = c'$ y existe $e'$ con $f(e') = \partial d'$. Como $c - c' = \partial h, h \in \mathcal G_{p+1}$,
+  entonces existe $h' \in \mathcal F_{p+1}$ tal que $g(h') = h$. De esta forma:
+  \[ g(d') - g(d) = \partial g(h') \implies g(d' - d - \partial h') = 0 \]
+  Por tanto, existe $e'$ tal que $f(e') = d' - d - \partial h$. Así, $\partial f(e') = f(d') - f(d) = f(e') - f(e) \implies e' - e = \partial e'
+  \implies [e'] = [e]$.
+
+  Comprobar la exactitud y la naturalidad es repetir el mismo proceso que hemos hecho en otras ocasiones.
+\end{theorem}
+
+\begin{theorem}[Teorema de escisión]
+  Sea $(\X, A)$ un par, $U \subseteq A$ verificando $\overline{U} \subseteq \interior{A}$. Entonces la inclusión
+  $k \colon (\X - U, A - U) \to (\X, A)$ induce un isomorfismo en la homología, esto es, $k_* \colon H_p(\X - U, A - U) \to H_p(\X, A)$
+  es un isomorfismo para todo $p \geq 0$.
+\end{theorem}
+
+\begin{proof}
+  Sean $\U = \{\X - U, A\}, \U' = \{A - U, \interior{A}\}$. Se verifica que $\interior{\X-U} \cup \interior{\interior{A}} = \X - \overline{U} \cup \interior{A}
+  \supseteq \X - \interior{A} \cup \interior{A} = \X$, y, análogamente, $(\interior{A - U})_A \cup \interior{\interior{A}}_A = A - \overline{U}_A \cup \interior{A} =
+  A - (\overline{U} \cap A) \cup \interior{A} \supseteq A$.
+
+  Así, por el teorema de subdivisión baricéntrica, las inclusiones
+  \[i \colon S_*^\U(\X) \to S_*(\X) \]
+  \[i' \colon S_*^{\U'}(\X) \to S_*(\X) \]
+  inducen isomorfismos en la homología.
+
+\end{proof}
