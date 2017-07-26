@@ -1,0 +1,92 @@
+%************************************************
+\chapter{Introducción}\label{ch:introduccionMCP}
+%************************************************
+
+\section{Introducción al problema}
+
+Dado un grafo $G = (V, E)$, donde $V$ representa el conjunto de vértices
+y $E$ el conjunto de aristas, llamaremos un clique a un subgrafo de $G$
+en el que todos sus vértices están conectados entre sí. Llamaremos a los
+cliques \textbf{maximales} si no son subgrafo de un clique de mayor tamaño,
+y \textbf{máximos} si no existe ningún clique de mayor tamaño en el grafo. \\
+Es claro que todos los cliques máximos son maximales, pero no al contrario.
+
+El problema del clique máximo, o \textit{maximum clique problem} en inglés (MCP),
+consiste en encontrar el clique de mayor número de vértices dentro de un
+grafo $G$ cualquiera. Este problema es equivalente a otros dos también muy conocidos,
+que son el problema del conjunto independiente, en el que se intenta buscar el mayor
+conjunto de nodos no conectados entre sí, y el problema del recubrimiento por vértices,
+en el que buscamos el mínimo conjunto de nodos que cubran todas la aristas.
+
+Este problema lleva siendo estudiado desde segunda mitad del siglo XX, y fue sujeto
+de estudio en el segundo desafío de implementación de DIMACS, que tuvo lugar entre 1992
+y 1993, junto con el problema del coloreo de grafos y de satisfabilidad booleana (SAT).
+A día de hoy, se encuentran disponibles de forma libre las instancias utilizadas y los
+datos de los mejores cliques conocidos hasta la fecha.
+
+En 1977, Garey y Johnson demostraron que el problema es NP-difícil. En 1999, Hastad
+probó que, salvo que NP = ZPP, no existe ningún algoritmo capaz de aproximar MCP con
+factor $n^{1-\epsilon} \quad \forall \epsilon$, donde la clase ZPP (zero-error
+probabilistic polynomial time) es la clase de complejidad de los problemas
+reconocibles por algoritmos aleatorizados con complejidad polinómica.
+
+Debido a esto, no es posible obtener algoritmos exactos ni que den una solución
+aproximada al problema, de ahí la necesidad del uso de algoritmos heurísticos para
+resolverlo.
+
+
+\section{Trabajo realizado}
+
+En este trabajo, he implementado distintos algoritmos, basados en diferentes
+metaheurísticas, para comprobar sus eficacia a la hora de resolver el problema.
+En varios de ellos se incluyen distintas variantes de la misma heurística, para
+analizar cómo afectan cambios en la toma de ciertas decisiones, o la estructura
+de elementos del problema.
+
+El objetivo final del trabajo es comparar todos los algoritmos implementados
+para comprobar empíricamente su eficacia, basándonos fundamentalmente en la
+calidad de las soluciones obtenidas por cada uno de ellos. Veremos como actúan
+sobre instancias similares del problema, y discutiremos su viabilidad a la
+hora de resolverlo, pues cabe esperar que ciertos algoritmos se comporten
+mejor que otros.
+
+Las ideas detrás de cada algoritmo provienen de una combinación de mis conocimientos
+sobre la materia y el estudio que se lleva realizando sobre el problema durante décadas,
+reflejado en numerosos artículos, que han servido como base en la mayoría de implementaciones.
+Se referenciará en cada caso el material utilizado y cómo se ha adaptado a este trabajo.
+
+\subsection{Implementación}
+
+La implementación del código de este trabajo ha sido realizada en el lenguaje de
+programación \textbf{Ruby}, usando su versión 2.3.0. \textbf{Ruby} es un lenguaje
+orientado a objetos, interpretado, con una sintaxis muy similar a la de \textbf{Python}.
+Está disponible para descarga bajo una licencia de software libre.
+
+He elegido este lenguaje por haber trabajado con él en varias ocasiones, y aporta
+simplicidad e intuitividad a la hora de programar los algoritmos, además de salir
+un poco de los lenguajes más utilizados en la carrera.
+
+El código implementado cumple varias funciones: la primera de ellas es llevar a
+memoria todas las instancias disponibles del problema. Para ello, he tenido que
+implementar un lector de ficheros que cree una matriz de adyacencia para cada archivo
+disponible. Estos archivos siguen una estructura determinada, que permite
+automatizar dicho proceso, no teniendo que considerar casos independientes.
+Cada archivo dará lugar a un problema, compuesto de una matriz de adyacencias,
+el número de nodos y aristas involucrados, y el nombre del grafo en cuestión.
+
+El segundo punto, y más importante, es la implementación de las heurísticas.
+Cada una de ellas está contenida en una clase propia, que contendrá uno o varios
+métodos para la resolución de los problemas generados a partir de los archivos.
+Adicionalmente, podrán contener métodos auxiliares para uso propio o de otras
+heurísticas, en caso de que utilicemos técnicas híbridas. Cada clase estará
+en un archivo independiente, y todas ellas se recogerán en un mismo módulo.
+
+Finalmente, existe un archivo adicional con métodos auxiliares, que pueden ser
+requeridos por varias heurísticas. La idea bajo su creación es encapsular
+operaciones importantes, que serán repetidas frecuentemente y en diversos
+escenarios, para facilitar el trabajo y la comprensión del código. Dichos
+métodos no se encuentran dentro de una clase, pero sí que están en un
+módulo aparte, para diferenciarlos de las implementaciones de las heurísticas.
+
+
+\section{El repositorio DIMACS}
