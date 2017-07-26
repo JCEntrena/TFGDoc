@@ -561,4 +561,29 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   \[i' \colon S_*^{\U'}(\X) \to S_*(\X) \]
   inducen isomorfismos en la homología.
 
+  Consideremos ahora el siguiente diagrama:
+  \[ \begin{tikzcd}
+  0 \arrow{r} & S_*^{\U'}(A) \arrow{r} \arrow{d}{i'} & S_*^{\U}(\X) \arrow{r} \arrow{d}{i} & \frac{S_*^{\U}(\X)}{S_*^{\U'}(A)} \arrow{r} \arrow{d}{i''} & 0 \\
+  0 \arrow{r} & S_*(A) \arrow{r} & S_*(\X) \arrow{r} & S_*(\X, A) \arrow{r} & 0
+  \end{tikzcd} \]
+  donde $i''(c) = \overline{i(c)}$, que está bien definido.
+
+  Del teorema de homología se sigue la conmutatividad del diagrama que induce el anterior en la homología:
+  \[ \begin{tikzcd}
+  H_p(S_*^{\U'}(A)) \arrow{r} \arrow{d}{i'_*} & H_p(S_*^{\U}(\X)) \arrow{r} \arrow{d}{i_*} & H_p(\frac{S_*^{\U}(\X)}{S_*^{\U'}(A)}) \arrow{r} \arrow{d}{i''_*} & H_{p-1}(S_*^{\U'}(A)) \arrow{d}{i'_*} \dots \\
+  H_p(S_*(A)) \arrow{r} & H_p(S_*(\X)) \arrow{r} & H_p(S_*(\X, A)) \arrow{r} & H_{p-1}(S_*(A))
+  \end{tikzcd} \]
+
+  Como $i_*, i'_*$ son isomorfismos, se deduce directamente que $i''_*$ también lo es.
+
+  Sean ahora:
+  \[j \colon S_*(\X - \U) \xhookrightarrow{}   S_*^\U(\X) \quad \text{la inclusión, y} \]
+  \[j'' \colon S_*(\X - \U, A - \U) \to \frac{S_*^{\U}(\X)}{S_*^{\U'}(A)} \quad \text{el homomorfismo en el cociente}\]
+  $j''$ puede definirse ya que $j(S_*(A - \U)) \subseteq S_*^{\U'}(A)$. Veamos que es isomorfismo.
+
+  Como $\frac{S_*^{\U}(\X)}{S_*^{\U'}(A)} = \frac{S_*(\X - \U) + S_*(\interior{A})}{S_*(A - \U) + S_*(\interior{A})} = \frac{S_*(\X-\U)}{S_*(A-\U)}$, se tiene
+  directamente el resultado, y así, $j''$ es isomorfismo.
+
+  Finalmente, debido a que $k_\# \colon S_*(\X-\U, A-\U) \to S_*(\X, A)$ es dada por \\
+  $k_\# = i'' \circ j'', k_* = i''_* \circ j''_*$ es un isomorfismo.
 \end{proof}
