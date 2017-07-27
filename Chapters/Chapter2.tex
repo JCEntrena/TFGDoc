@@ -651,3 +651,38 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
   \end{align*}
   Y tenemos el resultado.
 \end{proof}
+
+Veamos ahora una deducción alternativa utilizando la sucesión de Mayer-Vietoris.
+
+\begin{proof}
+  Tomemos nuevamente la $n$-esfera $S^n$, y sean $U = S^n - (0, 0, \dots, 0, 1)$, $V = S^n - (0, 0, \dots, 0, -1)$
+  abiertos de $S^n$. $U$ y $V$ forman un recubrimiento abierto de $S^n$, y son homeomorfos a $\R^n$ mediante
+  la proyección estereográfica, por lo que son contráctiles, y conocemos sus grupos de homología.
+
+  Si consideramos $U \cap V$, puede retraerse a $S^{n-1} = \{x \in S^n \mid x_{n+1} = 0\}$. Por tanto, se verifica:
+
+  $H_p(U) \oplus H_p(V) \to H_p(S^n) \to H_{p-1}(S^{n-1}) \to H_{p-1}(U) \oplus H_{p-1}(V) \to \dots$
+
+  Si $p \geq 2$, sabemos que $H_p(U), H_p(V) = 0$. Por la exactitud de la sucesión, se tiene que $H_p(S^n) \cong H_{p-1}(S^{n-1})$.
+
+  Tomemos $n \geq 2$. $H_1(S^n) \xrightarrow{\Delta} \Z \xrightarrow{G} \Z \oplus \Z \xrightarrow{H} \Z \to 0$.
+
+  Por tanto, $\Z \cong \frac{\Z \oplus \Z}{\Ker H} = \frac{\Z \oplus \Z}{\Img G} \cong \Z$ \\
+  $\Ker G = 0 = \Img \Delta$, y así, $H_1(S^n) \cong \Img \Delta = 0$.
+
+  Para $n = 1$: \\
+  $0 \to H_1(S^1) \xrightarrow{\Delta} H_0(U \cap V) \xrightarrow{G} H_0(U) \oplus H_0(V) \xrightarrow{H} H_0(S^1) \to 0$
+
+  Deducimos que $H_1(S^1) \cong \Img \Delta = \Ker G$.
+
+  Como $U \cap V = S^1 - \{(0, 1), (0, -1)\}, H_0(U \cap V) \cong \Z \oplus \Z$, y sus elementos son de la forma
+  $[ax + by]$, con $a,b \in \Z, x, y$ puntos en cada componente conexa de $U \cap V$. Se tiene que:
+
+  $G([ax + by]) = (i_*(ax + by), j_*(ax + by)) = (0, 0)$, y así, $[ax + by]_U =$ \\
+  $[ax + by]_V = 0$.
+
+  Además, $[ax + by]_U = [(a+b) x]_U$, ya que $[x]_U = [y]_U$ por ser $U$ arcoconexo. Por tanto, $a = -b$.
+
+  Deducimos que $\Ker G = \{[ax - ay] \mid a \in \Z\} \cong \Z$, y $H_1(S^1) \cong \Z$. Usando esto y que
+  $H_p(S^n) \cong H_{p-1}(S^{n-1})$, se calcula la homología de $S^n \quad \forall n \geq 1$.
+\end{proof}
