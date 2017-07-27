@@ -1,5 +1,5 @@
 %************************************************
-\chapter{Cálculo de la homología singular}\label{ch:introduccion}
+\chapter{Cálculo de la homología singular}\label{ch:calculoI}
 %************************************************
 
 En esta parte, vamos a enunciar y demostrar el teorema de subdivisión baricéntrica,
@@ -586,4 +586,68 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Finalmente, debido a que $k_\# \colon S_*(\X-\U, A-\U) \to S_*(\X, A)$ es dada por \\
   $k_\# = i'' \circ j'', k_* = i''_* \circ j''_*$ es un isomorfismo.
+\end{proof}
+
+\subsection{Homología de las esferas}
+
+Como última parte de este capítulo, vamos a calcular los grupos de homología de las esferas
+$n$-dimensionales. Lo haremos de dos formas, utilizando pares, y utilizando la sucesión de
+Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
+
+\begin{theorem}[Grupos de homología de las esferas]
+  Sea $S^n$ la $n$-esfera en $\R^{n+1}$, de la que tomamos su representación asociada a la norma:
+  \[S^n = \{x = (x_1, \dots, x_{n+1}) \in \R^{n+1} \mid |x| = 1\} \]
+
+  Veamos que $H_p(S^n) = \begin{cases}  \Z & \text{ si } p = 0, n \\
+                                         0 & \text{ en otro caso} \end{cases}$
+\end{theorem}
+
+\begin{proof}
+  Ya conocemos el resultado sobre $H_0$ por arcoconexión, por lo que nos centraremos en el resto.
+
+  Consideremos los dos hemisferios de las esferas \\
+  $E_+^n = \{x \in \S^n \mid x_{n+1} \geq 1\}, E_-^n = \{x \in \S^n \mid x_{n+1} \leq 1\}$.
+
+  Cada hemisferio es homeomorfo al disco cerrado $D^n$, por lo que es contráctil. Además, la intersección de
+  ambos, $E_+^n \cap E_-^n = \{x \in S^n \mid x_{n+1} = 0\}$ es homeomorfa a $S^{n-1}$.
+
+  Consideremos el par $(S^n, E_+^n)$ y $U = \{x \in S^n \mid x_{n+1} > \frac{1}{2}\}$. Como
+  $\overline{U} = \{x \in S^n \mid x_{n+1} \geq \frac{1}{2}$\}, y se verifica $U \subseteq \overline{U} \subseteq E_+^n$,
+  estamos en condiciones de aplicar el teorema de escisión.
+  \[ H_*(S^n, E_+^n) \cong H_*(S^n - U, E_+^n - U) \]
+
+  Es posible construir un retracto de $(S^n - U, E_+^n - U)$ a $(E_-^n, S^{n-1})$, de donde se deduce que sus
+  homologías son isomorfas. Así, tenemos que $H_*(S^n, E_+^n) \cong H_*(E_-^n, S^{n-1})$.
+
+  Consideramos las sucesiones de los pares:
+  \begin{align*}
+    &\dots 0 = H_p(E_+^n) \to H_p(S^n) \to H_p(S^n, E_+^n) \to H_{p-1}(E_+^n) = 0 \to \dots \\
+    &\dots 0 = H_1(E_+^n) \to H_1(S^n) \to H_1(S^n, E_+^n) \to H_0(E_+^n) = \Z \to \dots
+  \end{align*}
+
+  Como $H_p(E_+^n) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases} \quad$ se tiene que
+  \[H_p(S^n) \cong H_p(S^n, E_+^n) \quad p \geq 1\]
+
+  Tomando la otra sucesión:
+  \begin{align*}
+    &\dots 0 = H_p(E_-^n) \to H_p(E_-^n, S^{n-1}) \to H_{p-1}(S^{n-1}) \to H_{p-1}(E_-^n) = 0 \to \dots \\
+    &\dots 0 = H_1(E_-^n) \to H_1(E_-^n, S^{n-1}) \to H_0(S^{n-1}) \to H_0(E_-^n) \to \dots
+  \end{align*}
+
+  Con $H_0(S^{n-1}) = \begin{cases} \Z &\text{ si } n \geq 2 \\ \Z \oplus \Z &\text{ si } n = 1 \end{cases}$
+
+  De esta forma, si $p \geq 2$, $H_p(E_-^n, S^{n-1}) \cong H_{p-1}(S^{n-1})$, y si $p = 1$, entonces distinguimos
+  dos casos: si $n = 1, H_p(E_-^n, S^{n-1}) \cong \Z$, y si $n \geq 2, H_p(E_-^n, S^{n-1}) = 0$.
+
+  Como $H_p(S^n, E_+^n) \cong H_{p-1}(E_-^n, S^{n-1})$, se sigue que:
+  \[ H_p(S^n) \cong H_{p-1}(S^{n-1}), p \geq 2 \]
+  \[ H_1(S^n) \cong H_1(E_-^n, S^{n-1}) = \begin{cases} 0 &\text{ si } n \geq 2 \\ \Z &\text{ si } n = 1 \end{cases} \]
+
+  Por tanto, distinguimos tres casos:
+  \begin{align*}
+      p = n &\quad H_p(S^n) \cong H_{p-1}(S^{n-1}) \cong \dots \cong H_1(S^1) \cong \Z \\
+      p > n &\quad H_p(S^n) \cong \dots \cong H_{p-n}(S^0) = 0 \\
+      p < n &\quad H_p(S^n) \cong \dots \cong H_1(S^{n-p+1}) = 0
+  \end{align*}
+  Y tenemos el resultado.
 \end{proof}
