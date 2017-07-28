@@ -7,7 +7,7 @@
 \begin{definition}
 Un p-símplice $s_p$ en $\mathbb{R}^n$ es la envolvente conexa de $p+1$ puntos afínmente independientes, a los que llamaremos vértices, $\{x_0, \dots, x_n\}$.
 \end{definition}
-
+% \underbrace{\smash{1}}_{i}
 Si $x_i = (0, \dots, 1, \dots, 0)$, con el $1$ en la posición $i$-ésima, llamaremos al p-símplice \underline{estándar},
 y lo notaremos ${\sigma_p \in \mathbb{R}^{n+1}}$
 
@@ -229,9 +229,11 @@ sobre el que trabajamos es arcoconexo.
 \end{proposition}
 
 \begin{proof}
-  Consideramos $\SX{1} \xrightarrow{\partial} \SX{0} \to \{0\}$ \\
-  $H_0(\X) = \ddfrac{Z_0(\X)}{B_0(\X)} = \ddfrac{S_0(\X)}{\Img \partial}$ \\
-  Sea $\epsilon \colon S_0(\X) \to \Z$ definido por \[\epsilon(\sum n_\phi \phi) = \epsilon(\sum n_x \cdot x) = \sum n_x \]
+  Consideramos $\SX{1} \xrightarrow{\partial} \SX{0} \to \{0\}$. Tomamos $H_0(\X)$.
+
+  $H_0(\X) = \ddfrac{Z_0(\X)}{B_0(\X)} = \ddfrac{S_0(\X)}{\Img \partial}$
+
+  Sea $\epsilon \colon S_0(\X) \to \Z$ definido por \[\epsilon(\sum\limits_{\phi} n_\phi \phi) = \epsilon(\sum\limits_{x} n_x \cdot x) = \sum\limits_{x} n_x \]
   suma finita, por cómo definimos $S_0$.
 
   Se verifica que $\epsilon$ es un epimorfismo de grupos, pues podemos definir el conveniente elemento de $S_0(\X)$ para obtener
@@ -240,24 +242,25 @@ sobre el que trabajamos es arcoconexo.
 
   Sea ahora $\sum n_x \cdot x \in \Ker \epsilon$, esto es, $\sum n_x = 0$. \\
   $\sum n_x \cdot x = n_1 x_1 + \dots + n_k x_k$ con $\sum\limits_{i=1}^k = 0, x_i \in \X$. \\
-  Sean $\phi^i \colon \sigma_1 \ to \X$ arcos tales que $\phi^i(e_1) = x_i, \phi^i(e_0) = x$,
+  Sean $\phi^i \colon \sigma_1 \to \X$ arcos tales que $\phi^i(e_1) = x_i, \phi^i(e_0) = x$,
   donde $e_1, e_0$ representan los vértices de $\sigma_1$ y $x \in \X$ es un punto fijo.
   Es posible hacer esta construcción gracias a la arcoconexión de $\X$. De esta forma:
   \begin{align*}
-    &\sum_i n_i \phi^i \in \SX{1}, \partial(\sum_i n_i \phi^i) = \sum_i n_i \partial(\phi^i) =\\
+    &\sum_i n_i \phi^i \in \SX{1}, \text{ y se tiene} \\
+    &\partial(\sum_i n_i \phi^i) = \sum_i n_i \partial(\phi^i) =\\
     &= \sum_i n_i(x_i - x) = (\sum_i n_i x_i) - (\sum_i n_i) x = \sum_i n_i x_i
   \end{align*}
-  De aquí se deduce que $\Ker \epsilon \subseteq \Img \partial$.
+  De aquí se deduce que $\Ker \epsilon \subseteq \Img \partial$, y por tanto, tenemos la igualdad.
 
-  Finalmente como $\Ker \epsilon = \Img \partial$, entonces $H_0(\X) = \ddfrac{S_0(\X)}{\Ker \epsilon} \cong \Z$, al ser $\epsilon$ epimorfismo.
+  Finalmente como $\Ker \epsilon = \Img \partial$, $H_0(\X) = \ddfrac{S_0(\X)}{\Ker \epsilon} \cong \Z$, al ser $\epsilon$ epimorfismo.
 \end{proof}
 
 \begin{proposition}
   Sea $\X$ un espacio topológico, $\X = \bigcup\limits_{\alpha \in A} \X_\alpha$ su descomposición en componentes arcoconexas. Entonces se verifican:
   \begin{itemize}
-    \item[a)] $\forall \alpha \in A$, la función $i_{\alpha*} \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo, siendo
-              $i_\alpha \colon \X_\alpha \to \X$ la inclusión.
-    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_{\alpha*}(H_p(\X)) \quad \forall p \geq 0$. En particular, por la inyectividad de $i_{\alpha*}$,
+    \item[a)] $\forall \alpha \in A$, la función $i_{\alpha*} \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo, donde la aplicación
+              $i_\alpha \colon \X_\alpha \to \X$ representa la inclusión.
+    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_{\alpha*}(H_p(\X)) \hspace{0.5em} \forall p \geq 0$. En particular, por la inyectividad de $i_{\alpha*}$,
               \[ H_p(\X) \cong \bigoplus_{\alpha \in A} H_p(\X_\alpha) \]
   \end{itemize}
 \end{proposition}
@@ -266,13 +269,13 @@ sobre el que trabajamos es arcoconexo.
   Sea $\phi \colon \sigma_p \to \X$ un p-símplice singular. Como $\sigma_p$ es convexo y $\phi$ es continua, $\phi(\sigma_p) \subseteq \X_\alpha$, para algún
   $\alpha \in A$, por lo que $\phi = i_{\alpha*}(\phi)$ para dicho $\alpha$. \\
   Si $c = \sum n_\phi \cdot \phi$ es una p-cadena, poniendo cada $\phi$ de la forma anterior y agrupando por componentes conexas:
-  \begin{equation}\label{eq1}
+  \begin{equation}
     c = \sum\limits_{\alpha \in A} i_{\alpha*}(c_\alpha) \quad c_\alpha \in S_p(\X_\alpha)  \tag{*}
   \end{equation}
 
   Sea $[c]_\alpha \in H_p(\X_\alpha)$, y supongamos que $i_{\alpha*}[c]_\alpha = 0$ eb $\H_p(\X)$. En ese caso, $[i_{\alpha*}(c)]_\X = 0$,
   luego existe $d \in \SX{p+1}$ tal que $i_{\alpha\#}(c) = \partial(d)$, y además: \\
-  \[\partial(d) = \sum\limits_{\alpha \in A} i_{\alpha\#}(\partial(d_\alpha)) = i_{\alpha\#} \text{ por lo que se tiene:} \]\\
+  \[\partial(d) = \sum\limits_{\alpha \in A} i_{\alpha\#}(\partial(d_\alpha)) = i_{\alpha\#} \text{ por lo que se tiene:} \]
   $c = \partial(d_\alpha), \partial(d_\beta) = 0 \quad \forall \beta \neq \alpha$. Así, $[c]_\alpha = 0$ y $i_{\alpha*}$ es un monomorfismo.
   Esto prueba a)
 
@@ -280,7 +283,6 @@ sobre el que trabajamos es arcoconexo.
   \[  [c] = \sum\limits_{\alpha \in A} [i_{\alpha\#}(c_\alpha)] =  \sum\limits_{\alpha \in A} id_*([c_\alpha]_\alpha)\]
 
   Como $\partial(c) = 0 \iff \partial(c_\alpha) = 0 \hspace{0.5em} \forall \alpha \in A$, se obtiene directamente b), como consecuencia de a).
-
 \end{proof}
 
 En particular, para $H_0(\X)$, por el resultado anterior, se tiene que $H_0(\X)$ es el grupo abeliano libre con tantos generadores como
@@ -304,20 +306,21 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   El caso $p = 0$ está claro, pues un conjunto estrellado es, en particular, arcoconexo, por lo que solo hemos de aplicar el resultado ya demostrado.
   Suponemos $p > 0$.
 
-  Vamos a construir un homomorfismo $ T: \SX{p} \to \SX{p+1}$ tal que $ T \partial + \partial  T = Id_{\SX{p}}$ para $p > 0$.
+  Para demostrarlo, vamos a construir un homomorfismo $ T: \SX{p} \to \SX{p+1}$ tal que $ T \partial + \partial  T = Id_{\SX{p}}$ para $p > 0$.
 
-  Si $[c] \in H_p(\X), c \in Z_p(\X)$, luego $\partial(c) = 0$ y $c \in S_p(\X)$. En consecuencia, $c = (\partial  T +  T \partial)(c)
-  = \partial( T(c))$ con $ T(c) \in \SX{p+1}$. Por tanto, $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
+  De darse la situación anterior, si $[c] \in H_p(\X), c \in Z_p(\X)$, se tiene $\partial(c) = 0$ y $c \in S_p(\X)$.
+  En consecuencia, $c = (\partial  T +  T \partial)(c)  = \partial( T(c))$ con $ T(c) \in \SX{p+1}$.
+  Por tanto, $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
 
-  Definamos $ T$: \\
-  Sean $x_0 \in \X$ el punto de estrella, $\phi \colon \sigma_p \to \X$ un p-símplice singular. Tomemos $T(\phi) \colon \sigma_{p+1} \to \X$ dado por:
+  Definamos $T$: \\
+  Sean $x_0 \in \X$ un punto de estrella, $\phi \colon \sigma_p \to \X$ un p-símplice singular. Tomemos $T(\phi) \colon \sigma_{p+1} \to \X$ dado por:
   \[ T(\phi)(t_0,\dots,t_{p+1}) = \begin{cases} x_0 & \text{ si } t_0 = 1 \\
                                                 (1-t_0)\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) + t_0 x_0 & \text{ si } t_0 < 1
                                   \end{cases} \]
   Como $\X$ es estrellado, $\Img(T(\phi)) \subseteq \X$.
 
   Veamos que $T(\phi)$ es continuo. \\
-  La continuidad está clara para $t_0 < 1$, por lo que la vemos para $t_0 = 1$. Se verifica
+  La continuidad está clara para $t_0 < 1$, por lo que la vemos para $t_0 = 1$. Se verifica que:
   \begin{align*}
     &|T(\phi)(t_0,\dots,t_{p+1}) - x_0| = |t_0 x_0 + (1-t_0)\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) - x_0| \\
     &= (1-t_0)|\phi(\frac{t_1}{1-t_0},\dots,\frac{t_{p+1}}{1-t_0}) - x_0| \leq (1-t_0)(c + |x_0|) \\
@@ -326,14 +329,14 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
   Así, $\lim\limits_{t_0 \to 1} T(\phi) = x_0$
 
-  Queda claro que $\partial_0(T(\phi)) = \phi$. Si representamos por $ T$ el homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
+  Queda claro que $\partial_0(T(\phi)) = \phi$. Si seguimos llamando $T$ al homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
   \[  T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ  T = I \]
   Si $p = 0 \implies i = 1$ y $\partial_1( T(\phi)) = x_0$
 
   Si $1 \leq i \leq p+1$, entonces:
   \begin{align*}
-    &\partial_i( T(\phi)=(t_0,\dots,t_p)) =  T(\phi)(t_0, \dots, t_{i-1} \circ t_i, \dots, t_p) \\
-    &= (1-t_0)\phi(\frac{t_1}{1-t_0}, \dots, frac{t_{i-1}}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
+    &\partial_i( T(\phi))=(t_0,\dots,t_p)) =  T(\phi)(t_0, \dots, t_{i-1} \circ t_i, \dots, t_p) \\
+    &= (1-t_0)\phi(\frac{t_1}{1-t_0}, \dots, \frac{t_{i-1}}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
     &= (1-t_0)\partial_{i-1}(\frac{t_1}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
     &=  T(\partial_{i-1} \phi)(t_0, \dots, t_p)
   \end{align*}
@@ -360,7 +363,9 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
   Veamos la definición de dicho $T$.
 
-  Sea $H \colon \X \times I \to \Y$ la homotopía entre f y g, esto es, \[H(x, 0) = f(x), \quad H(x, 1) = g(x)\] donde $I$ representa el intervalo unidad.
+  Sea $H \colon \X \times I \to \Y$ la homotopía entre f y g, esto es,
+  \[H(x, 0) = f(x), \quad H(x, 1) = g(x)\]
+  donde $I$ representa el intervalo $[0, 1]$.
 
   Sean $i_0, i_1 \colon \X \to \X \times I$ dados por $i_0(x) = (x, 0), i_1(x) = (x, 1)$. Es claro que $f = H \circ i_0, g = H \circ i_1$, de donde
   se tiene \[ f_\# - g_\# = H_\# \circ i_{0\#} - H_\# \circ i_{1\#} = H_\# \circ (i_{0\#} - i_{1\#}) \]
@@ -435,7 +440,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   El razonamiento es similar al anterior.
 
   Tomemos $\X = \sigma_p$, y vamos a tratar de definir $T^{\sigma_p} \colon S_p(\sigma_p) \to S_{p+1}(\sigma_p \times I)$.
-  De nuevo, como $T^{\sigma_p}$ debe verificar a), se tiene que $\forall \phi in F_(\sigma_p), T^{\sigma_p}(\phi)$ ha de satisfacer
+  De nuevo, como $T^{\sigma_p}$ debe verificar a), se tiene que $\forall \phi \in F_(\sigma_p), T^{\sigma_p}(\phi)$ ha de satisfacer
   \[ \partial(T^{\sigma_p}(\phi)) = (i_0^{\sigma_p})_\# (\phi) - (i_1^{\sigma_p})_\# (\phi) - T^{\sigma_p}(\partial(\phi)) \]
   donde $T^{\sigma_p}(\partial(\phi))$ está bien definida por hipótesis de inducción.
 
@@ -469,7 +474,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
   a)
   \begin{align*}
-    &(\partial T^\X + T^\X \partial)(\phi) = \partial((\phi \times I)_\# T^{\sigma_p})) + T^\X \partial(\phi_\# \tau_p) \\
+    &(\partial T^\X + T^\X \partial)(\phi) = \partial((\phi \times I)_\# T^{\sigma_p}) + T^\X \partial(\phi_\# \tau_p) \\
     &= (\phi \times I)_\# \partial T^\sigma_p(\tau_p) + T^\X \phi_\#(\partial(\tau_p)) \\
     &= (\phi \times I)_\# (- T^{\sigma_p} \partial(\tau_p) + (i_0^{\sigma_p})_\# (\tau_p) - (i_1^{\sigma_p})_\# (\tau_p)) + (\phi \times I)_\# T^{\sigma_p}\partial(\tau_p) \\
     &= (\phi \times I)_\# (i_0^{\sigma_p})_\#(\tau_p) - (\phi \times I)_\# (i_1^{\sigma_p})_\#(\tau_p) \\
