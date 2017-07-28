@@ -8,15 +8,20 @@
 Un p-símplice $s_p$ en $\mathbb{R}^n$ es la envolvente conexa de $p+1$ puntos afínmente independientes, a los que llamaremos vértices, $\{x_0, \dots, x_n\}$.
 \end{definition}
 
-Si $x_i = (0, \dots, 1, \dots, 0)$, llamaremos al p-símplice estándar, y lo notaremos $\sigma_p \in \mathbb{R}^{n+1}$ \\
+Si $x_i = (0, \dots, 1, \dots, 0)$, con el $1$ en la posición $i$-ésima, llamaremos al p-símplice \underline{estándar},
+y lo notaremos ${\sigma_p \in \mathbb{R}^{n+1}}$
 
-Podemos establecer un homeomorfismo de forma: \[ h \colon \sigma_p \to s_p  \quad t_i \to \sum_{i=0} t_i x_i \]
+Podemos establecer un homeomorfismo de forma:
+\begin{align*}
+  h \colon \sigma_p &\to s_p  \\
+  t_i &\mapsto \sum_{i=0} t_i x_i
+\end{align*}
 
 \begin{definition}
-Un p-símplice singular en un espacio topológico $\mathbb{X}$ es una aplicación continua $\phi \colon \sigma_p \to \X \text{, } p \geq 0$
+Sea $\X$ un espacio topológico. Un p-símplice singular en $\mathbb{X}$ es una aplicación continua $\phi \colon \sigma_p \to \X$ para $p \geq 0$.
 \end{definition}
 
-Representaremos los p-símplices singulares de $\mathbb{X}$ como
+Representaremos el conjunto de p-símplices singulares de $\mathbb{X}$ como
 \[F_p(\mathbb{X}) = \{\phi \colon \sigma_p \to \mathbb{X} \mid \phi \text{ es p-símplice singular}\}\]
 Es claro que $\mathbb{F}_0(\mathbb{X}) = \mathbb{X}$. Además, $F_1(\mathbb{X})$ son los arcos en $\X$, identificables por
 $\mathbb \mathcal{C}([0,1], \X)$
@@ -49,10 +54,12 @@ Vamos a probar un resultado sobre la aplicación que acabamos de definir.
 \end{lemma}
 
 \begin{proof}
-Lo comprobamos realizando los cálculos pertinentes \\
-    $ F_p^i \circ F_{p-1}^j (t_0, \dots, t_{p-2}) = F_p^i (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{p-2}) = \\
-    (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = \\
-    F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2}) $
+Lo comprobamos realizando los cálculos pertinentes
+  \begin{align*}
+    &F_p^i \circ F_{p-1}^j (t_0, \dots, t_{p-2}) = F_p^i (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{p-2}) = \\
+    &(t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = \\
+    &F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2})
+  \end{align*}
 \end{proof}
 
 Se deduce directamente este corolario:
@@ -79,11 +86,16 @@ Debido a que $\FX{p}$ no está dotado de estructura algebraica, es posible reali
 
 Por conveniencia, consideraremos $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
 
-% Motivar el resultado siguiente?
+% Motivar (mejor) el resultado siguiente?
+
+Veamos un resultado importante sobre la aplicación borde que acabamos de definir.
 
 \begin{proposition}
-  $\partial \circ \partial = 0$
+  $\partial \circ \partial \colon \SX{n} \to \SX{n-2} = 0$
 \end{proposition}
+
+Geométricamente, este resultado nos dice que el borde de una $p$-cadena es una $(p-1)$-cadena sin
+borde. Esta propiedad nos permitirá definir los grupos de homología singular.
 
 \begin{proof}
   Consideramos $S_p(\X) \xrightarrow{\partial} S_{p-1}(\X) \xrightarrow{\partial} S_{p-2}(\X)$ \\
@@ -113,7 +125,6 @@ extensión de $f_\# \colon \FX{p} \to \FY{p}$.
 \[ f_\#(\sum_\phi n_\phi \cdot \phi) = \sum_\phi n_\phi \cdot (f \circ \phi) \]
 
 Vamos a ver que esta aplicación conmuta con el borde, es decir, $f_\# \circ \partial = \partial \circ f_\#$. Esto hace conmutativo el siguiente diagrama:
-
 \[
   \begin{tikzcd}
     \dots S_{p+1}(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & S_p(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & S_{p-1}(\X) \arrow{d}{f_\#} \dots \\
@@ -121,7 +132,7 @@ Vamos a ver que esta aplicación conmuta con el borde, es decir, $f_\# \circ \pa
   \end{tikzcd}
 \]
 
-Esto es casi inmediato, pues se tiene que \[ f_\# \circ \partial_i(\phi) = f_\#(\phi \circ F_p^i) = f \circ \phi \circ F_p^i
+Su demostración es casi inmediata, pues se tiene que \[ f_\# \circ \partial_i(\phi) = f_\#(\phi \circ F_p^i) = f \circ \phi \circ F_p^i
                                              = \partial_i(f \circ \phi) = \partial_i \circ f_\#(\phi) \]
 
 El resultado obtenido implica, por la definición de $\partial$, que $\partial f_\# = f_\# \partial$. No obstante, es más fuerte, pues vemos
@@ -153,18 +164,18 @@ inmediatamente que $B_p(\X) \subseteq Z_p(\X) \hspace{0.2em}\forall p \geq 0$, l
 grupo abeliano, \underline{\smash{p-ésimo grupo de homología singular}}.
 
 \begin{remark}
-  Nótese que $Z_0(\X) = S_0(\X)$, por lo que $\partial(S_0(X) = 0$
+  Nótese que $Z_0(\X) = S_0(\X)$, por lo que $\partial(S_0(X)) = 0$
 \end{remark}
 
 A los elementos de $H_p(\X)$ los notaremos $[c]$, con $\partial(c) = 0$, esto es, $c \in Z_p(\X)$, y los llamaremos clases de homología.
 
-Tomemos nuevamente una función continua $f \colon \X \to \Y$, y definimos
+Tomemos nuevamente una función continua $f \colon \X \to \Y$, y definamos
 \[ f_* \colon H_p(\X) \to H_p(\Y) \quad f_*([c]) = [f_\#(c)]  \]
 
-Comprobemos que está bien definida, esto es, que no depende del representante elegido. \\
-Sean $[c_1] = [c_2], c_1 - c_2 \in B_p(\X)$. Por tanto existe $d \in S_{p+1}(\X)$ tal que $\partial(d) = c_1 - c_2.$ Así,
-$f_\#(c_1) - f_\#(c_2) = f_\#(c_1 - c_2) = f_\#(\partial(d)) = \partial(f_\#(d))$ \\
-Como $f_\#(d) \in S_{p+1}(\X), \text{ se tiene } [f_\#(c_1)] = [f_\#(c_2)]$
+Comprobemos que está bien definida, esto es, que no depende del representante que se elija. \\
+Sean $[c_1] = [c_2]$, lo que implica $c_1 - c_2 \in B_p(\X)$. Por tanto, existe $d \in S_{p+1}(\X)$ tal que $\partial(d) = c_1 - c_2.$
+Así, $f_\#(c_1) - f_\#(c_2) = f_\#(c_1 - c_2) = f_\#(\partial(d)) = \partial(f_\#(d))$ \\
+Como $f_\#(d) \in S_{p+1}(\Y)$, se tiene $[f_\#(c_1)] = [f_\#(c_2)]$
 
 Además, $\partial(f_\#(c)) = f_\#(\partial(c)) = 0$, por lo que $f_\#(c)$ es un ciclo en $\Y$. Con esto hemos visto que $f_*$ está bien definida,
 y es un homomorfismo, al serlo $f_\#$, al que llamaremos homomorfismo inducido por f en la homología.
@@ -177,13 +188,10 @@ De las propiedades de $f_\#$ obtenemos directamente que:
 
 Así, hemos construído un funtor covariante de la categoría de espacios topológico en la categoría de grupos abelianos,
 el funtor de la homología singular.
-
-\begin{displaymath}
-  \begin{tikzcd}
-    \X \arrow{r} \arrow{d}{f} & [5em] H_p(\X) \arrow{d}{f_*} \\
-    \Y \arrow{r}  & H_p(\Y)
-  \end{tikzcd}
-\end{displaymath}
+\[  \begin{tikzcd}
+  \X \arrow{r} \arrow{d}{f} & [5em] H_p(\X) \arrow{d}{f_*} \\
+  \Y \arrow{r}  & H_p(\Y)
+\end{tikzcd} \]
 
 Si $\X$ e $\Y$ son homeomorfos, el homomorfismo que induce dicho homeomorfismo en la homología es un isomorfismo de grupos de homología, pues
 basta considerar el inverso del homeomorfismo para construir el inverso del homomorfismo inducido.
@@ -196,7 +204,7 @@ en ellos y utilizando la definición de los grupos de ciclos y bordes como núcl
 Sea $\X$ un espacio topológico formado por un punto, $\X = \{x\}$. \\
 $\FX{p} = \{ \phi \colon \sigma_p \to \{x\} \} = \{\phi_p\}$ donde $\phi_p$ es la función constante.
 
-$S_p{\{x\}}$ son grupos abelianos libres con $\phi_p$ como generador. Además, $\partial \colon \SX{p} \to \SX{p-1}$ verifica:
+$S_p({\{x\}})$ son grupos abelianos libres con $\phi_p$ como generador. Además, $\partial \colon \SX{p} \to \SX{p-1}$ verifica:
 \[\partial(\phi_p) = \sum_{i = 0}^p (-1)^i \partial_i(\phi_p) =  \sum_{i = 0}^p (-1)^i \phi_{p-1} = \begin{cases}
                                                                                                             0 & p \text{ es impar} \\
                                                                                                             \phi_{p-1} & p \text{ es par}
