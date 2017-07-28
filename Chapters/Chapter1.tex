@@ -519,7 +519,7 @@ Podemos definir un operador borde, que seguiremos notando $\partial$:
   \partial \colon S_p(\X, A) &\to S_{p-1}(\X, A) \\
   \partial \overline{c} &= \overline{\partial c}
 \end{align*}
-bien definido, pues si $\overline{c} = \overline{d}$; entonces $d = c + a, a \in \S_p(A)$ y
+Este borde está bien definido, pues si $\overline{c} = \overline{d}$; entonces $d = c + a, a \in \S_p(A)$ y
 $\partial d = \partial c + \partial a \implies \overline{\partial d} = \overline{\partial c} + \overline{\partial a} = \overline{\partial c}$ ya que
 $\partial a \in S_{p-1}(A) \implies \overline{\partial a} = 0$
 
@@ -535,7 +535,7 @@ por lo que podemos considerar
 que llamamos el p-ésimo grupo de homología singular del par $(\X, A)$.
 
 Dados dos pares $(\X, A)$ y $(\Y, B)$, una aplicación continua $f \colon (\X, A) \to (\Y, B)$ es una aplicación continua
-$f \colon \X \to \Y$ tal que $f(A) \subseteq B$. \\
+$f \colon \X \to \Y$ tal que $f(A) \subseteq B$. Llamaremos a $f$ una aplicación de pares entre $(\X, A)$ e $(\Y, B)$. \\
 Si $f$ es tal aplicación, definimos:
 \begin{align*}
   f_\# \colon S_p(\X, A) &\to S_p(\Y, B) \hspace{4em} \text{que está bien definida.} \\
@@ -551,15 +551,15 @@ Con esto, hemos hecho conmutativo el diagrama
   \hspace{2em} \text{con } \pi(c) = \overline{c}
 \]
 Es claro que $\partial f_\#(\overline{c}) = \partial \overline{f_\#(c)} = \overline{\partial f_\#(c)} = f_\# \partial(c) = f_\# \partial(\overline{c})$,
-de donde $\partial f_\# = f_\# \partial$.
+de donde se deduce $\partial f_\# = f_\# \partial$.
 
 A la función $f_\# \colon S_*(\X, A) \to S_*(\Y, B)$ la llamamos la aplicación de cadenas inducida por la aplicación de pares $f$. \\
 Nuevamente, se verifica que $(g \circ f)_\# = g_\# \circ f_\#$ y $Id_\# = Id$.
 
-Definimos $f_* \colon H_p(\X, A) \to H_p(\Y, B)$ por $f_*([\overline{c}]) = [f_\# \overline{c}]$, que está bien definida. \\
+Definimos $f_* \colon H_p(\X, A) \to H_p(\Y, B)$ por $f_*([\overline{c}]) = [f_\#(\overline{c})]$, que está bien definida. \\
 Claramente, $f_*$ es un homomorfismo de grupos, que verifica $(g \circ f)_* = g_* \circ f_*$ y $Id_* = Id$.
 
-Con esto, hemos construído un funtor covariante de la categoría de pares y aplicaciones entre pares en la de grupos graduados y homomorfismos,
+Así, hemos construído un funtor covariante de la categoría de pares y aplicaciones entre pares en la de grupos graduados y homomorfismos,
 el funtor de la homología singular.
 \[
 \begin{tikzcd}
@@ -574,6 +574,12 @@ Tenemos un resultado de obtención directa:
   $h_* \colon H_p(\X, A) \to H_p(\Y, B)$ es un isomorfismo de grupos $\forall p \geq 0$
 \end{corollary}
 
+\begin{proof}
+  Basta considerar el inverso de $h$, que induce una aplicación inversa en la homología.
+\end{proof}
+
+Vamos a trasladar los resultados que vimos de arcoconexión para el caso de pares.
+
 \begin{proposition}
   Si $\X$ es arcoconexo y $A \neq \emptyset$, se tiene $H_0(\X, A) = 0$
 \end{proposition}
@@ -584,7 +590,7 @@ Tenemos un resultado de obtención directa:
   Veamos que $\forall x \in \X, [\overline{x}] = 0$.
 
   Como $A \neq \emptyset$, sea $a \in A$. Por arcoconexión, tomamos $\alpha \colon \sigma_1 \to \X$ verificando $\alpha(0, 1) = x, \alpha(1, 0) = a$.
-  Se cumple que $\overline{\alpha} \in S_1(\X, A)$ y $\partial\overline{\alpha} = \overline{p\partial\alpha} = \overline{x - a} = \overline{x} - \overline{a}
+  Se cumple que $\overline{\alpha} \in S_1(\X, A)$ y $\partial\overline{\alpha} = \overline{\partial\alpha} = \overline{x - a} = \overline{x} - \overline{a}
   = \overline{x}$, pues $a \in S_0(A) \implies \overline{a} = 0$. \\
   De esta forma, $[\overline{x}] = [\partial\overline{a}] = 0$, ya que es un borde.
 \end{proof}
@@ -592,12 +598,14 @@ Tenemos un resultado de obtención directa:
 \begin{proposition}
   Sea $X = \bigcup\limits_{\alpha \in A} \X_\alpha$ la descomposición de $\X$ en componentes arcoconexas, y sea $A \subseteq \X$. Entonces se verifica:
   \begin{itemize}
-    \item[a)] $\forall \alpha, i_{\alpha *} \colon H_p(\X_\alpha, \X_alpha \cap A) \to H_p(\X, A)$ es un monomorfismo, con $i$ la inclusión.
+    \item[a)] $\forall \alpha, i_{\alpha *} \colon H_p(\X_\alpha, \X_\alpha \cap A) \to H_p(\X, A)$ es un monomorfismo.
     \item[b)] $H_p(\X, A) = \bigoplus\limits_{\alpha \in A}  i_{\alpha *}(H_p(\X_\alpha, \X_\alpha \cap A))$
   \end{itemize}
 \end{proposition}
 
-\textit{La demostración es similar al caso visto para espacios simples. No la repetimos, pues no aporta nada nuevo.}
+La demostración es similar al caso visto para espacios simples. No la repetimos, pues no aporta nada nuevo.
+
+Tenemos también un resultado equivalente al ya visto para aplicación homotópicas.
 
 \begin{proposition}
   Sean $f, g \colon (\X, A) \to (\Y, B)$ aplicaciones de pares. Si existe $H \colon \X \times I \to \Y$ continua tal que
@@ -605,20 +613,21 @@ Tenemos un resultado de obtención directa:
   f y g son homotópicas.
 \end{proposition}
 
-\textit{Nuevamente, la demostración es similar a la ya vista, por lo que no se incluye.}
+La demostración es similar a la ya vista, por lo que no se incluye.
 
 Consideremos ahora la proyección $\pi \colon \SX{p} \to S_p(\X, A) \cong \frac{\SX{p}}{i_*(S_p(A))}$ \\
-Tenemos $\pi(c) = \overline{c}$, y la aplicación de cadenas inducida por la inclusión, $i_\# \colon S_p(A) \to \SX{p}$,
-que es claramente un monomorfismo. \\
-$\pi$ es un epimorfismo, y se verifica que $\Img i_\# \cong \Ker \pi = i_\# S_p(A)$ por la definición de $S_p(\X, A)$.
+Tenemos que $\pi(c) = \overline{c}$, y la aplicación de cadenas inducida por la inclusión, \\
+$i_\# \colon S_p(A) \to \SX{p}$, que es claramente un monomorfismo. \\
+$\pi$ es un epimorfismo, y se verifica que $\Img i_\# \cong \Ker \pi = i_\#(S_p(A))$ por la definición de $S_p(\X, A)$.
 
-Esto nos permite definir la sucesión \[0 \to S_p(A) \xrightarrow{i_\#} \SX{p} \xrightarrow{\pi} S_p(\X, A) \to 0 \] que verifica
-$\partial i_\# = i_\# \partial$ y $\partial \pi = \pi \partial$. \\
+Esto nos permite definir la sucesión:
+\[0 \to S_p(A) \xrightarrow{i_\#} \SX{p} \xrightarrow{\pi} S_p(\X, A) \to 0 \]
+que verifica $\partial i_\# = i_\# \partial$ y $\partial \pi = \pi \partial$. \\
 A estas sucesiones, en las que cada triple $C \xrightarrow{f} D \xrightarrow{g} E$ verifica $\Img f = \Ker g$ las llamaremos exactas.
-Si además tiene solo tres elementos como en el caso anterior, las llamaremos sucesiones exactas cortas.
+Si además tienen solo tres elementos, como en el caso anterior, las llamaremos sucesiones exactas cortas.
 
-Podemos extender el resultado anterior, y obtenemos una sucesión exacta corta de complejos de cadenas
-\[0 \to S_*(A) \xrightarrow{i_\#} S_*{p} \xrightarrow{\pi} S_*(\X, A) \to 0 \]
+Podemos extender el resultado anterior, y obtenemos una sucesión exacta corta de complejos de cadenas:
+\[0 \to S_*(A) \xrightarrow{i_\#} S_*(\X) \xrightarrow{\pi} S_*(\X, A) \to 0 \]
 
 Sea ahora $\pi_* \colon H_*(\X) \to H_*(\X, A)$ el homomorfismo inducido por $\pi$. \\
 $\pi_*([c]) = [\overline{c}]$ que está bien definido, pues si $[c] = [d] \implies d = c + \partial h \implies \overline{d} = \overline{c} + \partial \overline{h}
@@ -631,7 +640,7 @@ luego $\partial c = \partial^2 d + \partial i_\#(a) \implies \partial c = \parti
 $a$ es un ciclo y genera $[a]$ \\
 Como $c = \partial d + i_\#(a), [c] = [\partial d] + [i_\#(a)] = i_*[a] \implies \Ker \pi_* \subseteq \Img i_*$
 
-$i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un epimorfismo, aunque se verifica:
+Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un epimorfismo, aunque se verifica:
 
 \begin{proposition}
   $\pi_* \colon H_0(\X) \to H_0(\X, A)$ es un epimorfismo.
@@ -645,7 +654,7 @@ $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un 
 \textit{Para p mayor que 1 no podemos asegurar que sea un ciclo, por lo que el resultado solo vale para el caso visto.}
 
 \begin{proposition}
-  Para todo $p \geq 1$ existe un homomorfismo $\Delta \colon H_p(\X, A) \to H_{p-1}(\X, A)$ tal que $\Ker \Delta = \Img \pi_*$ y $\Img \Delta = \Ker i_*$
+  Para todo $p \geq 1$ existe un homomorfismo $\Delta \colon H_p(\X, A) \to H_{p-1}(A)$ tal que $\Ker \Delta = \Img \pi_*$ y $\Img \Delta = \Ker i_*$
 
   A la sucesión exacta así construída:
   \[\dots H_{p+1}(\X, A) \xrightarrow{\Delta} H_p(A) \xrightarrow{i_*} H_p(\X) \xrightarrow{\pi_*} H_p(\X, A) \xrightarrow{\Delta} H_{p-1}(A) \dots\]
@@ -692,12 +701,11 @@ $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un 
 \end{proof}
 
 \begin{proposition}[Naturalidad de la sucesión exacta]
-  Sea $f \colon (\X, A) \to (\Y, B)$ una aplicación de pares. Entonces el diagrama siguiente es conmutativo:
-
-  \begin{tikzcd}
+  Sea $f \colon (\X, A) \to (\Y, B)$ una aplicación de pares. Entonces el siguiente diagrama es conmutativo:
+  \[  \begin{tikzcd}
     \dots H_p(A) \arrow{r}{i_*} \arrow{d}{f_{|A}} & H_p(\X) \arrow{r}{\pi_*} \arrow{d}{f_*} & H_p(\X, A) \arrow{r}{\Delta} \arrow{d}{f_*} & H_{p-1}(A) \dots \arrow{d}{f_{|A}} \\
     \dots H_p(B) \arrow{r}{i_*} & H_p(Y) \arrow{r}{\pi_*} & H_p(\Y, B) \arrow{r}{\Delta} & H_{p-1}(B) \dots
-  \end{tikzcd}
+  \end{tikzcd} \]
 \end{proposition}
 
 \begin{proof}
