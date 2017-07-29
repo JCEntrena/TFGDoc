@@ -4,7 +4,7 @@
 
 En esta parte, vamos a enunciar y demostrar el teorema de subdivisión baricéntrica,
 el cual nos permite calcular directa o indirectamente (a través de sus consecuencias)
-el grupo de homología de ciertos espacios topológicos, como haremos con las esferas
+los grupos de homología de ciertos espacios topológicos, como haremos con las esferas
 n-dimensionales.
 
 \section{Teorema de subdivisión baricéntrica}
@@ -13,23 +13,23 @@ n-dimensionales.
   Sea $\X$ un espacio topológico. Diremos que $\U \subseteq \mathcal P(\X)$ es un recubrimiento de $\X$ si $\X = \bigcup\limits_{U \in \U} U$.
 \end{definition}
 
-Tomemos ahora $\X$ un espacio topológico y $\U$ un recubrimiento suyo. Para $ p \geq 0$, podemos definir
+Tomemos ahora $\X$ un espacio topológico y $\U$ un recubrimiento suyo. Para $ p \geq 0$, podemos definir:
 \[ F_p^\U(\X) = \{\phi \in F_p(\X) \mid \exists U \in \U \text{ tal que } \Img \phi \subseteq U\} \]
 que es, por definición, subconjunto de $F_p(\X)$.
 
 Si $S_p^\U(\X)$ es el grupo abeliano libre generado por $F_p^\U(\X)$, por $F_p^\U(\X) \subseteq F_p(\X)$, se tiene
 que $S_p^\U(\X)$ es un subgrupo de $S_p(\X)$. Si consideramos la inclusión $i \colon S_p^\U(\X) \to S_p(\X)$, si
-$\phi \in F_p^\U(\X)$, entonces $\partial_i(\phi) \in F_{p-1}^\U(\X)$ y así, $\partial(\phi) \in S_{p-1}^\U(\X)$. \\
+$\phi \in F_p^\U(\X)$, entonces $\partial_i(\phi) \in F_{p-1}^\U(\X)$ y así, por la definición del borde, $\partial(\phi) \in S_{p-1}^\U(\X)$. \\
 En consecuencia, la restricción del borde a $S_p^\U(\X)$ define un homomorfismo borde, y así, construímos un complejo
 de cadenas $S_*^\U(\X) = \{S_p^\U(\X), \partial\}_{p \geq 0}$.
 
-Este complejo es un subcomplejo de $S_*(\X)$. Si tomamos la inclusión $i \colon S_*^\U(\X) \to S_*(\X)$, induce un
+Es claro que este complejo es un subcomplejo de $S_*(\X)$. Si tomamos la inclusión $i \colon S_*^\U(\X) \to S_*(\X)$, induce un
 homomorfismo en la homología, $i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \hspace{0.2em} \forall p \geq 0$, donde
-$H_p(S_*^\U(\X)) = \frac{\Ker \partial}{\Img \partial}$
+$H_p(S_*^\U(\X)) = \frac{\Ker \partial}{\Img \partial}$, con el borde actuando en $S_*^\U(\X)$.
 
 Sea ahora $\Y$ otro espacio topológico, y $\V$ un recubrimiento suyo. Diremos que una función continua $f \colon \X \to \Y$ es compatible
-con $\U, \V$ si $\forall U \in \U \exists V \in \V$ tal que $f(U) \subseteq V$. En tal caso, puede definirse un homomorfismo
-$f_\# \colon S_p^\U(\X) \to S_p^\V(\Y)$ dado por la restricción de $f_\# \colon \SX{p} \to \SY{p} a S_p^\U(\X)$.
+con $\U, \V$ si $\forall U \in \U \hspace{0.5em} \exists V \in \V$ tal que $f(U) \subseteq V$. En tal caso, puede definirse
+$f_\# \colon S_p^\U(\X) \to S_p^\V(\Y)$, homomorfismo, dado por la restricción de $f_\# \colon \SX{p} \to \SY{p}$ a $S_p^\U(\X)$.
 
 Esto hace que el siguiente diagrama sea conmutativo:
 \[ \begin{tikzcd}
@@ -43,6 +43,9 @@ Esto hace que el siguiente diagrama sea conmutativo:
 \end{remark}
 
 Como $f_\# \partial = \partial f_\#$, $f$ induce $f_* \colon H_p(S_p^\U(\X)) \to H_p(S_p^\V(\Y))$.
+
+Nos encontramos en condiciones de enunciar el teorema de subdivisión baricéntrica, que relaciona complejo de cadenas
+de un espacio con un recubrimiento con el complejo de cadenas del espacio.
 
 \begin{theorem}[Teorema de subdivisión baricéntrica]
   Sean $\X$ un espacio topológico y $\U$ un recubrimiento de $\X$ tal que $\interior{\U} = \{\interior{U} \mid U \in \U\}$
@@ -65,6 +68,8 @@ inversa homotópica de la inclusión.
 
 \section{Subdivisión de símplices}
 
+Vamos a definir la subdivisión baricéntrica de símplices, utilizando nociones geométricas.
+
 \begin{definition}
   Sea $s_p = (a_0, \dots, a_p)$ un p-símplice. Definimos el baricentro de $s_p$ como
   \[b(s_p) = \frac{a_0 + \dots + a_p}{p+1}\]
@@ -82,6 +87,40 @@ Definimos la subdivisión baricéntrica del símplice $s_p$ por inducción sobre
   Es importante destacar que el orden en el que se ponen los puntos es importante, pues si el baricentro fuera en otro lugar,
   la orientación del símplice cambiaría, y afectaría al cálculo del borde.
 \end{remark}
+
+\begin{example}
+  Vemos una representación gráfica de la subdivisión baricéntrica.
+
+  \begin{tikzpicture}
+    baseline=(current bounding box.center)
+    \draw [] (0, 0) circle (2pt) -- (2, 2) circle (2pt);
+  \end{tikzpicture}
+  $\rightarrow{\makebox[2cm]{}}$
+  \begin{tikzpicture}
+    baseline=(current bounding box.center)
+    \draw [] (0, 0) circle (2pt) -- (1, 1) circle (2pt) -- (2, 2) circle (2pt);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}
+    baseline=(current bounding box.center)
+    \draw [] (0, 1.73) circle (2pt) -- (1, 0) circle (2pt) -- (-1, 0) circle (2pt) -- (0, 1.73);
+  \end{tikzpicture}
+  $\rightarrow{\makebox[2cm]{}}$
+  \begin{tikzpicture}
+    baseline=(current bounding box.center)
+    \draw [] (0, 1.73) circle (2pt) -- (0.5, 0.866) circle (2pt) -- (1, 0) circle (2pt) -- (0, 0) circle (2pt) --
+    (-1, 0) circle (2pt) -- (-0.5, 0.866) circle (2pt) -- (0, 1.73);
+  \end{tikzpicture}
+  $\rightarrow{\makebox[2cm]{}}$
+  \begin{tikzpicture}
+    baseline=(current bounding box.center)
+    \draw [] (0, 1.73) circle (2pt) -- (0.5, 0.866) circle (2pt) -- (1, 0) circle (2pt) -- (0, 0) circle (2pt) --
+    (-1, 0) circle (2pt) -- (-0.5, 0.866) circle (2pt) -- (0, 1.73);
+    \draw [] (0.5, 0.866) -- (-1, 0);
+    \draw [] (-0.5, 0.866) -- (1, 0);
+    \draw [] (0, 0) -- (0, 0.58) circle (2pt) -- (0, 1.73);
+  \end{tikzpicture}
+\end{example}
 
 Si $K$ es un conjunto de símplices, la subdivisión de $K$ vienen dada por $Sd(K) = \bigcup\limits_{s_p \in K} Sd(s_p)$.
 
