@@ -155,12 +155,15 @@ Definimos la subdivisión baricéntrica del símplice $s_p$ por inducción sobre
   se tiene $|t_i - t_j| \leq \frac{p}{p+1} diam(s_p)$
 
   Además, $|b(s_p) - t_i| \leq \max\limits_i |b(s_p) - a_i| = \max\limits_i |\frac{a_0 + \dots + a_p}{p-1} - a_i| =
-  \max\limits_i | \frac{\sum\limits_{i \neq j} |a_j - a_i|}{p+1} \leq \frac{p}{p+1} diam(s_p)$
+  \max\limits_i \frac{\sum\limits_{i \neq j} |a_j - a_i|}{p+1} \leq \frac{p}{p+1} diam(s_p)$
 \end{proof}
 
 \begin{definition}
-  Sea $\varphi$ una colección de subconjuntos acotados de un espacio euclídeo. Definimos $malla \varphi = \sup\limits{c \in \varphi} diam(c)$
+  Sea $\varphi$ una colección de subconjuntos acotados de un espacio euclídeo. Definimos la malla de
+  dicha colección como $malla \varphi = \sup\limits_{c \in \varphi} diam(c)$.
 \end{definition}
+
+Del resultado anterior se obtienen directamenten estos dos corolarios.
 
 \begin{corollary}
   Si $K$ es una colección de p-símplices, se verifica \[malla(Sd(K)) \leq \frac{p}{p+1} malla(K) \]
@@ -179,21 +182,21 @@ Definimos la subdivisión baricéntrica del símplice $s_p$ por inducción sobre
 Vamos a tratar ahora la subdivisión de símplices singulares afines. Estos nos permitirán aproximar la
 subdivisión de cualquier símplice singular, por lo que su estudio nos resulta de gran interés.
 
-Sea $C$ un subconjunto convexo del espacio euclídoe en el que trabajamos. Para todo $p \geq 0$, sea
+Sea $C$ un subconjunto convexo del espacio euclídeo en el que trabajamos. Para todo $p \geq 0$, sea
 \[F_p^A(C) = \{ \phi \in F_p(C) \mid \phi \text{ es una aplicación afín}\} \]
 es decir, $\phi \colon \sigma_p \to C \quad$ verifica \[\phi(ta + (1-t)b) = t\phi(a) + (1-t)\phi(b) \hspace{1em} \forall t \in [0,1]\]
 
 Sea $A_p(C)$ el grupo abeliano libre generado por $F_p^A(C)$, subgrupo libre de $S_p(C)$. Si $\phi \in F_p^A(C), \partial_i \phi = \phi \circ F_p^i$,
-y como $\phi$ es afín y $F_p^i$ también, $\partial_i \phi$ es afín. Así:
+y como $\phi$ es afín y $F_p^i$ también lo es, $\partial_i \phi$ es afín. Así:
 \[\partial \phi = \sum\limits_{i = 0}^p (-1)^1 \partial_i \phi \hspace{0.5em} \in A_{p-1}(C)\]
 
-Es consecuencia, podemos restringir el borde a $A_p(C)$, haciendo conmutativo
+En consecuencia, podemos restringir el borde a $A_p(C)$, haciendo conmutativo el siguiente diagrama:
 \[ \begin{tikzcd}
       A_p(C) \arrow{r}{\partial} \arrow{d}{i} & A_{p-1}(C) \arrow{d}{i} \\
       S_p(C) \arrow{r}{\partial} & S_{p-1}(C)
 \end{tikzcd} \]
 
-Tenemos pues un complejo de cadenas $A_*(C) = \{A_p(C), \partial\}_{p \geq 0}$, para todo convexo $C$.
+Tenemos por tanto un complejo de cadenas $A_*(C) = \{A_p(C), \partial\}_{p \geq 0}$, válido para todo convexo $C$.
 
 Si $\phi \in F_p^A(C), \phi \colon \sigma_p \to C$ afín. Notando $\sigma_p = (v_0, \dots, v_p)$, entonces
 ${x_i = \phi(v_i) \in C}$ determinan unívocamente a $\phi$, pues si $v = \sum\limits_{i = 0}^p \alpha_i v_i$, entonces
@@ -204,7 +207,7 @@ identifica con $p+1$ puntos de $C$.
 Además, $\partial \phi = \sum\limits_{i = 0}^p (-1)^i \partial_i \phi$, con $\partial_i \phi = \{x_0, \dots, \hat{x_i}, \dots, x_p\}$
 
 En consecuencia, $A_p(C)$ es el grupo abeliano libre sobre:
-\[\{(x_0, \dots, x_p) \mid x_i \in C\} \equiv C \times \dots \times C \]
+\[\{(x_0, \dots, x_p) \mid x_i \in C\} \equiv C \times \dots \times C \equiv C^{p+1} \]
 y el operador borde lo da $\partial(\{x_0, \dots, x_p\}) = \sum\limits_{i = 0}^p (-1)^i \{x_0, \dots, \hat{x_i}, \dots, x_p\}$
 
 Si tenemos $C, C'$ convexos, y $f \colon C \to C'$ es una aplicación afín (y por tanto continua), al tomar la restricción de $f_\#$
@@ -239,12 +242,10 @@ ${f_\#(\{x_0, \dots, x_p\}) = \{f(x_0), \dots, f(x_p)\}}$
 \end{proof}
 
 Ahora podemos definir una subdivisión para símplices o cadenas afines. Lo haremos por inducción, definiendo ${Sd' \colon A_p(C) \to A_p(C)}$
-
-$\fbox{p = 0}$
-\[Sd' = Id_{A_p(C)}\]
-
-$\fbox{p > 0}$, supuesto definido hasta $p-1$
-\[ Sd'(\phi) = \C_{b(\phi)}(Sd' \circ \partial \phi) \]
+\begin{itemize}
+  \item $Sd' = Id_{A_p(C)}$ si $p = 0$
+  \item $Sd'(\phi) = \C_{b(\phi)}(Sd' \circ \partial \phi)$, supuesto definido hasta $p-1$.
+\end{itemize}
 donde $b(\phi) = \frac{x_0 + \dots + x_p}{p+1}$, siendo $\phi = \{x_0, \dots, x_p\}$ y extendido linealmente.
 
 Veamos algunas propiedades. Debido a que la definición se hizo por inducción, todas las demostraciones serán por inducción.
@@ -274,12 +275,11 @@ es decir, $Sd'$ es, como aplicación de cadenas, homotópica a la identidad.
 \begin{proof}
   Para $p = 0$, tomamos $\tau' = 0$
 
-  Supuesto cierto hasta $p-1$, buscamos $\tau' \colon A_p(C) \to A_{p+1}(C)$ verificando
-  \[\partial \tau' = Sd' - I_{A_p(C)} - \tau' \partial\]
+  Supuesto cierto hasta $p-1$, buscamos $\tau' \colon A_p(C) \to A_{p+1}(C)$ verificando \\
+  $\partial \tau' = Sd' - I_{A_p(C)} - \tau' \partial$
 
   Como el segundo miembro es conocido, entonces si $\phi \in F_p^A(C), \tau'(\phi)$ ha de verificar
-  \[\partial(\tau'(\phi)) = Sd'(\phi) - \phi - \tau'(\partial(\phi))\]
-  lo calculamos
+  $\partial(\tau'(\phi)) = Sd'(\phi) - \phi - \tau'(\partial(\phi))$. Lo calculamos
   \begin{align*}
     &\partial(Sd'(\phi) - \phi - \tau'(\partial(\phi)) = Sd'(\partial(\phi)) - \partial(\phi) - \partial(\tau' \partial(\phi)) \\
     &= Sd'(\partial(\phi)) - \partial(\phi) + \tau'(\partial^2(\phi)) - Sd'(\partial(\phi)) + \partial(\phi) = 0
@@ -289,6 +289,7 @@ es decir, $Sd'$ es, como aplicación de cadenas, homotópica a la identidad.
     &\partial(\tau'(\phi)) = \partial \C_{b(\phi)}(Sd'(\phi) - \phi -\tau'(\partial(\phi))) = (Sd'(\phi) - \phi - \tau' \partial(\phi)) \\
     &- \C_{b(\phi)} \partial(Sd'(\phi) - \phi - \tau'(\partial(\phi))) = Sd'(\phi) - \phi - \tau'(\partial(\phi))
   \end{align*}
+  Lo que demuestra la igualdad que queríamos.
 \end{proof}
 
 d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# \tau' = \tau' f_\#$
@@ -302,6 +303,7 @@ d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# 
     &= \C_{f(b(\phi))} f_\#(Sd'(\phi) - \phi - \tau(\partial(\phi))) \\
     &= \C_{f(b(\phi))}(Sd'(f_\# \phi) - f_\# \phi - \tau'(f_\# \partial(\phi))) = \tau'(f_\#(\phi))
   \end{align*}
+  Por lo que $f_\# \tau' = \tau' f_\#$.
 \end{proof}
 
 e) Propiedad técnica. Nos permitirá subdividir símplices hasta que estos queden dentro del recubrimiento.
@@ -315,9 +317,9 @@ $\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) 
 
   Supuesto cierto hasta $p-1$, sea $Sd'(\tau_p) = \C_{b(\tau_p)} Sd'(\partial(\tau_p))$
   \begin{align*}
-    &\partial(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \tau_p \circ F_p^i = (por ser la identidad) \\
+    &\partial(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \tau_p \circ F_p^i = \text{(por ser la identidad)} \\
     &= \sum\limits_{i = 0}^p (-1)^i F_p^i \circ \tau_{p-1} = \sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# (\tau_{p-1}) \text{. De esta forma:} \\
-    &Sd'(\tau_p) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i Sd'(F_p^i)_\# (\tau_{p-1})) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# Sd'(\tau_{p-1})) \\
+    &Sd'(\tau_p) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i Sd'(F_p^i)_\# (\tau_{p-1})) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# Sd'(\tau_{p-1}))
   \end{align*}
   Si $Sd'(\tau_{p-1}) = \sum\limits_j m_j \psi_j$, entonces, por inducción, $\forall j$ existe $t_{p-1}^j \in Sd(\sigma_{p-1})$ tal que
   $\Img(\psi_j) \subseteq t_{p-1}^j$.
@@ -373,7 +375,7 @@ Nos basaremos en el caso afín.
 
   c) $(f_\# \circ Sd)(\phi) = f_\# \phi_\# Sd'(\tau_p) = (f \circ \phi)_\# Sd'(\tau_p) = Sd(f_\#(\phi))$
 
-  d) Definimos \[\tau(\phi) = \phi_\#(\tau'(\tau_p)) \quad \text{con} \quad \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X) \]
+  d) Definimos $\tau(\phi) = \phi_\#(\tau'(\tau_p)) \quad \text{con} \quad \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X)$ \\
   Entonces, se tiene:
   \begin{align*}
     &(\partial \tau + \tau \partial)(\phi) \partial(\phi_\# \tau'(\tau_p)) + \tau(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
