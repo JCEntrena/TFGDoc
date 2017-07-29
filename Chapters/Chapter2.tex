@@ -89,42 +89,51 @@ Definimos la subdivisión baricéntrica del símplice $s_p$ por inducción sobre
 \end{remark}
 
 \begin{example}
-  Vemos una representación gráfica de la subdivisión baricéntrica.
+  Vemos una representación gráfica de la subdivisión baricéntrica, para dos casos distintos.
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      baseline=(current bounding box.center)
+      \draw [] (0, 0) circle (2pt) -- (2, 2) circle (2pt);
+    \end{tikzpicture}
+    $\makebox[2cm]{}$
+    \begin{tikzpicture}
+      baseline=(current bounding box.center)
+      \draw [] (0, 0) circle (2pt) -- (1, 1) circle (2pt) -- (2, 2) circle (2pt);
+    \end{tikzpicture}
+    \caption{$Sd(s_1)$}
+  \end{figure}
 
-  \begin{tikzpicture}
-    baseline=(current bounding box.center)
-    \draw [] (0, 0) circle (2pt) -- (2, 2) circle (2pt);
-  \end{tikzpicture}
-  $\rightarrow{\makebox[2cm]{}}$
-  \begin{tikzpicture}
-    baseline=(current bounding box.center)
-    \draw [] (0, 0) circle (2pt) -- (1, 1) circle (2pt) -- (2, 2) circle (2pt);
-  \end{tikzpicture}
-
-  \begin{tikzpicture}
-    baseline=(current bounding box.center)
-    \draw [] (0, 1.73) circle (2pt) -- (1, 0) circle (2pt) -- (-1, 0) circle (2pt) -- (0, 1.73);
-  \end{tikzpicture}
-  $\rightarrow{\makebox[2cm]{}}$
-  \begin{tikzpicture}
-    baseline=(current bounding box.center)
-    \draw [] (0, 1.73) circle (2pt) -- (0.5, 0.866) circle (2pt) -- (1, 0) circle (2pt) -- (0, 0) circle (2pt) --
-    (-1, 0) circle (2pt) -- (-0.5, 0.866) circle (2pt) -- (0, 1.73);
-  \end{tikzpicture}
-  $\rightarrow{\makebox[2cm]{}}$
-  \begin{tikzpicture}
-    baseline=(current bounding box.center)
-    \draw [] (0, 1.73) circle (2pt) -- (0.5, 0.866) circle (2pt) -- (1, 0) circle (2pt) -- (0, 0) circle (2pt) --
-    (-1, 0) circle (2pt) -- (-0.5, 0.866) circle (2pt) -- (0, 1.73);
-    \draw [] (0.5, 0.866) -- (-1, 0);
-    \draw [] (-0.5, 0.866) -- (1, 0);
-    \draw [] (0, 0) -- (0, 0.58) circle (2pt) -- (0, 1.73);
-  \end{tikzpicture}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      baseline=(current bounding box.center)
+      \draw [] (0, 1.73) circle (2pt) -- (1, 0) circle (2pt) -- (-1, 0) circle (2pt) -- (0, 1.73);
+    \end{tikzpicture}
+    $\makebox[2cm]{}$
+    \begin{tikzpicture}
+      baseline=(current bounding box.center)
+      \draw [] (0, 1.73) circle (2pt) -- (0.5, 0.866) circle (2pt) -- (1, 0) circle (2pt) -- (0, 0) circle (2pt) --
+      (-1, 0) circle (2pt) -- (-0.5, 0.866) circle (2pt) -- (0, 1.73);
+    \end{tikzpicture}
+    $\makebox[2cm]{}$
+    \begin{tikzpicture}
+      baseline=(current bounding box.center)
+      \draw [] (0, 1.73) circle (2pt) -- (0.5, 0.866) circle (2pt) -- (1, 0) circle (2pt) -- (0, 0) circle (2pt) --
+      (-1, 0) circle (2pt) -- (-0.5, 0.866) circle (2pt) -- (0, 1.73);
+      \draw [] (0.5, 0.866) -- (-1, 0);
+      \draw [] (-0.5, 0.866) -- (1, 0);
+      \draw [] (0, 0) -- (0, 0.58) circle (2pt) -- (0, 1.73);
+    \end{tikzpicture}
+    \caption{$Sd(s_2)$}
+  \end{figure}
 \end{example}
 
-Si $K$ es un conjunto de símplices, la subdivisión de $K$ vienen dada por $Sd(K) = \bigcup\limits_{s_p \in K} Sd(s_p)$.
 
-Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ con } Sd^1 = Sd \]
+\begin{definition}
+  Si $K$ es un conjunto de símplices, la subdivisión de $K$ viene dada por $Sd(K) = \bigcup\limits_{s_p \in K} Sd(s_p)$.
+  Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ con } Sd^1 = Sd \]
+\end{definition}
 
 \begin{proposition}
   Sea $t_p \in Sd(s_p)$ un p-símplice de la subdivisión. Entonces $diam(t_p) \leq \frac{p}{p+1} diam(s_p)$.
@@ -137,9 +146,9 @@ Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ 
 
   Supuesto cierto hasta $p-1$, lo probamos para $p$.
 
-  Sea $s_p = (a_0, \dots, a_p)$. Se verifica que $diam(s_p) = \max\limits_{i,j} |a_i - a_j|$.
-  Como $t_p \in Sd(s_p), t_p = (b(s_p), t_0, \dots, t_{p-1}) \in Sd(\U_{p-1})$.
-  Entonces, $diam(t_p) = max\{|b(s_p) - t_i|,\hspace{0.2em} |t_i - t_j|, i,j = 0, \dots, p-1\}$.
+  Sea $s_p = (a_0, \dots, a_p)$. Se verifica que $diam(s_p) = \max_{i,j} |a_i - a_j|$. \\
+  Como $t_p \in Sd(s_p), t_p = (b(s_p), t_0, \dots, t_{p-1}) \in Sd(\U_{p-1})$. \\
+  Entonces, $diam(t_p) = max\{|b(s_p) - t_i|,\hspace{0.2em} |t_i - t_j| \mid i,j = 0, \dots, p-1\}$.
 
   Por h. de inducción sabemos que $|t_i - t_j| \leq diam(t_0, \dots, t_{p-1}) \leq \frac{p-1}{p} diam(\U_{p-1})$.
   Como $U_{p-1} \subseteq s_p$, entonces $diam(U_{p-1}) \leq diam(s_p)$, y como $\frac{p-1}{p} \leq \frac{p}{p+1}$
