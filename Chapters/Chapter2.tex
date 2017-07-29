@@ -338,13 +338,14 @@ $\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) 
 
 % Introducción
 
-Nos basaremos en el caso afín.
+Utilizando el caso afín ya estudiado, definiremos una subdivisión de símplices singulares de forma general sobre
+un espacio topológico $\X$. Demostraremos una serie de propiedades, equivalentes a las vistas anteriormente.
 
 \begin{proposition}
   Sea $\X$ un espacio topológico. Entonces, para todo $p \geq 0$ existe
-  \[Sd\colon S_p{\X} \to S_p{\X} \] homomorfismo, verificando:
+  \[Sd\colon S_p{(\X)} \to S_p{(\X)} \] homomorfismo, verificando:
   \begin{itemize}
-    \item[a)] Si $\X$ es un convexo de un espacio euclídeo, $\frac{Sd}{A_p(C)} = Sd'$
+    \item[a)] Si $\X$ es un convexo de un espacio euclídeo, $Sd_{|A_p(\X)} = Sd'$
     \item[b)] $Sd \circ \partial = \partial \circ Sd$
     \item[c)] $Sd \circ f_\# = f_\# \circ Sd \quad \forall f \colon \X \to \Y$ continua
     \item[d)] Existe un homomorfismo $\tau \colon \SX{p} \to S_{p+1}(\X)$ tal que ${\partial \tau + \tau \partial = Sd - Id_{S_p(\X)}}$
@@ -391,7 +392,7 @@ Nos basaremos en el caso afín.
   \[\Img(\phi_i) = \Img(\phi_\#(\psi_i)) = \phi(\Img(\psi_i)) \subseteq \phi(t_p^i)\]
 
   \begin{remark}
-    Probar que si $\phi \in F_p(\X)$ y $Sd^n(\phi) = \sum_i n_i \phi_i \implies \forall i \exists t_p^i \in Sd^n(\sigma_p)$ tal que
+    Probar que si $\phi \in F_p(\X)$ y $Sd^n(\phi) = \sum_i n_i \phi_i \implies \forall i \hspace{0.2em} \exists t_p^i \in Sd^n(\sigma_p)$ tal que
     $\Img(\phi_i) \subseteq \phi(t_p^i)$, consiste en reiterar la propiedad e) ya demostrada.
   \end{remark}
 
@@ -408,7 +409,7 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
   es un isomorfismo, $\forall p \geq 0$.
 
   Además, si $(\Y, \V)$ es otro par de las mismas características, y $f \colon \X \to \Y$ es una función continua
-  compatible con $\U, \V$, entonces el diagrama que obtenemos considerando $f_* e i_*$ es conmutativo.
+  compatible con $\U, \V$, entonces el diagrama que obtenemos considerando $f_*$ e $i_*$ es conmutativo.
 \end{theorem}
 
 \begin{proof}
@@ -419,14 +420,13 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
   Así, si $A \subseteq \sigma_p$ y $diam(A) < \epsilon(\phi)$ entonces existe $U \in \U$ tal que $A \subseteq \phi^{-1}(U)$ y entonces
   $\phi(A) \subseteq U$
 
-  En consecuencia, $\forall \phi \in F_p(\X) \quad \exists \epsilon(\phi) > 0$ tal que si $A \subseteq \sigma_p, diam(A) < \epsilon(\phi)$,
-  entonces existe $U \in \U$ tal que $\phi(A) \subseteq(U)$
+  En consecuencia, $\forall \phi \in F_p(\X) \hspace{0.2em} \exists \epsilon(\phi) > 0$ tal que si $A \subseteq \sigma_p, diam(A) < \epsilon(\phi)$,
+  entonces existe $U \in \U$ tal que $\phi(A) \subseteq(U)$.
 
-  Por un corolario que ya hemos visto, dado $\epsilon(\phi)$, existe $n(\phi)$ tal que \\
-  ${malla(Sd^{n(\phi)}(\sigma_p)) < \epsilon(\phi)}$. Si $t_p \in Sd^{n(\phi)}(\sigma_p), diam(t_p) < \epsilon(\phi)$,
-  luego existe $U \in \U$ con $\phi(t_p) \subseteq U$. En consecuencia, si $Sd^{n(\phi)}(\phi) = \sum_i n_i \phi_i$,
-  entonces $\Img(\phi_i) \subseteq \phi(t_p^i)$ con $t_p^i \in Sd^{n(\phi)}(\sigma_p)$,
-  por lo que existirá $U_i \in \U$ con $\Img(\phi_i) \subseteq \phi(t_p^i) \subseteq U_i$ \\
+  Por un corolario ya visto, dado $\epsilon(\phi)$, existe $n(\phi)$ tal que ${malla(Sd^{n(\phi)}(\sigma_p)) < \epsilon(\phi)}$.
+  Si $t_p \in Sd^{n(\phi)}(\sigma_p), diam(t_p) < \epsilon(\phi)$, luego existe $U \in \U$ con $\phi(t_p) \subseteq U$.
+  En consecuencia, si $Sd^{n(\phi)}(\phi) = \sum_i n_i \phi_i$,  entonces, por una propiedad vista, $\Img(\phi_i) \subseteq \phi(t_p^i)$
+  con $t_p^i \in Sd^{n(\phi)}(\sigma_p)$, por lo que existirá $U_i \in \U$ con $\Img(\phi_i) \subseteq \phi(t_p^i) \subseteq U_i$. \\
   Así, $Sd^{n(\phi)}(\phi) \in S_p^\U(\X)$
 
   Sea $m(\phi) = \inf\{n(\phi) \mid Sd^{n(\phi)}(\phi) \in S_p^\U(\X)\}$, que puede ser $0$, si, por ejemplo, $\phi \in S_p^\U(\X)$
@@ -441,24 +441,24 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
     \item[ii)] $\tau(S_{p-1}^\U(\X)) \subseteq S_p^\U(\X)$
   \end{itemize}
 
-  i) $Sd^n(\partial_i(\phi)) = \sum_\alpha n_\alpha \psi_\alpha$, con $\Img(\psi_\alpha \subseteq (\partial_i \phi)(t_{p-1}^\alpha), t_{p-1}^\alpha \in Sd^n(\sigma_{p-1})$. \\
+  i) $Sd^n(\partial_i(\phi)) = \sum_\alpha n_\alpha \psi_\alpha$, con $\Img(\psi_\alpha) \subseteq (\partial_i \circ \phi)(t_{p-1}^\alpha), t_{p-1}^\alpha \in Sd^n(\sigma_{p-1})$. \\
   Como $\partial_i \phi = \phi \circ F_p^i$, se tiene:
   \[ \Img(\phi_\alpha) \subseteq (\phi \circ F_p^i)(t_{p-1}^i) \subseteq \phi(\U_{p-1}^\alpha) \subseteq \phi((b(\sigma_p), \U_ {p-1}^\alpha)) = \phi(S_p^\alpha)\]
-  con $S_p^\alpha \in Sd^n(\sigma_p)$
+  con $S_p^\alpha \in Sd^n(\sigma_p)$.
 
   Si $Sd^n(\phi) \in S_p^\U(\X)$, entonces $\phi(S_p^\alpha) \subseteq U_\alpha \in \U$, luego se verifica
   \[ \Img(\psi_\alpha) \subseteq U_\alpha \in \U \implies Sd^n(\partial_i \phi) \in S_{p-1}^\U(\X) \]
-  De esta forma, $M(\partial_i \phi) = \inf\{n(\phi) \mid Sd^n(\partial_i \phi) \in S_{p-1}\U(\X) \leq m(\phi)$
+  De esta forma, $m(\partial_i \phi) = \inf\{n(\phi) \mid Sd^n(\partial_i \phi) \in S_{p-1}\U(\X)\} \leq m(\phi)$
 
-  ii) Como $\tau(\phi) = \phi_\# \tau'(\tau_p))$, sea $\phi \colon \sigma_{p-1} \to \X$ continua con $\Img(\phi) \subseteq U \in \U$, esto es,
-  un generador de $S_{p-1}^\U(\X)$. Entonces
+  ii) Como $\tau(\phi) = \phi_\# (\tau'(\tau_p))$, sea $\phi \colon \sigma_{p-1} \to \X$ continua con $\Img(\phi) \subseteq U \in \U$, esto es,
+  un generador de $S_{p-1}^\U(\X)$. Entonces:
   \[ \tau(\phi) = \phi_\#(\tau'(\tau_p)) = \phi_\#(\sum_i n_i \phi_i) = \sum_i n_i \phi_\#(\phi_i) \]
-  Como $\Img(\phi_\#(\phi_)) \subseteq \Img(\phi) \subseteq U \in \U, \tau(\phi) \in S_p^\U(\X)$
+  Como $\Img(\phi_\#(\phi_i)) \subseteq \Img(\phi) \subseteq U \in \U, \tau(\phi) \in S_p^\U(\X)$
 
   Una vez probada la buena definición de $\psi$, definimos:
   \begin{align*}
-    T \colon S_p(\X) &\to \SX{p+1} \quad \text{ por}
-    T(\phi) &= \tau(Sd^0 + Sd + Sd^2 + \dots + Sd^{m(\phi) - 1}
+    T \colon S_p(\X) &\to \SX{p+1}  \\
+    T(\phi) &= \tau(Sd^0 + Sd + Sd^2 + \dots + Sd^{m(\phi) - 1})
   \end{align*}
   Vamos a ver que:
   \begin{itemize}
@@ -466,20 +466,20 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
     \item[b)] $i \circ \psi - Id_{\SX{p}} = \partial T - T \partial$
   \end{itemize}
   En tal caso, $i \circ \psi$ y la identidad serían aplicaciones de cadenas homotópicas, e inducirían los mismos homomorfismos en la homología.
-  Esto, junto a que $\psi \circ i = Id$, nos dice que $i_* \colon H_p^{\U(\X)} \to H_p(\X)$ es un isomorfismo $\hspace{0.2em} \forall p$, con inverso $\psi_*$.
+  Esto, junto a que $\psi \circ i = Id$, nos dice que $i_* \colon H_p^{\U}(\X) \to H_p(\X)$ es un isomorfismo para todo $p$, con inverso $\psi_*$.
   Concluímos la demostración probando a) y b).
 
   a) $(\psi \circ i)(\phi) = \psi(\phi)$ con $\phi \in F_p^\U(\X)$. Como $m(\phi) = 0$ en este caso, $\psi(\phi) = \phi - 0 = \phi$
 
-  b) Sabemos que $\partial \tau + \tau \partial = Sd - Id$, por lo que \\
+  b) Sabemos que $\partial \tau + \tau \partial = Sd - Id$, por lo que:
   \[ \partial \tau Sd - \tau Sd \partial = \partial \tau Sd - \tau \partial Sd = Sd^2 - Sd \]
-  Repitiendo este proceso sucesivamente, se tiene
+  Repitiendo este proceso sucesivamente, se tiene:
   \[ \partial \tau Sd^{m - 1} - \tau Sd^{m-1} \partial = Sd^m - Sd^{m-1} \]
-  Si los sumamos todos, $\partial \tau(I  Sd + \dots + Sd^{m-1}) - \tau(I  Sd + \dots + Sd^{m-1}) \partial = Sd^m - I$ \\
-  De esta forma
+  Si los sumamos todos, $\partial \tau(I  Sd + \dots + Sd^{m-1}) - \tau(I  Sd + \dots + Sd^{m-1}) \partial = Sd^m - Id$ \\
+  De esta forma:
   \begin{align*}
-    &(\partial T + T \partial)(\phi) = \partial \tau(I  Sd + \dots + Sd^{m-1}) \phi + T(\sum\limits_{i = 0}^p (-1)^i \partial_i(\phi)) \\
-    &= \partial \tau(I  Sd + \dots + Sd^{m(\phi)-1}) \phi + \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
+    &(\partial T + T \partial)(\phi) = \partial \tau(I + Sd + \dots + Sd^{m-1}) \phi + T(\sum\limits_{i = 0}^p (-1)^i \partial_i(\phi)) \\
+    &= \partial \tau(I + Sd + \dots + Sd^{m(\phi)-1}) \phi + \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
     &= Sd^{m(\phi)}(\phi) - \phi - \tau(I + Sd + \dots + Sd^{m(\phi)-1})(\partial \phi)  \\
     &+ \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
     &= Sd^{m(\phi)}(\phi) - \phi - \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\phi) - 1}) \partial_i \phi \\
@@ -487,28 +487,28 @@ Demostremos ya el teorema de subdivisión baricéntrica. Recordamos su enunciado
     &= Sd^{m(\phi)}(\phi) - \phi - \sum\limits_{i = 0}^p (-1)^i \tau(Sd^{m(\partial_i(\phi))} + \dots + Sd^{m(\phi) - 1}) \partial_i \phi = \psi(\phi) - \phi
   \end{align*}
   de donde se sigue b).
-
-  Para finalizar, veremos que la hipótesis de que $\interior{\U}$ sea recubrimiento es esencial.
-
-  Sea $\X = S^1, \U = \{\{N\}, S^1 - \{N\}\}$ donde $N$ representa el polo norte, $(0, 1)$. Es claro que $\U$ recubre a $\X$, pero no su interior.
-
-  Veamos que $i_* \colon H_1(S_*^\U(S^1)) \to H_1(S^1)$ no es un isomorfismo. \\
-  Sea $[c] \in H_1(S_*^\U(S^1)), c \in S_1^\U(\S^1), \partial c = 0$. Entonces, $c = c_1 + c_2$, y si $\phi \colon \sigma_1 \to \{N\}$ es la función
-  (única) continua, entonces, $c_1 = n\phi, n \in \Z$. Así, $\partial = \partial c = n \partial \phi + \partial c_2 = \partial c_2$, con $c_2$ una
-  1-cadena en $S^1 - \{N\} \equiv \R$, que es un ciclo.
-
-  Como $H_1(\R) = 0$, existe $d_2$, una 2-cadena en $S^1 - \{N\}$ tal que $\partial d_2 = c_2$. Así, $d_2$ es también cadena en $S_2^\U(S^1)$, y se tiene
-  $c = n\phi + \partial d_2 = n \partial \overline{\phi} + \partial d_2 = \partial(n\overline{\phi}  d_2) \implies [c] = 0$ por ser un borde.
-
-  Por tanto, $H_1(S_*^\U(S^1)) = 0$ y $H_1(S^1) \cong \Z$, que no son isomorfos.
 \end{proof}
+
+Veamos que la hipótesis de que $\interior{\U}$ sea recubrimiento es esencial.
+
+Sea $\X = S^1, \U = \{\{N\}, S^1 - \{N\}\}$ donde $N$ representa el polo norte, $(0, 1)$. Es claro que $\U$ recubre a $\X$, pero no su interior.
+
+Veamos que $i_* \colon H_1(S_*^\U(S^1)) \to H_1(S^1)$ no es un isomorfismo. \\
+Sea $[c] \in H_1(S_*^\U(S^1)), c \in S_1^\U(\S^1), \partial c = 0$. Entonces, $c = c_1 + c_2$, y si $\phi \colon \sigma_1 \to \{N\}$ es la función
+(única) continua, entonces, $c_1 = n\phi, n \in \Z$. Así, $\partial = \partial c = n \partial \phi + \partial c_2 = \partial c_2$, con $c_2$ una
+1-cadena en $S^1 - \{N\} \equiv \R$, que es un ciclo.
+
+Como $H_1(\R) = 0$, existe $d_2$, una 2-cadena en $S^1 - \{N\}$ tal que $\partial d_2 = c_2$. Así, $d_2$ es también cadena en $S_2^\U(S^1)$, y se tiene
+$c = n\phi + \partial d_2 = n \partial \overline{\phi} + \partial d_2 = \partial(n\overline{\phi}  d_2) \implies [c] = 0$ por ser un borde.
+
+Por tanto, $H_1(S_*^\U(S^1)) = 0$ y $H_1(S^1) \cong \Z$, que no son isomorfos.
 
 \section{Consecuencias del teorema de subdivisión baricéntrica}
 
 Vamos a tratar ahora algunas de las principales consecuencias del teorema de subdivisión baricéntrica.
 
 \begin{theorem}[Sucesión de Mayer-Vietoris]
-  Sea $\X$ un espacio topológico y $\{U, V\}$ un recubrimiento de $\X$ tal que $\interior{U} \cup \interior{V} = \X$. Consideramos las inclusiones
+  Sea $\X$ un espacio topológico y $\{U, V\}$ un recubrimiento de $\X$ tal que $\interior{U} \cup \interior{V} = \X$. Consideramos las inclusiones:
   \begin{align*}
     & i \colon U \cap V \to U &\quad k \colon U \to \X \\
     & j \colon U \cap V \to V &\quad l \colon V \to \X
@@ -521,7 +521,7 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   $f(U) \subseteq R, f(V) \subseteq S$, entonces el diagrama resultante es conmutativo.
   \[ \begin{tikzcd}
     H_p(U \cap V) \arrow{r}{G} \arrow{d}{f*} & H_p(U) \oplus H_p(V) \arrow{r}{H} \arrow{d}{f_*  \oplus f_*} & H_p(\X) \arrow{r}{\Delta} \arrow{d}{f_*} & H_{p-1}(U \cap V) \arrow{d}{f_*} \\
-    H_p(R \cap S) \arrow{r}  & H_p(R) \oplus H_p(S) \arrow{r} & H_p(\Y) \arrow{r} & H_{p-1}(R \cap S)
+    H_p(R \cap S) \arrow{r}{G'}  & H_p(R) \oplus H_p(S) \arrow{r}{H'} & H_p(\Y) \arrow{r}{\Delta'} & H_{p-1}(R \cap S)
   \end{tikzcd} \]
 
 \end{theorem}
@@ -537,11 +537,13 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Claramente, $(i_\#, j_\#)$ es inyectiva, pues las aplicaciones $i_\#, j_\#$ lo son.
 
-  Si $d \in S_p^U(\X)$, podemos expresar $d$ como $d = d_1 + d_2$, con $d_1 = \sum_i n_i \phi_i, d_2 = \sum_j m_j \psi_j,
-  \Img \phi_i \subseteq U, \Img \psi_j \subseteq V$. De esta forma, $d_1 = k_\#(d_1), -d_2 = l_\#(d_2)$, y $d = k_\#(d_1) - l_\#(-d_2)$.
-  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$, y si $c_1 = \sum_i n_i \phi_i,
-  c_2 = \sum_j m_j \psi_j$, entonces $\Img(\phi_i) \subseteq U \cap V, \Img(\psi_j) \subseteq U \cap V$, y así $c_1 = i_\#(c), c_2 = j_\#(c)$,
-  de donde se sigue la exactitud.
+  Si $d \in S_p^U(\X)$, podemos expresar $d$ como una suma, $d = d_1 + d_2$, con \\
+  $d_1 = \sum_i n_i \phi_i, d_2 = \sum_j m_j \psi_j, \hspace{0.2em}  \Img \phi_i \subseteq U, \Img \psi_j \subseteq V$.
+
+  De esta forma, $d_1 = k_\#(d_1), -d_2 = l_\#(d_2)$, y $d = k_\#(d_1) - l_\#(-d_2)$.
+  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$, y si \\
+  $c_1 = \sum_i n_i \phi_i,  c_2 = \sum_j m_j \psi_j$, entonces $\Img(\phi_i) \subseteq U \cap V, \Img(\psi_j) \subseteq U \cap V$,
+  y así $c_1 = i_\#(c), c_2 = j_\#(c)$, de donde se sigue la exactitud.
 
   Tenemos una sucesión exacta corta de complejos de cadenas:
   \[ 0 \to S_*(U \cap V) \to S_*(U) \oplus S_*(V) \to S_*(\X) \to 0 \]
@@ -565,20 +567,20 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   Si $0 \to \mathcal{E} \xrightarrow{f} \mathcal{F} \xrightarrow{g} \mathcal{G} \to 0$ es una sucesión exacta corta de complejos
   de cadenas, entonces existe un homomorfismo $\Delta \colon H_p(\mathcal{G}) \to H_{p-1}(\mathcal{E})$ tal que la siguiente
   sucesión es exacta:
-  \[ H_p(\mathcal{E}) \xrightarrow{f_*} H_p(\mathcal{F}) \xrightarrow{g_*} H_p(\mathcal{G}) \xrightarrow{\Delta} H_{p-1}(\mathcal{E}) \dots \]
+  \[ \dots H_p(\mathcal{E}) \xrightarrow{f_*} H_p(\mathcal{F}) \xrightarrow{g_*} H_p(\mathcal{G}) \xrightarrow{\Delta} H_{p-1}(\mathcal{E}) \dots \]
   donde $f_*([e]) = [f(e)], g_*([c]) = [g(c)]$.
 
   Además, la solución admite una construcción natural
   \[ \begin{tikzcd}
     0 \arrow{r} & \mathcal{E} \arrow{r}{f} \arrow{d}{h_1} & \mathcal{F} \arrow{r}{g} \arrow{d}{h_2} & \mathcal{G} \arrow{r} \arrow{d}{h_3} & 0 \\
-    0 \arrow{r} & \overline{\mathcal{E}} \arrow{r}{\overline{f}} & \overline{\mathcal{F}} \arrow{r}{\overline{g}} & \overline{\mathcal{G}} \arrow{r} & 0
+    0 \arrow{r} & \mathcal{E'} \arrow{r}{f'} & \mathcal{F'} \arrow{r}{g'} & \mathcal{G'} \arrow{r} & 0
   \end{tikzcd} \]
-  donde $h_2 \circ f = \overline{f} \circ h_1, h_3 \circ g = \overline{g} \circ h_2$, con $h_i$ aplicaciones de cadenas.
+  donde $h_2 \circ f = f' \circ h_1, h_3 \circ g = g' \circ h_2$, con $h_i$ aplicaciones de cadenas.
 
-  Entonces, el diagrama inducido en la homología es conmutativo.
+  Y por ello, el diagrama inducido en la homología es conmutativo.
 \end{theorem}
 
-\begin{theorem}
+\begin{proof}
   Vamos a definir $\Delta$. \\
   Sea $[c] \in H_p(\mathcal G)$ con $c \in \mathcal G_p$ y $\partial c = 0$. Como $g$ es sobreyectiva, $c = g(d), d \in \mathcal F_p$.
   Además, $0 = \partial c = \partial g(d) = g(\partial d)$, y así, $\partial d \in \Ker g = \Img f$, luego existe un único $e \in \mathcal E_{p+1}$
@@ -593,12 +595,12 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   \implies [e'] = [e]$.
 
   Comprobar la exactitud y la naturalidad es repetir el mismo proceso que hemos hecho en otras ocasiones.
-\end{theorem}
+\end{proof}
 
 \begin{theorem}[Teorema de escisión]
   Sea $(\X, A)$ un par, $U \subseteq A$ verificando $\overline{U} \subseteq \interior{A}$. Entonces la inclusión
-  $k \colon (\X - U, A - U) \to (\X, A)$ induce un isomorfismo en la homología, esto es, $k_* \colon H_p(\X - U, A - U) \to H_p(\X, A)$
-  es un isomorfismo para todo $p \geq 0$.
+  \[ k \colon (\X - U, A - U) \to (\X, A) \]
+  induce un isomorfismo en la homología, esto es, $k_* \colon H_p(\X - U, A - U) \to H_p(\X, A)$ es un isomorfismo para todo $p \geq 0$.
 \end{theorem}
 
 \begin{proof}
@@ -621,7 +623,7 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   Del teorema de homología se sigue la conmutatividad del diagrama que induce el anterior en la homología:
   \[ \begin{tikzcd}
   H_p(S_*^{\U'}(A)) \arrow{r} \arrow{d}{i'_*} & H_p(S_*^{\U}(\X)) \arrow{r} \arrow{d}{i_*} & H_p(\frac{S_*^{\U}(\X)}{S_*^{\U'}(A)}) \arrow{r} \arrow{d}{i''_*} & H_{p-1}(S_*^{\U'}(A)) \arrow{d}{i'_*} \dots \\
-  H_p(S_*(A)) \arrow{r} & H_p(S_*(\X)) \arrow{r} & H_p(S_*(\X, A)) \arrow{r} & H_{p-1}(S_*(A))
+  H_p(S_*(A)) \arrow{r} & H_p(S_*(\X)) \arrow{r} & H_p(S_*(\X, A)) \arrow{r} & H_{p-1}(S_*(A)) \dots
   \end{tikzcd} \]
 
   Como $i_*, i'_*$ son isomorfismos, se deduce directamente que $i''_*$ también lo es.
@@ -641,7 +643,8 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 \subsection{Homología de las esferas}
 
 Como última parte de este capítulo, vamos a calcular los grupos de homología de las esferas
-$n$-dimensionales. Lo haremos de dos formas, utilizando pares, y utilizando la sucesión de
+$n$-dimensionales. Lo haremos de dos formas: en la primera de ellas, utilizando resultados sobre pares
+y el teorema de escisión, mientras que en la segunda nos haremos valer de la sucesión de
 Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
 
 \begin{theorem}[Grupos de homología de las esferas]
@@ -656,14 +659,14 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
   Ya conocemos el resultado sobre $H_0$ por arcoconexión, por lo que nos centraremos en el resto.
 
   Consideremos los dos hemisferios de las esferas \\
-  $E_+^n = \{x \in \S^n \mid x_{n+1} \geq 1\}, E_-^n = \{x \in \S^n \mid x_{n+1} \leq 1\}$.
+  $E_+^n = \{x \in \S^n \mid x_{n+1} \geq 0\}, \hspace{0.5em} E_-^n = \{x \in \S^n \mid x_{n+1} \leq 0\}$.
 
   Cada hemisferio es homeomorfo al disco cerrado $D^n$, por lo que es contráctil. Además, la intersección de
   ambos, $E_+^n \cap E_-^n = \{x \in S^n \mid x_{n+1} = 0\}$ es homeomorfa a $S^{n-1}$.
 
   Consideremos el par $(S^n, E_+^n)$ y $U = \{x \in S^n \mid x_{n+1} > \frac{1}{2}\}$. Como
   $\overline{U} = \{x \in S^n \mid x_{n+1} \geq \frac{1}{2}$\}, y se verifica $U \subseteq \overline{U} \subseteq E_+^n$,
-  estamos en condiciones de aplicar el teorema de escisión.
+  estamos en condiciones de aplicar el teorema de escisión:
   \[ H_*(S^n, E_+^n) \cong H_*(S^n - U, E_+^n - U) \]
 
   Es posible construir un retracto de $(S^n - U, E_+^n - U)$ a $(E_-^n, S^{n-1})$, de donde se deduce que sus
@@ -710,9 +713,7 @@ Veamos ahora una deducción alternativa utilizando la sucesión de Mayer-Vietori
   la proyección estereográfica, por lo que son contráctiles, y conocemos sus grupos de homología.
 
   Si consideramos $U \cap V$, puede retraerse a $S^{n-1} = \{x \in S^n \mid x_{n+1} = 0\}$. Por tanto, se verifica:
-
-  $H_p(U) \oplus H_p(V) \to H_p(S^n) \to H_{p-1}(S^{n-1}) \to H_{p-1}(U) \oplus H_{p-1}(V) \to \dots$
-
+  \[ \dots H_p(U) \oplus H_p(V) \to H_p(S^n) \to H_{p-1}(S^{n-1}) \to H_{p-1}(U) \oplus H_{p-1}(V) \dots \]
   Si $p \geq 2$, sabemos que $H_p(U), H_p(V) = 0$. Por la exactitud de la sucesión, se tiene que $H_p(S^n) \cong H_{p-1}(S^{n-1})$.
 
   Tomemos $n \geq 2$. $H_1(S^n) \xrightarrow{\Delta} \Z \xrightarrow{G} \Z \oplus \Z \xrightarrow{H} \Z \to 0$.
@@ -723,7 +724,7 @@ Veamos ahora una deducción alternativa utilizando la sucesión de Mayer-Vietori
   Para $n = 1$: \\
   $0 \to H_1(S^1) \xrightarrow{\Delta} H_0(U \cap V) \xrightarrow{G} H_0(U) \oplus H_0(V) \xrightarrow{H} H_0(S^1) \to 0$
 
-  Deducimos que $H_1(S^1) \cong \Img \Delta = \Ker G$.
+  Por exactitud, deducimos que $H_1(S^1) \cong \Img \Delta = \Ker G$.
 
   Como $U \cap V = S^1 - \{(0, 1), (0, -1)\}, H_0(U \cap V) \cong \Z \oplus \Z$, y sus elementos son de la forma
   $[ax + by]$, con $a,b \in \Z, x, y$ puntos en cada componente conexa de $U \cap V$. Se tiene que:
@@ -733,6 +734,6 @@ Veamos ahora una deducción alternativa utilizando la sucesión de Mayer-Vietori
 
   Además, $[ax + by]_U = [(a+b) x]_U$, ya que $[x]_U = [y]_U$ por ser $U$ arcoconexo. Por tanto, $a = -b$.
 
-  Deducimos que $\Ker G = \{[ax - ay] \mid a \in \Z\} \cong \Z$, y $H_1(S^1) \cong \Z$. Usando esto y que
+  Esto implica que $\Ker G = \{[ax - ay] \mid a \in \Z\} \cong \Z$, y $H_1(S^1) \cong \Z$. Usando esto y que
   $H_p(S^n) \cong H_{p-1}(S^{n-1})$, se calcula la homología de $S^n \quad \forall n \geq 1$.
 \end{proof}
