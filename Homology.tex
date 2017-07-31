@@ -27,10 +27,10 @@
 %
 % **************************************************************************************************************
 \RequirePackage{fix-cm} % fix some latex issues see: http://texdoc.net/texmf-dist/doc/latex/base/fixltx2e.pdf
-\documentclass[ article,titlepage,numbers=noenddot,headinclude,oneside, %1headlines,% letterpaper a4paper
+\documentclass[ titlepage,numbers=noenddot,headinclude,oneside, %1headlines,% letterpaper a4paper
                 footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
                 BCOR=5mm,paper=a4,fontsize=12pt,%13pt,a4paper,%
-                ngerman,american,%
+                ngerman,spanish,%
                 ]{scrreprt}
 
 %********************************************************************
@@ -54,7 +54,7 @@
 \begin{document}
 \frenchspacing
 \raggedbottom
-\selectlanguage{american} % american ngerman
+\selectlanguage{spanish} % Spanish
 %\renewcommand*{\bibname}{new name}
 %\setbibpreamble{}
 \pagenumbering{roman}
@@ -62,14 +62,14 @@
 %********************************************************************
 % Frontmatter
 %*******************************************************
-\include{FrontBackmatter/DirtyTitlepage}
+%\include{FrontBackmatter/DirtyTitlepage}
 \include{FrontBackmatter/Titlepage}
-\include{FrontBackmatter/Titleback}
-\cleardoublepage\include{FrontBackmatter/Dedication}
+%\include{FrontBackmatter/Titleback}
+%\cleardoublepage\include{FrontBackmatter/Dedication}
 %\cleardoublepage\include{FrontBackmatter/Foreword}
 \cleardoublepage\include{FrontBackmatter/Abstract}
-\cleardoublepage\include{FrontBackmatter/Publications}
-\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+%\cleardoublepage\include{FrontBackmatter/Publications}
+%\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
 \cleardoublepage\include{FrontBackmatter/Contents}
 %********************************************************************
@@ -83,13 +83,20 @@
 % Parte 1: Matemáticas.
 % Homología Singular
 
-
+\ctparttext{En esta parte, vamos a ver una introducción a la homología singular.}
 \part{Homología Singular}
 \include{Chapters/Chapter1}
 
+\include{Chapters/Chapter2}
+
 \cleardoublepage
-\ctparttext{You can put some informational part preamble text here.}
+\ctparttext{En esta parte, analizaremos y resolveremos mediante distintas técnicas el
+          problema del clique máximo, comparando sus resultados.}
 \part{Análisis y resolución del problema del Clique Máximo}
+
+\include{Chapters/IntroduccionMCP}
+
+\include{Chapters/Algoritmos}
 % ********************************************************************
 % Backmatter
 %*******************************************************
@@ -102,8 +109,8 @@
 % Other Stuff in the Back
 %*******************************************************
 \cleardoublepage\include{FrontBackmatter/Bibliography}
-\cleardoublepage\include{FrontBackmatter/Declaration}
-\cleardoublepage\include{FrontBackmatter/Colophon}
+%\cleardoublepage\include{FrontBackmatter/Declaration}
+%\cleardoublepage\include{FrontBackmatter/Colophon}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
 %*******************************************************
