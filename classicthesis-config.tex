@@ -23,7 +23,7 @@
 % 1. Configure classicthesis for your needs here, e.g., remove "drafting" below
 % in order to deactivate the time-stamp on the pages
 % ****************************************************************************************************
-\PassOptionsToPackage{eulerchapternumbers,listings,%
+\PassOptionsToPackage{eulerchapternumbers,listings,%drafting,
 					 pdfspacing,%floatperchapter,%linedheaders,%
 					 subfig,beramono,eulermath,parts}{classicthesis}
 % ********************************************************************
@@ -47,7 +47,8 @@
 \newcommand{\myProf}{Francisco Urbano Pérez-Aranda\xspace}
 \newcommand{\myOtherProf}{Salvador García López\xspace}
 \newcommand{\mySupervisor}{Put name here\xspace}
-\newcommand{\myFaculty}{Put data here\xspace}
+\newcommand{\myFaculty}{Facultad de Ciencias\xspace}
+\newcommand{\myOtherFaculty}{Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación\xspace}
 \newcommand{\myDepartment}{Put data here\xspace}
 \newcommand{\myUni}{Universidad de Granada\xspace}
 \newcommand{\myLocation}{Granada\xspace}
@@ -86,7 +87,7 @@
     %style=authoryear-comp, % Author 1999, 2010
     %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
     sorting=nyt, % name, year, title
-    maxbibnames=10, % default: 3, et al.
+    maxbibnames=3, % default: 3, et al.
     %backref=true,%
     natbib=true % natbib compatibility mode (\citep and \citet still work)
 }{biblatex}
