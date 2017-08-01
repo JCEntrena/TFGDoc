@@ -26,3 +26,23 @@ de carácter topológico.
   \[ H((x, y), t) = (1-t)(x, y) + t(x, 0) \]
   homotopía entre ambos espacios, siendo $\R^n$ un retracto de $\R^m$.
 \end{remark}
+
+\begin{lemma}
+  No hay ninguna retracción de $D^n$ a $S^{n-1}$.
+\end{lemma}
+
+\begin{proof}
+  Sean $D^n = \{x \in \R^n \mid |x| \leq 1\}, S^{n-1} = \{x \in \R^n \mid |x| = 1\} \subseteq D^n$. Si existiera dicha retracción,
+  $r \colon D^n \to S^{n-1}$, tenemos el siguiente diagrama conmutativo:
+  \[ \begin{tikzcd}
+    S^{n-1} \arrow{dr}{i} \arrow{rr}{Id} & & S^{n-1} \\
+    & D^n \arrow{ur}{r}
+  \end{tikzcd} \]
+  de donde se obtiene un diagrama, también conmutativo, en la homología:
+  \[ \begin{tikzcd}
+    Z \cong H_{n-1}(S^{n-1}) \arrow{dr}{i_*} \arrow{rr}{Id_*} & & H_{n-1}(S^{n-1}) \\
+    & H_{n-1}(D^n) \arrow{ur}{r_*}
+  \end{tikzcd} \]
+  lo cual es imposible, pues $H_{n-1}(D^n) \cong 0$, y tendríamos una factorización de la identidad que incluye a la aplicación nula,
+  que en este caso sería $i_*$.
+\end{proof}
