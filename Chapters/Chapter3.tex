@@ -1,0 +1,28 @@
+%************************************************
+\chapter{Introducción}\label{ch:resultados}
+%************************************************
+
+\section{Definiciones iniciales}
+
+Vamos a utilizar el cálculo de la homología de las esferas para obtener resultados
+de carácter topológico.
+
+\begin{proposition}
+  a) Esferas de distinta dimensión no tienen el mismo tipo de homotopía. En particular, no son homeomorfas.
+
+  b) Espacios euclídeos de distinta dimensión no son homeomorfos.
+\end{proposition}
+
+\begin{proof}
+  a) Sean $S^n, S^m$ con $n \neq m$. Si $S^n \cong S^m$, entonces $H_n(S^n) \cong H_n(S^m)$, pero hemos visto que eso no sucede.
+
+  b) Si $n \neq m$, y $h \colon \R^n \to \R^m$ es un homeomorfismo, entonces su restricción a $R^n - \{0\}$ también lo es.
+  Como $R^n - \{0\} \cong S^n$, y $R^m - \{f(0)\} \cong S^m$, llegamos de nuevo a una contradicción.
+\end{proof}
+
+\begin{remark}
+  $\R^n$ y $\R^m$ tienen el mismo tipo de homotopía. Si $n \leq m$, podemos ver $\R^m$ como \\
+  $\R^m = \{(x, y) \mid x \in \R^n, y \in \R^{m-n}\}$, y se define
+  \[ H((x, y), t) = (1-t)(x, y) + t(x, 0) \]
+  homotopía entre ambos espacios, siendo $\R^n$ un retracto de $\R^m$.
+\end{remark}
