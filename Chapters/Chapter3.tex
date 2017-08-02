@@ -46,3 +46,51 @@ de carácter topológico.
   lo cual es imposible, pues $H_{n-1}(D^n) \cong 0$, y tendríamos una factorización de la identidad que incluye a la aplicación nula,
   que en este caso sería $i_*$.
 \end{proof}
+
+\begin{corollary}
+  Sea $f \colon D^n \to \R^n$ continua, tal que la restricción de $f$ a $S^{n-1}$ sea la identidad.
+  Entonces existe $x \in D^n$ tal que $f(x) = 0$.
+\end{corollary}
+
+\begin{proof}
+  Supongamos que no existe dicho $x$. En tal caso, es posible definir $h(x) = \frac{f(x)}{|f(x)|}$
+  continua, que contradice el resultado anterior.
+\end{proof}
+
+Vamos a demostrar un teorema que nos dará como consecuencia directa un resultado clásico, el teorema
+del punto fijo de Brower.
+
+\begin{theorem}
+  Sea $f \colon D^n \to \R^n$ continua. Entonces o bien existe $y \in D^n$ tal que $f(y) = 0$, o existe
+  $z \in S^{n-1}$ con $f(z) = \lambda z, \quad \lambda < 0$.
+\end{theorem}
+
+\begin{proof}
+  Sea $h \colon D^n \to \R^n$, definida por:
+  \[ h(x) = \begin{cases} f(2x) &\text{ si } |x| \leq \frac{1}{2} \\
+                          (2-2|x|)f(\frac{x}{|x|}) + (2|x| + 1)x &\text{ si } |x| \geq \frac{1}{2}  \end{cases} \]
+  que es continua, ya que en $\frac{1}{2}$ ambas definiciones coinciden.
+
+  Si $|x| = 1, h(x) = x$, y aplicando el corolario anterior, existe $y \in D^n$ tal que $h(y) = 0$. Distinguimos dos casos:
+
+  Si $|y| \leq \frac{1}{2}, 0 = f(2y)$, y estamos en el primer caso.
+
+  Si $|y| > \frac{1}{2}, f(\frac{x}{|x|}) = \frac{(-2|x| + 1)x}{2-2|x|}$. Si llamamos $z = \frac{x}{|x|}$,
+  $f(z) = \frac{(-2|x|+1)|x|}{2-2|x|} z$, por lo que estamos en el segundo caso del teorema.
+\end{proof}
+
+\begin{corollary}
+  Sea $f \colon D^n \to \R^n$ continua. Entonces existe $y \in D^n$ tal que $f(y) = y$ o existe $z \in S^{n-1}$ con $f(z) = \mu z, \mu > 1$.
+\end{corollary}
+
+\begin{proof}
+  Aplicamos el teorema anterior a $-f + Id$.
+\end{proof}
+
+\begin{corollary}[Teorema del punto fijo de Brower]
+  Toda aplicación continua de $D^n$ en sí mismo tiene un punto fijo.
+\end{corollary}
+
+\begin{proof}
+  Basta ver que no puede darse la segunda opción del corolario anterior, pues la imagen de la función caería fuera de $D^n$.
+\end{proof}
