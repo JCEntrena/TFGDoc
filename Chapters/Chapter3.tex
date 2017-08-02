@@ -94,3 +94,53 @@ del punto fijo de Brower.
 \begin{proof}
   Basta ver que no puede darse la segunda opción del corolario anterior, pues la imagen de la función caería fuera de $D^n$.
 \end{proof}
+
+Pasemos ahora a la definición del grupo de homología local, herramienta que nos servirá para demostrar varios resultados de invarianza.
+
+\begin{definition}
+  Sean $\X$ un espacio topológico, $x \in \X$. A $H_p(\X, \X - \{x\})$ lo llamaremos el grupo de homología local de $\X$ en $x$.
+\end{definition}
+
+\begin{proposition}
+  Sea $x \in \X$, y supongamos que $\{x\}$ es un cerrado. Entonces, para todo entorno $V$ de $x$, se verifica:
+  \[ H_p(\X, \X - \{x\}) \cong H_p(V, V - \{x\}) \quad \forall p \geq 0 \]
+\end{proposition}
+
+\begin{proof}
+  Sea $U = \X - V \subseteq \X - \{x\}$. Si tomamos el cierre, se tiene
+  \[ \overline{U} = \overline{\X - V} = \X - \interior{V} \subseteq \X - x = \X - \overline{x} = \interior{(\X - x)} .\]
+  Aplicando el teorema de escisión, $i \colon (\X - U, (\X - \{x\}) - U) \to (\X, \X - \{x\})$ induce un isomorfismo en la homología.
+  Como $\X - U = V, (\X - \{x\}) - U = V - \{x\}$, obtenemos el resultado.
+\end{proof}
+
+\begin{proposition}
+  Sean $\X, \Y$ espacios topológicos, $x \in \X, y \in \Y$ cerrados. Si existen entornos $x \in V, y \in W$ tales que $(V, \{x\}) \cong (W, \{y\})$,
+  entonces $H_*(\X, \X - \{x\}) \cong H_*(\Y, \Y - \{y\})$.
+\end{proposition}
+
+\begin{proof}
+  Sea $h \colon V \to W$ el homeomorfismo entre $V$ y $W$, con $h(x) = y$. La restricción $h \colon V - \{x\} \to W - \{y\}$ también es un homeomorfismo,
+  por lo que $H_*(V, V - \{x\}) \cong H_*(W, W - \{y\})$: Basta aplicar la proposición anterior para obtener el resultado.
+\end{proof}
+
+Vamos a calcular la homología local de $\R^n$.
+
+\begin{proposition}
+  $H_p(\R^n, \R^n - \{x\}) \cong \begin{cases} 0 &\text{ si } n \neq p \\ \Z &\text{ si } n = p \end{cases}$
+\end{proposition}
+
+\begin{proof}
+  Si $p = 0$, ya sabemos que $H_0(\R^n, \R^n - \{x\}) = 0$. Supondremos $p \geq 1$.
+
+  Consideramos la sucesión de homología del par, teniendo en cuenta que $\R^n - \{x\}$ y $S^{n-1}$ tienen el mismo tipo de homotopía. \\
+  Si $p = 1$:
+  \[ 0 = H_1(\R^n) \xrightarrow{\pi_*} H_1(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_0(\R^n - \{x\}) \xrightarrow{i_*} H_0(\R^n) = \Z \to 0 \]
+  Si $n \geq 2, H_0(\R^n - \{x\}) \cong \Z$. \\
+  Como $\Ker \Delta = \Img \pi_* = 0, \Img \Delta = \Ker i_* = 0, H_1(\R^n, \R^n - \{x\}) = 0$. \\
+  Si $n = 1, H_0(\R^n - \{x\}) \cong \Z \oplus \Z$, luego $H_1(\R^n, \R^n - \{x\}) \cong \Z$.
+
+  Si $p \geq 2$:
+  \[ 0 = H_p(\R^n) \xrightarrow{\pi_*} H_p(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_{p-1}(\R^n - \{x\}) \xrightarrow{i_*} H_{p-1}(\R^n) = 0 \]
+  Si $p \neq n, H_{p-1}(\R^n - \{x\} = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$. \\
+  Si $p = n, H_{p-1}(\R^n - \{x\} \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$. 
+\end{proof}
