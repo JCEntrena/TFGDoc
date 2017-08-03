@@ -90,3 +90,25 @@ módulo aparte, para diferenciarlos de las implementaciones de las heurísticas.
 
 
 \section{El repositorio DIMACS}
+Las siglas DIMACS hacen referencia al centro de matemática discreta y computación teórica
+(del ingĺes, Center for Discrete Mathematics and Theoretical Computer Science). Es una colaboración
+entre dos universidades estadounidenses, las de Rutgers y Princeton, además de las empresas de
+investigación AT\&T, Bell Labs, Applied Communication Science y NEC. Fue fundada en el año 1989,
+y desde 1990 convoca desafñios de implementación para determinados problemas de interés en
+el ámbito científico, con el objetivo de conseguir algoritmos de calidad.
+
+El problema del clique máximo fue, junto con el coloreo de grafos y el problema de satisfabilidad
+de cláusulas (SAT), protagonista del segundo desafío DIMACS, que tuvo lugar entre 1990 y 1991.
+Para el problema, se proporcionó un conjunto de instancias de grafos, que son de acceso público,
+y son las que utiliza la comunidad científica para evaluar nuevos algoritmos, y las que he utilizado
+para los míos. Pueden encontrarse en la URL \url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}
+
+En dicho repositorio podemos encontrar un total de 37 grafos. Están subdivididos en distintos grupos,
+que hacen referencia al método de generación de los mismos. Debido a esto, es posible que algunos
+algoritmos muestren un buen comportamiento en ciertos tipos de grafos, y den peores resultados en
+grafos que correspondan a otra familia. Los métodos de generación de cada familia de grafos se pueden
+consultar en profundidad en la web del repositorio.
+
+En ciertas instancias se ha confirmado el valor del óptimo global, mientras que en otras solo se conoce
+una cota inferior a la mejor solución posible. Estos valores serán tomados como referencia a la hora
+de evaluar cada algoritmo implementado y determinar la calidad de las soluciones. 
