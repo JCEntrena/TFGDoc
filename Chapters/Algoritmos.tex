@@ -45,7 +45,7 @@ arcos, la matriz de adyacencia y el nombre del archivo del que proviene el grafo
 
 Para la lectura, simplemente recorreremos el directorio en el que están almacenados los archivos, y generaremos un problema
 por cada uno de ellos, marcando en la matriz de adyacencia los arcos que están conectados. Almacenaremos el conjunto de problemas
-en una variable, para tenerlos disponibles a la hora de aplicarles los algoritmos. 
+en una variable, para tenerlos disponibles a la hora de aplicarles los algoritmos.
 
 \section{Algoritmos \textit{greedy}}
 
@@ -67,16 +67,16 @@ considerado únicamente los primeros.
 
 \subsection{\textit{Greedy} en MCP}
 
-En este problema, los algoritmos \textit{greedy} tienen dos enfoque principales: o bien se parte de un conjunto
-vacío y se añaden vértices, respetando la estructura de clique, hasta que no sea posible añadir más, o partimos
-del conjunto total de vértices y vamos eliminando hasta que el obtenido sea un clique.
+En el problema del clique máximo, los algoritmos \textit{greedy} tienen dos enfoque principales:
+o bien se parte de un conjunto vacío y se añaden vértices, respetando la estructura de clique,
+hasta que no sea posible añadir más, o partimos del conjunto total de vértices y vamos eliminando
+hasta que el obtenido sea un clique.
 
 \subsection{Algoritmos implementados}
 
-Los dos algoritmos que he implementado siguen el primer enfoque de los mencionados anteriormente.
-No obstante, actúan de forma distinta a la hora de elegir el vértice a añadir. Uno de ellos considera
-también la posibilidad de intercambiar un vértice del clique con otro de fuera, el cual, al añadirlo,
-siga respetando la estructura de clique.
+Los dos algoritmos \textit{greedy} que he implementado siguen el primer enfoque de los mencionados anteriormente.
+Se diferencian principalmente en la elección del vértice que se añade al clique, aunque en uno de ellos modificaremos
+también la estructura de entornos, considerando intercambios además de adiciones.
 
 A continuación, se detallan en más profundidad los dos algoritmos implementados:
 
@@ -86,6 +86,8 @@ Este algoritmo es el enfoque más básico posible dentro de los algoritmos vorac
 Comenzando desde un clique vacío, añade elementos al clique, respetando la estructura, hasta
 que no se pueda añadir ninguno más. Para elegir el vértice que añadir, toma, de aquellos que
 pueden añadirse, el que tiene mayor número de adyacencias globales, usando el operador \textit{add}.
+Otras posibles opciones serían elegir un nodo aleatorio entre los disponibles o tomar aquel que
+maximice el tamaño del conjunto $C_0$ al añadirse al clique.
 
 Vemos a continuación el pseudocódigo del algoritmo.
 
@@ -119,11 +121,11 @@ Antes de considerar intercambios, queremos que el clique tenga un tamaño mínim
 dicho tamaño en $4$, valor a partir del cual se empiezan a considerar los intercambios y no
 solo las adiciones. Como criterio de parada, se ha establecido un número de intercambios máximo,
 además de comprobar siempre que el entorno no sea vacío. Una vez satisfecha alguna de estas
-condiciones, el clique que tengamos será ampliado hasta su límite usando movimientos \textit{add}
-y el algoritmo finaliza.
+condiciones, el clique que tengamos será ampliado hasta su límite usando movimientos \textit{add},
+finalizando cuando no sea posible añadir más nodos.
 
-Para evitar swaps inútiles, en caso de intercambiar dos nodos en el clique, guardaremos el que
-sale del clique para no tenerlo en cuenta en la siguiente iteración. De no hacer esto, cabe la
+Para evitar swaps inútiles, en caso de intercambiar dos nodos guardaremos el que
+sale del clique, para no tenerlo en cuenta en la siguiente iteración. De no hacer esto, cabe la
 posibilidad de entrar en un bucle, en el que se intercambien dos nodos de forma indefinida
 hasta que se alcance el criterio de parada.
 
@@ -155,14 +157,15 @@ Vemos a continuación el pseudocódigo de la parte adaptativa del algoritmo.
 \section{Búsqueda local}
 
 Los algoritmos de búsqueda local son aquellos que se centran en el entorno de una solución
-para buscar nuevas soluciones que sean mejores que la anterior. Dentro del espacio de soluciones
-cada solución tendrá un entorno, compuesto por sus soluciones vecinas, que serán las que exploremos
+para buscar nuevas soluciones que sean mejores que la anterior. Dentro del espacio de soluciones,
+cada solución tendrá un entorno compuesto por sus soluciones vecinas, que serán las que exploremos
 sucesivamente.
 
 Las técnicas de búsqueda local se utilizan no solo como heurísticas para resolver problemas,
 sino como complementos de otras. Por ejemplo, pueden ser utilizadas junto a los algoritmos genéticos
-para mejorar el conjunto de soluciones, o aplicarse después de técnicas \textit{greedy} para mejorar
-soluciones. También se usan en técnicas multiarranque como ILS o GRASP, que explicaremos más adelante.
+para mejorar el conjunto de soluciones, o aplicarse después de técnicas \textit{greedy} para explorar
+el espacio de soluciones. También se usan en técnicas multiarranque como ILS o GRASP, que explicaremos
+más adelante.
 
 En los algoritmos de búsqueda local podemos permitir ciertos comportamientos que darán lugar a
 distintos algoritmos. La búsqueda local básica busca mejorar el resultado con un elemento del
@@ -178,8 +181,13 @@ entornos. Asimismo, se ha implementado un algoritmo de enfriamiento simulado, y 
 varias de las técnicas mencionadas anteriormente en otros algoritmos. Estas serán mencionadas y
 detalladas en cada uno de ellos.
 
-Pasando ya a los algoritmos de búsqueda local, las diferencias que he establecido están en la estructura
-de entornos. En uno de los algoritmos considero movimientos \textit{add}, \textit{swap} y también \textit{drop}.
+\subsection{Búsqueda local en MCP}
+
+En la búsqueda local, las diferencias que hacen a los algortimos distintos están en  la estructura
+de entornos y en la elección de la solución vecina a la que desplazarse. Estas diferencias son también
+las que existen entre los dos algoritmos implementados en este trabajo.
+
+En el primer algoritmo se consideran movimientos \textit{add}, \textit{swap} y también \textit{drop}.
 Si bien esto rompe con la filosofía de que la búsqueda local debe ir a mejores soluciones, la posibilidad de
 eliminar elementos del clique se incluye para evitar que estos algoritmos sean similares a los
 \textit{greedy}.
@@ -187,6 +195,8 @@ eliminar elementos del clique se incluye para evitar que estos algoritmos sean s
 En el segundo algoritmo, solo se consideran movimientos \textit{add} y \textit{swap}. Si bien puede
 parecer similar al algoritmo \textit{greedy} adaptativo detallado anteriormente, tiene varias diferencias
 fundamentales con respecto a este.
+
+Veámoslos en más detalles.
 
 \subsection{Primer algoritmo}
 
@@ -196,48 +206,107 @@ dando distintas prioridades a cada uno de ellos. Como nuestro objetivo es constu
 mayor tamaño posible, añadiremos vértices siempre que podamos. Cuando no sea posible, intentaremos
 hacer un swap, siempre que este nos lleve a un escenario en el que podamos añadir más nodos
 al clique resultante. La elección de los nodos a intercambiar se hace mediante la técnica del
-primer mejor, esto es, tomamos el primero que encontremos.
-De no poder hacer ningún swap bajo estas condiciones, eliminaremos del clique el nodo que
-tenga menos adyacencias con todos los nodos del grafo.
+primer mejor, esto es, tomamos el primero que encontremos. De no poder hacer ningún swap bajo
+estas condiciones, eliminaremos del clique el nodo que tenga menos adyacencias con todos los nodos del grafo.
 
 Para evitar que los nodos que eliminemos sean añadidos inmediatamente al clique,
 los iremos acumulando en una lista tabú, que será reiniciada a una lista vacía al hacer
 un nuevo movimiento add, que involucrará un nodo distinto de los nodos tabú. Así, nos aseguramos
-que el clique cambia, y no entramos en un bucle.
+que el clique cambia, y no entramos en un bucle. Esta lista tabú será vaciada en el momento en el
+que se realice un movimiento que no sea quitar un nodo del clique.
 
-Como este algoritmo no tiene un criterio de parada inducido por el entorno (pues siempre podremos
-hacer alguno de los tres movimientos), es necesario establecer un límite. En este caso, se ha
-elegido limitar el número de swaps y drops que se realizan a un número determinado. Para
-evitar tener una constante para todas las instancias, este número se ha establecido en proporción
+Como este algoritmo no tiene un criterio de parada inducido por el entorno, pues siempre podremos
+hacer alguno de los tres movimientos. Es necesario establecer un límite, que este caso, ha
+sido establecer un número de swaps y drops a realizar a lo largo del algoritmo. Una vez alcanzado
+este número, el algoritmo finaliza, devolviendo el mejor clique encontrado.
+Para evitar que el límite sea una constante común para todas las instancias, se ha establecido en proporción
 al número de vértices del grafo.
 
-Finalmente, el algoritmo devuelve el mejor clique que ha encontrado a lo largo de su ejecución.
+Este algoritmo puede trabajar partiendo desde cualquier clique, lo que nos permite utilizarlo en técnicas
+híbridas como algoritmos meméticos, o para mejorar cualquier solución ya existente. Para evaluar
+sus prestaciones por separado, partirá desde un clique vacío, que es equivalente a pasarle una solución
+inicial construída con un algoritmo \textit{greedy} que añada nodos utilizando el mismo criterio que esta
+búsqueda local.
 
 Vemos el pseudocódigo del algoritmo:
 
+\begin{algorithm}[H]
+\caption{Búsqueda local 1}
+  \begin{algorithmic}
+    \State $i = 0$
+    \State $Tabu = \emptyset$
+    \State Calcular $C_0$ y $C_1$.
+    \Repeat
+      \If {$C_0$ no es vacío}
+        \State Añadir el nodo de $C_0$ que tenga más conexiones con $C_0$.
+        \State $Tabu = \emptyset$
+      \Else
+        \State Buscar en $C_1$ el primer intercambio que nos da un $C_0$ no vacío.
+        \If {El intercambio existe}
+          \State Hacer intercambio
+          \State $Tabu = \emptyset$
+          \State $i = i + 1$
+        \Else
+          \State Quitar el nodo del clique con más adyacencias en el grafo.
+          \State Añadirlo a $Tabu$.
+          \State $i = i + 1$
+        \EndIf
+      \EndIf
+      \State{Actualizar $C_0, C_1$, teniendo en cuenta $Tabu$.}
+    \Until{$i = limite$}
+    \State{Devolver mejor clique encontrado}
+  \end{algorithmic}
+\end{algorithm}
 
 \subsection{Segundo algoritmo}
 
-Este algoritmo sigue una filosofía más simple que el anterior; solo considera \textit{add} y
-\textit{swap}, a los que volveremos a ordenar por prioridad. Además, incluye una lista tabú con
-los nodos que han salido del clique mediante un swap. Limitaremos la longitud de esta lista a
-un 2\% del número de vértices en el grafo, para que no aloje un gran número de nodos.
+Este algoritmo sigue una filosofía más simple que el anterior; solo considera movimientos
+\textit{add} y \textit{swap}, a los que volveremos a ordenar por prioridad. Además, incluye una
+lista tabú con los nodos que han salido del clique mediante un swap. Limitaremos la longitud de
+esta lista a un 2\% del número de vértices en el grafo, para que no aloje un gran número de nodos.
 
 Nuestro entorno consistirá en el conjunto de posibles adiciones ($C_0$) y el conjunto de
 posibles intercambios ($C_1$), al que quitaremos la lista tabú. Como teóricamente, el entorno
-puede ser vacío, si se diera el caso, el algoritmo finalizaría, aunque se ha establecido un
+puede ser vacío, si se diera el caso el algoritmo finalizaría. No obstante, se ha establecido un
 límite de intercambios, pues en la práctica no tiene por qué suceder.
 
-Primero intentaremos añadir un elemento de $C_0$ que no esté en la lista tabú. Tomaremos aquel
-que tenga un mayor número de adyacencias en el grafo. De no existir ninguno, tomaremos el conjunto
-$C_1$ y le quitaremos la lista tabú. Si no es vacío, haremos un intercambio, que en este caso
-involucrará un nodo aleatorio, para favorecer la diversidad. Dicho nodo será añadido a la lita tabú.
-En caso de que este conjunto también fuera vacío, solo nos queda la posibilidad de añadir un
-elemento de la lista tabú que esté en $C_0$. Nuevamente, elegiremos aquel que maximice el número
-de adyacencias.
-
+La prioridad entre movimientos es la siguiente: primero intentaremos añadir un elemento de
+$C_0$ que no esté en la lista tabú, comprobando si existe alguno, y tomando uno aleatorio
+en caso de existir varios. De no existir ninguno, tomaremos el conjunto $C_1$ quitando
+la lista tabú, y, si existe algún elemento que lo cumpla, no es vacío, haremos el intercambio,
+que volverá a ser aleatorio si teneos varios candidatos. Dicho nodo será añadido a la lista tabú.
+Finalmente, en caso de que este conjunto también fuera vacío, solo nos queda la posibilidad de añadir un
+elemento de la lista tabú que esté en $C_0$. Nuevamente, elegiremos uno aleatorio entre los exsitentes.
 Como en el anterior, devolveremos el mejor clique que haya encontrado el algoritmo.
 
+Este algoritmo también puede trabajar con cualquier clique de partida, siendo posible utilizarlo como
+complemento a otras técnicas. Para evaluar su funcionamiento, tomaremos como clique inicial un clique
+vacío, que creará un clique maximal de forma aleatoria y a partir de él explorará su entorno.
+
+Pasamos a ver el pseudocódigo del algoritmo:
+
+\begin{algorithm}[H]
+\caption{Búsqueda local 2}
+  \begin{algorithmic}
+    \State $i = 0$
+    \State $Tabu = \emptyset$
+    \State Calcular $C_0$ y $C_1$.
+    \Repeat
+      \If{$C_0 - Tabu$ no es vacío}
+        \State Añadir un nodo aleatorio de $C_0 - Tabu$
+      \ElsIf{$C_1 - Tabu$ no es vacío}
+        \State Hacer un cambio con un nodo aleatorio de $C_1 - Tabu$.
+        \State Añadir el nodo a la lista tabú que sale del clique a $Tabu$
+        \State $i = i + 1$
+      \ElsIf{$C_0$ es no vacío}
+        \State Añadir un nodo aleatorio de $C_0$.
+      \EndIf
+      \State Actualizar $C_0, C_1$
+      \State Entorno = $C_0 \cup (C_1 - Tabu)$
+    \Until{$i = limite$ o el entorno sea vacío.}
+    \State{Devolver mejor clique encontrado}
+  \end{algorithmic}
+\end{algorithm}
 
 \section{Enfriamiento simulado}
 
@@ -249,7 +318,8 @@ los movimientos a soluciones peores, probabilidad que disminuirá a medida que a
 Así, conseguimos una diversificación de soluciones al principio, mientras que al final del algoritmo
 intensificamos la búsqueda en una región concreta del espacio de soluciones.
 
-% Hiatus hasta decidir qué hacer con SA.
+\subsection{Enfriamiento simulado en MCP}
+
 
 \section{Búsquedas multiarranque}
 
