@@ -1,5 +1,5 @@
 %************************************************
-\chapter{Introducción}\label{ch:resultados}
+\chapter{Algunos resultados clásicos}\label{ch:resultados}
 %************************************************
 
 \section{Definiciones iniciales}
@@ -142,5 +142,35 @@ Vamos a calcular la homología local de $\R^n$.
   Si $p \geq 2$:
   \[ 0 = H_p(\R^n) \xrightarrow{\pi_*} H_p(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_{p-1}(\R^n - \{x\}) \xrightarrow{i_*} H_{p-1}(\R^n) = 0 \]
   Si $p \neq n, H_{p-1}(\R^n - \{x\} = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$. \\
-  Si $p = n, H_{p-1}(\R^n - \{x\} \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$. 
+  Si $p = n, H_{p-1}(\R^n - \{x\} \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$.
+\end{proof}
+
+\begin{theorem}[Invarianza de la dimensión]
+  Sean $O_1 \subseteq \R^n, O_2 \subseteq \R^m$ abiertos homeomorfos. Entonces $n = m$.
+\end{theorem}
+
+\begin{proof}
+  Sea $\phi \colon O_1 \to O_2$ el homeomorfismo entre los abiertos, y sea $x \in O_1$. Como $O_1, O_2$ son entornos de $x, \phi(x)$,
+  por la proposición anterior:
+  \[H_*(\R^n, \R^n - \{x\}) \cong H_*(\R^m, \R^m - \{\phi(x)\}) \]
+  y en particular
+  \[ \Z \cong H_n(\R^n, \R^n - \{x\}) \cong H_n(\R^m, \R^m - \{\phi(x)\}) \]
+  de donde se deduce $n = m$.
+\end{proof}
+
+\begin{corollary}
+  Si $M$ es un espacio topológico $T_2$, conexo, y para cada $p \in M$ existen $V_p$ entorno de $p$, un entero
+  $n(p) \geq 1$ y un homeomorfismo $\phi_p \colon V_p \to O_p \subseteq \R^{n(p)}$ con $O_p$ abierto, entonces
+  $n(p) = n$ constante y $M$ es una variedad topológica $n$-dimensional.
+\end{corollary}
+
+\begin{proof}
+  Sea $p_0 \in M$ fijo, $A = \{p \in M \mid n(p) = n(p_0)\}$ no vacío, pues $p_0 \in A$. Es claro que si $q \in V_p$,
+  $n(q) = n(p)$, pues si no fuera así, se contradice el teorema de invarianza de la dimensión. Así, si $p \in A, V_p \subseteq A$
+  y por tanto $A$ es un abierto.
+
+  Si $p \in \overline{A}$, existe $q \in A \cap V_p$ con $n(q) = n(p_0)$ por $q \in A$, y $n(q) = n(p)$ por $q \in V_p$.
+  Por tanto, $n(p) = n(p_0), p \in A$, y $A$ es cerrado. 
+
+  En consecuencia, $A = M$.
 \end{proof}
