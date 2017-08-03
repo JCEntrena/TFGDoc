@@ -11,27 +11,41 @@ Antes de describir cada algoritmo, vamos a ver consideraciones más generales so
 Cada solución del problema será un clique que se encuentre dentro del grafo. Este clique estará representado
 por los nodos que contiene, de forma que las soluciones serán \textit{arrays} de la forma $[x_0, \dots, x_p]$.
 
+La función para medir la calidad de una solución (función objetivo) será el tamaño de cada clique, si bien
+se considerarán algunas variantes en ciertos algoritmos. No obstante, como el objetivo final el obtener un clique
+del mayor tamaño posible, es lógico que el factor de peso en cualquier función objetivo sea el tamaño del mismo.
+
 Como operador de vecino tenemos tres distintos, que juntos, aplicados sobre el clique, nos permitirán obtener
 su entorno. El primero de ellos, al que llamaremos operador \textit{add}, consiste en añadir al clique un
 nuevo nodo que conserve la estructura de clique, esto es, que esté conectado con todos los nodos del clique.
-Usualmente tendremos calculado el conjunto de nodos que podemos añadir al clique, al que llamaremos $C_0$ o
+Usualmente tendremos calculado el conjunto de nodos que podemos añadir a cada clique, al que llamaremos $C_0$ o
 posibles adiciones.
 
 El segundo operador, al que nos referiremos como \textit{swap}, consiste en intercambiar un nodo del clique con uno de
 fuera, de forma que se siga manteniendo la estructura. Para ello, el nodo que no pertenece al clique debe estar
-conectado con todos salvo uno de sus nodos, que será el nodo que saldrá del clique. Este conjunto de nodos
-lo tendremos calculado, y nos referiremos a él como posibles intercambios o $C_1$.
+conectado con todos salvo uno de sus nodos, que será el nodo que saldrá del clique. Nos referiremos a
+este conjunto de nodos como posibles intercambios o $C_1$. Al igual que el anterior, también tendremos calculado
+dicho conjunto de nodos para cada clique.
 
 Finalmente, el tercer operador de vecino será el operador \textit{drop}, que consiste simplemente en quitar un nodo
 del clique. Es claro que se mantiene la estructura de clique al aplicar este operador.
 
-Estos serán los tres operadores fundamentales que utilicemos, que definirán el entorno de una solución, compuesto por
-aquellas a las que se puede llegar mediante el uso de cualquiera de los tres. No obstante, no siempre se usarán los tres a la vez.
-El operador \textit{add} es esencial, pues nos permite ampliar el tamaño de un clique, por lo que siempre lo
-utilizaremos. Los otros dos operadores se usarán dependiendo del algoritmo, siendo el operador \textit{swap}
-bastante frecuente, y el \textit{drop} menos frecuente. Debido a esto, el entorno variará dependiendo de aquellos
-consideramos. Detallaremos en cada caso los operadores considerados y las razones principales.
+Estos serán los tres operadores que utilicemos, que definirán el entorno de una solución, compuesto por
+aquellas a las que se puede llegar mediante el uso de cualquiera de los tres. No obstante, no siempre se
+usarán los tres a la vez. El operador \textit{add} es esencial, pues nos permite ampliar el tamaño de un clique,
+por lo que siempre lo utilizaremos. Los otros dos operadores se usarán dependiendo del algoritmo, siendo el operador
+\textit{swap} bastante frecuente, y el \textit{drop} menos frecuente. Debido a esto, el entorno variará dependiendo de
+aquellos consideramos. Detallaremos en cada caso los operadores considerados y las razones principales.
 
+\section{Inicialización del programa}
+Lo primero que hay que resolver es la lectura de los archivos y la creación de las estructuras de datos correspondientes
+para cada grafo. Para ello, se ha creado el archivo \textit{reader.rb}, que contiene el método de lectura de los archivos.
+Cada uno de ellos dará lugar a un objeto de la clase \textbf{Problem}, que almacena el número de vértices, el número de
+arcos, la matriz de adyacencia y el nombre del archivo del que proviene el grafo.
+
+Para la lectura, simplemente recorreremos el directorio en el que están almacenados los archivos, y generaremos un problema
+por cada uno de ellos, marcando en la matriz de adyacencia los arcos que están conectados. Almacenaremos el conjunto de problemas
+en una variable, para tenerlos disponibles a la hora de aplicarles los algoritmos. 
 
 \section{Algoritmos \textit{greedy}}
 
@@ -306,3 +320,8 @@ Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales
   \State{Devolver clique}
   \end{algorithmic}
 \end{algorithm}
+
+
+\section{Algoritmos genéticos}
+
+\section{Algoritmos de colonia de hormigas}
