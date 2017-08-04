@@ -434,7 +434,7 @@ del algoritmo. Una vez finaliza la fase de enfriamiento, vuelvo a añadir tantos
 clique encontrado, mediante un algoritmo \textit{greedy}, devolviendo el clique resultante.
 
 Como el algoritmo es similar al anterior, difiriendo en el entorno y en la función objetivo,
-no vemos el pseudocódigo, pues sería casi idéntico al anterior. 
+no vemos el pseudocódigo, pues sería casi idéntico al anterior.
 
 \section{Búsquedas multiarranque}
 
@@ -478,19 +478,25 @@ una condición de parada.
 
 \subsection{GRASP en MCP}
 
-La implementación de este algoritmo se basa fundamentalmente en la generación de soluciones iniciales.
-Para ello, consideraremos la lista de posibles adiciones, y la ordenaremos para quedarnos con la mitad
-de ellos, aquellos que tengan más adyacencias en el grafo. De estos, tomaremos uno al azar, que será
-el que añadamos al clique. Repetiremos este proceso hasta que no se pueda añadir ningún nodo.
+El aspecto fundamental de este algoritmo es la construcción de la solución inicial. Podemos valorar
+los elementos del conjunto de candidatos de distintas formas, lo que dará lugar a distintas soluciones
+de partida. Por lo demás, el algoritmo se basa en una búsqueda local, que hemos discutido con anterioridad.
 
-Seguidamente, pasamos a la fase de búsqueda local, y aprovecharemos los métodos de resolución ya implementados.
-En este caso, como la búsqueda local implementada para este problema no se detiene en un óptimo, sino que
-necesita un número de iteraciones máximo, he fijado dicho número a la mitad de los vértices del grafo, para
-que se adapte al tamaño de cada problema.
+\subsection{Algoritmo implementado}
 
-Este proceso se repetirá un número determinado de iteraciones, que se pasará como parámetro al método.
+Como se acaba de mencionar, el aspecto fundamental de este algoritmo es la generación de la solución inicial.
+Para ello, he tomado la lista de candidatos, $C_0$, y la he ordenado por número de adyacencias en el grafo,
+en orden descendente. Una vez ordenada, tomo la mitad superior, y hago una elección aleatoria entre los nodos.
+El proceso se repetirá hasta que $C_0$ sea vacío.
 
-Almacenaremos la mejor solución obtenida, que será la que el algoritmo devuelva al final.
+La fase de búsqueda local utiliza los dos métodos ya implementados, lo que da lugar a dos versiones del algoritmo,
+en las que solo varía la búsqueda local. Como estos métodos no se detienen en un óptimo, sino que necesitan
+un número de iteraciones máximo, he fijado dicho valor al número de vértices del grafo, para que se adapte
+al tamaño de cada problema.
+
+Este proceso se repetirá un número determinado de iteraciones, que se pasará como parámetro. Para este caso
+se ha fijado a 30 en todas las instancias disponibles. Almacenaremos la mejor solución obtenida, que será
+la que el algoritmo devuelva al final.
 
 Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales.
 
@@ -498,13 +504,31 @@ Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales
 \caption{GRASP}
   \begin{algorithmic}
   \Repeat
-    \State Obtener solución inicial
-    \State Aplicar búsqueda local a la solución inicial
-    \State Actualizar mejor solución
-  \Until{Se alcance el número de iteraciones}
-  \State{Devolver clique}
+    \State Obtener solución inicial.
+    \State Aplicar búsqueda local a la solución inicial.
+    \State Actualizar mejor solución.
+  \Until{Se alcance el número de iteraciones.}
+  \State{Devolver mejor solución obtenida.}
   \end{algorithmic}
 \end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Generación de soluciones aleatorias}
+  \begin{algorithmic}
+    \State $Clique = \emptyset$
+    \State $C_0 =$ vértices
+    \Repeat
+      \State Ordenar $C_0$ por adyacencias.
+      \State Tomar la mitad superior de $C_0$.
+      \State Añadir un elemento aleatorio a $Clique$.
+      \State Recalcular $C_0$.
+    \Until{$C_0 = \emptyset$}
+    \State Devolver $Clique$
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsection{ILS}
 
 
 \section{Algoritmos genéticos}
