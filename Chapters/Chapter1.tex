@@ -5,17 +5,16 @@
 \section{Definiciones iniciales}
 
 \begin{definition}
-Un p-símplice $s_p$ en $\mathbb{R}^n$ es la envolvente conexa de $p+1$ puntos afínmente independientes, a los que llamaremos vértices, $\{x_0, \dots, x_n\}$.
+Un p-símplice $s_p$ es la envolvente conexa de $p+1$ puntos afínmente independientes en $\mathbb{R}^p$,
+a los que llamaremos vértices, $\{x_0, \dots, x_n\}$, esto es
+\[ s_p = \{\lambda_0 x_0 + \dots + \lambda_p x_p \mid \lambda_0 + \dots + \lambda_p = 1, \lambda_i \geq 0 \quad \forall i \} \]
 \end{definition}
 % \underbrace{\smash{1}}_{i}
-Si $x_i = (0, \dots, 1, \dots, 0)$, con el $1$ en la posición $i$-ésima, llamaremos al p-símplice \underline{estándar},
-y lo notaremos ${\sigma_p \in \mathbb{R}^{n+1}}$
+Cuando los vértices son $x_i = (0, \dots, 1, \dots, 0)$, con el $1$ en la posición $i$-ésima, le llamaremos el p-símplice \underline{standard},
+y lo notaremos por $\sigma_p$.
 
-Podemos establecer un homeomorfismo de forma:
-\begin{align*}
-  h \colon \sigma_p &\to s_p  \\
-  t_i &\mapsto \sum_{i=0} t_i x_i
-\end{align*}
+Podemos establecer un homeomorfismo $h \colon \sigma_p \to s_p$ por
+\[ h(t_0, \dots, t_p) = \sum\limits_{i = 0}^p t_i x_i \]
 
 \begin{definition}
 Sea $\X$ un espacio topológico. Un p-símplice singular en $\mathbb{X}$ es una aplicación continua $\phi \colon \sigma_p \to \X$ para $p \geq 0$.
@@ -24,20 +23,20 @@ Sea $\X$ un espacio topológico. Un p-símplice singular en $\mathbb{X}$ es una 
 Representaremos el conjunto de p-símplices singulares de $\mathbb{X}$ como
 \[F_p(\mathbb{X}) = \{\phi \colon \sigma_p \to \mathbb{X} \mid \phi \text{ es p-símplice singular}\}\]
 Es claro que $\mathbb{F}_0(\mathbb{X}) = \mathbb{X}$. Además, $F_1(\mathbb{X})$ son los arcos en $\X$, identificables por
-$\mathbb \mathcal{C}([0,1], \X)$
+$\mathbb \mathcal{C}([0,1], \X)$.
 
 Si tenemos una aplicación continua entre espacios topológicos $f \colon \X \to \Y$, podemos definir
-\[f_{\#} \colon \FX{p} \to \FY{p}  \quad \text{ con }  \quad f_{\#} = f \circ \phi \colon \sigma_p \to Y \]
-aplicación entre los p-símplices singulares de ambos espacios.
+\[f_{\#} \colon \FX{p} \to \FY{p}  \quad \text{ por }  \quad f_{\#} = f \circ \phi \colon \sigma_p \to Y \]
+que es una aplicación entre los p-símplices singulares de ambos espacios.
 
 Se verifica trivialmente que $I_\# = Id$, puesto que $I_\#(\phi) = I \circ \phi = \phi$.
 Además, se tiene que $(g \circ f)_\# = g_\# \circ f_\#$.
 
 \begin{definition}
-  Sea $p \geq 1$, $0 \leq i < p$. Definimos $F_p^i$ como la aplicación de un p-1 símplice a un p-símplice de la siguiente forma:
+  Sea $p \geq 1$, $0 \leq i < p$. Definimos $F_p^i$ como la aplicación de un $(p-1)$-símplice a un p-símplice de la siguiente forma:
   \begin{align*}
     F_p^i \colon \sigma_{p-1} &\to \sigma_p\\
-    (t_0, \dots, t_p) &\mapsto (t_0, \dots, t_{i-1}, 0, t_i, \dots, t_p)
+    (t_0, \dots, t_{p-1}) &\mapsto (t_0, \dots, t_{i-1}, 0, t_i, \dots, t_{p-1})
   \end{align*}
 
   Podemos definir una nueva aplicación a partir de esta, a la que llamaremos \textbf{i-esima cara}:
@@ -58,7 +57,7 @@ Lo comprobamos realizando los cálculos pertinentes
   \begin{align*}
     &F_p^i \circ F_{p-1}^j (t_0, \dots, t_{p-2}) = F_p^i (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{p-2}) = \\
     &(t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = \\
-    &F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2})
+    &F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2}).
   \end{align*}
 \end{proof}
 
@@ -80,25 +79,25 @@ Debido a que $\FX{p}$ no está dotado de estructura algebraica, es posible reali
     \partial \colon S_p(\X) &\to S_{p-1}(\X)\\
     \partial(\phi) &= \sum_{i = 0}^p (-1)^i \partial_i(\phi)  \hspace{1cm} (p \geq 1)
   \end{align*}
-  considerando $\partial_i$ como una extensión de la aplicación cara a un homomorfismo.
+  considerando $\partial_i$ como una extensión de la aplicación cara a un homomorfismo:
   \[\partial_i(\sum_{\phi \in F_p} n_\phi \cdot \phi) = \sum_{\phi \in F_p} n_\phi \cdot \partial_i(\phi) \]
 \end{definition}
 
-Por conveniencia, consideraremos $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$
+Por conveniencia, consideraremos $\partial(S_0(\X)) = S_{-1}(\X) = \{0\}$.
 
 % Motivar (mejor) el resultado siguiente?
 
 Veamos un resultado importante sobre la aplicación borde que acabamos de definir.
 
 \begin{proposition}
-  $\partial \circ \partial \colon \SX{n} \to \SX{n-2} = 0$
+  $\partial \circ \partial \colon \SX{n} \to \SX{n-2}$ es el homomorfismo cero.
 \end{proposition}
 
 Geométricamente, este resultado nos dice que el borde de una $p$-cadena es una $(p-1)$-cadena sin
 borde. Esta propiedad nos permitirá definir los grupos de homología singular.
 
 \begin{proof}
-  Consideramos $S_p(\X) \xrightarrow{\partial} S_{p-1}(\X) \xrightarrow{\partial} S_{p-2}(\X)$ \\
+  Consideramos $S_p(\X) \xrightarrow{\partial} S_{p-1}(\X) \xrightarrow{\partial} S_{p-2}(\X)$. \\
   Es claro que si $p = 0, 1$, la cuestión es trivial, pues $S_{-1} = \{0\}$. Tomaremos $p > 1$.
 
   Sea $\phi \in \FX{p}$.
@@ -117,11 +116,11 @@ borde. Esta propiedad nos permitirá definir los grupos de homología singular.
 
 Hasta ahora, hemos tomado un espacio topológico $\X$ y le hemos asignado un conjunto de p-símplices singulares $\FX{p}$, del que
 hemos tomado un $\Z$-módulo, obteniendo el grupo abeliano libre de p-cadenas singulares, $S_p(\X)$. Sobre él, hemos definido un
-operador borde $\partial$, que verifica $\partial^2 = 0$. A la familia $\{S_p(\X), \partial\}$ se le llama el complejo de cadenas
+operador borde $\partial$, que verifica $\partial^2 = 0$. A la familia $\{S_p(\X), \partial\}_{p \geq 0}$ se le llama el complejo de cadenas
 singular asociado a $\X$.
 
-En $S_p(\X)$ seguiremos designando la composición entre $f \colon \X \to \Y$, continua, y $\phi \in S_p(\X)$ como $f_\# \colon S_p(\X) \to S_p(\Y)$
-extensión de $f_\# \colon \FX{p} \to \FY{p}$.
+Representaremos también por $f_\# \colon S_p(\X) \to S_p(\Y)$ a la composición entre \\
+$f \colon \X \to \Y$, continua, y $\phi \in S_p(\X)$.
 \[ f_\#(\sum_\phi n_\phi \cdot \phi) = \sum_\phi n_\phi \cdot (f \circ \phi) \]
 
 Vamos a ver que esta aplicación conmuta con el borde, es decir, $f_\# \circ \partial = \partial \circ f_\#$. Esto hace conmutativo el siguiente diagrama:
@@ -161,10 +160,10 @@ inmediatamente que $B_p(\X) \subseteq Z_p(\X) \hspace{0.2em}\forall p \geq 0$, l
 \begin{equation*}
   H_p(\X) = \ddfrac{Z_p(\X)}{B_p(\X)}
 \end{equation*}
-grupo abeliano, \underline{\smash{p-ésimo grupo de homología singular}}.
+grupo abeliano, \underline{\smash{p-ésimo grupo de homología singular}}, el cual es un grupo abeliano.
 
 \begin{remark}
-  Nótese que $Z_0(\X) = S_0(\X)$, por lo que $\partial(S_0(X)) = 0$
+  Nótese que $Z_0(\X) = S_0(\X)$, pues $\partial(S_0(X)) = 0$.
 \end{remark}
 
 A los elementos de $H_p(\X)$ los notaremos $[c]$, con $\partial(c) = 0$, esto es, $c \in Z_p(\X)$, y los llamaremos clases de homología.
@@ -211,13 +210,13 @@ $S_p({\{x\}})$ son grupos abelianos libres con $\phi_p$ como generador. Además,
                                                                                                     \end{cases}   \]
 
 Así, si p es impar, $S_{p+1}(\{x\}) \to S_p(\{x\}) \xrightarrow{0} S_{p-1}(\{x\})$ y $Z_p(\{x\}) = B_p(\{x\}) = S_p(\{x\})$, luego
-$H_p(\{x\}) = 0$
+$H_p(\{x\}) = 0$.
 
 Si p es par, con $p > 0$, $Z_p(\{x\}) = B_p(\{x\}) = 0$, y $H_p(\{x\}) = 0$.
 
 Por último, si $ p = 0, H_0(\{x\}) = \ddfrac{S_0(\{x\})}{B_0(\{x\})} = S_0(\{x\}) \cong \mathbb Z$.
 
-Así, $H_p(\{x\}) = 0 \hspace{1em} \forall p \geq 1, \hspace{1em} H_0(\{x\}) \cong \mathbb Z$
+Así, $H_p(\{x\}) = 0 \hspace{1em} \forall p \geq 1, \hspace{1em} H_0(\{x\}) \cong \mathbb Z$.
 
 \section{El grupo $H_0(\X)$ y la arcoconexión}
 
@@ -260,7 +259,7 @@ sobre el que trabajamos es arcoconexo.
   \begin{itemize}
     \item[a)] $\forall \alpha \in A$, la función $i_{\alpha*} \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo, donde la aplicación
               $i_\alpha \colon \X_\alpha \to \X$ representa la inclusión.
-    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_{\alpha*}(H_p(\X)) \hspace{0.5em} \forall p \geq 0$. En particular, por la inyectividad de $i_{\alpha*}$,
+    \item[b)] $H_p(\X) = \bigoplus\limits_{\alpha \in A} i_{\alpha*}(H_p(\X_\alpha)) \hspace{0.5em} \forall p \geq 0$. En particular, por la inyectividad de $i_{\alpha*}$,
               \[ H_p(\X) \cong \bigoplus_{\alpha \in A} H_p(\X_\alpha) \]
   \end{itemize}
 \end{proposition}
@@ -273,11 +272,11 @@ sobre el que trabajamos es arcoconexo.
     c = \sum\limits_{\alpha \in A} i_{\alpha*}(c_\alpha) \quad c_\alpha \in S_p(\X_\alpha)  \tag{*}
   \end{equation}
 
-  Sea $[c]_\alpha \in H_p(\X_\alpha)$, y supongamos que $i_{\alpha*}[c]_\alpha = 0$ eb $\H_p(\X)$. En ese caso, $[i_{\alpha*}(c)]_\X = 0$,
-  luego existe $d \in \SX{p+1}$ tal que $i_{\alpha\#}(c) = \partial(d)$, y además: \\
+  Sea $[c]_\alpha \in H_p(\X_\alpha)$, y supongamos que $i_{\alpha*}[c]_\alpha = 0$ en $\H_p(\X)$. En ese caso, $[i_{\alpha*}(c)] = 0$ en $H_p(\X)$,
+  luego existe $d \in \SX{p+1}$ tal que $i_{\alpha\#}(c) = \partial(d)$, y además:
   \[\partial(d) = \sum\limits_{\alpha \in A} i_{\alpha\#}(\partial(d_\alpha)) = i_{\alpha\#} \text{ por lo que se tiene:} \]
   $c = \partial(d_\alpha), \partial(d_\beta) = 0 \quad \forall \beta \neq \alpha$. Así, $[c]_\alpha = 0$ y $i_{\alpha*}$ es un monomorfismo.
-  Esto prueba a)
+  Esto prueba a).
 
   Observamos que la suma en (*) es finita, pues si no, habría un número no finito de generadores en la expresión de c. Así:
   \[  [c] = \sum\limits_{\alpha \in A} [i_{\alpha\#}(c_\alpha)] =  \sum\limits_{\alpha \in A} id_*([c_\alpha]_\alpha)\]
@@ -331,7 +330,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
   Queda claro que $\partial_0(T(\phi)) = \phi$. Si seguimos llamando $T$ al homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
   \[  T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ  T = I \]
-  Si $p = 0 \implies i = 1$ y $\partial_1( T(\phi)) = x_0$
+  Si $p = 0 \implies i = 1$ y $\partial_1( T(\phi)) = x_0$.
 
   Si $1 \leq i \leq p+1$, entonces:
   \begin{align*}
@@ -352,11 +351,11 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
 \begin{theorem}[Invarianza homotópica de la homología singular]
   Sean $\X, \Y$ espacios topológicos y $f, g \colon \X \to \Y$ aplicaciones continuas. Si $f$ es homotópica a $g$,
-  entonces $f_* = g_* \colon H_p(\X) \to H_p(\Y) \hspace{0.5em} \forall p \geq 0$
+  entonces $f_* = g_* \colon H_p(\X) \to H_p(\Y) \hspace{0.5em} \forall p \geq 0$.
 \end{theorem}
 
 \begin{proof}
-  Supongamos que $\forall p \geq 0$ podemos definir homomorfismos \[T: \SX{p} \to \SX{p+1} \] tales que $T\partial + \partial T = f_\# - g_\#$,
+  Supongamos que $\forall p \geq 0$ podemos definir homomorfismos \[T: \SX{p} \to \SY{p+1} \] tales que $T\partial + \partial T = f_\# - g_\#$,
   esto es, $f$ y $g$ son homotópicas como aplicaciones de cadenas. Entonces, $\forall [c] \in H_p(\X)$ se tiene:
   \[ (f_* - g_*)([c]) = [f_\#(c) - g_\#(c)] = [(T\partial + \partial T)(c)] = [\partial(T(c))] = 0\]
   de donde se deduce $f_* = g_*$.
@@ -414,9 +413,9 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
     \SX{0} \arrow{r}{T^\X}                 & S_1(\X \times I)
   \end{tikzcd}
   \]
-  debe ser conmutativo, luego $T^\X \circ \phi_\# = (\phi \times I)_\# \circ T^{\sigma_0}$
+  debe ser conmutativo, luego $T^\X \circ \phi_\# = (\phi \times I)_\# \circ T^{\sigma_0}$.
 
-  Como $\phi_\#(\tau_0) = \phi$, se tiene $T^\X(\phi) = (\phi \times I)_\# \circ T^{\sigma_0}(\tau_0)$
+  Como $\phi_\#(\tau_0) = \phi$, se tiene $T^\X(\phi) = (\phi \times I)_\# \circ T^{\sigma_0}(\tau_0)$.
 
   Definimos $T^\X$ de esta manera sobre los generadores, y lo extendemos por linealidad. Veamos que verifica a) y b).
 
@@ -427,7 +426,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
                         &= ((\phi \times I) (i_0)_\#^{\sigma_0}) - (\phi \times I) (i_1)_\#^{\sigma_0}))(\tau_0) \\
                         &= ((i_0^\X \circ \phi)_\# - (i_1^\X \circ \phi)_\#) (\tau_0) = ((i_0^\X)_\# - (i_1^\X)_\#)(\phi)
   \end{align*}
-  de donde se obtiene $\partial T^\X + T^\X \partial = (i_0^\X)_\# - (i_1^\X)_\#$
+  de donde se obtiene $\partial T^\X + T^\X \partial = (i_0^\X)_\# - (i_1^\X)_\#$.
 
   b) Si $h \colon \X \to \Y$ es continua, entonces:
   \begin{align*}
@@ -495,7 +494,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 \begin{proof}
   Sea $f$ la equivalencia homotópica de $\X$ en $\Y$. Entonces existe su inversa, $g$, que verifica $g \circ f = Id_\X, f \circ g = Id_\Y$.
   Así, $(f \circ g)_* = Id_{H_p(\Y)},$ y $(g \circ f)_* = Id_{H_p(\X)}$. Como $(g \circ f)_* = g_* \circ f_*, f_*$ tiene inverso y es un isomorfismo
-  entre $H_p(\X)$ y $H_p(\Y)$
+  entre $H_p(\X)$ y $H_p(\Y)$.
 \end{proof}
 
 \section{Homología singular de un par}
@@ -521,14 +520,14 @@ Podemos definir un operador borde, que seguiremos notando $\partial$:
 \end{align*}
 Este borde está bien definido, pues si $\overline{c} = \overline{d}$; entonces $d = c + a, a \in \S_p(A)$ y
 $\partial d = \partial c + \partial a \implies \overline{\partial d} = \overline{\partial c} + \overline{\partial a} = \overline{\partial c}$ ya que
-$\partial a \in S_{p-1}(A) \implies \overline{\partial a} = 0$
+$\partial a \in S_{p-1}(A) \implies \overline{\partial a} = 0$.
 
 Es claro, por la definición que hemos hecho, que el operador borde es un homomorfismo de clases y que $\partial^2 = 0$. \\
 Con esto, hemos construído un complejo de cadenas $\{S_p(\X, A), \partial\}_{p \geq 0}$ al que llamaremos el complejo de cadenas singulares del par $(\X, A)$.
 
 Para cada $p \geq 0$ definimos: \\
-$Z_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \partial\overline{c} = 0\}$ p-ciclos \\
-$B_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \overline{c} = \partial\overline{d} \}$ p-bordes
+$Z_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \partial\overline{c} = 0\}$ p-ciclos. \\
+$B_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \overline{c} = \partial\overline{d} \}$ p-bordes.
 
 por lo que podemos considerar
 \[H_p(\X, A) = \frac{Z_p(\X, A)}{B_p(\X, A)} \quad \forall p \geq 0 \]
@@ -542,13 +541,13 @@ Si $f$ es tal aplicación, definimos:
   f_\#(\overline{c}) &= \overline{f_\#(c)}
 \end{align*}
 
-Con esto, hemos hecho conmutativo el diagrama
+Con esto, hemos hecho conmutativo el diagrama:
 \[
 \begin{tikzcd}
     S_p(\X) \arrow{r}{f_\#} \arrow{d}{\pi} & S_p(\Y) \arrow{d}{\pi} \\
     S_p(\X, A) \arrow{r}{f_\#} & S_p(\Y, B)
   \end{tikzcd}
-  \hspace{2em} \text{con } \pi(c) = \overline{c}
+  \hspace{2em} \text{con } \pi(c) = \overline{c}.
 \]
 Es claro que $\partial f_\#(\overline{c}) = \partial \overline{f_\#(c)} = \overline{\partial f_\#(c)} = f_\# \partial(c) = f_\# \partial(\overline{c})$,
 de donde se deduce $\partial f_\# = f_\# \partial$.
@@ -571,7 +570,7 @@ Tenemos un resultado de obtención directa:
 
 \begin{corollary}
   Si $h \colon (\X, A) \to (\Y, B)$ es un homeomorfismo de $\X$ sobre $\Y$ que verifica $h(A) = B$, entonces
-  $h_* \colon H_p(\X, A) \to H_p(\Y, B)$ es un isomorfismo de grupos $\forall p \geq 0$
+  $h_* \colon H_p(\X, A) \to H_p(\Y, B)$ es un isomorfismo de grupos $\forall p \geq 0$.
 \end{corollary}
 
 \begin{proof}
@@ -581,12 +580,12 @@ Tenemos un resultado de obtención directa:
 Vamos a trasladar los resultados que vimos de arcoconexión para el caso de pares.
 
 \begin{proposition}
-  Si $\X$ es arcoconexo y $A \neq \emptyset$, se tiene $H_0(\X, A) = 0$
+  Si $\X$ es arcoconexo y $A \neq \emptyset$, se tiene $H_0(\X, A) = 0$.
 \end{proposition}
 
 \begin{proof}
   Sea $[\overline{c}] \in H_0(\X, A)$. $\partial\overline{c} = 0$, con $c = \sum\limits_{i = 1}^n n_i x_i \quad x_i \in \X$. \\
-  $\overline{c} = \sum\limits_{i = 1}^n n_i \overline{x_i}$ y así, tenemos $[\overline{c}] = \sum\limits_{i = 1}^n n_i [\overline{x_i}]$ \\
+  $\overline{c} = \sum\limits_{i = 1}^n n_i \overline{x_i}$ y así, tenemos $[\overline{c}] = \sum\limits_{i = 1}^n n_i [\overline{x_i}]$. \\
   Veamos que $\forall x \in \X, [\overline{x}] = 0$.
 
   Como $A \neq \emptyset$, sea $a \in A$. Por arcoconexión, tomamos $\alpha \colon \sigma_1 \to \X$ verificando $\alpha(0, 1) = x, \alpha(1, 0) = a$.
@@ -599,7 +598,7 @@ Vamos a trasladar los resultados que vimos de arcoconexión para el caso de pare
   Sea $X = \bigcup\limits_{\alpha \in A} \X_\alpha$ la descomposición de $\X$ en componentes arcoconexas, y sea $A \subseteq \X$. Entonces se verifica:
   \begin{itemize}
     \item[a)] $\forall \alpha, i_{\alpha *} \colon H_p(\X_\alpha, \X_\alpha \cap A) \to H_p(\X, A)$ es un monomorfismo.
-    \item[b)] $H_p(\X, A) = \bigoplus\limits_{\alpha \in A}  i_{\alpha *}(H_p(\X_\alpha, \X_\alpha \cap A))$
+    \item[b)] $H_p(\X, A) = \bigoplus\limits_{\alpha \in A}  i_{\alpha *}(H_p(\X_\alpha, \X_\alpha \cap A))$.
   \end{itemize}
 \end{proposition}
 
@@ -633,12 +632,12 @@ Sea ahora $\pi_* \colon H_*(\X) \to H_*(\X, A)$ el homomorfismo inducido por $\p
 $\pi_*([c]) = [\overline{c}]$ que está bien definido, pues si $[c] = [d] \implies d = c + \partial h \implies \overline{d} = \overline{c} + \partial \overline{h}
 \implies [\overline{c}] = [\overline{d}]$.
 
-Por lo anterior, se tiene $\Img i_* = \Ker \pi_*$ ya que $\pi_* i_* ([a]) = \pi_*[i_\#(a)] = [\pi i_\#(a)] = 0$, pues $\pi i_\# = 0$. Así, $\Img i_* \subseteq \Ker \pi_*$
+Por lo anterior, se tiene $\Img i_* = \Ker \pi_*$ ya que $\pi_* i_* ([a]) = \pi_*[i_\#(a)] = [\pi i_\#(a)] = 0$, pues $\pi i_\# = 0$. Así, $\Img i_* \subseteq \Ker \pi_*$.
 
 Si $[c] \in \Ker \pi_*, \pi_*([c]) = [\overline{c}] = 0 \implies \overline{c} = \overline{\partial d}, c = \partial d + i_\#(a)$,
 luego $\partial c = \partial^2 d + \partial i_\#(a) \implies \partial c = \partial^2 d + i_\# \partial a$, y se deduce que $\partial a = 0$.
 $a$ es un ciclo y genera $[a]$ \\
-Como $c = \partial d + i_\#(a), [c] = [\partial d] + [i_\#(a)] = i_*[a] \implies \Ker \pi_* \subseteq \Img i_*$
+Como $c = \partial d + i_\#(a), [c] = [\partial d] + [i_\#(a)] = i_*[a] \implies \Ker \pi_* \subseteq \Img i_*$.
 
 Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un epimorfismo, aunque se verifica:
 
@@ -648,7 +647,7 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
 
 \begin{proof}
   Si tomamos $[\overline{c}] \in H_0(\X, A)$ entonces $c \in S_0(\X) = Z_0(\X)$, y por tanto $[\overline{c}] \in H_0(\X)$ y
-  $\pi_*([c]) = [\overline{c}]$
+  $\pi_*([c]) = [\overline{c}]$.
 \end{proof}
 
 \textit{Para p mayor que 1 no podemos asegurar que sea un ciclo, por lo que el resultado solo vale para el caso visto.}
@@ -675,14 +674,14 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
     &\Delta([\overline{d}]) = [a + \partial e] = [a] = \Delta([\overline{c}])
   \end{align*}
 
-  Veamos que $\Delta$ es homomorfismo, es decir, $\Delta([\overline{c_1}] + [\overline{c_2}]) = \Delta([\overline{c_1 + c_2}])$
+  Veamos que $\Delta$ es homomorfismo, es decir, $\Delta([\overline{c_1}] + [\overline{c_2}]) = \Delta([\overline{c_1 + c_2}])$.
 
   $\Delta([\overline{c_1}]) = [a_1]$ con $\partial c_1 = i_\#(a_1)$ \\
   $\Delta([\overline{c_2}]) = [a_2]$ con $\partial c_2 = i_\#(a_2)$
 
-  De esta forma, $\partial(c_1 + c_2) = i_\#(a_1 + a_2)$ y $\Delta([\overline{c_1 + c_2}]) = [a_1 + a_2]$
+  De esta forma, $\partial(c_1 + c_2) = i_\#(a_1 + a_2)$ y $\Delta([\overline{c_1 + c_2}]) = [a_1 + a_2]$.
 
-  Veamos que $\Img \Delta = \Ker i_*$
+  Veamos que $\Img \Delta = \Ker i_*$.
 
   $i_*(\Delta([\overline{c}])) = i_*[a] = [i_\#(a)] = [\partial c] = 0$, de donde $\Img \Delta \subseteq \Ker i_*$
 
@@ -690,20 +689,20 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
   Además, $\overline{\partial b} = \overline{i_\#(a)} = 0$, y como $\overline{\partial b} = \partial \overline{b}, b \in Z_p(\X, A)$ con
   $\partial b = i_\#(a)$. Por definición, $\Delta([\overline{b}]) = [a]$. Así se da la igualdad.
 
-  Veamos que $\Ker \Delta = \Img \pi_*$
+  Veamos que $\Ker \Delta = \Img \pi_*$.
 
   $\Delta\pi_*([c]) = \Delta([\overline{c}]) = [a]$, con $\partial c = i_\#(a)$. \\
   Como $c$ es un ciclo, $i_\#(a) = 0$, y al ser $i_\#$ un monomorfismo, $a = 0$, luego $[a] = 0$. Así, $\Img \pi_* \subseteq \Ker \Delta$.
 
   Si $[\overline{c}] \in \Ker \Delta, \Delta[\overline{c}] = [\overline{a}] = 0$, con $\partial c = i_\#(a)$. Como $[a] = 0, a = \partial b, b \in \S_p(A)$.
   Así, $\partial(c - i_\#(b)) = 0$, y $c - i_\#(b) \in Z_p(\X)$, de donde obtenemos $[c - i_\#(b)]$. \\
-  $\pi_*([c . i_\#(b)]) = \pi_*([c]) + e = [\overline{c}]$. Con esto, $\Img \pi_* = \Ker \Delta$
+  $\pi_*([c . i_\#(b)]) = \pi_*([c]) + e = [\overline{c}]$. Con esto, $\Img \pi_* = \Ker \Delta$.
 \end{proof}
 
 \begin{proposition}[Naturalidad de la sucesión exacta]
   Sea $f \colon (\X, A) \to (\Y, B)$ una aplicación de pares. Entonces el siguiente diagrama es conmutativo:
   \[  \begin{tikzcd}
-    \dots H_p(A) \arrow{r}{i_*} \arrow{d}{f_{|A}} & H_p(\X) \arrow{r}{\pi_*} \arrow{d}{f_*} & H_p(\X, A) \arrow{r}{\Delta} \arrow{d}{f_*} & H_{p-1}(A) \dots \arrow{d}{f_{|A}} \\
+    \dots H_p(A) \arrow{r}{i_*} \arrow{d}{(f_{|A})_*} & H_p(\X) \arrow{r}{\pi_*} \arrow{d}{f_*} & H_p(\X, A) \arrow{r}{\Delta} \arrow{d}{f_*} & H_{p-1}(A) \dots \arrow{d}{(f_{|A})_*} \\
     \dots H_p(B) \arrow{r}{i_*} & H_p(Y) \arrow{r}{\pi_*} & H_p(\Y, B) \arrow{r}{\Delta} & H_{p-1}(B) \dots
   \end{tikzcd} \]
 \end{proposition}
