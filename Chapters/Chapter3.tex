@@ -170,7 +170,86 @@ Vamos a calcular la homología local de $\R^n$.
   y por tanto $A$ es un abierto.
 
   Si $p \in \overline{A}$, existe $q \in A \cap V_p$ con $n(q) = n(p_0)$ por $q \in A$, y $n(q) = n(p)$ por $q \in V_p$.
-  Por tanto, $n(p) = n(p_0), p \in A$, y $A$ es cerrado. 
+  Por tanto, $n(p) = n(p_0), p \in A$, y $A$ es cerrado.
 
   En consecuencia, $A = M$.
+\end{proof}
+
+Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarianza del borde.
+
+\begin{lemma}
+  Sean $H^n = \{x \in \R^n \mid x_n \geq 0 \}$ semiespacio de $\R^n$, $\partial H^n = Fr H^n = \{x \in \R^n \mid x_n = 0\}$.
+  Consideremos también $\interior{H^n} = \{x \in \R^n \mid x_n > 0\}$. Entonces, se verifica
+  \[H_p(H^n, H^n - \{x\}) =
+    \begin{cases} \Z &\text{ si } p = n, x \in \interior{H^n} \\
+                  0  &\text{ si } p \neq n, x \in \interior{H^n} \\
+                  0  &\text{ si } x \in \partial H^n  \end{cases} \]
+\end{lemma}
+
+\begin{proof}
+  Si $x \in \interior{H^n}$, por una proposición anterior, sabemos que
+  $H_p(H^n, H^n - \{x\}) \cong H_p(\interior{H^n}, \interior{H^n} - \{x\}) \cong H_p(\R^n, \R^n - \{x\})$, pues
+  $\interior{H^n} \cong \R^n$. Con esto obtenemos los valores para $x \in \interior{H^n}$.
+
+  Si $x \in \partial H^n, H^n - \{x\}$ es estrellado desde un punto. Usando esto y la sucesión de homología del par $(H^n, H^n - \{x\})$,
+  se obtiene la última parte.
+\end{proof}
+
+\begin{corollary}[Invarianza del borde]
+  Sean $O_1 \subseteq \R^n, O_2 \subseteq \R^m$ abiertos homeomorfos. Entonces
+  \begin{itemize}
+    \item [a)] Si $\phi \colon O_1 \to O_2$ es el homeomorfismo, $\phi(O_1 \cap \partial H^n) = O_2 \cap \partial H^m$.
+    \item [b)] $n = m$.
+  \end{itemize}
+\end{corollary}
+
+\begin{proof}
+  Si $x \in O_1 \cap \partial H^n$, por $x \in O_1$, se tiene $H_*(H^n, H^n - \{x\}) = 0$. \\
+  $H_*(H^n, H^n - \{x\}) \cong H_*(O_1, O_1 - \{x\}) \cong H_*(O_2, O_2 - \{\phi(x)\}) \cong H_*(H^m, H^m - \{\phi(x)\})$.
+  Así, $x \in O_1 \cap \partial H^n \iff \phi(x) \in O_2 \cap \partial H^m$, de donde se deduce a).
+
+  Para demostrar b), solo hemos de aplicar a) para obtener que $\phi(O_1 \cap \interior{H^n}) = O_2 \cap \interior{H^m}$, y como
+  $\interior{H^n}, \interior{H^m}$ son abiertos en $\R^n, \R^m$ respectivamente, el teorema de invarianza de la dimensión
+  nos dice que $n = m$.
+\end{proof}
+
+\begin{definition}
+  Una variedad topológica con borde es un espacio topológico Hausdorff $M$ verificando que $\hspace{0.2em} \forall p \in M$ existen
+  $(V_p, \phi_p), n(p) \geq 1$ con $V_p$ entorno abierto de $p$, $\phi_p \colon V_p \to O_p \subseteq H^{n(p)}$ homeomorfismo
+  sobre un abierto $O_p$ de $H^{n(p)}$.
+\end{definition}
+
+\begin{proposition}[Consecuencias]
+  Se verifican los siguientes resultados sobre variedades topológicas con borde:
+  \begin{itemize}
+    \item[a)] En cada componente conexa de $M, n(p)$ es constante, y la llamaremos la dimensión de dicha componente.
+
+    \item[b)] Si $\partial M = \{p \in M \mid H_*(M, M - \{p\}) = 0\}$, entonces
+    \[ \partial M = \{p \in M \mid \forall (V_p, \phi_p), \phi_p(p) \in \partial H^n \cap O_p\} \]
+
+    \item[c)] Si $\interior{M} = M - \partial M$, entonces $\interior{M}$ tiene estructura de variedad topológica
+    (sin borde) $n$-dimensional, y $\partial M$ tiene estructura de variedad topológica con borde $(n-1)$-dimensional.
+    Dicha estructura es la única que convierte a las inclusiones $\interior{M} \xhookrightarrow{} M, \partial M \xhookrightarrow{} M$
+    en embebimientos. Además, $\partial M$ es cerrado de $M$ y, por tanto, $\interior{M}$ es abierto de $M$.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  a) es trivial por una proposición ya vista.
+
+  b) Si $(V_p, \phi_p)$ es una carta en $p$, entonces
+  \[ H_*(M, M - \{p\}) \cong H_*(V_p, V_P - \{p\}) \cong H_*(O_p, O_p - \{\phi_p(p)\}) \cong H_*(H^n, H^n - \{\phi_p(p)\}) \]
+  que vale $0$ sí y solo sí $\phi_p(p) \in \partial H^n$.
+
+  c) Si $\phi \colon V \to O \subseteq H^n$ es una carta de M, entonces $\phi(V \cap \partial M) = O \cap \partial H^n$, y se tiene que
+  $\phi(V \cap \interior{M}) = O \cap \interior{H^n}$, abierto en $O$, luego $V \cap \interior{M}$ es abierto en $V$, y por tanto en $M$.
+  Así, $\interior{M}$ es abierto en $M$.
+
+  Las estructuras se definen por:
+  \begin{align*}
+    \interior{M} &\colon \{(V \cap \interior{M}, \phi_{|V \cap \interior{M}}) \mid (V, \phi) \text{ es una carta en }M\}. \\
+    \partial M &\colon   \{(V \cap \partial M,  \phi_{|V \cap \partial M}), \mid (V, \phi) \text{ es una carta en }M\}.
+  \end{align*}
+
+  El resto es trivial.
 \end{proof}
