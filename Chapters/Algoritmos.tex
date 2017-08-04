@@ -72,8 +72,6 @@ o bien se parte de un conjunto vacío y se añaden vértices, respetando la estr
 hasta que no sea posible añadir más, o partimos del conjunto total de vértices y vamos eliminando
 hasta que el obtenido sea un clique.
 
-\subsection{Algoritmos implementados}
-
 Los dos algoritmos \textit{greedy} que he implementado siguen el primer enfoque de los mencionados anteriormente.
 Se diferencian principalmente en la elección del vértice que se añade al clique, aunque en uno de ellos modificaremos
 también la estructura de entornos, considerando intercambios además de adiciones.
@@ -183,7 +181,7 @@ detalladas en cada uno de ellos.
 
 \subsection{Búsqueda local en MCP}
 
-En la búsqueda local, las diferencias que hacen a los algortimos distintos están en  la estructura
+En la búsqueda local, las diferencias que hacen a los algortimos distintos están en la estructura
 de entornos y en la elección de la solución vecina a la que desplazarse. Estas diferencias son también
 las que existen entre los dos algoritmos implementados en este trabajo.
 
@@ -198,7 +196,7 @@ fundamentales con respecto a este.
 
 Veámoslos en más detalles.
 
-\subsection{Primer algoritmo}
+\subsubsection{Primer algoritmo}
 
 Este algoritmo se basa en las ideas de Katayama, Hamamoto y Narihisa. En él, se han considerado
 los tres movimientos básicos de la búsqueda local, \textit{add, swap} y \textit{drop},
@@ -258,7 +256,7 @@ Vemos el pseudocódigo del algoritmo:
   \end{algorithmic}
 \end{algorithm}
 
-\subsection{Segundo algoritmo}
+\subsubsection{Segundo algoritmo}
 
 Este algoritmo sigue una filosofía más simple que el anterior; solo considera movimientos
 \textit{add} y \textit{swap}, a los que volveremos a ordenar por prioridad. Además, incluye una
@@ -311,15 +309,132 @@ Pasamos a ver el pseudocódigo del algoritmo:
 \section{Enfriamiento simulado}
 
 El enfriamiento simulado es un algoritmo de búsqueda en entornos, que incluye un criterio probabilístico
-de aceptación de soluciones basado en la termodinámica. Fue introducido formalmente en 1983.
-Intenta evitar que la búsqueda local finalice en un óptimo local, para lo que permite que algunos
+de aceptación de soluciones basado en la termodinámica, el algoritmo de Metrópolis. Fue introducido formalmente en 1983.
+
+Su principal objetivo es evitar que la búsqueda finalice en un óptimo local, permitiendo que algunos
 movimientos vayan a soluciones peores. Para ello, usará una función de probabilidad que controle
 los movimientos a soluciones peores, probabilidad que disminuirá a medida que avanza el algoritmo.
 Así, conseguimos una diversificación de soluciones al principio, mientras que al final del algoritmo
 intensificamos la búsqueda en una región concreta del espacio de soluciones.
 
+Esta función de probabilidad estará basada en el valor de una variable, que se suele llamar temperatura,
+en referencia a su origen termodinámico. Su forma de actuar es la siguiente: si nos movemos a una solución
+que mejore el resultado anterior, la aceptamos directamente. De no ser así, calculamos la diferencia
+del valor de la función objetivo, que notamos $\Delta F$, y tomamos como probabilidad de aceptación
+$e^{\nicefrac{\Delta F}{T}}$, donde $T$ representa la temperatura. Como $\Delta F \leq 0$, este valor estará
+siempre comprendido entre $0$ y $1$.
+
+La temperatura irá disminuyendo en cada iteración, hasta que se alcance una temperatura final. Esto hace
+que al principio, el criterio de Metrópolis sea aceptado en un gran porcentaje de ocasiones, que irá disminuyendo
+conforme lo haga la temperatura, lo que favorece la exploración en la fase inicial y la intensificación
+en la fase final. El cambio de la temperatura puede ser de diversas formas, aunque la más usual es multiplicar
+por una constante menor que $1$ en cada iteración.
+
 \subsection{Enfriamiento simulado en MCP}
 
+El principal problema a la hora de elaborar un algoritmo de enfriamiento simulado en MCP es la elección
+de una función objetivo que permita una exploración amplia del entorno. Las funciones objetivo usuales,
+como el tamaño del clique, no difieren de la búsqueda local en la práctica, pues una vez lleguemos a un
+óptimo local, normalmente repetirá movimientos de intercambio de forma indefinida, junto a algún
+\textit{drop} o \textit{add} ocasional.
+
+Una función objetivo que permita una mayor exploración nos llevaría a que tal vez el algoritmo no
+convergiese correctamente a un óptimo. Si bien esto podría corregirse utilizando después un algoritmo
+voráz o alguna de las búsquedas locales anteriores, las diferencias entre esto y tomar una solución
+inicial aleatoria no serían muy diferentes.
+
+Es posible encontrar algunos trabajos sobre MCP que involucran el enfriamiento simulado. No obstante,
+se suelen basar en una representación y una estructura diferentes a las consideradas en este problema,
+siendo imposible trasladarlos a este caso. Es posible adaptar algunas de las ideas, pero no el algoritmo
+completo. En el caso de este trabajo, se ha implementado un algoritmo que utiliza las nociones
+básicas de enfriamiento simulado para ver sus diferencias con la búsqueda local, y un segundo algoritmo
+que recoge algunas ideas de un artículo sobre el problema.
+
+\subsubsection{Primer algoritmo}
+
+Este algoritmo es una adaptación de una búsqueda local a un enfriamiento simulado, utilizando una función
+objetivo basada en el tamaño de los cliques. En concreto, el valor de cada clique es su tamaño más el número
+de vértices que contiene el conjunto $C_0$ dividido por el número de vértices totales. De esta forma,
+conseguimos que cliques de mayor tamaño tengan siempre un valor mayor que aquellos con menor tamaño, independientemente
+del conjunto $C_0$, lo que garantiza la convergencia a un óptimo local. Usando el tamaño de $C_0$ podemos
+distinguir entre cliques del mismo tamaño.
+
+Para el entorno, he considerado movimientos \textit{add}, \textit{swap} y \textit{drop}, sin priorizar
+ninguno de ellos. Se tomarán en orden aleatorio hasta encontrar uno que mejore o satisfaga el criterio de
+Metrópolis.
+
+Los valores de temperatura han sido inicializados a $T_{\text{inicial}} = 1, T_{\text{final}} = 0.01$, con un
+mecanismo de enfriamiento geométrico, consistente en multiplicar la temperatura por una constante $\beta$, fijada a
+$\beta = 0.99$. Una vez se alcance una temperatura menor que la final, completamos el mejor clique encontrado añadiendo
+tantos nodos como sea posible (aunque lo más probable es que no se añada ninguno), eligiendo por mayor número de
+adyacencias, y posteriormente el algoritmo finaliza, devolviendo dicho clique.
+
+El algoritmo trabaja siempre partiendo del clique vacío. No obstante, puede ser adaptado fácilmente para que
+comience la exploración desde cualquier clique, lo que nos permitiría combinarlo con otros algoritmos.
+
+Vemos una descripción del algoritmo en pseudocódigo.
+
+\begin{algorithm}[H]
+\caption{Enfriamiento Simulado 1}
+  \begin{algorithmic}
+    \State $T = 1$
+    \State $T_{\text{final}} = 0.01$
+    \State $\beta = 0.99$
+    \State Calcular $C_0$ y $C_1$.
+    \Repeat
+      \State Entorno = $C_0 \cup C_1 \cup$ Drops
+      \Repeat
+        \State Sacar un clique del entorno, calcular $\Delta F$.
+        \If{$\Delta F \geq 0$}
+          \State Aceptar solución.
+          \State Salir del bucle interno.
+        \Else
+          \State Aceptar solución con probabilidad $e^{\nicefrac{\Delta F}{T}}$.
+          \State Salir del bucle interno si se acepta la solución.
+        \EndIf
+      \Until{Entorno $= \emptyset$.}
+      \State $T = T \times \beta$
+    \Until{$T < T_{\text{final}}$}
+    \State{Ampliar mejor clique encontrado y devolver el resultado.}
+  \end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Segundo algoritmo}
+
+En el segundo algoritmo, se han adaptado las ideas de X. Geng, J. Xu, J. Xiao y L. Pan, que propusieron un
+algoritmo de enfriamiento simulado para MCP. Dicho algoritmo sigue un enfoque distinto al de este problema,
+pues intenta buscar cliques de un tamaño predeterminado, explorando el espacio de soluciones hasta
+que lo encuentra, o hasta llegar a un criterio de parada. Se basa en una representación por permutaciones
+del vector de vértices, y va realizando intercambios de dos vértices, de tal forma que uno sale del
+subgrafo y otro entra en él, siempre que la función objetivo mejore o se satisfaga el criterio de Metrópolis.
+En este caso, en lugar de ir moviéndose entre cliques, se consideran grafos de tamaño fijo, que se modificarán
+con el objetivo de alcanzar un clique. Esto permite definir como función objetivo el número de aristas que le
+faltan al grafo para ser un clique.
+
+Para poder adaptarme a este enfoque, he tenido que diseñar un algoritmo que se moviera entre grafos que no
+fueran un clique. He utilizado los mismos tres operadores que he usado anteriormente,
+\textit{add, swap} y \textit{drop}, pero en este caso, he permitido añadir cualquier nodo al clique
+o intercambiar dos nodos cualesquiera, sin necesidad de respetar la estructura de clique.
+La exploración del nuevo entorno se hace igual que en el caso anterior, de forma aleatoria.
+
+Inicialmente, como función objetivo tomé la propuesta en el artículo, consistente en el número de aristas necesarias
+para que el grafo pase a ser un clique. Sin embargo, esta función no asegura una convergencia a óptimos locales;
+en particular, es ajena al tamaño de los cliques. Por esto, he usado la longitud de los grafos para corregir esta,
+restándola al número de aristas restante. Así, tenemos una función objetivo que es menor cuanto mayor es el grafo,
+y cuanto más se parece a un clique.
+
+Una vez definida la función objetivo, el algoritmo opera como cabría esperar, explora el entorno y toma un elemento
+aleatorio hasta que la función objetivo es menor, o hasta que se acepta el criterio de Metrópolis. Como ahora no
+trabajamos con cliques, el grafo que obtenemos será reducido a un clique eliminando el nodo que menos adyacencias
+tenga hasta quedarnos con un clique. Este clique no sustituye al grafo que tengamos, sino que se compara con el
+mejor obtenido hasta el momento, reemplazándolo si su longitud fuera mayor.
+
+He vuelto a tomar los valores $T_{\text{inicial}} = 1, T_{\text{final}} = 0.01, \beta = 0.99$ para los parámetros
+del algoritmo. Una vez finaliza la fase de enfriamiento, vuelvo a añadir tantos nodos como sea posible al mejor
+clique encontrado, mediante un algoritmo \textit{greedy}, devolviendo el clique resultante.
+
+Como el algoritmo es similar al anterior, difiriendo en el entorno y en la función objetivo,
+no vemos el pseudocódigo, pues sería casi idéntico al anterior. 
 
 \section{Búsquedas multiarranque}
 
