@@ -78,7 +78,7 @@ también la estructura de entornos, considerando intercambios además de adicion
 
 A continuación, se detallan en más profundidad los dos algoritmos implementados:
 
-\subsubsection{Primer algoritmo}
+\subsection{Primer algoritmo}
 
 Este algoritmo es el enfoque más básico posible dentro de los algoritmos voraces para MCP.
 Comenzando desde un clique vacío, añade elementos al clique, respetando la estructura, hasta
@@ -103,7 +103,7 @@ Vemos a continuación el pseudocódigo del algoritmo.
 \end{algorithm}
 
 
-\subsubsection{Segundo algoritmo}
+\subsection{Segundo algoritmo}
 
 En este algoritmo, se han seguido las ideas de Grosso, Locatelli y Della Croce, usando un algoritmo
 que nos permite deshacer, en cierta forma, decisiones tomadas anteriormente. La idea es no solo
@@ -196,7 +196,7 @@ fundamentales con respecto a este.
 
 Veámoslos en más detalles.
 
-\subsubsection{Primer algoritmo}
+\subsection{Primer algoritmo}
 
 Este algoritmo se basa en las ideas de Katayama, Hamamoto y Narihisa. En él, se han considerado
 los tres movimientos básicos de la búsqueda local, \textit{add, swap} y \textit{drop},
@@ -256,12 +256,15 @@ Vemos el pseudocódigo del algoritmo:
   \end{algorithmic}
 \end{algorithm}
 
-\subsubsection{Segundo algoritmo}
+\subsection{Segundo algoritmo}
 
-Este algoritmo sigue una filosofía más simple que el anterior; solo considera movimientos
-\textit{add} y \textit{swap}, a los que volveremos a ordenar por prioridad. Además, incluye una
-lista tabú con los nodos que han salido del clique mediante un swap. Limitaremos la longitud de
-esta lista a un 2\% del número de vértices en el grafo, para que no aloje un gran número de nodos.
+Este algoritmo está basado en la búsqueda local dinámica o DLS (del inglés, \textit{Dynamic Local Search},
+propuesta por W. Pullan y H. Hoos en el año 2006, y en concreto, se basa en una adaptación hecha
+por () para un algoritmo de búsqueda local iterada, que veremos más adelante.
+Sigue una filosofía más simple que el anterior pues solo considera movimientos \textit{add}
+y \textit{swap}, a los que volveremos a ordenar por prioridad. Además, incluye una lista
+tabú con los nodos que han salido del clique mediante un swap. Limitaremos la longitud de esta
+lista a un 2\% del número de vértices en el grafo, para que no aloje un gran número de nodos.
 
 Nuestro entorno consistirá en el conjunto de posibles adiciones ($C_0$) y el conjunto de
 posibles intercambios ($C_1$), al que quitaremos la lista tabú. Como teóricamente, el entorno
@@ -350,7 +353,7 @@ completo. En el caso de este trabajo, se ha implementado un algoritmo que utiliz
 básicas de enfriamiento simulado para ver sus diferencias con la búsqueda local, y un segundo algoritmo
 que recoge algunas ideas de un artículo sobre el problema.
 
-\subsubsection{Primer algoritmo}
+\subsection{Primer algoritmo}
 
 Este algoritmo es una adaptación de una búsqueda local a un enfriamiento simulado, utilizando una función
 objetivo basada en el tamaño de los cliques. En concreto, el valor de cada clique es su tamaño más el número
@@ -399,7 +402,7 @@ Vemos una descripción del algoritmo en pseudocódigo.
   \end{algorithmic}
 \end{algorithm}
 
-\subsubsection{Segundo algoritmo}
+\subsection{Segundo algoritmo}
 
 En el segundo algoritmo, se han adaptado las ideas de X. Geng, J. Xu, J. Xiao y L. Pan, que propusieron un
 algoritmo de enfriamiento simulado para MCP. Dicho algoritmo sigue un enfoque distinto al de este problema,
@@ -476,13 +479,13 @@ un óptimo local. Una vez alcanzado, se compara la solución con la mejor obteni
 actualiza si es necesario, y se comienza de nuevo el algoritmo. Se repetirá el proceso hasta satisfacer
 una condición de parada.
 
-\subsection{GRASP en MCP}
+\subsubsection{GRASP en MCP}
 
 El aspecto fundamental de este algoritmo es la construcción de la solución inicial. Podemos valorar
 los elementos del conjunto de candidatos de distintas formas, lo que dará lugar a distintas soluciones
 de partida. Por lo demás, el algoritmo se basa en una búsqueda local, que hemos discutido con anterioridad.
 
-\subsection{Algoritmo implementado}
+\subsubsection{Algoritmo implementado}
 
 Como se acaba de mencionar, el aspecto fundamental de este algoritmo es la generación de la solución inicial.
 Para ello, he tomado la lista de candidatos, $C_0$, y la he ordenado por número de adyacencias en el grafo,
@@ -530,7 +533,82 @@ Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales
 
 \subsection{ILS}
 
+La búsqueda local iterada, o ILS (del inglés, \textit{Iterated Local Search}), es un algoritmo de
+búsqueda local multiarranque basado en la perturbación de soluciones como método para obtener diversidad.
+Fue propuesta en 1998 por Thomas Stützle en su tesis doctoral, y desde entonces se utiliza en la resolución
+de distintos problemas, entre los que se encuentra el problema del clique máximo.
+
+El algoritmo ILS requiere de cuatro componentes principales: una solución inicial, un algoritmo de mutación de
+soluciones, un método de búsqueda local, y un criterio de aceptación.
+
+El funcionamiento general de este tipo de algoritmos es el siguiente: primero, se toma la solución inicial
+y se le aplica búsqueda local, hasta llegar a un óptimo local. Seguidamente, se le aplica una mutación a la
+solución obtenida, que nos permite crear una nueva solución inicial a la que volver a aplicar búsqueda local.
+Una vez finalizada esta segunda búsqueda local, se usa el criterio de aceptación para ver si reemplazamos
+la solución anterior con la obtenida. Este proceso mutación-búsqueda local-aceptación se repetirá hasta
+que se satisfaga un criterio de parada. Finalmente, el algoritmo devuelve la mejor solución encontrada.
+
+Este modelo de ILS es el más básico que existe, pero no es el único. Podemos utilizar un modelo basado en
+poblaciones, donde a cada elemento se le aplica ILS y estos se combinan de alguna forma para una mayor exploración
+del espacio de soluciones, o el modelo $(\nu + \lambda)$, donde, partiendo de $\nu$ soluciones iniciales,
+generamos $\lambda$ hijos a partir de ellas mediante mutación, que compiten para pasar a la siguiente fase.
+
+También es posible establecer diferencias en el criterio de aceptación. Si bien el método más usual es tener
+una función objetivo, pueden utilizarse otros, como una selección aleatoria, basada en combinaciones,
+o basada en probabilidades, en la que podría utilizarse el algoritmo de Metrópolis, por ejemplo.
+
+\subsubsection{ILS en MCP}
+
+Es sencillo construir una búsqueda local iterada para el problema del clique máximo, partiendo de un
+algoritmo de búsqueda local existente. Para ello, son necesarios un criterio de aceptación y una
+función de mutación.
+
+\subsubsection{Algoritmo implementado}
+
+Se ha implementado un algoritmo que sigue la filosofía de la búsqueda local iterada básica basado en
+el propuesto por A. Grosso, M. Locatelli y W. Pullan, que usa el algoritmo de búsqueda local
+DLS, si bien se propusieron algunas modificaciones que aquí no se han tenido en cuenta.
+En mi caso, además de DLS, he utilizado el otro algoritmo de búsqueda local implementado,
+para comparar las diferencias entre ambos al ser utilizados por ILS.
+Vemos a continuación la función de mutación y el criterio de aceptación utilizados.
+
+El algoritmo para mutar un clique consiste en tomar un nodo que no se encuentre en él, eliminar del clique
+todos los nodos que no estén conectados a él, y finalmente añadir el nodo. Con este método conseguimos
+una solución de partida que se encuentra en una zona distinta del espacio de soluciones, a la vez que
+usamos información de la iteración anterior para movernos por soluciones que serán potencialemente de calidad.
+
+La función de aceptación se queda siempre con el último clique obtenido tras la búsqueda local. Tras valorar
+si quedarme con la última o con la mejor encontrada, decidí hacer lo primero, para favorecer la diversidad en
+las soluciones. No obstante, siempre dispondremos de la mejor solución, pues la tendremos guardada, por lo
+que modificar el criterio no supone ninguna dificultad.
+
+Dado que las dos búsquedas locales implementadas requieren de un límite como criterio de parada, he fijado dicho
+límite al número de vértices del grafo, para que se adapte al tamaño de cada problema. Además, el criterio de
+parada del algoritmo también es un número de iteraciones, que ha sido $30$ para todas las instancias.
+
+Vemos el pseudocódigo del algoritmo:
+
+\begin{algorithm}[H]
+\caption{ILS}
+  \begin{algorithmic}
+    \State Generar solución inicial.
+    \State Aplicar búsqueda local.
+  \Repeat
+    \State Modificar solución.
+    \State Aplicar búsqueda local a la solución obtenida.
+    \State Actualizar la mejor solución, si es necesario.
+  \Until{Se alcance el número de iteraciones.}
+  \State{Devolver mejor solución obtenida.}
+  \end{algorithmic}
+\end{algorithm}
+
+\section{Algoritmos de colonia de hormigas}
+
+\subsection{ACO en MCP}
+
 
 \section{Algoritmos genéticos}
 
-\section{Algoritmos de colonia de hormigas}
+
+
+\section{Algoritmos meméticos}
