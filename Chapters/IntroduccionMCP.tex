@@ -37,7 +37,7 @@ resolverlo.
 
 \section{Trabajo realizado}
 
-En este trabajo, he implementado distintos algoritmos, basados en diferentes
+En este trabajo he implementado distintos algoritmos, basados en diferentes
 metaheurísticas, para comprobar sus eficacia a la hora de resolver el problema.
 En varios de ellos se incluyen distintas variantes de la misma heurística, para
 analizar cómo afectan cambios en la toma de ciertas decisiones, o la estructura
@@ -49,6 +49,9 @@ calidad de las soluciones obtenidas por cada uno de ellos. Veremos como actúan
 sobre instancias similares del problema, y discutiremos su viabilidad a la
 hora de resolverlo, pues cabe esperar que ciertos algoritmos se comporten
 mejor que otros.
+
+Además de la calidad de las soluciones, tendremos en cuenta el tiempo de ejecución
+de los algoritmos, si bien no será un aspecto relevante a la hora de evaluarlos.
 
 Las ideas detrás de cada algoritmo provienen de una combinación de mis conocimientos
 sobre la materia y el estudio que se lleva realizando sobre el problema durante décadas,
@@ -65,6 +68,11 @@ Está disponible para descarga bajo una licencia de software libre.
 He elegido este lenguaje por haber trabajado con él en varias ocasiones, y aporta
 simplicidad e intuitividad a la hora de programar los algoritmos, además de salir
 un poco de los lenguajes más utilizados en la carrera.
+
+Al utilizar un lenguaje interpretado como es \textbf{Ruby}, cabe esperar unos
+tiempos de ejecución mayores que con otros lenguajes, debido a que no está hecho
+para ejecutar código lo más rápido posible. En el caso de querer tener en cuenta la
+velocidad, lenguajes compilados como \textbf{C++} serían más útiles que \textbf{Ruby}.
 
 El código implementado cumple varias funciones: la primera de ellas es llevar a
 memoria todas las instancias disponibles del problema. Para ello, he tenido que
@@ -91,17 +99,17 @@ módulo aparte, para diferenciarlos de las implementaciones de las heurísticas.
 
 \section{El repositorio DIMACS}
 Las siglas DIMACS hacen referencia al centro de matemática discreta y computación teórica
-(del ingĺes, Center for Discrete Mathematics and Theoretical Computer Science). Es una colaboración
-entre dos universidades estadounidenses, las de Rutgers y Princeton, además de las empresas de
-investigación AT\&T, Bell Labs, Applied Communication Science y NEC. Fue fundada en el año 1989,
-y desde 1990 convoca desafñios de implementación para determinados problemas de interés en
+(del inglés, Center for Discrete Mathematics and Theoretical Computer Science). Es una colaboración
+entre dos universidades estadounidenses, las de Rutgers y Princeton, además de las secciónes de investigación
+de las empresas AT\&T, Bell Labs, Applied Communication Science y NEC. Fue fundada en el año 1989,
+y desde 1990 convoca desafíos de implementación para determinados problemas de interés en
 el ámbito científico, con el objetivo de conseguir algoritmos de calidad.
 
 El problema del clique máximo fue, junto con el coloreo de grafos y el problema de satisfabilidad
 de cláusulas (SAT), protagonista del segundo desafío DIMACS, que tuvo lugar entre 1990 y 1991.
 Para el problema, se proporcionó un conjunto de instancias de grafos, que son de acceso público,
-y son las que utiliza la comunidad científica para evaluar nuevos algoritmos, y las que he utilizado
-para los míos. Pueden encontrarse en la URL \url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}
+y son las que utiliza la comunidad científica para evaluar nuevos algoritmos, que he utilizado
+para los míos. Pueden encontrarse en la URL \url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}.
 
 En dicho repositorio podemos encontrar un total de 37 grafos. Están subdivididos en distintos grupos,
 que hacen referencia al método de generación de los mismos. Debido a esto, es posible que algunos
@@ -111,4 +119,4 @@ consultar en profundidad en la web del repositorio.
 
 En ciertas instancias se ha confirmado el valor del óptimo global, mientras que en otras solo se conoce
 una cota inferior a la mejor solución posible. Estos valores serán tomados como referencia a la hora
-de evaluar cada algoritmo implementado y determinar la calidad de las soluciones. 
+de evaluar cada algoritmo implementado y determinar la calidad de las soluciones.
