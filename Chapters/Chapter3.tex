@@ -406,3 +406,69 @@ de la curva de Jordan a dimensiones superiores.
   Sea $f \colon S^{n-1} \to \R^n$ un embebimiento. Entonces, $\R^n - f(S^{n-1})$ tiene dos componentes conexas,
   y $f(S^{n-1})$ es la frontera común de ambas.
 \end{corollary}
+
+\begin{theorem}[Invarianza del dominio]
+  Sean $A_1, A_2 \subseteq S^n$ subconjuntos de $S^n$ homeomorfos por $h \colon A_1 \to A_2$. Entonces,
+  $A_1$ es abierto de $S^n \iff A_2$ es abierto de $S_n$.
+\end{theorem}
+
+\begin{remark}
+  Nótese que este hecho no es trivial. Lo sería en caso de que $A_1, A_2$ fueran cerrados, o si $h$ estuviera definida
+  en todo $S^n$ y fuera un homeomorfismo entre ambos conjuntos.
+\end{remark}
+
+\begin{proof}
+  Supongamos $A_1$ abierto, y veamos que $A_2$ también lo es. Sea $a_2 \in A_2$, y sea $a_1 \in A_1$ tal que $h(a_1) = a_2$.
+  Existe un entorno de $a_1$, al que notamos $V_1 \subseteq S^n$, tal que $V_1 \subseteq A_1$ y $V_1 \cong D^n$. Sean
+  $V_2 = h(V_1), W_2 = h(\partial V_1) (\partial V_1 \cong S^{n-1})$. Se verifica que $a_2 \in V_2 - W_2 \subseteq A_2$.
+
+  Por el teorema de separación de Jordan-Brower, $S^n - W_2$ tiene dos componentes conexas, y al ser $V_2 \cong D^n$,
+  $S^n - V_2$ es conexo. Además, $S^n - W_2 = (V_2 - W_3) \cup (S^n - V_2)$, siendo esta unión disjunta, luego $V_2 - W_2$
+  y $S^n - V_2$ son las componentes conexas de $S^n - W_2$, y por tanto abiertos en $S^n - W_2$ (y en $S^n$).
+
+  Como $a_2 \in V_2  W_2 \subseteq A_2$, $A_2$ es abierto.
+
+  Para demostrar la otra implicación basta con intercambiar los papeles de $A_1$ y $A_2$ y considerar el homeomorfismo inverso.
+\end{proof}
+
+\section{Grado de una aplicación continua}
+
+Vamos a definir el grado de una aplicación continua de una esfera en sí misma, aprovechando lo que sabemos
+de los grupos de homología de las esferas.
+
+Sea $f \colon S^n \to S^n$ una aplicaciones continua. Los únicos homomorfismos que induce f y que son no triviales son
+$f_* \colon H_0(S^n) \to H_0(S^n)$ y $f_* \colon H_n(S^n) \to H_n(S^n)$.
+
+Se cumple que el primero de ellos es siempre la identidad. En el segundo caso, como $H_n(S^n) \cong \Z$, si $[\alpha]$ es un
+generador de $H_n(S^n)$, necesariamente se tiene que $f_*([\alpha]) = n \times [\alpha] \quad n \in Z$.
+
+Definimos el grado de $f$, y lo notamos $\Deg f$, a dicho entero $n$.
+\[ f_*([\alpha]) = \Deg f \times [\alpha] \]
+Veamos algunas de sus propiedades.
+
+\begin{proposition}[Propiedades]
+  Estando en el escenario anterior, se verifican:
+  \begin{itemize}
+    \item[a)] $\Deg Id = 1$.
+    \item[b)] $\Deg (g \circ f) = \Deg g \times \Deg f$.
+    \item[c)] $f \simeq g \implies \Deg f = \Deg g$. La implicación contraria también es cierta, el llamado Teorema de Hopf.
+    \item[d)] Si $f$ es una equivalencia homotópica, $\Deg f = \pm 1$ (en particular, es cierto si $f$ es homeomorfismo).
+    \item[e)] Si $\Deg f \neq 0 \implies f$ es sobreyectiva.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Las demostraciones son sencillas usando la definición. Probamos únicamente e).
+
+  Supongamos que $f$ no es sobreyectiva, luego existe $x \in S^n$ con $x \notin \Img f$. Así, tenemos el diagrama
+  \[ \begin{tikzcd}
+    S^n  \arrow{dr}{f'} \arrow{rr}{f} & & S^n  \\
+    & S^n - \{x\} \arrow[hookrightarrow]{ur}{i}
+  \end{tikzcd} \]
+  que induce el siguiente diagrama en la homología:
+  \[ \begin{tikzcd}
+    H_n(S^n)  \arrow{dr}{f'_*} \arrow{rr}{f_*} & & H_n(S^n)  \\
+    & H_n(S^n - \{x\}) \cong 0 \arrow[hookrightarrow]{ur}{i_*}
+  \end{tikzcd} \]
+  que nos da una descomposición de $f_*$ que tiene al la función nula como factor, lo cual es imposible.
+\end{proof}
