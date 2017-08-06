@@ -593,22 +593,55 @@ Vemos el pseudocódigo del algoritmo:
   \begin{algorithmic}
     \State Generar solución inicial.
     \State Aplicar búsqueda local.
-  \Repeat
-    \State Modificar solución.
-    \State Aplicar búsqueda local a la solución obtenida.
-    \State Actualizar la mejor solución, si es necesario.
-  \Until{Se alcance el número de iteraciones.}
-  \State{Devolver mejor solución obtenida.}
+    \Repeat
+      \State Modificar solución.
+      \State Aplicar búsqueda local a la solución obtenida.
+      \State Actualizar la mejor solución, si es necesario.
+    \Until{Se alcance el número de iteraciones.}
+    \State{Devolver mejor solución obtenida.}
   \end{algorithmic}
 \end{algorithm}
 
 \section{Algoritmos de colonia de hormigas}
 
+Los algoritmos de colonia de hormigas o ACO (del inglés, \textit{Ant Colony Optimization}) son una técnica
+basada en adaptación social, que se basa en el comportamiento de las colonias de hormigas para tratar
+de encontrar caminos en grafos. Para ello, utilizará un recurso que emula a las feromonas que emiten las
+hormigas cuando se desplazan, y que puede ser detectadas por ellas, lo que permite que las hormigas puedan
+recorrer caminos de ida y vuelta al hormiguero siguiendo dicho rastro. Este hecho, unido al pésimo sentido
+de la vista que poseen las hormigas, hace que tengan que depender fuertemente del rastro de feromonas para
+moverse.
+
+La elección por parte de una hormiga del camino que recorrer se fundamenta en un criterio probabilístico.
+La hormiga tiende a recorrer caminos en los que el rastro de feromona es mayor, aunque podrá ir por otros
+donde el rastro no sea tan intenso. Así, se va acumulando feromona en los caminos más recorridos, mientras
+que esta se va evaporando de los caminos menos transitados, reduciendo su concentración.
+
+La acción continuada de la colonia de hormigas da lugar a un rastro de feromona, que permite a las hormigas
+encontrar un camino cada vez más corto desde el hormiguero a su destino, usualmente una fuente de alimento.
+
+Este comportamiento será trasladado a la optimización por colonia de hormigas, mediante la construcción
+de hormigas artificiales. Cada una de ellas usa un rastro de feromona (artificial), que cambia con el
+tiempo, y también usa información heurística de problema para crear un mecanismo probabilistico de
+construcción de soluciones.
+
+Esta hormiga será la encargada de ir recorriendo el grafo, utilizando la información de la que dispone para
+decidir a qué nodo moverse mediante una función de probabilidad. Los nodos que compongan una solución
+serán reforzados con un aumento de feromonas, y se hará de forma que mejores soluciones reciban más cantidad
+de feromona. Se utiliza también un mecanismo de evaporación de feromona para eviatr un incremento iimitado,
+simulando el proceso que ocurre en la realidad. Para esto, se reducirán todos los rastros de feromona eliminando
+un porcentaje de su valor actual. En la práctica, esto se traduce en evitar un estancamiento del algoritmo en
+óptimos locales.
+
+
 \subsection{ACO en MCP}
+
+\subsection{Primer algoritmo}
+
+\subsection{Segundo algoritmo}
 
 
 \section{Algoritmos genéticos}
-
 
 
 \section{Algoritmos meméticos}
