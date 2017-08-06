@@ -2,7 +2,7 @@
 \chapter{Algunos resultados clásicos}\label{ch:resultados}
 %************************************************
 
-\section{Definiciones iniciales}
+\section{Teorema del punto fijo de Brower}
 
 Vamos a utilizar el cálculo de la homología de las esferas para obtener resultados
 de carácter topológico.
@@ -95,7 +95,9 @@ del punto fijo de Brower.
   Basta ver que no puede darse la segunda opción del corolario anterior, pues la imagen de la función caería fuera de $D^n$.
 \end{proof}
 
-Pasemos ahora a la definición del grupo de homología local, herramienta que nos servirá para demostrar varios resultados de invarianza.
+\section{Teoremas de invarianza}
+
+Definamos el grupo de homología local, herramienta que nos servirá para demostrar varios resultados de invarianza.
 
 \begin{definition}
   Sean $\X$ un espacio topológico, $x \in \X$. A $H_p(\X, \X - \{x\})$ lo llamaremos el grupo de homología local de $\X$ en $x$.
@@ -266,6 +268,8 @@ Vamos a definir el concepto de variedad diferenciable.
   c) al caso diferenciable.
 \end{remark}
 
+\section{Separación de Jordan-Brower. Invarianza del dominio}
+
 \begin{proposition}
   Sea $A \subseteq S^n$ homeomorfo a $I^k$, con $0 \leq k \leq n$. Entonces:
   \[ H_p(S^n - A) \cong \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases} \]
@@ -280,12 +284,13 @@ Vamos a definir el concepto de variedad diferenciable.
 
   Sea $\phi \colon I^k \to A$ el homeomorfismo, y definamos $I_+^k = \{x \in I^k \mid x_1 \geq \frac{1}{2}\}$, \\
   $I_-^k = \{x \in I^k \mid x_1 \leq \frac{1}{2}\}$. Sean $A^+, A^-$ las imágenes por $\phi$ de $I_+^k, I_-^k$,
-  respectivamente. En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, U = S^n - A^-$. Así,
+  respectivamente. En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, V = S^n - A^-$. Así,
   $U \cap V = S^n - A$, y por Mayer-Vietoris, se tiene:
   \[ H_p(S^n - (A^+ \cap A^-)) \to H_{p-1}(S^n - A) \xrightarrow{(i_*^+, i_*^-)} H_{p-1}(S^n - A^+) \oplus H_{p-1}(S^n - A^-) \dots \]
 
-  Como $A^+ \cap A^- \cong I^{k-1}$, por hipótesis de inducción $H_p(S^n - (A^+ \cap A^-)) \cong \begin{cases} 0 &\text{ si } p > 0 \\
-                                                                                                              \Z &\text{ si } p = 0 \end{cases}$ \\
+  Como $A^+ \cap A^- \cong I^{k-1}$, por hipótesis de inducción \\
+  \[H_p(S^n - (A^+ \cap A^-)) \cong \begin{cases} 0 &\text{ si } p > 0 \\
+                                                \Z &\text{ si } p = 0 \end{cases}\]
   Así, $(i_*^+, i_*^-)$ es un isomorfismo si $p > 0$, y un monomorfismo si $p = 0$.
 
   Supongamos ahora que el resultado no es cierto. Entonces, para $p > 0$ existe $[\alpha] \in H_p(S^n - A)$ con $[\alpha] \neq 0$, y
@@ -308,8 +313,8 @@ Vamos a definir el concepto de variedad diferenciable.
     S^n - A \arrow{dr}{i} \arrow{rr}{i_m} & & S^n - A_m \arrow{dl}{j_m} \\
     & S^n - \bigcup\limits_{i = 1}^\infty A_i
   \end{tikzcd} \]
-  Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción,
-  entonces $0 = i_*(\beta) = 0 = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(\bigcup\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
+  Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción, entonces \\
+  $0 = i_*(\beta) = 0 = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(\bigcup\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
 
   Si $d = \sum\limits_{i = 1}^r m_i \phi_i$, entonces $\bigcup\limits_{i = 1}^r \Img \phi_i$ es un compacto en $\bigcap\limits_{i = 1}^\infty A_i
   = \bigcup\limits_{i = 1}^\infty (S^n - A_i)$, luego por el teorema de Heine-Borel:
@@ -319,5 +324,85 @@ Vamos a definir el concepto de variedad diferenciable.
   Así, existe $e \in S_{p+1}(S^n - A_m)$ con $j_{m\#(e)} = d$. Por tanto, $j_{m\#} \circ i_{m\#} (\beta) = i_\#(\beta) = \partial d
   = \partial j_{m\#}(e) = j_{m\#}(\partial e)$.
 
-  Como $j_{m\#}$ es un monomorfismo, $i_{m\#}(\beta) = \partial e$, entonces $i_{m\#}(\beta) = 0$, lo que contradice lo afirmado.  
+  Como $j_{m\#}$ es un monomorfismo, $i_{m\#}(\beta) = \partial e$, entonces $i_{m\#}(\beta) = 0$, lo que contradice lo afirmado.
 \end{proof}
+
+\begin{theorem}
+  Sea $A \subseteq S^n$, $n \geq 2$, $A$ homeomorfo a $S^k$ con $0 \leq k < n$. Entonces:
+
+  Si $k \leq n-2, \quad H_p(S^n - A) = \begin{cases} 0 &\text{ si } p \neq 0, n-k-1 \\ \Z &\text{ si } p = 0, p = n-k-1 \end{cases}$
+
+  Si $k = n-1, \quad    H_p(S^n - A) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z \oplus \Z &\text{ si } p = 0 \end{cases}$
+\end{theorem}
+
+\begin{proof}
+  La probamos por inducción sobre $k$.
+
+  Si $k = 0$, $S^0$ son dos puntos, luego $A$ es homeomorfo a dos puntos, y $S^n - A \cong \R^n - \{x\} \cong S^{n-1}$.
+  Se comprueba que el resultado coincide con el que comocemos para el grupo de homología de las esferas.
+
+  Supuesto cierto hasta $k - 1$, lo probamos para $k$.
+
+  Sea $S^k = E_+^k \cap E_-^k$, con $E_+^k = \{x \in S^k \mid x_{k+1} \geq 0\}, E_-^k = \{x \in S^k \mid x_{k+1} \leq 0\}$.
+  Entonces, $E_+^k$ y $E_-^k$ son homeomorfos a $I^k$, y $E_+^k \cap E_-^k \cong S^{k-1}$.
+
+  Del resultado anterior y de la hipótesis de inducción, conocemos $H_*(S^k, E_+^k)$, $H_*(S^k, E_-^k)$ y $H_*(S^n - (E_+^k \cap E_-^k))$.
+  Aplicando Mayer-Vietoris a $S^n - (E_+^k \cap E_-^k)$, con $U = S^n - E_+^k, V = S^n - E_-^k$, se tiene:
+  \begin{align*}
+    &H_p(S^n - E_+^k) \oplus H_p(S^n - E_-^k) \to H_p(S^n - (E_+^k \cap E_-^k)) \to H_{p-1}(S^n - S^k) \\
+    &\to H_{p-1}(S^n - E_+^k) \oplus H_{p-1}(S^n - E_-^k)
+  \end{align*}
+  Si $p \geq 2$, se verifica $H_{p-1}(S^n - S^k) \cong H_p(S^n - (E_+^k \cap E_-^k)) \cong H_p(S^n - S^{k-1})$,
+  que por inducción es $\begin{cases} 0 &\text{ si } p \neq 0, n-k \\ \Z &\text{ si } p = 0, n-k \end{cases}$
+
+  Llamando $q = p-1$, si $k = n-1$, como $p \geq 2$, $H_q(S^n - A) = 0 \quad \forall q \geq 1$.\\
+  Si $k \leq n-2, n-k \geq 2$, y $H_q(S^n - A) = \begin{cases} \Z &\quad q = n-k-1 \\ 0 &\quad \text{en otro caso.} \end{cases}$.
+
+  Para $p = 1 (q = 0)$, tomamos la sucesión exacta
+  \[0 \to H_1(S^n - (E_+^k \cap E_-^k)) \to H_0(S^n - S^k) \to \Z \oplus \Z \to \Z \to 0 \]
+  y se deduce $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1 \\
+                                                                                                    \Z &\quad k < n - 1  \end{cases} $
+\end{proof}
+
+\begin{theorem}[Separación de Jordan-Brower]
+  Sea $f \colon S^{n-1} \to S^n$ un embebimiento. Entonces $S^n - f(S^{n-1})$ tiene dos componentes conexas,
+  cuya frontera común es $f(S^{n-1})$.
+\end{theorem}
+
+\begin{proof}
+  Sea $A = f(S^{n-1})$. $H_0(S^n - A) \cong \Z \oplus \Z$, por lo que $S^n - A$ tiene dos componentes arcoconexas,
+  a las que llamamos $\Omega_1$ y $\Omega_2$.
+
+  Como $S^n - A$ es un abierto de $S^n$, es localmente arcoconexo, luego sus componentes arcoconexas y conexas coinciden,
+  y por tanto $\Omega_1$ y $\Omega_2$ son las componentes conexas de $S^n - A$.
+
+  Como $S^n - A$ es localmente arcoconexo, sus componentes conexas son abiertos en $S^n -A$, y por tanto en $S^n$.
+  De esta forma, $\Omega_i \cup A = S^n - \Omega_j, i \neq j$ es un cerrado en $S^n$, de donde se obtiene
+  $\overline{\Omega_i} \subseteq \Omega_i \cup A$, y por tanto
+  \[ Fr \Omega_i = \overline{\Omega_i} \cap \overline{S^n - \Omega_i} \subseteq (\Omega_i \cup A) \cap (S^n - \Omega_i) =
+  (\Omega_i \cup A) \cap (\Omega_j \cup A) = A. \]
+  Así, $Fr \Omega_i \subseteq A$.
+
+  Veamos que $A \subseteq Fr \Omega_i$, lo que completa la demostración.
+
+  Sean $a \in A, V$ entonrno abierto de $a$ en $S^n$. Usando que $S^n$ es una variedad $n$-dimensional, se puede descomponer
+  $A = A^1 \cup A^2$, con $a \in \interior{A^2} \subseteq V \cap A, A^1, A^2 \cong I^{n-1}$.
+
+  Sean $p_i \in \Omega_i, p_i \in S^n - A \subseteq S^n - A^1$. Como $H_0(S^n - A^1) \cong \Z$, $S^n - A^1$ es arcoconexo,
+  luego existe un arco $\gamma \colon [0,1] \to S^n - A^1$ que va desde $p_1$ a $p_2$.
+
+  Por tanto, existe un $t \in [0,1]$ con $\gamma(t) \in A^2$, pues si no, la curva estaría en $S^n - (A^1 \cup A^2) = S^n - A$
+  y uniría dos componentes conexas distintas.
+
+  Como $\gamma^{-1}(A^2) \neg \emptyset$ y es cerrado, es un compacto de $[0,1]$, del que podemos tomar mínimo y máximo,
+  a los que llamamos $t_m$ y $t_M$ respectivamente. Tomando $\epsilon$ suficientemente pequeño, $\gamma(t_m - \epsilon) \in \Omega_1 \cap V$,
+  y $\gamma(t_M + \epsilon) \in \Omega_2 \cap V$, luego $a \in \overline{Omega_1} \cap \overline{Omega_2}, a \in Fr \Omega_i$.
+\end{proof}
+
+Este teorema nos permite obtener directamente un resultado que puede verse como una generalización del teorema
+de la curva de Jordan a dimensiones superiores.
+
+\begin{corollary}
+  Sea $f \colon S^{n-1} \to \R^n$ un embebimiento. Entonces, $\R^n - f(S^{n-1})$ tiene dos componentes conexas,
+  y $f(S^{n-1})$ es la frontera común de ambas.
+\end{corollary}
