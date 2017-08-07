@@ -5,7 +5,7 @@
 \section{Definiciones iniciales}
 
 \begin{definition}
-Un p-símplice $s_p$ es la envolvente conexa de $p+1$ puntos afínmente independientes en $\mathbb{R}^p$,
+Un \textbf{p-símplice} $s_p$ es la envolvente conexa de $p+1$ puntos afínmente independientes en $\mathbb{R}^p$,
 a los que llamaremos vértices, $\{x_0, \dots, x_n\}$, esto es
 \[ s_p = \{\lambda_0 x_0 + \dots + \lambda_p x_p \mid \lambda_0 + \dots + \lambda_p = 1, \lambda_i \geq 0 \quad \forall i \} \]
 \end{definition}
@@ -17,7 +17,7 @@ Podemos establecer un homeomorfismo $h \colon \sigma_p \to s_p$ por
 \[ h(t_0, \dots, t_p) = \sum\limits_{i = 0}^p t_i x_i \]
 
 \begin{definition}
-Sea $\X$ un espacio topológico. Un p-símplice singular en $\mathbb{X}$ es una aplicación continua $\phi \colon \sigma_p \to \X$ para $p \geq 0$.
+Sea $\X$ un espacio topológico. Un \textbf{p-símplice singular} en $\mathbb{X}$ es una aplicación continua $\phi \colon \sigma_p \to \X$ para $p \geq 0$.
 \end{definition}
 
 Representaremos el conjunto de p-símplices singulares de $\mathbb{X}$ como
@@ -70,11 +70,11 @@ Se deduce directamente este corolario:
 Debido a que $\FX{p}$ no está dotado de estructura algebraica, es posible realizar la siguiente construcción:
 
 \begin{definition}
-  Si $\X$ es un espacio topológico, y $p \geq 0$, se define el grupo de p-cadenas singulares de $\X$
+  Si $\X$ es un espacio topológico, y $p \geq 0$, se define el \textbf{grupo de p-cadenas singulares} de $\X$
   como el grupo abeliano libre generado por $\FX{p}$
   \[ S_p(\X) = \{\sum_{\phi \in \FX{p}} n_\phi \cdot \phi  \mid n_\phi \in \Z \text{, todos cero salvo un número finito} \}\]
 
-  Podemos definir un operador borde $\partial$ con las aplicaciones cara $\partial_i$ de la siguiente forma:
+  Podemos definir un operador \textbf{borde} $\partial$ con las aplicaciones cara $\partial_i$ de la siguiente forma:
   \begin{align*}
     \partial \colon S_p(\X) &\to S_{p-1}(\X)\\
     \partial(\phi) &= \sum_{i = 0}^p (-1)^i \partial_i(\phi)  \hspace{1cm} (p \geq 1)
@@ -141,8 +141,8 @@ A esta aplicación entre complejos de cadenas se le llama en álgebra una aplica
 inducida por la aplicación continua f.
 
 \begin{definition}
-  Diremos que $c \in S_p(\X)$ es un p-ciclo si $\partial(c) = 0$. \\
-  Diremos que $c \in S_p(\X)$ es un p-borde si $\exists d \in S_{p+1}(\X) \text{ tal que } \partial(d) = c$.
+  Diremos que $c \in S_p(\X)$ es un \textbf{p-ciclo} si $\partial(c) = 0$. \\
+  Diremos que $c \in S_p(\X)$ es un \textbf{p-borde} si $\exists d \in S_{p+1}(\X) \text{ tal que } \partial(d) = c$.
 \end{definition}
 
 % ¿Indentar los conjuntos?
@@ -160,7 +160,7 @@ inmediatamente que $B_p(\X) \subseteq Z_p(\X) \hspace{0.2em}\forall p \geq 0$, l
 \begin{equation*}
   H_p(\X) = \ddfrac{Z_p(\X)}{B_p(\X)}
 \end{equation*}
-grupo abeliano, \underline{\smash{p-ésimo grupo de homología singular}}, el cual es un grupo abeliano.
+al que llamaremos el \textbf{\underline{\smash{p-ésimo grupo de homología singular}}}, el cual es un grupo abeliano.
 
 \begin{remark}
   Nótese que $Z_0(\X) = S_0(\X)$, pues $\partial(S_0(X)) = 0$.
@@ -171,7 +171,8 @@ A los elementos de $H_p(\X)$ los notaremos $[c]$, con $\partial(c) = 0$, esto es
 Tomemos nuevamente una función continua $f \colon \X \to \Y$, y definamos
 \[ f_* \colon H_p(\X) \to H_p(\Y) \quad f_*([c]) = [f_\#(c)]  \]
 
-Comprobemos que está bien definida, esto es, que no depende del representante que se elija. \\
+Comprobemos que está bien definida, esto es, que no depende del representante que se elija.
+
 Sean $[c_1] = [c_2]$, lo que implica $c_1 - c_2 \in B_p(\X)$. Por tanto, existe $d \in S_{p+1}(\X)$ tal que $\partial(d) = c_1 - c_2.$
 Así, $f_\#(c_1) - f_\#(c_2) = f_\#(c_1 - c_2) = f_\#(\partial(d)) = \partial(f_\#(d))$ \\
 Como $f_\#(d) \in S_{p+1}(\Y)$, se tiene $[f_\#(c_1)] = [f_\#(c_2)]$
@@ -531,7 +532,7 @@ $B_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \overline{c} = \partial\overlin
 
 por lo que podemos considerar
 \[H_p(\X, A) = \frac{Z_p(\X, A)}{B_p(\X, A)} \quad \forall p \geq 0 \]
-que llamamos el p-ésimo grupo de homología singular del par $(\X, A)$.
+que llamamos el \textbf{\underline{\smash{p-ésimo grupo de homología singular}}} del par $(\X, A)$.
 
 Dados dos pares $(\X, A)$ y $(\Y, B)$, una aplicación continua $f \colon (\X, A) \to (\Y, B)$ es una aplicación continua
 $f \colon \X \to \Y$ tal que $f(A) \subseteq B$. Llamaremos a $f$ una aplicación de pares entre $(\X, A)$ e $(\Y, B)$. \\
@@ -657,7 +658,7 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
 
   A la sucesión exacta así construída:
   \[\dots H_{p+1}(\X, A) \xrightarrow{\Delta} H_p(A) \xrightarrow{i_*} H_p(\X) \xrightarrow{\pi_*} H_p(\X, A) \xrightarrow{\Delta} H_{p-1}(A) \dots\]
-  se le llama la \underline{\smash{sucesión exacta del par $(\X, A)$.}}
+  se le llama la \textbf{\underline{\smash{sucesión exacta}}} del par $(\X, A)$.
 \end{proposition}
 
 \begin{proof}
@@ -708,12 +709,11 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
 \end{proposition}
 
 \begin{proof}
-  Nos basta con que $\Delta \circ f_* = f_{|A} \circ \Delta$, pues ya conocemos el resto.
+  Nos basta con probar que $\Delta \circ f_* = f_{|A} \circ \Delta$, pues ya conocemos el resto.
 
-  $
-    (\Delta \circ f_*)([c]) = \Delta([f_\#(\overline{c}]) = \Delta([\overline{f_\#(c)}]) \stackrel{(*)}{=} [(f_{|A})_\#(a)]
-    = (f_{|A})_*[a] = (f_{|A})_* \Delta[\overline{c}]
-  $
+  Realizamos el cálculo: 
+  \[ (\Delta \circ f_*)([c]) = \Delta([f_\#(\overline{c}]) = \Delta([\overline{f_\#(c)}]) \stackrel{(*)}{=} [(f_{|A})_\#(a)]
+    = (f_{|A})_*[a] = (f_{|A})_* \Delta[\overline{c}] \]
 
   Donde en $(*)$ estamos usando que $\partial(f_\#(c)) = f_\# \partial c = f_\# i_\#(a) = i_\#(f_{|A})_\#(a)$, con $\partial c = i_\#(a).$
 \end{proof}
