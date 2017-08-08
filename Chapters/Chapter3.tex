@@ -35,12 +35,12 @@ de carácter topológico.
   Sean $D^n = \{x \in \R^n \mid |x| \leq 1\}, S^{n-1} = \{x \in \R^n \mid |x| = 1\} \subseteq D^n$. Si existiera dicha retracción,
   $r \colon D^n \to S^{n-1}$, tenemos el siguiente diagrama conmutativo:
   \[ \begin{tikzcd}
-    S^{n-1} \arrow{dr}{i} \arrow{rr}{Id} & & S^{n-1} \\
+    S^{n-1} \arrow[hookrightarrow]{dr}{i} \arrow{rr}{Id} & & S^{n-1} \\
     & D^n \arrow{ur}{r}
   \end{tikzcd} \]
   de donde se obtiene un diagrama, también conmutativo, en la homología:
   \[ \begin{tikzcd}
-    Z \cong H_{n-1}(S^{n-1}) \arrow{dr}{i_*} \arrow{rr}{Id_*} & & H_{n-1}(S^{n-1}) \\
+    Z \cong H_{n-1}(S^{n-1}) \arrow[hookrightarrow]{dr}{i_*} \arrow{rr}{Id_*} & & H_{n-1}(S^{n-1}) \\
     & H_{n-1}(D^n) \arrow{ur}{r_*}
   \end{tikzcd} \]
   lo cual es imposible, pues $H_{n-1}(D^n) \cong 0$, y tendríamos una factorización de la identidad que incluye a la aplicación nula,
@@ -68,7 +68,7 @@ del punto fijo de Brower.
 \begin{proof}
   Sea $h \colon D^n \to \R^n$, definida por:
   \[ h(x) = \begin{cases} f(2x) &\text{ si } |x| \leq \frac{1}{2} \\
-                          (2-2|x|)f(\frac{x}{|x|}) + (2|x| + 1)x &\text{ si } |x| \geq \frac{1}{2}  \end{cases} \]
+                          (2-2|x|)f(\frac{x}{|x|}) + (2|x| - 1)x &\text{ si } |x| \geq \frac{1}{2}  \end{cases} \]
   que es continua, ya que en $\frac{1}{2}$ ambas definiciones coinciden.
 
   Si $|x| = 1, h(x) = x$, y aplicando el corolario anterior, existe $y \in D^n$ tal que $h(y) = 0$. Distinguimos dos casos:
@@ -100,12 +100,12 @@ del punto fijo de Brower.
 Definamos el grupo de homología local, herramienta que nos servirá para demostrar varios resultados de invarianza.
 
 \begin{definition}
-  Sean $\X$ un espacio topológico, $x \in \X$. A $H_p(\X, \X - \{x\})$ lo llamaremos el grupo de homología local de $\X$ en $x$.
+  Sean $\X$ un espacio topológico, $x \in \X$. A $H_p(\X, \X - \{x\})$ lo llamaremos el \textbf{grupo de homología local} de $\X$ en $x$.
 \end{definition}
 
 \begin{proposition}
   Sea $x \in \X$, y supongamos que $\{x\}$ es un cerrado. Entonces, para todo entorno $V$ de $x$, se verifica:
-  \[ H_p(\X, \X - \{x\}) \cong H_p(V, V - \{x\}) \quad \forall p \geq 0 \]
+  \[ H_p(\X, \X - \{x\}) \cong H_p(V, V - \{x\}) \quad \forall p \geq 0. \]
 \end{proposition}
 
 \begin{proof}
@@ -116,7 +116,7 @@ Definamos el grupo de homología local, herramienta que nos servirá para demost
 \end{proof}
 
 \begin{proposition}
-  Sean $\X, \Y$ espacios topológicos, $x \in \X, y \in \Y$ cerrados. Si existen entornos $x \in V, y \in W$ tales que $(V, \{x\}) \cong (W, \{y\})$,
+  Sean $\X, \Y$ espacios topológicos, $x \in \X, y \in \Y$ cerrados. Si existen entornos $x \in V, y \in W$ tales que si $(V, \{x\}) \cong (W, \{y\})$,
   entonces $H_*(\X, \X - \{x\}) \cong H_*(\Y, \Y - \{y\})$.
 \end{proposition}
 
@@ -143,8 +143,8 @@ Vamos a calcular la homología local de $\R^n$.
 
   Si $p \geq 2$:
   \[ 0 = H_p(\R^n) \xrightarrow{\pi_*} H_p(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_{p-1}(\R^n - \{x\}) \xrightarrow{i_*} H_{p-1}(\R^n) = 0 \]
-  Si $p \neq n, H_{p-1}(\R^n - \{x\} = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$. \\
-  Si $p = n, H_{p-1}(\R^n - \{x\} \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$.
+  Si $p \neq n, H_{p-1}(\R^n - \{x\}) = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$. \\
+  Si $p = n, H_{p-1}(\R^n - \{x\}) \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$.
 \end{proof}
 
 \begin{theorem}[Invarianza de la dimensión]
@@ -161,7 +161,7 @@ Vamos a calcular la homología local de $\R^n$.
 \end{proof}
 
 \begin{corollary}
-  Si $M$ es un espacio topológico $T_2$, conexo, y para cada $p \in M$ existen $V_p$ entorno de $p$, un entero
+  Si $M$ es un espacio topológico $T_2$, conexo, y verificando que para cada $p \in M$ existen $V_p$ entorno de $p$, un entero
   $n(p) \geq 1$ y un homeomorfismo $\phi_p \colon V_p \to O_p \subseteq \R^{n(p)}$ con $O_p$ abierto, entonces
   $n(p) = n$ constante y $M$ es una variedad topológica $n$-dimensional.
 \end{corollary}
@@ -198,7 +198,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 \end{proof}
 
 \begin{corollary}[Invarianza del borde]
-  Sean $O_1 \subseteq \R^n, O_2 \subseteq \R^m$ abiertos homeomorfos. Entonces
+  Sean $O_1 \subseteq H^n, O_2 \subseteq H^m$ abiertos homeomorfos. Entonces
   \begin{itemize}
     \item [a)] Si $\phi \colon O_1 \to O_2$ es el homeomorfismo, $\phi(O_1 \cap \partial H^n) = O_2 \cap \partial H^m$.
     \item [b)] $n = m$.
@@ -216,7 +216,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 \end{proof}
 
 \begin{definition}
-  Una variedad topológica con borde es un espacio topológico Hausdorff $M$ verificando que $\hspace{0.2em} \forall p \in M$ existen
+  Una \textbf{variedad topológica con borde} es un espacio topológico Hausdorff $M$ verificando que para todo $p \in M$ existen
   $(V_p, \phi_p), n(p) \geq 1$ con $V_p$ entorno abierto de $p$, $\phi_p \colon V_p \to O_p \subseteq H^{n(p)}$ homeomorfismo
   sobre un abierto $O_p$ de $H^{n(p)}$.
 \end{definition}
@@ -229,7 +229,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
     \item[b)] Si $\partial M = \{p \in M \mid H_*(M, M - \{p\}) = 0\}$, entonces
     \[ \partial M = \{p \in M \mid \forall (V_p, \phi_p), \phi_p(p) \in \partial H^n \cap O_p\} \]
 
-    \item[c)] Si $\interior{M} = M - \partial M$, entonces $\interior{M}$ tiene estructura de variedad topológica
+    \item[c)] Si tomamos $\interior{M} = M - \partial M$, entonces $\interior{M}$ tiene estructura de variedad topológica
     (sin borde) $n$-dimensional, y $\partial M$ tiene estructura de variedad topológica con borde $(n-1)$-dimensional.
     Dicha estructura es la única que convierte a las inclusiones $\interior{M} \xhookrightarrow{} M, \partial M \xhookrightarrow{} M$
     en embebimientos. Además, $\partial M$ es cerrado de $M$ y, por tanto, $\interior{M}$ es abierto de $M$.
@@ -259,7 +259,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 Vamos a definir el concepto de variedad diferenciable.
 
 \begin{definition}
-  Una variedad diferenciable con borde $n$-dimensional es una variedad topológica con borde $n$-dimensional en la que
+  Una \textbf{variedad diferenciable con borde} $n$-dimensional es una variedad topológica con borde $n$-dimensional en la que
   los cambios de coordenadas son diferenciables.
 \end{definition}
 
@@ -282,9 +282,10 @@ Vamos a definir el concepto de variedad diferenciable.
 
   Supongamos el resultado cierto hasta $k-1$, y probémoslo para $k$.
 
-  Sea $\phi \colon I^k \to A$ el homeomorfismo, y definamos $I_+^k = \{x \in I^k \mid x_1 \geq \frac{1}{2}\}$, \\
-  $I_-^k = \{x \in I^k \mid x_1 \leq \frac{1}{2}\}$. Sean $A^+, A^-$ las imágenes por $\phi$ de $I_+^k, I_-^k$,
-  respectivamente. En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, V = S^n - A^-$. Así,
+  Sea $\phi \colon I^k \to A$ el homeomorfismo, y definamos
+  \[I_+^k = \{x \in I^k \mid x_1 \geq \nicefrac{1}{2}\}$, \quad $I_-^k = \{x \in I^k \mid x_1 \leq \nicefrac{1}{2}\}.\]
+  Sean $A^+, A^-$ las imágenes por $\phi$ de $I_+^k, I_-^k$ respectivamente.
+  En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, V = S^n - A^-$. Así,
   $U \cap V = S^n - A$, y por Mayer-Vietoris, se tiene:
   \[ H_p(S^n - (A^+ \cap A^-)) \to H_{p-1}(S^n - A) \xrightarrow{(i_*^+, i_*^-)} H_{p-1}(S^n - A^+) \oplus H_{p-1}(S^n - A^-) \dots \]
 
@@ -336,7 +337,7 @@ Vamos a definir el concepto de variedad diferenciable.
 \end{theorem}
 
 \begin{proof}
-  La probamos por inducción sobre $k$.
+  Lo probamos por inducción sobre $k$.
 
   Si $k = 0$, $S^0$ son dos puntos, luego $A$ es homeomorfo a dos puntos, y $S^n - A \cong \R^n - \{x\} \cong S^{n-1}$.
   Se comprueba que el resultado coincide con el que comocemos para el grupo de homología de las esferas.
@@ -356,11 +357,15 @@ Vamos a definir el concepto de variedad diferenciable.
   que por inducción es $\begin{cases} 0 &\text{ si } p \neq 0, n-k \\ \Z &\text{ si } p = 0, n-k \end{cases}$
 
   Llamando $q = p-1$, si $k = n-1$, como $p \geq 2$, $H_q(S^n - A) = 0 \quad \forall q \geq 1$.\\
-  Si $k \leq n-2, n-k \geq 2$, y $H_q(S^n - A) = \begin{cases} \Z &\quad q = n-k-1 \\ 0 &\quad \text{en otro caso.} \end{cases}$.
+  Si $k \leq n-2, n-k \geq 2$, y $H_q(S^n - A) = \begin{cases} \Z &\quad q = n-k-1 \\ 0 &\quad \text{en otro caso.} \end{cases}$
 
   Para $p = 1 (q = 0)$, tomamos la sucesión exacta
-  \[0 \to H_1(S^n - (E_+^k \cap E_-^k)) \to H_0(S^n - S^k) \to \Z \oplus \Z \to \Z \to 0 \]
-  y se deduce $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1 \\
+  \begin{align*}
+    &0 \to H_1(S^n - (E_+^k \cap E_-^k)) \to H_0(S^n - S^k) \to H_0(S^n - E_+^k) \oplus H_0(S^n - E_-^k) \to \\
+    &\to H_0(S^n - (E_+^k \cap E_-^k)) \to 0
+  \end{align*}
+  Como $H_0(S^n - E_+^k), H_0(S^n - E_-^k)$ y $H_0(S^n - (E_+^k \cap E_-^k)) \cong \Z$,
+  se deduce que $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1 \\
                                                                                                     \Z &\quad k < n - 1  \end{cases} $
 \end{proof}
 
@@ -385,8 +390,8 @@ Vamos a definir el concepto de variedad diferenciable.
 
   Veamos que $A \subseteq Fr \Omega_i$, lo que completa la demostración.
 
-  Sean $a \in A, V$ entonrno abierto de $a$ en $S^n$. Usando que $S^n$ es una variedad $n$-dimensional, se puede descomponer
-  $A = A^1 \cup A^2$, con $a \in \interior{A^2} \subseteq V \cap A, A^1, A^2 \cong I^{n-1}$.
+  Sean $a \in A, V$ entorno abierto de $a$ en $S^n$. Usando que $S^n$ es una variedad $n$-dimensional, se puede descomponer
+  $A = A^1 \cup A^2$, con $a \in \interior{A^2} \subseteq V \cap A,$ y se verifica $A^1, A^2 \cong I^{n-1}$.
 
   Sean $p_i \in \Omega_i, p_i \in S^n - A \subseteq S^n - A^1$. Como $H_0(S^n - A^1) \cong \Z$, $S^n - A^1$ es arcoconexo,
   luego existe un arco $\gamma \colon [0,1] \to S^n - A^1$ que va desde $p_1$ a $p_2$.
@@ -394,9 +399,9 @@ Vamos a definir el concepto de variedad diferenciable.
   Por tanto, existe un $t \in [0,1]$ con $\gamma(t) \in A^2$, pues si no, la curva estaría en $S^n - (A^1 \cup A^2) = S^n - A$
   y uniría dos componentes conexas distintas.
 
-  Como $\gamma^{-1}(A^2) \neg \emptyset$ y es cerrado, es un compacto de $[0,1]$, del que podemos tomar mínimo y máximo,
+  Como $\gamma^{-1}(A^2) \neq \emptyset$ y es cerrado, es un compacto de $[0,1]$, del que podemos tomar mínimo y máximo,
   a los que llamamos $t_m$ y $t_M$ respectivamente. Tomando $\epsilon$ suficientemente pequeño, $\gamma(t_m - \epsilon) \in \Omega_1 \cap V$,
-  y $\gamma(t_M + \epsilon) \in \Omega_2 \cap V$, luego $a \in \overline{Omega_1} \cap \overline{Omega_2}, a \in Fr \Omega_i$.
+  y $\gamma(t_M + \epsilon) \in \Omega_2 \cap V$, luego $a \in \overline{\Omega_1} \cap \overline{\Omega_2}, a \in Fr \Omega_i$.
 \end{proof}
 
 Este teorema nos permite obtener directamente un resultado que puede verse como una generalización del teorema
@@ -442,7 +447,7 @@ $f_* \colon H_0(S^n) \to H_0(S^n)$ y $f_* \colon H_n(S^n) \to H_n(S^n)$.
 Se cumple que el primero de ellos es siempre la identidad. En el segundo caso, como $H_n(S^n) \cong \Z$, si $[\alpha]$ es un
 generador de $H_n(S^n)$, necesariamente se tiene que $f_*([\alpha]) = n \times [\alpha] \quad n \in Z$.
 
-Definimos el grado de $f$, y lo notamos $\Deg f$, a dicho entero $n$.
+Definimos como el \textbf{grado} de $f$, y lo notamos $\Deg f$, a dicho entero $n$.
 \[ f_*([\alpha]) = \Deg f \times [\alpha] \]
 Veamos algunas de sus propiedades.
 
@@ -471,4 +476,91 @@ Veamos algunas de sus propiedades.
     & H_n(S^n - \{x\}) \cong 0 \arrow[hookrightarrow]{ur}{i_*}
   \end{tikzcd} \]
   que nos da una descomposición de $f_*$ que tiene al la función nula como factor, lo cual es imposible.
+\end{proof}
+
+\begin{lemma}
+  Si $\phi \colon S^n \to S^n$ es una isometría, entonces $\Deg \phi = \Det \phi$, viendo $\phi$ como una matriz cuadrada
+  de orden $n+1$.
+\end{lemma}
+
+\begin{proof}
+  Por el teorema de Cartan-Dieudonné, sabemos que toda isometría en $\R^m$ puede expresarse como composición de
+  $k$ simetrías, con $k \leq m$. Por tanto, podemos tomar $\phi = \sigma_i \circ \dots \circ \sigma_k, k \leq n+1$.
+
+  Como $\Deg \phi = \prod\limits_{i = 1}^k \sigma_i$, y $\Det \phi = \prod\limits_{i = 1}^k \sigma_i$, basta con probarlo para simetrías.
+
+  Sea $\sigma \colon S^n \to S^n$ una simetría respecto al hiperplano $H$, y sea $A \colon \R^{n+1} \to \R^{n+1}$ la isometría
+  que lleva $H$ en el hiperplano $\{x \in \R^{n+1} \mid x_1 = 0\}$. Entonces, si tomamos la aplicación que cambia el signo a la primera
+  coordenada, $\tau(x_1, \dots x_{n+1}) = (-x_1, \dots, x_{n+1})$, se verifica que $\sigma = A^{-1} \circ \tau \circ A$, luego
+  $\Deg \sigma = \Deg A^{-1} \times \Deg \tau \times \Deg A = \Deg \tau$.
+
+  Por tanto, basta probar que $\Deg \tau = \Det \tau = -1$. Lo hacemos por inducción.
+
+  Si $n = 1$, tomamos $U = S^1 - (0, 1), V = S^1 - (0, -1)$. Entonces, el homomorfismo de conexión de la sucesión
+  de Mayer-Vietoris asociada (que notábamos $\Delta$) está dado por $\Delta([\alpha]) = [x-y]$, siendo $[\alpha]$ un generador de $H_1(S^1)$.
+  Por la naturalidad de dicha sucesión respecto a $\tau$, se tiene la conmutatividad del siguiente diagrama:
+  \[ \begin{tikzcd}
+    H_1(S^1) \arrow{r}{\Delta} \arrow{d}{\tau_*} & H_0(U \cap V) \arrow{d}{\tau_*} \\
+    H_1(S^1) \arrow{r}{\Delta} & H_0(U \cap V)
+  \end{tikzcd} \]
+
+  Así, tenemos las dos siguientes cadenas de igualdades:
+  \[\tau_*(\Delta([\alpha])) = \Delta(\tau_*([\alpha])) = \Delta(\Deg \tau \times [\alpha]) = \Deg \tau \times [x-y]\]
+  \[\tau_*(\Delta([\alpha])) = \tau_*([x-y]) = [\tau_\#(x) - \tau_\#(y)] = [y - x] \]
+  de donde se deduce $\Deg \tau = -1$.
+
+  Supongamos ahora que el resultado es cierto hasta $n-1$, y lo probamos para $n$. Denotaremos como $\tau_{n-1}$ y $\tau_{n}$
+  las correspondientes aplicaciones en cada espacio, para evitar confusión.
+
+  Considerando en $S^n$ la misma descomposición anterior, se tiene:
+  \[ \begin{tikzcd}
+    H_n(S^n) \arrow{r}{\Delta}[swap]{\cong} \arrow{d}{\tau_{n*}} & H_{n-1}(U \cap V) \arrow{d}{\tau_{n*}} & \arrow{l}{\cong}[swap]{i_*} H_{n-1}(S^{n-1}) \arrow{d}{\tau_{n-1*}} \\
+    H_n(S^n) \arrow{r}{\Delta}[swap]{\cong} & H_{n-1}(U \cap V) & \arrow{l}{\cong}[swap]{i_*} H_{n-1}(S^{n-1})
+  \end{tikzcd} \]
+  $i_*$ es un isomorfismo, pues $S^{n-1}$ es un retracto de $U \cap V$.
+
+  Así, $\tau_{n*}([\alpha]) = \Deg \tau_n \times [\alpha]$ y además:
+
+  $\tau_{n*}([\alpha]) = \Delta^{-1} \tau_{n*} \Delta([\alpha]) = (\Delta^{-1} i_* \tau_{n-1*} i_*^{-1} \Delta)([\alpha])
+  = (\Delta^{-1} i_* i_*^{-1} \Delta)(-[\alpha]) = -[\alpha]$.
+
+  Por tanto, $\Deg \tau_n = -1$.
+\end{proof}
+
+Como consecuencia directa de este hecho, si consideramos la aplicación antípoda $-Id \colon S^n \to S^n$, entonces
+$\Deg -Id = \Det -Id = (-1)^{n+1}$.
+
+Veamos un lema que nos permitirá demostrar dos resultados interesantes de aplicaciones sobre esferas de dimensión par,
+con los que terminaremos el capítulo.
+
+\begin{lemma}
+  Sean $f, g \colon S^n \to S^n$ aplicaciones tales que $f(x) \neq g(x) \hspace{0.2em} \forall x \in S^n$.
+  Entonces $f \simeq -g$.
+\end{lemma}
+
+\begin{proof}
+  Basta ver que $H(x, t) = \frac{t f(x) - (1-t)g(x)}{|t f(x) - (1-t)g(x)|}$ es la homotopía buscada.
+\end{proof}
+
+\begin{corollary}
+  Si $f \colon S^{2n} \to S^{2n}$ es continua, entonces existe $x \in S^{2n}$ tal que $f(x) = x$ o $f(x) = -x$.
+\end{corollary}
+
+\begin{proof}
+  Supongamos que existe $f$ tal que para todo $x \in S^{2n}$, $f(x) \neq x$ y $f(x) \neq -x$. Entonces, por
+  el lema anterior, $f \simeq -Id$ y $f \simeq Id$, luego $Id \simeq -Id$ y $\Deg Id = \Deg -Id$, lo que implica
+  $1 = -1$ contradicción.
+\end{proof}
+
+\begin{corollary}
+  No existen campos continuos sin ceros en una esfera de dimensión par.
+\end{corollary}
+
+\begin{proof}
+  Recordemos que el tangente a $x \in S^{2n}$ es $\langle x \rangle^\perp$. Por tanto, un campo continuo en $S^{2n}$ es una aplicación
+  continua $f \colon S^{2n} \to \R^{2n+1}$ tal que $\langle f(x), x\rangle = 0 \hspace{0.2em} \forall x \in S^{2n}$.
+
+  Si dicho campo no tiene ceros, sea $g \colon S^{2n} \to S^{2n}$ dada por $g(x) = \frac{f(x)}{|f(x)|}$. Como $g$ es
+  continua, existe $x$ con $g(x) = x$ o $g(x) = -x$. Sin embargo, $\langle g(x), x\rangle = 0$ para todo $x$, lo cual nos lleva a una
+  contradicción, pues los elementos de $S^{2n}$ no pueden tener norma nula.
 \end{proof}
