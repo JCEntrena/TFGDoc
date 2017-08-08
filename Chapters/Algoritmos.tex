@@ -175,9 +175,9 @@ el objetivo de que nuestro algoritmo sea capaz de escapar de óptimos locales, y
 óptimo global.
 
 En este trabajo, se han implementado dos técnicas de búsqueda local, que difieren en la estructura de
-entornos. Asimismo, se ha implementado un algoritmo de enfriamiento simulado, y se han incorporado
-varias de las técnicas mencionadas anteriormente en otros algoritmos. Estas serán mencionadas y
-detalladas en cada uno de ellos.
+entornos y en el método de elección de candidatos. Asimismo, se ha implementado un algoritmo de
+enfriamiento simulado, y se han incorporado varias de las técnicas mencionadas anteriormente en
+otros algoritmos. Estas serán mencionadas y detalladas en cada uno de ellos.
 
 \subsection{Búsqueda local en MCP}
 
@@ -200,8 +200,9 @@ Veámoslos en más detalles.
 
 Este algoritmo se basa en las ideas de Katayama, Hamamoto y Narihisa. En él, se han considerado
 los tres movimientos básicos de la búsqueda local, \textit{add, swap} y \textit{drop},
-dando distintas prioridades a cada uno de ellos. Como nuestro objetivo es constuir un clique del
-mayor tamaño posible, añadiremos vértices siempre que podamos. Cuando no sea posible, intentaremos
+dando distintas prioridades a cada uno de ellos. Como nuestro objetivo es construir un clique del
+mayor tamaño posible, añadiremos vértices siempre que podamos, tomando aquel que tenga más conexiones
+con el conjunto $C_0$ en caso de haber varios. Cuando no sea posible, intentaremos
 hacer un swap, siempre que este nos lleve a un escenario en el que podamos añadir más nodos
 al clique resultante. La elección de los nodos a intercambiar se hace mediante la técnica del
 primer mejor, esto es, tomamos el primero que encontremos. De no poder hacer ningún swap bajo
@@ -219,6 +220,9 @@ sido establecer un número de swaps y drops a realizar a lo largo del algoritmo.
 este número, el algoritmo finaliza, devolviendo el mejor clique encontrado.
 Para evitar que el límite sea una constante común para todas las instancias, se ha establecido en proporción
 al número de vértices del grafo.
+
+El hecho de considerar un criterio de elección sobre los nodos del conjunto $C_0$ y $C_1$ hace que
+el orden del algoritmo sea $\mathcal{O}(nl)$, donde $n$ el el tamaño del grafo y $l$ el límite impuesto.
 
 Este algoritmo puede trabajar partiendo desde cualquier clique, lo que nos permite utilizarlo en técnicas
 híbridas como algoritmos meméticos, o para mejorar cualquier solución ya existente. Para evaluar
@@ -277,12 +281,18 @@ en caso de existir varios. De no existir ninguno, tomaremos el conjunto $C_1$ qu
 la lista tabú, y, si existe algún elemento que lo cumpla, no es vacío, haremos el intercambio,
 que volverá a ser aleatorio si teneos varios candidatos. Dicho nodo será añadido a la lista tabú.
 Finalmente, en caso de que este conjunto también fuera vacío, solo nos queda la posibilidad de añadir un
-elemento de la lista tabú que esté en $C_0$. Nuevamente, elegiremos uno aleatorio entre los exsitentes.
+elemento de la lista tabú que esté en $C_0$. Nuevamente, elegiremos uno aleatorio entre los existentes.
 Como en el anterior, devolveremos el mejor clique que haya encontrado el algoritmo.
 
-Este algoritmo también puede trabajar con cualquier clique de partida, siendo posible utilizarlo como
-complemento a otras técnicas. Para evaluar su funcionamiento, tomaremos como clique inicial un clique
-vacío, que creará un clique maximal de forma aleatoria y a partir de él explorará su entorno.
+Como en este caso la elección de nodos es aleatoria, se considera un único bucle,
+luego la complejidad de este algoritmo es lineal sobre el límite establecido,
+$\mathcal{O}(l)$. Debido a esto, ofrecerá mejores tiempos de cómputo que el otro
+algoritmo.
+
+Este algoritmo también puede trabajar con cualquier clique de partida, siendo posible
+utilizarlo como complemento a otras técnicas. Para evaluar su funcionamiento, tomaremos
+como clique inicial un clique vacío, que creará un clique maximal de forma aleatoria
+y a partir de él explorará su entorno.
 
 Pasamos a ver el pseudocódigo del algoritmo:
 
@@ -378,7 +388,7 @@ comience la exploración desde cualquier clique, lo que nos permitiría combinar
 Vemos una descripción del algoritmo en pseudocódigo.
 
 \begin{algorithm}[H]
-\caption{Enfriamiento Simulado 1}
+\caption{Enfriamiento Simulado}
   \begin{algorithmic}
     \State $T = 1$
     \State $T_{\text{final}} = 0.01$
@@ -498,7 +508,7 @@ un número de iteraciones máximo, he fijado dicho valor al número de vértices
 al tamaño de cada problema.
 
 Este proceso se repetirá un número determinado de iteraciones, que se pasará como parámetro. Para este caso
-se ha fijado a 30 en todas las instancias disponibles. Almacenaremos la mejor solución obtenida, que será
+se ha fijado a $30$ en todas las instancias disponibles. Almacenaremos la mejor solución obtenida, que será
 la que el algoritmo devuelva al final.
 
 Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales.
@@ -692,7 +702,38 @@ eran mínimas.
 
 El número de hormigas en cada iteración ha sido fijado a $50$, efectuándose un total de 40 iteraciones.
 
-Vemos el pseudocódigo del algoritmo: 
+Vemos el pseudocódigo del algoritmo:
+
+\begin{algorithm}[H]
+\caption{ACO 1}
+  \begin{algorithmic}
+    \State $T_{\text{final}} = 0.01$
+    \State Inicializar constantes $\alpha, \beta$.
+    \State $Mejor Clique = []$.
+    \Repeat
+    \State $Hormigas = 0$.
+      \State Establecer el mejor clique de la colonia al clique vacío.
+      \Repeat
+        \State $Clique = []$
+        \State Añadir vértice aleatorio al clique
+        \State Calcular $C_0$
+        \Repeat
+          \State Calcular probabilidades de los nodos en $C_0$. Normalizar.
+          \State Elegir un nodo según la probabilidad y añadirlo a clique.
+          \State Recalcular $C_0$.
+        \Until{$C_0 = \emptyset$}
+        \State Actualizar el mejor clique de la colonia si es necesario.
+        \State $Hormigas = Hormigas + 1$.
+      \Until{$Hormigas = $ límite hormigas}
+      \State Actualizar $Mejor Clique$ si es necesario.
+      \State Evaporar feromona.
+      \State Aportar feromona a los nodos del mejor clique de la colonia.
+      \State $i = i+1$.
+    \Until{$i = limite$}
+    \State{Devolver mejor clique encontrado.}
+  \end{algorithmic}
+\end{algorithm}
+
 
 \subsection{Segundo algoritmo}
 
