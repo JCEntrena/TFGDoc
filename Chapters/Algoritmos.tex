@@ -750,15 +750,128 @@ donde $\tau(v_i)$ es el valor de la feromona en el nodo $v_i$, $T$ es la tempera
 del grafo, y $D(v_i)$ es el grado de $v_i$. Una vez calculadas todas las probabilidades de los nodos de $C_0$,
 las normalizaremos para tener valores entre $0$ y $1$ y que la suma siga siendo $1$.
 
-La temperatura sigue un esqueda de descenso geométrico similar al utilizado en los algoritmo de enfriamiento simulado,
+La temperatura sigue un esquema de descenso geométrico similar al utilizado en los algoritmos de enfriamiento simulado,
 en los que la temperatura se multiplica por una constante $\gamma$ en cada iteración. Dicho valor se ha fijado a
 $\gamma = 0.95$. Los valores de $\alpha$ y $\beta$ siguen siendo los mismos que en el algoritmo anterior, al igual
 que el número de hormigas y de iteraciones, que son $50$ y $40$ respectivamente.
 
 Puesto que solo cambia la función del cálculo de la probabilidad, no incluyo pseudocódigo de este algoritmo,
-por ser casi idéntico al anterior.
+por ser idéntico al anterior.
 
 \section{Algoritmos genéticos}
 
+Los algoritmos genéticos entran dentro de la llamada \textbf{computación evolutiva},
+que está compuesta por modelos de evolución basados en poblaciones. Se basan en
+los procesos evolutivos que están presentes en la naturaleza, en los que dos padres
+combinan sus genes para producir hijos (usualmente dos), los cuales presentan
+características de ambos, y las diferencias entre generaciones pueden llevar a nuevas
+características que conlleven una mejor adaptación al entorno. Esto, en el ámbito
+que nos encontramos, se traduce en cambios que nos lleven a una mayor adaptación
+al problema, lo que nos da mejores soluciones.
+
+En los algoritmos genéticos, las poblaciones estarán formadas por soluciones al
+problema, que combinaremos dos a dos para producir descendientes que intenten mejorar
+a sus progenitores. Esta combinación de soluciones se produce mediante el llamado
+\textbf{operador de cruce}, que emula cómo los cromosomas se mezclan para producir
+una nueva generación. Este operador dependerá del problema y no tiene por qué ser único.
+El requisito fundamental es que se tome información de ambos progenitores para crear
+a sus descendientes.
+
+En la naturaleza, es posible que al combinar dos individuos se produzca una mutación,
+con lo cual el hijo tendría una característica que no ha adquirido de ninguno de sus
+padres, y que podría conllevar una ventaja o un perjuicio para el mismo. Esta tecnica
+se reproducirá en los algoritmos genético, incluyendo la posibilidad de que una
+solución mute al ser generada.
+
+Controlaremos el cruce entre individuos y las mutaciones de sus descendientes con
+parámetros que establezcan la probabilidad de que ambos sucesos ocurran. Para el
+cruce, seleccionaremos dos individuos o bien generarán descendientes, o bien
+pasarán directamente a la siguiente generación. En caso de generar descendientes,
+cada uno de ellos podrá ser mutado en el momento de su creación.
+
+Existen distintas formas de seleccionar a los padres. El muestreo puede ser aleatorio,
+se puede dar mayor probabilidad de combinarse a los mejores, etc. No hay restricción
+en cuanto al número de veces que se puede reproducir un elemento, si bien podría
+estrablecerse de considerarse necesario.
+
+De igual forma, existen diversos métodos para crear una nueva generación. Una de
+ellas sería que los hijos sustituyan a los padres, el llamado modelo generacional.
+En este caso, se crea una nueva población en cada iteración del ciclo.
+Es posible incluir elitismo, de forma que la mejor solución de la población pasa
+siempre a la siguiente generación. Otro modelo es el llamado estacionario, en el
+cual se eligen dos padres, que generan dos hijos, y estos compiten para pasar a
+la siguiente generación, pudiendo hacerlo con los padres o con la población en
+general. Este modelo ya es elitista, luego no necesita introducir elitismo explícitamente.
+
+\subsection{Genéticos en MCP}
+
+Implementar un algoritmo genético para el problema del clique máximo se basa en
+considerar operadores de cruce y mutación apropiados, esto es, que mantengan la
+estructura de clique. A priori, no podemos afirmar que la combinación arbitraria
+de dos soluciones o la mutación produzcan cliques, por lo que estos operadores
+deben ser muy específicos o rectificados de alguna forma.
+
+Una vez tengamos estos operadores, la ejecución del algoritmo consiste simplemente
+en ir obteniendo nuevas generaciones hasta un criterio de parada determinado.
+
+\subsection{Algoritmo implementado}
+
+El algoritmo genético implementado se basa en un modelo estacionario, en el que
+los dos descendientes compiten con sus padres para entrar en la nueva generación.
+Al principio, se creará una población de soluciones de forma aleatoria mediante
+un algoritmo \textit{greedy}, y a partir de aquí se irán generando nuevas soluciones.
+
+El operador de cruce opera de la siguiente forma: dados dos padres, se toman aquellos
+nodos comunes en ambos, y estos estarán presentes en ambos hijos. Seguidamente,
+tomaremos el conjunto de nodos presentes en uno de los dos padres, y los distribuiremos
+entre los dos hijos de forma aleatoria y equiprobable.
+
+Una vez tengamos los hijos, procedemos a mutarlos con la probabilidad dada. El
+algoritmo de mutación toma dos valores aleatorios entre $0$ y el número de nodos,
+y cambia los nodos del intervalo que forman, quitándolos del grafo si pertenecen
+a él, y metiéndolos en el grafo si no lo hacen.
+
+Como no tenemos garantizado que los hijos sean cliques antes o después de la mutación,
+los reduciremos a un clique eliminando nodos hasta que el conjunto restante sea un
+clique. Una vez reducido, lo ampliaremos hasta que el clique sea maximal.
+Ambos procesos de reducción y ampliación se hacen mediante técnicas \textit{greedy},
+quitando el nodo que minimice adyacencias en la reducción, y añadiendo el que las
+maximice en ampliación.
+
+La población inicial se ha tomado con un tamaño de $40$ individuos, con probabilidad
+de cruce de $1$ y probabilidad de mutación de $0.1$, un valor alto para lo usual,
+fijado así para introducir diversidad en la población. El criterio de parada es un
+límite de iteraciones, que se ha fijado a $40$ en las ejecuciones realizadas.
+Estos parámetros pueden ser modificados para evaluar la funcionalidad del algoritmo
+bajo otras circunstancias.
 
 \section{Algoritmos meméticos}
+
+Los algoritmos meméticos son el resultado de la combinación de algoritmos meméticos
+con búsqueda local. Tratan de aprovechar la buena capacidad de exploración de los
+algoritmos genéticos, y combinarla con la explotación de soluciones de las técnicas
+de búsqueda local.
+
+El diseño de estos algoritmos queda muy abierto, y por lo general, suele ser necesario
+adaptarlos de una forma u otra dependiendo del problema. Suelen ser algoritmos específicos,
+que explotan alguna característica en concreto del problema.
+
+Entre las diversas decisiones que hay que tomar, una de las más relevantes es el
+proceso de búsqueda local a considerar y cuándo aplicarlo. Podemos elegir cualquier
+técnica por trayectorias simples, desde una búsqueda local básica a una busqueda
+tabú, y podemos aplicarlas a toda la población o a una parte, en distintas
+fases del algoritmo.
+
+\subsection{Meméticos en MCP}
+
+Debido a que disponemos de técnicas de búsqueda local y algoritmos genéticos,
+la implementación de un algoritmo memético consiste en tomar las decisiones
+correspondientes con respecto a la hibridación de ambias técnicas.
+
+\subsection{Algoritmo implementado}
+
+En este trabajo, he optado por una combinación básica de dos algoritmos ya implementados,
+el algoritmo genético y la búsqueda local. De esta forma, se mantiene la estructura
+de algoritmo genético estacionario, introduciendo una búsqueda local al final de
+la creación de la nueva generación, lo que nos permite explorar su entorno antes de
+pasar a la siguiente. 
