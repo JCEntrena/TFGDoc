@@ -4,6 +4,14 @@
 
 \section{Definiciones iniciales}
 
+En esta capítulo, introduciremos la \textbf{homología singular} de un espacio topológico. Comenzaremos con
+un conjunto de  definiciones iniciales, llegando a la noción de \textbf{símplice singular}. Una vez aquí
+construiremos un conjunto al que dotaremos de estructura algebraica, y sobre el que definiremos una aplicación
+que, gracias  a sus propiedades, nos permitirá definir la homología singular del espacio. Seguidamente,
+demostraremos algunos resultados sencillos sobre ciertos espacios topológicos, continuando con la invarianza
+homotópica de la homología. Concluiremos el capítulo definiendo la homología sobre pares topológicos, y
+viendo como se trasladan los resultados demostrados con anterioridad. 
+
 \begin{definition}
 Un \textbf{p-símplice} $s_p$ es la envolvente conexa de $p+1$ puntos afínmente independientes en $\mathbb{R}^p$,
 a los que llamaremos vértices, $\{x_0, \dots, x_n\}$, esto es
@@ -711,7 +719,7 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
 \begin{proof}
   Nos basta con probar que $\Delta \circ f_* = f_{|A} \circ \Delta$, pues ya conocemos el resto.
 
-  Realizamos el cálculo: 
+  Realizamos el cálculo:
   \[ (\Delta \circ f_*)([c]) = \Delta([f_\#(\overline{c}]) = \Delta([\overline{f_\#(c)}]) \stackrel{(*)}{=} [(f_{|A})_\#(a)]
     = (f_{|A})_*[a] = (f_{|A})_* \Delta[\overline{c}] \]
 
