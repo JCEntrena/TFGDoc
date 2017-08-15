@@ -2,10 +2,16 @@
 \chapter{Algunos resultados clásicos}\label{ch:resultados}
 %************************************************
 
+En este capítulo, vamos a utilizar las herramientas del capítulo anterior y el cálculo
+de la homología de las esferas para obtener resultados de carácter topológico: la
+imposibilidad de retraer un disco en su borde, el teorema del punto fijo de Brower,
+el teorema de separación de Jordan-Brower y los teoremas de invarianza. Finalmente,
+introduciremos el concepto de \textbf{grado} para demostrar resultados sobre campos
+definidos en esferas de dimensión par.
+
 \section{Teorema del punto fijo de Brower}
 
-Vamos a utilizar el cálculo de la homología de las esferas para obtener resultados
-de carácter topológico.
+Comenzamos con un resultado consecuencia directa del cálculo de la homología de las esferas.
 
 \begin{proposition}
   a) Esferas de distinta dimensión no tienen el mismo tipo de homotopía. En particular, no son homeomorfas.
@@ -28,7 +34,7 @@ de carácter topológico.
 \end{remark}
 
 \begin{lemma}
-  No hay ninguna retracción de $D^n$ a $S^{n-1}$.
+  No existe ninguna retracción de $D^n$ a $S^{n-1}$.
 \end{lemma}
 
 \begin{proof}
@@ -80,7 +86,7 @@ del punto fijo de Brower.
 \end{proof}
 
 \begin{corollary}
-  Sea $f \colon D^n \to \R^n$ continua. Entonces existe $y \in D^n$ tal que $f(y) = y$ o existe $z \in S^{n-1}$ con $f(z) = \mu z, \mu > 1$.
+  Sea $f \colon D^n \to \R^n$ continua. Entonces existe $y \in D^n$ tal que $f(y) = y$ o existe $z \in S^{n-1}$ con $f(z) = \mu z, \quad \mu > 1$.
 \end{corollary}
 
 \begin{proof}
@@ -116,7 +122,7 @@ Definamos el grupo de homología local, herramienta que nos servirá para demost
 \end{proof}
 
 \begin{proposition}
-  Sean $\X, \Y$ espacios topológicos, $x \in \X, y \in \Y$ cerrados. Si existen entornos $x \in V, y \in W$ tales que si $(V, \{x\}) \cong (W, \{y\})$,
+  Sean $\X, \Y$ espacios topológicos, $x \in \X, y \in \Y$ cerrados. Si existen entornos $x \in V, y \in W$ tales que $(V, \{x\}) \cong (W, \{y\})$,
   entonces $H_*(\X, \X - \{x\}) \cong H_*(\Y, \Y - \{y\})$.
 \end{proposition}
 
@@ -134,11 +140,13 @@ Vamos a calcular la homología local de $\R^n$.
 \begin{proof}
   Si $p = 0$, ya sabemos que $H_0(\R^n, \R^n - \{x\}) = 0$. Supondremos $p \geq 1$.
 
-  Consideramos la sucesión de homología del par, teniendo en cuenta que $\R^n - \{x\}$ y $S^{n-1}$ tienen el mismo tipo de homotopía. \\
+  Consideramos la sucesión de homología del par, teniendo en cuenta que $\R^n - \{x\}$ y $S^{n-1}$ tienen el mismo tipo de homotopía.
+
   Si $p = 1$:
   \[ 0 = H_1(\R^n) \xrightarrow{\pi_*} H_1(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_0(\R^n - \{x\}) \xrightarrow{i_*} H_0(\R^n) = \Z \to 0 \]
-  Si $n \geq 2, H_0(\R^n - \{x\}) \cong \Z$. \\
-  Como $\Ker \Delta = \Img \pi_* = 0, \Img \Delta = \Ker i_* = 0, H_1(\R^n, \R^n - \{x\}) = 0$. \\
+  Si $n \geq 2, H_0(\R^n - \{x\}) \cong \Z$. Como $\Img \Delta = \Ker i_* = 0, \Ker \Delta = \Img \pi_* = 0$, entonces se tiene que
+  $H_1(\R^n, \R^n - \{x\}) = 0$.
+
   Si $n = 1, H_0(\R^n - \{x\}) \cong \Z \oplus \Z$, luego $H_1(\R^n, \R^n - \{x\}) \cong \Z$.
 
   Si $p \geq 2$:
@@ -167,14 +175,12 @@ Vamos a calcular la homología local de $\R^n$.
 \end{corollary}
 
 \begin{proof}
-  Sea $p_0 \in M$ fijo, $A = \{p \in M \mid n(p) = n(p_0)\}$ no vacío, pues $p_0 \in A$. Es claro que si $q \in V_p$,
-  $n(q) = n(p)$, pues si no fuera así, se contradice el teorema de invarianza de la dimensión. Así, si $p \in A, V_p \subseteq A$
-  y por tanto $A$ es un abierto.
+  Sea $p_0 \in M$ fijo. Definimos el conjunto de puntos con el mismo valor de n que $p_0$, $A = \{p \in M \mid n(p) = n(p_0)\}$,
+  que es no vacío, pues $p_0 \in A$. Es claro que si $q \in V_p$, $n(q) = n(p)$, pues si no fuera así, se contradice el teorema
+  de invarianza de la dimensión. Así, si $p \in A, V_p \subseteq A$ y por tanto $A$ es un abierto en $M$.
 
   Si $p \in \overline{A}$, existe $q \in A \cap V_p$ con $n(q) = n(p_0)$ por $q \in A$, y $n(q) = n(p)$ por $q \in V_p$.
-  Por tanto, $n(p) = n(p_0), p \in A$, y $A$ es cerrado.
-
-  En consecuencia, $A = M$.
+  Por tanto, $n(p) = n(p_0), p \in A$, y $A$ es cerrado en $M$. En consecuencia, $A = M$.
 \end{proof}
 
 Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarianza del borde.
@@ -283,7 +289,7 @@ Vamos a definir el concepto de variedad diferenciable.
   Supongamos el resultado cierto hasta $k-1$, y probémoslo para $k$.
 
   Sea $\phi \colon I^k \to A$ el homeomorfismo, y definamos
-  \[I_+^k = \{x \in I^k \mid x_1 \geq \nicefrac{1}{2}\}$, \quad $I_-^k = \{x \in I^k \mid x_1 \leq \nicefrac{1}{2}\}.\]
+  \[ I_+^k = \{x \in I^k \mid x_1 \geq \frac{1}{2}\}, \quad I_-^k = \{x \in I^k \mid x_1 \leq \frac{1}{2}\}.\]
   Sean $A^+, A^-$ las imágenes por $\phi$ de $I_+^k, I_-^k$ respectivamente.
   En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, V = S^n - A^-$. Así,
   $U \cap V = S^n - A$, y por Mayer-Vietoris, se tiene:
@@ -312,17 +318,17 @@ Vamos a definir el concepto de variedad diferenciable.
   Consideramos el diagrama de inclusiones:
   \[ \begin{tikzcd}
     S^n - A \arrow{dr}{i} \arrow{rr}{i_m} & & S^n - A_m \arrow{dl}{j_m} \\
-    & S^n - \bigcup\limits_{i = 1}^\infty A_i
+    & S^n - \bigcap\limits_{i = 1}^\infty A_i
   \end{tikzcd} \]
-  Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción, entonces \\
-  $0 = i_*(\beta) = 0 = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(\bigcup\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
+  Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción, entonces
+  $0 = i_*(\beta) = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(\bigcap\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
 
-  Si $d = \sum\limits_{i = 1}^r m_i \phi_i$, entonces $\bigcup\limits_{i = 1}^r \Img \phi_i$ es un compacto en $\bigcap\limits_{i = 1}^\infty A_i
+  Si $d = \sum\limits_{i = 1}^r m_i \phi_i$, entonces $\bigcup\limits_{i = 1}^r \Img \phi_i$ es un compacto en $S^n - \bigcap\limits_{i = 1}^\infty A_i
   = \bigcup\limits_{i = 1}^\infty (S^n - A_i)$, luego por el teorema de Heine-Borel:
   \[\bigcup\limits_{i = 1}^r \Img \phi_i \subseteq (S^n - A_i) \cup \dots \cup (S^n - A_{ik}) = S^n - A_m \]
   con $m = \max\{i_1, \dots, i_k\}$.
 
-  Así, existe $e \in S_{p+1}(S^n - A_m)$ con $j_{m\#(e)} = d$. Por tanto, $j_{m\#} \circ i_{m\#} (\beta) = i_\#(\beta) = \partial d
+  Así, existe $e \in S_{p+1}(S^n - A_m)$ con $j_{m\#}(e) = d$. Por tanto, $j_{m\#} \circ i_{m\#} (\beta) = i_\#(\beta) = \partial d
   = \partial j_{m\#}(e) = j_{m\#}(\partial e)$.
 
   Como $j_{m\#}$ es un monomorfismo, $i_{m\#}(\beta) = \partial e$, entonces $i_{m\#}(\beta) = 0$, lo que contradice lo afirmado.
@@ -340,7 +346,7 @@ Vamos a definir el concepto de variedad diferenciable.
   Lo probamos por inducción sobre $k$.
 
   Si $k = 0$, $S^0$ son dos puntos, luego $A$ es homeomorfo a dos puntos, y $S^n - A \cong \R^n - \{x\} \cong S^{n-1}$.
-  Se comprueba que el resultado coincide con el que comocemos para el grupo de homología de las esferas.
+  Se comprueba que el resultado coincide con el que conocemos para el grupo de homología de las esferas.
 
   Supuesto cierto hasta $k - 1$, lo probamos para $k$.
 
@@ -423,15 +429,16 @@ de la curva de Jordan a dimensiones superiores.
 \end{remark}
 
 \begin{proof}
-  Supongamos $A_1$ abierto, y veamos que $A_2$ también lo es. Sea $a_2 \in A_2$, y sea $a_1 \in A_1$ tal que $h(a_1) = a_2$.
-  Existe un entorno de $a_1$, al que notamos $V_1 \subseteq S^n$, tal que $V_1 \subseteq A_1$ y $V_1 \cong D^n$. Sean
-  $V_2 = h(V_1), W_2 = h(\partial V_1) (\partial V_1 \cong S^{n-1})$. Se verifica que $a_2 \in V_2 - W_2 \subseteq A_2$.
+  Supongamos que $A_1$ es abierto, y veamos que $A_2$ también lo es. Sea $a_2 \in A_2$, y sea $a_1 \in A_1$ tal que $h(a_1) = a_2$,
+  que es único, puesto que $A_1$ y $A_2$ son homeomorfos. Existe un entorno de $a_1$, al que notamos $V_1 \subseteq S^n$,
+  tal que $V_1 \subseteq A_1$ y $V_1 \cong D^n$. Sean $V_2 = h(V_1), W_2 = h(\partial V_1), \text{con } \partial V_1 \cong S^{n-1}$.
+  Se verifica que $a_2 \in V_2 - W_2 \subseteq A_2$.
 
   Por el teorema de separación de Jordan-Brower, $S^n - W_2$ tiene dos componentes conexas, y al ser $V_2 \cong D^n$,
-  $S^n - V_2$ es conexo. Además, $S^n - W_2 = (V_2 - W_3) \cup (S^n - V_2)$, siendo esta unión disjunta, luego $V_2 - W_2$
+  $S^n - V_2$ es conexo. Además, $S^n - W_2 = (V_2 - W_2) \cup (S^n - V_2)$, siendo esta unión disjunta, luego $V_2 - W_2$
   y $S^n - V_2$ son las componentes conexas de $S^n - W_2$, y por tanto abiertos en $S^n - W_2$ (y en $S^n$).
 
-  Como $a_2 \in V_2  W_2 \subseteq A_2$, $A_2$ es abierto.
+  Como $a_2 \in V_2 - W_2 \subseteq A_2$, $A_2$ es abierto.
 
   Para demostrar la otra implicación basta con intercambiar los papeles de $A_1$ y $A_2$ y considerar el homeomorfismo inverso.
 \end{proof}
@@ -452,7 +459,7 @@ Definimos como el \textbf{grado} de $f$, y lo notamos $\Deg f$, a dicho entero $
 Veamos algunas de sus propiedades.
 
 \begin{proposition}[Propiedades]
-  Estando en el escenario anterior, se verifican:
+  Se verifican las siguientes propiedades:
   \begin{itemize}
     \item[a)] $\Deg Id = 1$.
     \item[b)] $\Deg (g \circ f) = \Deg g \times \Deg f$.
@@ -485,7 +492,7 @@ Veamos algunas de sus propiedades.
 
 \begin{proof}
   Por el teorema de Cartan-Dieudonné, sabemos que toda isometría en $\R^m$ puede expresarse como composición de
-  $k$ simetrías, con $k \leq m$. Por tanto, podemos tomar $\phi = \sigma_i \circ \dots \circ \sigma_k, k \leq n+1$.
+  $k$ simetrías, con $k \leq m$. Por tanto, podemos tomar $\phi = \sigma_i \circ \dots \circ \sigma_k, \quad k \leq n+1$.
 
   Como $\Deg \phi = \prod\limits_{i = 1}^k \sigma_i$, y $\Det \phi = \prod\limits_{i = 1}^k \sigma_i$, basta con probarlo para simetrías.
 
@@ -530,7 +537,7 @@ Veamos algunas de sus propiedades.
 Como consecuencia directa de este hecho, si consideramos la aplicación antípoda $-Id \colon S^n \to S^n$, entonces
 $\Deg -Id = \Det -Id = (-1)^{n+1}$.
 
-Veamos un lema que nos permitirá demostrar dos resultados interesantes de aplicaciones sobre esferas de dimensión par,
+Veamos un lema que nos permitirá demostrar dos resultados de aplicaciones sobre esferas de dimensión par,
 con los que terminaremos el capítulo.
 
 \begin{lemma}
