@@ -594,7 +594,7 @@ establecido como límite el número de vértices del grafo, para que se adapte a
 de cada problema.
 
 Este proceso se repetirá un número determinado de iteraciones, que se pasará como parámetro.
-Para este caso se ha fijado a $30$ en todas las instancias disponibles. Almacenaremos la
+Para este caso se ha fijado a $20$ en todas las instancias disponibles. Almacenaremos la
 mejor solución obtenida, que será la que el algoritmo devuelva al final.
 
 Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales.
@@ -690,7 +690,7 @@ solución, al ser el valor de salida del programa.
 Dado que las dos búsquedas locales implementadas requieren de un límite como criterio de
 parada, he fijado dicho límite al número de vértices del grafo, para que se adapte al
 tamaño de cada problema. Además, el criterio de parada del algoritmo también es un número
-de iteraciones, que ha sido $30$ para todas las instancias.
+de iteraciones, que ha sido $20$ para todas las instancias.
 
 Vemos el pseudocódigo del algoritmo:
 
@@ -743,7 +743,7 @@ complementar el uso de las feromonas con información heurística del problema,
 con el objetivo de crear un mecanismo probabilistico de construcción de soluciones
 que no solo se base en feromonas, sino que use más información disponible.
 
-Las hormigas serán la encargada de ir recorriendo el grafo, utilizando la información
+Las hormigas serán las encargadas de ir recorriendo el grafo, utilizando la información
 de la que dispone para decidir a qué nodo moverse mediante una función de probabilidad.
 Los nodos que compongan una solución serán reforzados con un aumento de feromonas, y
 se hará de forma que mejores soluciones reciban más cantidad de feromona.
@@ -969,10 +969,9 @@ pertenecen a él, e introduciéndolos si no lo hacen.
 Como no tenemos garantizado que los hijos sean cliques antes o después de la mutación,
 los reduciremos a un clique eliminando nodos hasta que el conjunto restante sea un
 clique. Una vez reducido, lo ampliaremos hasta que el clique sea maximal.
-Ambos procesos de reducción y ampliación se hacen de forma aleatoria, para evitar
-añadir complejidad computacional al algoritmo y hacer que sus tiempos de ejecución
-se eleven. Podríamos haber tomado cualquier otro método basado en el información del
-grafo, como ordenar por número de adyacencias.
+Ambos procesos de reducción y ampliación se hacen de forma aleatoria, si bien
+podríamos haber tomado cualquier otro método basado en el información del grafo,
+como ordenar por número de adyacencias.
 
 La población inicial se ha tomado con un tamaño de $50$ individuos, con probabilidad
 de cruce de $1$ y probabilidad de mutación de $0.1$, un valor alto para lo usual,
@@ -1018,8 +1017,11 @@ El desarrollo del algoritmo es muy simple, pues utiliza como base el algoritmo
 genético introducido anteriormente. Utiliza el mismo operador de cruce y mutación,
 y añade una búsqueda local después de que los hijos sean reducidos y ampliados.
 
-Para esta búsqueda local, he utilizado los dos métodos implementados para este trabajo,
-lo que da lugar a dos algoritmos meméticos. Como parámetros, he tomado las mismas
-probabilidades de cruce y mutación, $1$ y $0.1$, y he establecido el límite de la
-búsqueda local en un octavo del número de nodos del grafo, para explorar únicamente
-la zona del espacio de soluciones más cercana a cada elemento de la población.  
+He utilizado la segunda búsqueda local introducida, \textit{DLS}, debido a su menor
+complejidad computacional, pues hibridar con la otra búsqueda local producía tiempos
+de ejecución demasiado elevados.
+
+Como parámetros, he tomado las mismas probabilidades de cruce y mutación, $1$ y $0.1$,
+y he establecido el límite de la búsqueda local en un octavo del número de nodos
+del grafo, para explorar únicamente la zona del espacio de soluciones más cercana
+a cada elemento de la población.
