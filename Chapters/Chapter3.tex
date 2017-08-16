@@ -128,7 +128,7 @@ Definamos el grupo de homología local, herramienta que nos servirá para demost
 
 \begin{proof}
   Sea $h \colon V \to W$ el homeomorfismo entre $V$ y $W$, con $h(x) = y$. La restricción $h \colon V - \{x\} \to W - \{y\}$ también es un homeomorfismo,
-  por lo que $H_*(V, V - \{x\}) \cong H_*(W, W - \{y\})$: Basta aplicar la proposición anterior para obtener el resultado.
+  por lo que $H_*(V, V - \{x\}) \cong H_*(W, W - \{y\})$. Basta aplicar la proposición anterior para obtener el resultado.
 \end{proof}
 
 Vamos a calcular la homología local de $\R^n$.
@@ -151,7 +151,8 @@ Vamos a calcular la homología local de $\R^n$.
 
   Si $p \geq 2$:
   \[ 0 = H_p(\R^n) \xrightarrow{\pi_*} H_p(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_{p-1}(\R^n - \{x\}) \xrightarrow{i_*} H_{p-1}(\R^n) = 0 \]
-  Si $p \neq n, H_{p-1}(\R^n - \{x\}) = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$. \\
+  Si $p \neq n, H_{p-1}(\R^n - \{x\}) = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$.
+
   Si $p = n, H_{p-1}(\R^n - \{x\}) \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$.
 \end{proof}
 
@@ -160,7 +161,7 @@ Vamos a calcular la homología local de $\R^n$.
 \end{theorem}
 
 \begin{proof}
-  Sea $\phi \colon O_1 \to O_2$ el homeomorfismo entre los abiertos, y sea $x \in O_1$. Como $O_1, O_2$ son entornos de $x, \phi(x)$,
+  Sea $\phi \colon O_1 \to O_2$ un homeomorfismo entre los abiertos, y sea $x \in O_1$. Como $O_1, O_2$ son entornos de $x, \phi(x)$,
   por la proposición anterior:
   \[H_*(\R^n, \R^n - \{x\}) \cong H_*(\R^m, \R^m - \{\phi(x)\}) \]
   y en particular
@@ -206,7 +207,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 \begin{corollary}[Invarianza del borde]
   Sean $O_1 \subseteq H^n, O_2 \subseteq H^m$ abiertos homeomorfos. Entonces
   \begin{itemize}
-    \item [a)] Si $\phi \colon O_1 \to O_2$ es el homeomorfismo, $\phi(O_1 \cap \partial H^n) = O_2 \cap \partial H^m$.
+    \item [a)] Si $\phi \colon O_1 \to O_2$ es un homeomorfismo, $\phi(O_1 \cap \partial H^n) = O_2 \cap \partial H^m$.
     \item [b)] $n = m$.
   \end{itemize}
 \end{corollary}
@@ -246,7 +247,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
   a) es trivial por una proposición ya vista.
 
   b) Si $(V_p, \phi_p)$ es una carta en $p$, entonces
-  \[ H_*(M, M - \{p\}) \cong H_*(V_p, V_P - \{p\}) \cong H_*(O_p, O_p - \{\phi_p(p)\}) \cong H_*(H^n, H^n - \{\phi_p(p)\}) \]
+  $H_*(M, M - \{p\}) \cong H_*(V_p, V_P - \{p\}) \cong H_*(O_p, O_p - \{\phi_p(p)\}) \cong H_*(H^n, H^n - \{\phi_p(p)\})$,
   que vale $0$ sí y solo sí $\phi_p(p) \in \partial H^n$.
 
   c) Si $\phi \colon V \to O \subseteq H^n$ es una carta de M, entonces $\phi(V \cap \partial M) = O \cap \partial H^n$, y se tiene que
@@ -288,7 +289,7 @@ Vamos a definir el concepto de variedad diferenciable.
 
   Supongamos el resultado cierto hasta $k-1$, y probémoslo para $k$.
 
-  Sea $\phi \colon I^k \to A$ el homeomorfismo, y definamos
+  Sea $\phi \colon I^k \to A$ homeomorfismo, y definamos
   \[ I_+^k = \{x \in I^k \mid x_1 \geq \frac{1}{2}\}, \quad I_-^k = \{x \in I^k \mid x_1 \leq \frac{1}{2}\}.\]
   Sean $A^+, A^-$ las imágenes por $\phi$ de $I_+^k, I_-^k$ respectivamente.
   En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, V = S^n - A^-$. Así,
@@ -305,7 +306,7 @@ Vamos a definir el concepto de variedad diferenciable.
 
   Para tratar ambos casos a la vez llamamos $\beta$ a $(x-y)$ o $\alpha$, indistintamente.
 
-  Por lo que sabemos de $(i_*^+, i_*^-)$ se sigue que existe $A_1 \subseteq A, A_1 \cong I^k$ tal que
+  Por lo que sabemos de $(i_*^+, i_*^-)$,existe $A_1 \subseteq A, A_1 \cong I^k$ tal que
   $i_{1*}(\beta) \neq 0$, con $i_1 \colon S^n - A \xhookrightarrow{} S^n - A_1$.
 
   Nos basta con tomar $A_1 = A^+$ o $A_1 = A^-$, dependiendo de si $i_*^+(\beta) = 0$ o $i_*^-(\beta) = 0$.
@@ -321,7 +322,7 @@ Vamos a definir el concepto de variedad diferenciable.
     & S^n - \bigcap\limits_{i = 1}^\infty A_i
   \end{tikzcd} \]
   Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción, entonces
-  $0 = i_*(\beta) = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(\bigcap\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
+  $0 = i_*(\beta) = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(S^n - \bigcap\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
 
   Si $d = \sum\limits_{i = 1}^r m_i \phi_i$, entonces $\bigcup\limits_{i = 1}^r \Img \phi_i$ es un compacto en $S^n - \bigcap\limits_{i = 1}^\infty A_i
   = \bigcup\limits_{i = 1}^\infty (S^n - A_i)$, luego por el teorema de Heine-Borel:
@@ -452,9 +453,9 @@ Sea $f \colon S^n \to S^n$ una aplicaciones continua. Los únicos homomorfismos 
 $f_* \colon H_0(S^n) \to H_0(S^n)$ y $f_* \colon H_n(S^n) \to H_n(S^n)$.
 
 Se cumple que el primero de ellos es siempre la identidad. En el segundo caso, como $H_n(S^n) \cong \Z$, si $[\alpha]$ es un
-generador de $H_n(S^n)$, necesariamente se tiene que $f_*([\alpha]) = n \times [\alpha] \quad n \in Z$.
+generador de $H_n(S^n)$, necesariamente se tiene que $f_*([\alpha]) = n \times [\alpha], \quad n \in Z$.
 
-Definimos como el \textbf{grado} de $f$, y lo notamos $\Deg f$, a dicho entero $n$.
+Definimos como el \textbf{grado} de $f$ a dicho entero $n$, y lo notamos $\Deg f$.
 \[ f_*([\alpha]) = \Deg f \times [\alpha] \]
 Veamos algunas de sus propiedades.
 
@@ -494,7 +495,8 @@ Veamos algunas de sus propiedades.
   Por el teorema de Cartan-Dieudonné, sabemos que toda isometría en $\R^m$ puede expresarse como composición de
   $k$ simetrías, con $k \leq m$. Por tanto, podemos tomar $\phi = \sigma_i \circ \dots \circ \sigma_k, \quad k \leq n+1$.
 
-  Como $\Deg \phi = \prod\limits_{i = 1}^k \sigma_i$, y $\Det \phi = \prod\limits_{i = 1}^k \sigma_i$, basta con probarlo para simetrías.
+  Como $\Deg \phi = \prod\limits_{i = 1}^k \Deg \sigma_i$, y $\Det \phi = \prod\limits_{i = 1}^k \Det \sigma_i$,
+  basta con probar el resultado para simetrías.
 
   Sea $\sigma \colon S^n \to S^n$ una simetría respecto al hiperplano $H$, y sea $A \colon \R^{n+1} \to \R^{n+1}$ la isometría
   que lleva $H$ en el hiperplano $\{x \in \R^{n+1} \mid x_1 = 0\}$. Entonces, si tomamos la aplicación que cambia el signo a la primera
@@ -535,7 +537,7 @@ Veamos algunas de sus propiedades.
 \end{proof}
 
 Como consecuencia directa de este hecho, si consideramos la aplicación antípoda $-Id \colon S^n \to S^n$, entonces
-$\Deg -Id = \Det -Id = (-1)^{n+1}$.
+$\Deg (-Id) = \Det (-Id) = (-1)^{n+1}$.
 
 Veamos un lema que nos permitirá demostrar dos resultados de aplicaciones sobre esferas de dimensión par,
 con los que terminaremos el capítulo.
@@ -555,7 +557,7 @@ con los que terminaremos el capítulo.
 
 \begin{proof}
   Supongamos que existe $f$ tal que para todo $x \in S^{2n}$, $f(x) \neq x$ y $f(x) \neq -x$. Entonces, por
-  el lema anterior, $f \simeq -Id$ y $f \simeq Id$, luego $Id \simeq -Id$ y $\Deg Id = \Deg -Id$, lo que implica
+  el lema anterior, $f \simeq -Id$ y $f \simeq Id$, luego $Id \simeq -Id$ y $\Deg (Id) = \Deg (-Id)$, lo que implica
   $1 = -1$ contradicción.
 \end{proof}
 
