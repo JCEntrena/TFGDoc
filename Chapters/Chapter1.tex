@@ -4,18 +4,18 @@
 
 \section{Definiciones iniciales}
 
-En esta capítulo, introduciremos la \textbf{homología singular} de un espacio topológico. Comenzaremos con
-un conjunto de  definiciones iniciales, llegando a la noción de \textbf{símplice singular}. Una vez aquí
+En este capítulo, introduciremos la \textbf{homología singular} de un espacio topológico. Comenzaremos con
+un conjunto de definiciones iniciales, introduciendo la noción de \textbf{símplice singular}. Con ellos,
 construiremos un conjunto al que dotaremos de estructura algebraica, y sobre el que definiremos una aplicación
-que, gracias  a sus propiedades, nos permitirá definir la homología singular del espacio. Seguidamente,
+que, gracias a sus propiedades, nos permitirá definir la homología singular del espacio. Seguidamente,
 demostraremos algunos resultados sencillos sobre ciertos espacios topológicos, continuando con la invarianza
 homotópica de la homología. Concluiremos el capítulo definiendo la homología sobre pares topológicos, y
-viendo como se trasladan los resultados demostrados con anterioridad. 
+viendo como se trasladan los resultados demostrados con anterioridad.
 
 \begin{definition}
 Un \textbf{p-símplice} $s_p$ es la envolvente conexa de $p+1$ puntos afínmente independientes en $\mathbb{R}^p$,
 a los que llamaremos vértices, $\{x_0, \dots, x_n\}$, esto es
-\[ s_p = \{\lambda_0 x_0 + \dots + \lambda_p x_p \mid \lambda_0 + \dots + \lambda_p = 1, \lambda_i \geq 0 \quad \forall i \} \]
+\[ s_p = \{\lambda_0 x_0 + \dots + \lambda_p x_p \mid \lambda_0 + \dots + \lambda_p = 1, \lambda_i \geq 0 \hspace{0.2em} \forall i \} \]
 \end{definition}
 % \underbrace{\smash{1}}_{i}
 Cuando los vértices son $x_i = (0, \dots, 1, \dots, 0)$, con el $1$ en la posición $i$-ésima, le llamaremos el p-símplice \underline{standard},
@@ -57,22 +57,22 @@ Además, se tiene que $(g \circ f)_\# = g_\# \circ f_\#$.
 Vamos a probar un resultado sobre la aplicación que acabamos de definir.
 
 \begin{lemma}
-  Se verifica que $F_p^i \circ F_{p-1}^j = F_p^j \circ F_{p-1}^{i-1} \quad \forall p \geq 2$, $\forall i, j \colon 0 \leq j < i \leq p$
+  Se verifica que $F_p^i \circ F_{p-1}^j = F_p^j \circ F_{p-1}^{i-1} \quad \forall p \geq 2$, $\forall i, j \colon 0 \leq j < i \leq p$.
 \end{lemma}
 
 \begin{proof}
 Lo comprobamos realizando los cálculos pertinentes
   \begin{align*}
-    &F_p^i \circ F_{p-1}^j (t_0, \dots, t_{p-2}) = F_p^i (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{p-2}) = \\
-    &(t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = \\
-    &F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2}).
+    &F_p^i \circ F_{p-1}^j (t_0, \dots, t_{p-2}) = F_p^i (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{p-2}) \\
+    &= (t_0, \dots, t_{j-1}, 0, t_j, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) \\
+    &= F_p^j (t_0, \dots, t_{i-2}, 0, t_{i-1}, \dots, t_{p-2}) = F_p^j \circ F_{p-1}^{i-1} (t_0, \dots, t_{p-2}).
   \end{align*}
 \end{proof}
 
 Se deduce directamente este corolario:
 
 \begin{corollary}
-  Para $p \geq 2, 0 \leq j < i \leq p$, se verifica $\partial_j \circ \partial_i = \partial_{i-1} \circ \partial_j$
+  Para $p \geq 2, 0 \leq j < i \leq p$, se verifica $\partial_j \circ \partial_i = \partial_{i-1} \circ \partial_j$.
 \end{corollary}
 
 Debido a que $\FX{p}$ no está dotado de estructura algebraica, es posible realizar la siguiente construcción:
@@ -117,8 +117,8 @@ borde. Esta propiedad nos permitirá definir los grupos de homología singular.
                      &= \sum_{0 \leq j < i \leq p} (-1)^{i + j} \partial_{i-1} \partial_j(\phi)
                         + \sum_{0 \leq i \leq j \leq p-1} (-1)^{i + j} \partial_j \partial_i(\phi) \\
                      &= \sum_{0 \leq j \leq i-1 \leq p} (-1)^{i + j} \partial_{i-1} \partial_j(\phi)
-                        + \sum_{0 \leq i \leq j \leq p-1} (-1)^{i + j} \partial_j \partial_i(\phi) \\
-                     &= 0 \quad \text{pues son iguales salvo el signo.}
+                        + \sum_{0 \leq i \leq j \leq p-1} (-1)^{i + j} \partial_j \partial_i(\phi) = 0\\
+                     &\text{pues son iguales salvo el signo.}
   \end{align*}
 \end{proof}
 
@@ -127,7 +127,7 @@ hemos tomado un $\Z$-módulo, obteniendo el grupo abeliano libre de p-cadenas si
 operador borde $\partial$, que verifica $\partial^2 = 0$. A la familia $\{S_p(\X), \partial\}_{p \geq 0}$ se le llama el complejo de cadenas
 singular asociado a $\X$.
 
-Representaremos también por $f_\# \colon S_p(\X) \to S_p(\Y)$ a la composición entre \\
+Representaremos también por $f_\# \colon S_p(\X) \to S_p(\Y)$ a la composición entre
 $f \colon \X \to \Y$, continua, y $\phi \in S_p(\X)$.
 \[ f_\#(\sum_\phi n_\phi \cdot \phi) = \sum_\phi n_\phi \cdot (f \circ \phi) \]
 
@@ -142,15 +142,15 @@ Vamos a ver que esta aplicación conmuta con el borde, es decir, $f_\# \circ \pa
 Su demostración es casi inmediata, pues se tiene que \[ f_\# \circ \partial_i(\phi) = f_\#(\phi \circ F_p^i) = f \circ \phi \circ F_p^i
                                              = \partial_i(f \circ \phi) = \partial_i \circ f_\#(\phi) \]
 
-El resultado obtenido implica, por la definición de $\partial$, que $\partial f_\# = f_\# \partial$. No obstante, es más fuerte, pues vemos
-como las aplicaciones cara conmutan con el homomorfismo $f_\#$.
+El resultado obtenido implica, por la definición de $\partial$, que $\partial f_\# = f_\# \partial$. De hecho, es más fuerte, pues vemos
+como las aplicaciones cara conmutan una a una con el homomorfismo $f_\#$.
 
 A esta aplicación entre complejos de cadenas se le llama en álgebra una aplicación de cadenas. Nos referiremos a ella como la aplicación de cadenas
 inducida por la aplicación continua f.
 
 \begin{definition}
   Diremos que $c \in S_p(\X)$ es un \textbf{p-ciclo} si $\partial(c) = 0$. \\
-  Diremos que $c \in S_p(\X)$ es un \textbf{p-borde} si $\exists d \in S_{p+1}(\X) \text{ tal que } \partial(d) = c$.
+  Diremos que $c \in S_p(\X)$ es un \textbf{p-borde} si existe $d \in S_{p+1}(\X) \text{ tal que } \partial(d) = c$.
 \end{definition}
 
 % ¿Indentar los conjuntos?
@@ -176,12 +176,17 @@ al que llamaremos el \textbf{\underline{\smash{p-ésimo grupo de homología sing
 
 A los elementos de $H_p(\X)$ los notaremos $[c]$, con $\partial(c) = 0$, esto es, $c \in Z_p(\X)$, y los llamaremos clases de homología.
 
+La motivación geométrica para la construcción de los grupos de homología singular se basa en querer
+estudiar los ciclos en espacios topológicos. Como este conjunto tiene un tamaño demasiado grande para
+poder estudiarlo de forma efectiva, restringimos nuestra atención a las clases de equivalencia, haciendo
+que dos ciclos sean equivalentes si su diferencia es el borde de una cadena en una dimensión superior.
+
 Tomemos nuevamente una función continua $f \colon \X \to \Y$, y definamos
 \[ f_* \colon H_p(\X) \to H_p(\Y) \quad f_*([c]) = [f_\#(c)]  \]
 
 Comprobemos que está bien definida, esto es, que no depende del representante que se elija.
 
-Sean $[c_1] = [c_2]$, lo que implica $c_1 - c_2 \in B_p(\X)$. Por tanto, existe $d \in S_{p+1}(\X)$ tal que $\partial(d) = c_1 - c_2.$
+Sean $[c_1] = [c_2]$, lo que implica $c_1 - c_2 \in B_p(\X)$. Por tanto, existe $d \in S_{p+1}(\X)$ tal que $\partial(d) = c_1 - c_2$.
 Así, $f_\#(c_1) - f_\#(c_2) = f_\#(c_1 - c_2) = f_\#(\partial(d)) = \partial(f_\#(d))$ \\
 Como $f_\#(d) \in S_{p+1}(\Y)$, se tiene $[f_\#(c_1)] = [f_\#(c_2)]$
 
@@ -209,7 +214,7 @@ basta considerar el inverso del homeomorfismo para construir el inverso del homo
 Vamos a calcular los grupos de homología singular de los puntos, sin más que ver como se comporta la función borde
 en ellos y utilizando la definición de los grupos de ciclos y bordes como núcleo e imagen de dicha aplicación.
 
-Sea $\X$ un espacio topológico formado por un punto, $\X = \{x\}$. \\
+Sea $\X$ un espacio topológico formado por un punto, $\X = \{x\}$.
 $\FX{p} = \{ \phi \colon \sigma_p \to \{x\} \} = \{\phi_p\}$ donde $\phi_p$ es la función constante.
 
 $S_p({\{x\}})$ son grupos abelianos libres con $\phi_p$ como generador. Además, $\partial \colon \SX{p} \to \SX{p-1}$ verifica:
@@ -229,7 +234,7 @@ Así, $H_p(\{x\}) = 0 \hspace{1em} \forall p \geq 1, \hspace{1em} H_0(\{x\}) \co
 
 \section{El grupo $H_0(\X)$ y la arcoconexión}
 
-En esta sección vamos a estudiar algunas de las propiedades de los grupos de homología singular asumiendo que el espacio topológico
+En esta sección vamos a estudiar algunas de las propiedades de los grupos de homología singular, asumiendo que el espacio
 sobre el que trabajamos es arcoconexo.
 
 \begin{proposition}
@@ -255,10 +260,9 @@ sobre el que trabajamos es arcoconexo.
   Es posible hacer esta construcción gracias a la arcoconexión de $\X$. De esta forma:
   \begin{align*}
     &\sum_i n_i \phi^i \in \SX{1}, \text{ y se tiene} \\
-    &\partial(\sum_i n_i \phi^i) = \sum_i n_i \partial(\phi^i) =\\
-    &= \sum_i n_i(x_i - x) = (\sum_i n_i x_i) - (\sum_i n_i) x = \sum_i n_i x_i
+    &\partial(\sum_i n_i \phi^i) = \sum_i n_i \partial(\phi^i) = \sum_i n_i(x_i - x) = (\sum_i n_i x_i) - (\sum_i n_i) x = \sum_i n_i x_i
   \end{align*}
-  De aquí se deduce que $\Ker \epsilon \subseteq \Img \partial$, y por tanto, tenemos la igualdad.
+  De aquí se deduce que $\Ker \epsilon \subseteq \Img \partial$, y por tanto tenemos la igualdad.
 
   Finalmente como $\Ker \epsilon = \Img \partial$, $H_0(\X) = \ddfrac{S_0(\X)}{\Ker \epsilon} \cong \Z$, al ser $\epsilon$ epimorfismo.
 \end{proof}
@@ -278,17 +282,17 @@ sobre el que trabajamos es arcoconexo.
   $\alpha \in A$, por lo que $\phi = i_{\alpha*}(\phi)$ para dicho $\alpha$. \\
   Si $c = \sum n_\phi \cdot \phi$ es una p-cadena, poniendo cada $\phi$ de la forma anterior y agrupando por componentes conexas:
   \begin{equation}
-    c = \sum\limits_{\alpha \in A} i_{\alpha*}(c_\alpha) \quad c_\alpha \in S_p(\X_\alpha)  \tag{*}
+    c = \sum\limits_{\alpha \in A} i_{\alpha*}(c_\alpha), \quad c_\alpha \in S_p(\X_\alpha)  \tag{*}
   \end{equation}
 
   Sea $[c]_\alpha \in H_p(\X_\alpha)$, y supongamos que $i_{\alpha*}[c]_\alpha = 0$ en $\H_p(\X)$. En ese caso, $[i_{\alpha*}(c)] = 0$ en $H_p(\X)$,
   luego existe $d \in \SX{p+1}$ tal que $i_{\alpha\#}(c) = \partial(d)$, y además:
-  \[\partial(d) = \sum\limits_{\alpha \in A} i_{\alpha\#}(\partial(d_\alpha)) = i_{\alpha\#} \text{ por lo que se tiene:} \]
-  $c = \partial(d_\alpha), \partial(d_\beta) = 0 \quad \forall \beta \neq \alpha$. Así, $[c]_\alpha = 0$ y $i_{\alpha*}$ es un monomorfismo.
+  \[\partial(d) = \sum\limits_{\beta \in A} i_{\beta\#}(\partial(d_\beta)) = i_{\alpha\#}(c) \]
+  por lo que se tiene $c = \partial(d_\alpha), \partial(d_\beta) = 0 \hspace{0.5em} \forall \beta \neq \alpha$. Así, $[c]_\alpha = 0$ y $i_{\alpha*}$ es un monomorfismo.
   Esto prueba a).
 
   Observamos que la suma en (*) es finita, pues si no, habría un número no finito de generadores en la expresión de c. Así:
-  \[  [c] = \sum\limits_{\alpha \in A} [i_{\alpha\#}(c_\alpha)] =  \sum\limits_{\alpha \in A} id_*([c_\alpha]_\alpha)\]
+  \[  [c] = \sum\limits_{\alpha \in A} [i_{\alpha\#}(c_\alpha)] =  \sum\limits_{\alpha \in A} i_{\alpha*}([c_\alpha]_\alpha)\]
 
   Como $\partial(c) = 0 \iff \partial(c_\alpha) = 0 \hspace{0.5em} \forall \alpha \in A$, se obtiene directamente b), como consecuencia de a).
 \end{proof}
@@ -318,7 +322,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 
   De darse la situación anterior, si $[c] \in H_p(\X), c \in Z_p(\X)$, se tiene $\partial(c) = 0$ y $c \in S_p(\X)$.
   En consecuencia, $c = (\partial  T +  T \partial)(c)  = \partial( T(c))$ con $ T(c) \in \SX{p+1}$.
-  Por tanto, $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
+  Por tanto, $c$ es un borde, luego $[c] = 0$, y eso implica que $H_p(\X) = 0 \quad \forall p > 0$.
 
   Definamos $T$: \\
   Sean $x_0 \in \X$ un punto de estrella, $\phi \colon \sigma_p \to \X$ un p-símplice singular. Tomemos $T(\phi) \colon \sigma_{p+1} \to \X$ dado por:
@@ -335,27 +339,25 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
     & \text{ pues $\phi$ está acotada.}
   \end{align*}
 
-  Así, $\lim\limits_{t_0 \to 1} T(\phi) = x_0$
+  Así, $\lim\limits_{t_0 \to 1} T(\phi) = x_0$.
 
   Queda claro que $\partial_0(T(\phi)) = \phi$. Si seguimos llamando $T$ al homomorfismo extensión de $T$ a $\SX{p}$, tenemos construído
-  \[  T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ  T = I \]
+  \[  T \colon \SX{p} \to \SX{p+1} \hspace{0.5em} \text{tal que } \partial_0 \circ  T = I. \]
   Si $p = 0 \implies i = 1$ y $\partial_1( T(\phi)) = x_0$.
 
   Si $1 \leq i \leq p+1$, entonces:
   \begin{align*}
     &\partial_i( T(\phi))=(t_0,\dots,t_p)) =  T(\phi)(t_0, \dots, t_{i-1} \circ t_i, \dots, t_p) \\
     &= (1-t_0)\phi(\frac{t_1}{1-t_0}, \dots, \frac{t_{i-1}}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
-    &= (1-t_0)\partial_{i-1}(\frac{t_1}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 \\
-    &=  T(\partial_{i-1} \phi)(t_0, \dots, t_p)
+    &= (1-t_0)\partial_{i-1}(\frac{t_1}{1-t_0}, \dots, \frac{t_p}{1-t_0}) + t_0 x_0 = T(\partial_{i-1} \phi)(t_0, \dots, t_p)
   \end{align*}
   Como consecuencia:
   \begin{align*}
-    \partial( T(\phi)) &= \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i  T(\phi) =
-    \phi + \sum\limits_{i = 1}^{p+1} (-1)^i  T \partial_{i-1}(\phi) = \\
+    \partial( T(\phi)) &= \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i  T(\phi) = \phi + \sum\limits_{i = 1}^{p+1} (-1)^i  T \partial_{i-1}(\phi) \\
     &= \phi - \sum\limits_{j = 0}^p (-1)^j  T \partial_j(\phi) = \phi -  T \partial(\phi)
   \end{align*}
 
-  De donde se obtiene directamente que $\partial  T +  T \partial = Id$
+  De donde se obtiene directamente que $\partial  T +  T \partial = Id$.
 \end{proof}
 
 \begin{theorem}[Invarianza homotópica de la homología singular]
@@ -379,7 +381,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   se tiene \[ f_\# - g_\# = H_\# \circ i_{0\#} - H_\# \circ i_{1\#} = H_\# \circ (i_{0\#} - i_{1\#}) \]
 
   Si somos capaces de construir $\tau \colon \SX{p} \to S_{p+1}(\X \times I)$ tal que $\partial \tau + \tau \partial = i_{0\#} - i_{1\#}$, definiendo
-  $T = H_\# \circ \tau$, se tiene que:
+  $T = H_\# \circ \tau$, se verifica:
   \[ \partial \tau + \tau \partial = \partial(H_\# \circ \tau) + (H_\# \circ \tau)\partial = H_\#(i_{0\#} - i_{1\#}) = f_\# - g_\#  \]
   lo que demostraría el teorema.
 
@@ -422,47 +424,46 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
     \SX{0} \arrow{r}{T^\X}                 & S_1(\X \times I)
   \end{tikzcd}
   \]
-  debe ser conmutativo, luego $T^\X \circ \phi_\# = (\phi \times I)_\# \circ T^{\sigma_0}$.
+  debe ser conmutativo, luego $T^\X \circ \phi_\# = (\phi \times Id)_\# \circ T^{\sigma_0}$.
 
-  Como $\phi_\#(\tau_0) = \phi$, se tiene $T^\X(\phi) = (\phi \times I)_\# \circ T^{\sigma_0}(\tau_0)$.
+  Como $\phi_\#(\tau_0) = \phi$, se tiene $T^\X(\phi) = (\phi \times Id)_\# \circ T^{\sigma_0}(\tau_0)$.
 
   Definimos $T^\X$ de esta manera sobre los generadores, y lo extendemos por linealidad. Veamos que verifica a) y b).
 
   a)
   \begin{align*}
-    \partial T^\X(\phi) &= \partial(\phi \times I)_\# T^{\sigma_0}(\tau_0) = (\phi \times I)_\# \partial T{ \sigma_0}(\tau_0) \\
-                        &= (\phi \times I)_\# ((i_0)_\#^{\sigma_0}(\tau_0) - (i_1)_\#^{\sigma_0}(\tau_0)) \\
-                        &= ((\phi \times I) (i_0)_\#^{\sigma_0}) - (\phi \times I) (i_1)_\#^{\sigma_0}))(\tau_0) \\
+    \partial T^\X(\phi) &= \partial(\phi \times Id)_\# T^{\sigma_0}(\tau_0) = (\phi \times Id)_\# \partial T{ \sigma_0}(\tau_0) \\
+                        &= (\phi \times Id)_\# ((i_0)_\#^{\sigma_0}(\tau_0) - (i_1)_\#^{\sigma_0}(\tau_0)) \\
+                        &= ((\phi \times Id) (i_0)_\#^{\sigma_0}) - (\phi \times Id) (i_1)_\#^{\sigma_0}))(\tau_0) \\
                         &= ((i_0^\X \circ \phi)_\# - (i_1^\X \circ \phi)_\#) (\tau_0) = ((i_0^\X)_\# - (i_1^\X)_\#)(\phi)
   \end{align*}
   de donde se obtiene $\partial T^\X + T^\X \partial = (i_0^\X)_\# - (i_1^\X)_\#$.
 
   b) Si $h \colon \X \to \Y$ es continua, entonces:
   \begin{align*}
-    &(T^\Y \circ h_\#)(\phi) = T^\Y(h \circ \phi) = (h\phi \times I)_\# T^{\sigma_0}(\tau_0) \\
-    &= ((h \times I)_\# \circ (\phi \times I)_\#) (T^{\sigma_0}(\tau_0)) = ((h \times I)_\# \circ T^\X)(\phi)
+    &(T^\Y \circ h_\#)(\phi) = T^\Y(h \circ \phi) = (h\phi \times Id)_\# T^{\sigma_0}(\tau_0) \\
+    &= ((h \times Id)_\# \circ (\phi \times Id)_\#) (T^{\sigma_0}(\tau_0)) = ((h \times Id)_\# \circ T^\X)(\phi)
   \end{align*}
   lo que finaliza la demostración para $p = 0$.
 
-  Suponemos el resultado cierto para $1, \dots, p-1$ y lo probamos para $p$. \\
-  El razonamiento es similar al anterior.
+  Suponemos el resultado cierto para $1, \dots, p-1$ y lo probamos para $p$. El razonamiento es similar al anterior.
 
   Tomemos $\X = \sigma_p$, y vamos a tratar de definir $T^{\sigma_p} \colon S_p(\sigma_p) \to S_{p+1}(\sigma_p \times I)$.
-  De nuevo, como $T^{\sigma_p}$ debe verificar a), se tiene que $\forall \phi \in F_(\sigma_p), T^{\sigma_p}(\phi)$ ha de satisfacer
+  De nuevo, como $T^{\sigma_p}$ debe verificar a), se tiene que $\forall \phi \in F_p(\sigma_p), T^{\sigma_p}(\phi)$ ha de satisfacer
   \[ \partial(T^{\sigma_p}(\phi)) = (i_0^{\sigma_p})_\# (\phi) - (i_1^{\sigma_p})_\# (\phi) - T^{\sigma_p}(\partial(\phi)) \]
   donde $T^{\sigma_p}(\partial(\phi))$ está bien definida por hipótesis de inducción.
 
   Sea $d = (i_0^{\sigma_p})_\# (\phi) - (i_1^{\sigma_p})_\# (\phi) - T^{\sigma_p}(\partial(\phi)) \in S_p(\sigma_p \times I)$.
   Entonces:
   \begin{align*}
-    \partial(\phi) &= (i_0^{\sigma_p})_\# (\partial(\phi)) - (i_1^{\sigma_p})_\# (\partial(\phi)) - \partial T^{\sigma_p}(\partial(\phi)) \\
-                   &\stackrel{\text{h.i.}}{=} (i_0^{\sigma_p})_\#(\partial(\phi)) - (i_1^{\sigma_p})_\#(\partial(\phi)) \\
-                   &- [ - T^{\sigma_p}(\partial^2(\phi)) + (i_0^{\sigma_p})_\#(\partial(\phi)) - (i_1^{\sigma_p})_\#(\partial(\phi)) ] = 0
+    &\partial(\phi) = (i_0^{\sigma_p})_\# (\partial(\phi)) - (i_1^{\sigma_p})_\# (\partial(\phi)) - \partial T^{\sigma_p}(\partial(\phi)) \\
+    &\stackrel{\text{h.i.}}{=} (i_0^{\sigma_p})_\#(\partial(\phi)) - (i_1^{\sigma_p})_\#(\partial(\phi)) - [ - T^{\sigma_p}(\partial^2(\phi)) +
+    (i_0^{\sigma_p})_\#(\partial(\phi)) - (i_1^{\sigma_p})_\#(\partial(\phi)) ] = 0
   \end{align*}
   y por tanto d es un ciclo.
 
   Como $p \geq 1$ y $\sigma_p \times I$ es convexo, por el lema de Poincaré, $d$ es un borde, luego existe $e \in S_{p+1}(\sigma_p \times I)$
-  tal que $\partial(e) = d$. Definimos $T^{\sigma_p}(\phi) = e$. Notemos que si bien $e$ no tiene por qué ser único, podemos hacer una elección
+  tal que $\partial(e) = d$. Definimos $T^{\sigma_p}(\phi) = e$. Notemos que si bien $e$ no tiene por qué ser único, basta cond hacer una elección
   entre los existentes.
 
   Extendiendo por linealidad, conseguimos construir $T^{\sigma_p}$ verificando a).
@@ -477,33 +478,33 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
   ha de ser conmutativo.
 
   Si $\tau_p \colon \sigma_p \to \sigma_p$ es la identidad (que es p-símplice singular en $\sigma_p$), $\phi_\#(\tau_p) = \phi$,
-  de donde definimos $T^\X(\phi) = (\phi \times I)_\# T^{\sigma_p}(\tau_p)$. \\
+  de donde definimos $T^\X(\phi) = (\phi \times Id)_\# T^{\sigma_p}(\tau_p)$. \\
   Como los $\phi$ son la base de $\SX{p}, T^\X$ se extiende por linealidad a un homomorfismo. Veamos que verifica a) y b).
 
   a)
   \begin{align*}
-    &(\partial T^\X + T^\X \partial)(\phi) = \partial((\phi \times I)_\# T^{\sigma_p}) + T^\X \partial(\phi_\# \tau_p) \\
-    &= (\phi \times I)_\# \partial T^\sigma_p(\tau_p) + T^\X \phi_\#(\partial(\tau_p)) \\
-    &= (\phi \times I)_\# (- T^{\sigma_p} \partial(\tau_p) + (i_0^{\sigma_p})_\# (\tau_p) - (i_1^{\sigma_p})_\# (\tau_p)) + (\phi \times I)_\# T^{\sigma_p}\partial(\tau_p) \\
-    &= (\phi \times I)_\# (i_0^{\sigma_p})_\#(\tau_p) - (\phi \times I)_\# (i_1^{\sigma_p})_\#(\tau_p) \\
-    &= (i_0^\X)_\# \phi_\#(\tau_p) - (i_1^\X)_\# \phi_\#(\tau_p) = ((i_0^\X)_\# - (i_1^\X)_\#) (\phi)
+    &(\partial T^\X + T^\X \partial)(\phi) = \partial((\phi \times Id)_\# T^{\sigma_p}) + T^\X \partial(\phi_\# \tau_p) \\
+    &= (\phi \times Id)_\# \partial T^\sigma_p(\tau_p) + T^\X \phi_\#(\partial(\tau_p)) \\
+    &= (\phi \times Id)_\# (- T^{\sigma_p} \partial(\tau_p) + (i_0^{\sigma_p})_\# (\tau_p) - (i_1^{\sigma_p})_\# (\tau_p)) + (\phi \times I)_\# T^{\sigma_p}\partial(\tau_p) \\
+    &= (\phi \times Id)_\# (i_0^{\sigma_p})_\#(\tau_p) - (\phi \times Id)_\# (i_1^{\sigma_p})_\#(\tau_p) \\
+    &= (i_0^\X)_\# \phi_\#(\tau_p) - (i_1^\X)_\# \phi_\#(\tau_p) = ((i_0^\X)_\# - (i_1^\X)_\#) (\phi).
   \end{align*}
 
   b) Sea $h\colon \X \to \Y$ continua y $\phi \colon \sigma_p \to \X$ un generador de $\SX{p}$. Entonces:
   \begin{align*}
-    &T^\Y(h_\#(\phi)) = T^\Y(h \circ \phi) = ((h \circ \phi) \times I)_\# T^{\sigma_p}(\tau_p) \\
-    &= (h \times I)_\# (\phi \times I)_\# T^{\sigma_p} (\tau_p) = (h \times I)_\# T^\X(\phi)
+    &T^\Y(h_\#(\phi)) = T^\Y(h \circ \phi) = ((h \circ \phi) \times Id)_\# T^{\sigma_p}(\tau_p) \\
+    &= (h \times Id)_\# (\phi \times Id)_\# T^{\sigma_p} (\tau_p) = (h \times Id)_\# T^\X(\phi)
   \end{align*}
 \end{proof}
 
 \begin{corollary}
-  Si $\X$ e $\Y$ son espacios homotópicamente equivalentes, entonces \[H_p(\X) = H_p(\Y) \quad \forall p \geq 0\]
+  Si $\X$ e $\Y$ son espacios homotópicamente equivalentes, entonces \[H_p(\X) = H_p(\Y) \quad \forall p \geq 0.\]
 \end{corollary}
 
 \begin{proof}
   Sea $f$ la equivalencia homotópica de $\X$ en $\Y$. Entonces existe su inversa, $g$, que verifica $g \circ f = Id_\X, f \circ g = Id_\Y$.
-  Así, $(f \circ g)_* = Id_{H_p(\Y)},$ y $(g \circ f)_* = Id_{H_p(\X)}$. Como $(g \circ f)_* = g_* \circ f_*, f_*$ tiene inverso y es un isomorfismo
-  entre $H_p(\X)$ y $H_p(\Y)$.
+  Así, $(f \circ g)_* = Id_{H_p(\Y)},$ y $(g \circ f)_* = Id_{H_p(\X)}$. Como $(g \circ f)_* = g_* \circ f_*, f_*$ tiene inverso, y por tanto
+  $f_*$ es un isomorfismo entre $H_p(\X)$ y $H_p(\Y)$.
 \end{proof}
 
 \section{Homología singular de un par}
@@ -511,7 +512,7 @@ Vamos a comenzar demostrando el llamado Lema de Poincaré.
 Sea $A \subseteq \X$. Vamos a tratar de cuantificar la relación existente entre $H_*(A)$ y $H_*(\X)$.
 
 Para ello, vamos a definir la homología singular del par $(\X, A)$, que será una extensión de la homología singular de un espacio, en el sentido
-\[H_*(\X, \phi) = H_*(\X)\]
+$H_*(\X, \emptyset) = H_*(\X)$.
 
 Consideremos $i \colon A \xhookrightarrow{} \X$ la inclusión, $i_\# \colon S_p(A) \to \SX{p}$ el homomorfismo inducido.
 Entonces $i\#(\sum\limits_{j = 1}^n n_j \phi_j) = \sum\limits_{j = 1}^n n_j i_\#(\phi_j) = \sum\limits_{j = 1}^n n_j (i \circ \phi_j) = \sum\limits_{j = 1}^n n_j \phi_j$,
@@ -519,7 +520,7 @@ luego $i_\#$ es un monomorfismo.
 
 Definimos $S_p(\X, A) = \frac{\SX{p}}{i_\#(S_p(A))} = \frac{\SX{p}}{S_p(A)} = \{\overline{c} \mid c \in \SX{p} \}$ con $\overline{c} = c + S_p(A)$.
 Este grupo se corresponde con el grupo abeliano libre generado por $\{\overline{\phi} \mid \phi \in \FX{p}\}$, ya que
-\[\overline{c} = \overline{\sum_i n_i \phi_i} = \sum_i n_i \overline{\phi_i}, \quad c \in \SX{p} \]
+$ \overline{c} = \overline{\sum_i n_i \phi_i} = \sum_i n_i \overline{\phi_i}, \quad c \in \SX{p}$.
 
 Llamamos a $S_p(\X, A)$ el grupo de p-cadenas singulares del par $(\X, A)$. \\
 Podemos definir un operador borde, que seguiremos notando $\partial$:
@@ -531,14 +532,15 @@ Este borde está bien definido, pues si $\overline{c} = \overline{d}$; entonces 
 $\partial d = \partial c + \partial a \implies \overline{\partial d} = \overline{\partial c} + \overline{\partial a} = \overline{\partial c}$ ya que
 $\partial a \in S_{p-1}(A) \implies \overline{\partial a} = 0$.
 
-Es claro, por la definición que hemos hecho, que el operador borde es un homomorfismo de clases y que $\partial^2 = 0$. \\
+Es claro, por la definición que hemos hecho, que el operador borde es un homomorfismo de clases y que $\partial^2 = 0$.
+
 Con esto, hemos construído un complejo de cadenas $\{S_p(\X, A), \partial\}_{p \geq 0}$ al que llamaremos el complejo de cadenas singulares del par $(\X, A)$.
 
 Para cada $p \geq 0$ definimos: \\
 $Z_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \partial\overline{c} = 0\}$ p-ciclos. \\
 $B_p(\X, A) = \{\overline{c} \in S_p(\X, A) \mid \overline{c} = \partial\overline{d} \}$ p-bordes.
 
-por lo que podemos considerar
+Así, dado que de nuevo $B_p(\X, A) \subseteq Z_p(\X, A)$, podemos considerar el cociente
 \[H_p(\X, A) = \frac{Z_p(\X, A)}{B_p(\X, A)} \quad \forall p \geq 0 \]
 que llamamos el \textbf{\underline{\smash{p-ésimo grupo de homología singular}}} del par $(\X, A)$.
 
@@ -624,14 +626,13 @@ Tenemos también un resultado equivalente al ya visto para aplicación homotópi
 La demostración es similar a la ya vista, por lo que no se incluye.
 
 Consideremos ahora la proyección $\pi \colon \SX{p} \to S_p(\X, A) \cong \frac{\SX{p}}{i_*(S_p(A))}$ \\
-Tenemos que $\pi(c) = \overline{c}$, y la aplicación de cadenas inducida por la inclusión, \\
+Tenemos que $\pi(c) = \overline{c}$, y la aplicación de cadenas inducida por la inclusión,
 $i_\# \colon S_p(A) \to \SX{p}$, que es claramente un monomorfismo. \\
 $\pi$ es un epimorfismo, y se verifica que $\Img i_\# \cong \Ker \pi = i_\#(S_p(A))$ por la definición de $S_p(\X, A)$.
-
 Esto nos permite definir la sucesión:
 \[0 \to S_p(A) \xrightarrow{i_\#} \SX{p} \xrightarrow{\pi} S_p(\X, A) \to 0 \]
 que verifica $\partial i_\# = i_\# \partial$ y $\partial \pi = \pi \partial$. \\
-A estas sucesiones, en las que cada triple $C \xrightarrow{f} D \xrightarrow{g} E$ verifica $\Img f = \Ker g$ las llamaremos exactas.
+A estas sucesiones, en las que cada triple $C \xrightarrow{f} D \xrightarrow{g} E$ verifica $\Img f = \Ker g$, las llamaremos exactas.
 Si además tienen solo tres elementos, como en el caso anterior, las llamaremos sucesiones exactas cortas.
 
 Podemos extender el resultado anterior, y obtenemos una sucesión exacta corta de complejos de cadenas:
@@ -641,14 +642,16 @@ Sea ahora $\pi_* \colon H_*(\X) \to H_*(\X, A)$ el homomorfismo inducido por $\p
 $\pi_*([c]) = [\overline{c}]$ que está bien definido, pues si $[c] = [d] \implies d = c + \partial h \implies \overline{d} = \overline{c} + \partial \overline{h}
 \implies [\overline{c}] = [\overline{d}]$.
 
-Por lo anterior, se tiene $\Img i_* = \Ker \pi_*$ ya que $\pi_* i_* ([a]) = \pi_*[i_\#(a)] = [\pi i_\#(a)] = 0$, pues $\pi i_\# = 0$. Así, $\Img i_* \subseteq \Ker \pi_*$.
+Veamos que $\Img i_* = \Ker \pi_*$.
+
+Se verifica $\pi_* i_* ([a]) = \pi_*[i_\#(a)] = [\pi i_\#(a)] = 0$, pues $\pi i_\# = 0$. Así, $\Img i_* \subseteq \Ker \pi_*$.
 
 Si $[c] \in \Ker \pi_*, \pi_*([c]) = [\overline{c}] = 0 \implies \overline{c} = \overline{\partial d}, c = \partial d + i_\#(a)$,
 luego $\partial c = \partial^2 d + \partial i_\#(a) \implies \partial c = \partial^2 d + i_\# \partial a$, y se deduce que $\partial a = 0$.
-$a$ es un ciclo y genera $[a]$ \\
-Como $c = \partial d + i_\#(a), [c] = [\partial d] + [i_\#(a)] = i_*[a] \implies \Ker \pi_* \subseteq \Img i_*$.
+$a$ es un ciclo y genera $[a]$. Como $c = \partial d + i_\#(a), [c] = [\partial d] + [i_\#(a)] = i_*[a] \implies \Ker \pi_* \subseteq \Img i_*$,
+lo que demuestra la igualdad.
 
-Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un epimorfismo, aunque se verifica:
+Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por qué ser un epimorfismo, aunque se verifica el siguiente resultado.
 
 \begin{proposition}
   $\pi_* \colon H_0(\X) \to H_0(\X, A)$ es un epimorfismo.
@@ -678,9 +681,9 @@ Generalmente $i_*$ no tiene por qué ser un monomorfismo, y $\pi_*$ no tiene por
 
   Definimos pues $\Delta([\overline{c}]) = [a]$, que está bien definido, ya que:
   \begin{align*}
-    &[\overline{c}] = [\overline{d}] \implies \overline{d} = \overline{c} + \partial \overline{h} \implies d = c + \partial h + i_\#(e) \implies \\
-    &\partial d = \partial c + i_\#(\partial e) = i_\#(a) + i_\#(\partial e) = i_\#(a + \partial e) \implies \\
-    &\Delta([\overline{d}]) = [a + \partial e] = [a] = \Delta([\overline{c}])
+    [\overline{c}] = [\overline{d}] &\implies \overline{d} = \overline{c} + \partial \overline{h} \implies d = c + \partial h + i_\#(e) \\
+    &\implies \partial d = \partial c + i_\#(\partial e) = i_\#(a) + i_\#(\partial e) = i_\#(a + \partial e) \\
+    &\implies \Delta([\overline{d}]) = [a + \partial e] = [a] = \Delta([\overline{c}])
   \end{align*}
 
   Veamos que $\Delta$ es homomorfismo, es decir, $\Delta([\overline{c_1}] + [\overline{c_2}]) = \Delta([\overline{c_1 + c_2}])$.
