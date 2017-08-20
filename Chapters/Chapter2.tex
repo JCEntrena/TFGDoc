@@ -24,8 +24,8 @@ $\phi \in F_p^\U(\X)$, entonces $\partial_i(\phi) \in F_{p-1}^\U(\X)$ y así, po
 En consecuencia, la restricción del borde a $S_p^\U(\X)$ define un homomorfismo borde, y así, construímos un complejo
 de cadenas $S_*^\U(\X) = \{S_p^\U(\X), \partial\}_{p \geq 0}$.
 
-Es claro que este complejo es un subcomplejo de $S_*(\X)$. Si tomamos la inclusión $i \colon S_*^\U(\X) \to S_*(\X)$, induce un
-homomorfismo en la homología, $i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \hspace{0.2em} \forall p \geq 0$, donde
+Es claro que este complejo es un subcomplejo de $S_*(\X)$. Si tomamos ahora la inclusión $i \colon S_*^\U(\X) \to S_*(\X)$,
+esta induce un homomorfismo en la homología, $i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \hspace{0.2em} \forall p \geq 0$, donde
 $H_p(S_*^\U(\X)) = \frac{\Ker \partial}{\Img \partial}$, con el borde actuando en $S_*^\U(\X)$.
 
 Sea ahora $\Y$ otro espacio topológico, y $\V$ un recubrimiento suyo. Diremos que una función continua $f \colon \X \to \Y$ es compatible
@@ -34,7 +34,7 @@ $f_\# \colon S_p^\U(\X) \to S_p^\V(\Y)$, homomorfismo, dado por la restricción 
 
 Esto hace que el siguiente diagrama sea conmutativo:
 \[ \begin{tikzcd}
-  S_p^\U(\X) \arrow{r}{f_\#} \arrow{d}{i} & S_p^\V(\Y) \arrow{d}{i} \\
+  S_p^\U(\X) \arrow{r}{f_\#} \arrow[hook]{d}{i} & S_p^\V(\Y) \arrow[hook]{d}{i} \\
   \SX{p} \arrow{r}{f_\#} & \SY{p}
 \end{tikzcd} \]
 
@@ -69,11 +69,12 @@ inversa homotópica de la inclusión.
 
 \section{Subdivisión de símplices}
 
-Vamos a definir la subdivisión baricéntrica de símplices, utilizando nociones geométricas.
+Vamos a definir la subdivisión baricéntrica de símplices, para lo que necesitaremos
+definir el baricentro de un símplice.
 
 \begin{definition}
   Sea $s_p = (a_0, \dots, a_p)$ un p-símplice. Definimos el \textbf{baricentro} de $s_p$ como
-  \[b(s_p) = \frac{a_0 + \dots + a_p}{p+1}\]
+  \[b(s_p) = \frac{a_0 + \dots + a_p}{p+1}.\]
 \end{definition}
 
 Los puntos $\{b(s_p), a_0, \dots, a_{i-1}, a_{i+1}, \dots, a_p\}$ generan un p-símplice $\forall i = 0, \dots, p$.
@@ -133,7 +134,7 @@ Definimos la \textbf{subdivisión baricéntrica} del símplice $s_p$, y la notar
 
 \begin{definition}
   Si $K$ es un conjunto de símplices, la subdivisión de $K$ viene dada por $Sd(K) = \bigcup\limits_{s_p \in K} Sd(s_p)$.
-  Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ con } Sd^1 = Sd \]
+  Se define la n-ésima subdivisión como \[Sd^n(s_p) = Sd(Sd^{n-1}(s_p)), \text{ con } Sd^1 = Sd. \]
 \end{definition}
 
 \begin{proposition}
@@ -148,16 +149,16 @@ Definimos la \textbf{subdivisión baricéntrica} del símplice $s_p$, y la notar
   Supuesto cierto hasta $p-1$, lo probamos para $p$.
 
   Sea $s_p = (a_0, \dots, a_p)$. Se verifica que $diam(s_p) = \max_{i,j} |a_i - a_j|$. \\
-  Como $t_p \in Sd(s_p), t_p = (b(s_p), t_0, \dots, t_{p-1}) \in Sd(\U_{p-1})$. \\
+  Como $t_p \in Sd(s_p), t_p = (b(s_p), t_0, \dots, t_{p-1}) \in Sd(\U_{p-1})$.
   Entonces, $diam(t_p) = max\{|b(s_p) - t_i|,\hspace{0.2em} |t_i - t_j| \mid i,j = 0, \dots, p-1\}$.
 
   Por hipótesis de inducción, sabemos que
   \[|t_i - t_j| \leq diam(t_0, \dots, t_{p-1}) \leq \frac{p-1}{p} diam(\U_{p-1})\]
   Como $U_{p-1} \subseteq s_p$, entonces $diam(U_{p-1}) \leq diam(s_p)$, y como $\frac{p-1}{p} \leq \frac{p}{p+1}$
-  se tiene $|t_i - t_j| \leq \frac{p}{p+1} diam(s_p)$
+  se tiene $|t_i - t_j| \leq \frac{p}{p+1} diam(s_p)$.
 
   Además, $|b(s_p) - t_i| \leq \max\limits_i |b(s_p) - a_i| = \max\limits_i |\frac{a_0 + \dots + a_p}{p-1} - a_i| =
-  \max\limits_i \frac{\sum\limits_{i \neq j} |a_j - a_i|}{p+1} \leq \frac{p}{p+1} diam(s_p)$
+  \max\limits_i \frac{\sum\limits_{i \neq j} |a_j - a_i|}{p+1} \leq \frac{p}{p+1} diam(s_p)$.
 \end{proof}
 
 \begin{definition}
@@ -168,15 +169,15 @@ Definimos la \textbf{subdivisión baricéntrica} del símplice $s_p$, y la notar
 Del resultado anterior se obtienen directamenten estos dos corolarios.
 
 \begin{corollary}
-  Si $K$ es una colección de p-símplices, se verifica \[malla(Sd(K)) \leq \frac{p}{p+1} malla(K) \]
+  Si $K$ es una colección de p-símplices, se verifica \[malla(Sd(K)) \leq \frac{p}{p+1} malla(K). \]
 \end{corollary}
 
 \begin{corollary}
-  Si $K$ es una colección finita de p-símplices, entonces $\forall \epsilon > 0, \exists n \in \N$ tal que \\$malla(Sd^n(k)) < \epsilon$
+  Si $K$ es una colección finita de p-símplices, entonces $\forall \epsilon > 0, \exists n \in \N$ tal que \\$malla(Sd^n(k)) < \epsilon$.
 \end{corollary}
 
 \begin{proof}
-  Simplemente aplicamos $\lim\limits_{n \to \infty}(\frac{p}{p+1})^n = 0$
+  Simplemente aplicamos $\lim\limits_{n \to \infty}(\frac{p}{p+1})^n = 0$.
 \end{proof}
 
 \section{Subdivisión baricéntrica de símplices singulares afines}
@@ -186,11 +187,11 @@ subdivisión de cualquier símplice singular, por lo que su estudio nos resulta 
 
 Sea $C$ un subconjunto convexo del espacio euclídeo en el que trabajamos. Para todo $p \geq 0$, sea
 \[F_p^A(C) = \{ \phi \in F_p(C) \mid \phi \text{ es una aplicación afín}\} \]
-es decir, $\phi \colon \sigma_p \to C \quad$ verifica \[\phi(ta + (1-t)b) = t\phi(a) + (1-t)\phi(b) \hspace{1em} \forall t \in [0,1]\]
+es decir, $\phi \colon \sigma_p \to C \quad$ verifica \[\phi(ta + (1-t)b) = t\phi(a) + (1-t)\phi(b) \hspace{1em} \forall t \in [0,1].\]
 
 Sea $A_p(C)$ el grupo abeliano libre generado por $F_p^A(C)$, subgrupo libre de $S_p(C)$. Si $\phi \in F_p^A(C), \partial_i \phi = \phi \circ F_p^i$,
 y como $\phi$ es afín y $F_p^i$ también lo es, $\partial_i \phi$ es afín. Así:
-\[\partial \phi = \sum\limits_{i = 0}^p (-1)^1 \partial_i \phi \hspace{0.5em} \in A_{p-1}(C)\]
+\[\partial \phi = \sum\limits_{i = 0}^p (-1)^1 \partial_i \phi \hspace{0.5em} \in A_{p-1}(C).\]
 
 En consecuencia, podemos restringir el borde a $A_p(C)$, haciendo conmutativo el siguiente diagrama:
 \[ \begin{tikzcd}
@@ -203,20 +204,20 @@ Tenemos por tanto un complejo de cadenas $A_*(C) = \{A_p(C), \partial\}_{p \geq 
 Si $\phi \in F_p^A(C), \phi \colon \sigma_p \to C$ afín. Notando $\sigma_p = (v_0, \dots, v_p)$, entonces
 ${x_i = \phi(v_i) \in C}$ determinan unívocamente a $\phi$, pues si $v = \sum\limits_{i = 0}^p \alpha_i v_i$, entonces
 $\phi(v) = \sum\limits_{i = 0}^p \alpha_i \phi(v_i)$ por afinidad. Por tanto, todo elemento de $\phi \in F_p^A(C)$ se
-identifica con $p+1$ puntos de $C$.
+identifica con $p+1$ puntos de $C$, y usaremos ambas representaciones.
 \[\phi \in F_p^A(C) \equiv \{x_0, \dots, x_p\} \subseteq C\]
 
-Además, $\partial \phi = \sum\limits_{i = 0}^p (-1)^i \partial_i \phi$, con $\partial_i \phi = \{x_0, \dots, \hat{x_i}, \dots, x_p\}$
+Además, $\partial \phi = \sum\limits_{i = 0}^p (-1)^i \partial_i \phi$, con $\partial_i \phi = \{x_0, \dots, \hat{x_i}, \dots, x_p\}$.
 
 En consecuencia, $A_p(C)$ es el grupo abeliano libre sobre:
 \[\{(x_0, \dots, x_p) \mid x_i \in C\} \equiv C \times \dots \times C \equiv C^{p+1} \]
-y el operador borde lo da $\partial(\{x_0, \dots, x_p\}) = \sum\limits_{i = 0}^p (-1)^i \{x_0, \dots, \hat{x_i}, \dots, x_p\}$
+y el operador borde lo da $\partial(\{x_0, \dots, x_p\}) = \sum\limits_{i = 0}^p (-1)^i \{x_0, \dots, \hat{x_i}, \dots, x_p\}$.
 
 Si tenemos $C, C'$ convexos, y $f \colon C \to C'$ es una aplicación afín (y por tanto continua), al tomar la restricción de $f_\#$
-a $A_p(C)$, se tiene que si ${\phi \in F_p^A(C)}$ entonces $f_\#(\phi) = {f \circ \phi \in F_p^A(C')} \implies {f_\#(A_p(C)) \subseteq A_p(C')}$
+a $A_p(C)$, se tiene que si ${\phi \in F_p^A(C)}$ entonces $f_\#(\phi) = {f \circ \phi \in F_p^A(C')} \implies {f_\#(A_p(C)) \subseteq A_p(C')}$.
 
 En consecuencia, $\partial f_\# = f_\# \partial$ y $f_\# \colon A_*(C) \to A_*(C')$ es una aplicación de cadenas. Además,
-${f_\#(\{x_0, \dots, x_p\}) = \{f(x_0), \dots, f(x_p)\}}$
+${f_\#(\{x_0, \dots, x_p\}) = \{f(x_0), \dots, f(x_p)\}}$.
 
 \begin{definition}
   Sea $x \in C$, con $C$ un espacio cualquiera. Definimos
@@ -236,9 +237,9 @@ ${f_\#(\{x_0, \dots, x_p\}) = \{f(x_0), \dots, f(x_p)\}}$
 \end{proposition}
 
 \begin{proof}
-  a) $\partial \C_x(x_0, \dots, x_p) = \partial(x, x_0, \dots, x_p) = \{x_0, \dots, x_p\} + \\ \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i (x, x_0, \dots, x_p)
-  = \{x_0, \dots, x_p\} + \sum\limits_{j = 0}^{p} (-1)^{j+1} \partial_{j+1} (x, x_0, \dots, x_p)
-  = \{x_0, \dots, x_p\} - \sum\limits_{j = 0}^{p} (-1)^j \C_x(x_0, \dots, \hat{x_j}, \dots, x_p) = \{x_0, \dots, x_p\} - \C_x \partial(x_0, \dots, x_p)$
+  a) $\partial \C_x(x_0, \dots, x_p) = \partial(x, x_0, \dots, x_p) = \{x_0, \dots, x_p\} +  \sum\limits_{i = 1}^{p+1} (-1)^i \partial_i (x, x_0, \dots, x_p) \\
+  = \{x_0, \dots, x_p\} + \sum\limits_{j = 0}^{p} (-1)^{j+1} \partial_{j+1} (x, x_0, \dots, x_p) = \{x_0, \dots, x_p\} - \sum\limits_{j = 0}^{p} (-1)^j \C_x(x_0, \dots, \hat{x_j}, \dots, x_p) \\
+  = \{x_0, \dots, x_p\} - \C_x \partial(x_0, \dots, x_p)$.
 
   b) $f_\# \C_x(x_0, \dots, x_p) = f_\#(x, x_0, \dots, x_p) = (f(x), f(x_0), \dots, f(x_p)) = \C_{f(x)} f_\#(x_0, \dots, x_p)$
 \end{proof}
@@ -252,7 +253,7 @@ donde $b(\phi) = \frac{x_0 + \dots + x_p}{p+1}$, siendo $\phi = \{x_0, \dots, x_
 
 Veamos algunas propiedades. Debido a que la definición se hizo por inducción, todas las demostraciones serán por inducción.
 
-a) $\partial \circ Sd' = Sd' \circ \partial$
+a) $\partial \circ Sd' = Sd' \circ \partial$.
 
 \begin{proof}
   Para $p = 0$ la demostración es trivial, por la definición de $Sd'$. Suponemos $p \geq 1$.
@@ -260,28 +261,27 @@ a) $\partial \circ Sd' = Sd' \circ \partial$
   Sea $\phi \in F_p^A(C)$, entonces
   \begin{align*}
     \partial \circ Sd'(\phi) &= \partial \C_{b(\phi)} Sd' \partial \phi = Sd'(\partial \phi) - \C_{b(\phi)} \partial Sd'(\partial \phi) \\
-    &= Sd'(\partial \phi) - \C_{b(\phi)} Sd'(\partial^2 \phi) = Sd'(\partial \phi)
+    &= Sd'(\partial \phi) - \C_{b(\phi)} Sd'(\partial^2 \phi) = Sd'(\partial \phi).
   \end{align*}
 \end{proof}
 
-b) Si $f \colon C \to C'$ es afín, entonces $f_\# \circ Sd' = Sd' \circ f_\#$
+b) Si $f \colon C \to C'$ es afín, entonces $f_\# \circ Sd' = Sd' \circ f_\#$.
 
 \begin{proof}
   $(f_\# Sd')(\phi) = f_\#(\C_{b(\phi)} Sd'(\partial(\phi))) = \C_{f(b(\phi))} f_\# Sd'(\partial(\phi))\\ \stackrel{\text{h. de i}}{=}
-  \C_{f(b(\phi))} Sd'(f_\#(\partial(\phi))) = \C_{f(b(\phi))} Sd'(\partial(f_\#(\phi))) = Sd'(f_\#(\phi))$
+  \C_{f(b(\phi))} Sd'(f_\#(\partial(\phi))) = \C_{f(b(\phi))} Sd'(\partial(f_\#(\phi))) = Sd'(f_\#(\phi))$.
 \end{proof}
 
 c) Existe un homomorfismo $\tau' \colon A_p(C) \to A_{p+1}(C)$ tal que ${\partial \tau' + \tau' \partial = Sd' - Id_{A_p(C)}}$,
 es decir, $Sd'$ es, como aplicación de cadenas, homotópica a la identidad.
 
 \begin{proof}
-  Para $p = 0$, tomamos $\tau' = 0$
+  Para $p = 0$, tomamos $\tau' = 0$.
 
-  Supuesto cierto hasta $p-1$, buscamos $\tau' \colon A_p(C) \to A_{p+1}(C)$ verificando \\
-  $\partial \tau' = Sd' - I_{A_p(C)} - \tau' \partial$
+  Supuesto cierto hasta $p-1$, buscamos $\tau' \colon A_p(C) \to A_{p+1}(C)$ verificando $\partial \tau' = Sd' - I_{A_p(C)} - \tau' \partial$.
 
   Como el segundo miembro es conocido, entonces si $\phi \in F_p^A(C), \tau'(\phi)$ ha de verificar
-  $\partial(\tau'(\phi)) = Sd'(\phi) - \phi - \tau'(\partial(\phi))$. Lo calculamos
+  $\partial(\tau'(\phi)) = Sd'(\phi) - \phi - \tau'(\partial(\phi))$. Lo calculamos:
   \begin{align*}
     &\partial(Sd'(\phi) - \phi - \tau'(\partial(\phi)) = Sd'(\partial(\phi)) - \partial(\phi) - \partial(\tau' \partial(\phi)) \\
     &= Sd'(\partial(\phi)) - \partial(\phi) + \tau'(\partial^2(\phi)) - Sd'(\partial(\phi)) + \partial(\phi) = 0
@@ -291,10 +291,10 @@ es decir, $Sd'$ es, como aplicación de cadenas, homotópica a la identidad.
     &\partial(\tau'(\phi)) = \partial \C_{b(\phi)}(Sd'(\phi) - \phi -\tau'(\partial(\phi))) = (Sd'(\phi) - \phi - \tau' \partial(\phi)) \\
     &- \C_{b(\phi)} \partial(Sd'(\phi) - \phi - \tau'(\partial(\phi))) = Sd'(\phi) - \phi - \tau'(\partial(\phi))
   \end{align*}
-  Lo que demuestra la igualdad que queríamos.
+  lo que demuestra la igualdad que queríamos.
 \end{proof}
 
-d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# \tau' = \tau' f_\#$
+d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# \tau' = \tau' f_\#$.
 
 \begin{proof}
   Para $p = 0$ es trivial por definición.
@@ -305,7 +305,7 @@ d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# 
     &= \C_{f(b(\phi))} f_\#(Sd'(\phi) - \phi - \tau(\partial(\phi))) \\
     &= \C_{f(b(\phi))}(Sd'(f_\# \phi) - f_\# \phi - \tau'(f_\# \partial(\phi))) = \tau'(f_\#(\phi))
   \end{align*}
-  Por lo que $f_\# \tau' = \tau' f_\#$.
+  por lo que $f_\# \tau' = \tau' f_\#$.
 \end{proof}
 
 e) Propiedad técnica. Nos permitirá subdividir símplices hasta que estos queden dentro de un recubrimiento.
@@ -321,12 +321,10 @@ $\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) 
   \begin{align*}
     &\partial(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \tau_p \circ F_p^i = \text{(por ser la identidad)} \\
     &= \sum\limits_{i = 0}^p (-1)^i F_p^i \circ \tau_{p-1} = \sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# (\tau_{p-1}) \text{. De esta forma:} \\
-    &Sd'(\tau_p) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i Sd'(F_p^i)_\# (\tau_{p-1})) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# Sd'(\tau_{p-1}))
+    &Sd'(\tau_p) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i Sd'(F_p^i)_\# (\tau_{p-1})) = \C_{b(\tau_p)}(\sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# Sd'(\tau_{p-1})).
   \end{align*}
   Si $Sd'(\tau_{p-1}) = \sum\limits_j m_j \psi_j$, entonces, por inducción, $\forall j$ existe $t_{p-1}^j \in Sd(\sigma_{p-1})$ tal que
-  $\Img(\psi_j) \subseteq t_{p-1}^j$.
-
-  Por tanto, $Sd'(\tau_p) = \sum\limits_{i = 0}^p \sum\limits_j (-1)^i m_j C_{b(\tau_p)}(F_p^i)_\# (\psi_j)$
+  $\Img(\psi_j) \subseteq t_{p-1}^j$. Por tanto, $Sd'(\tau_p) = \sum\limits_{i = 0}^p \sum\limits_j (-1)^i m_j C_{b(\tau_p)}(F_p^i)_\# (\psi_j)$.
 
   Como $\Img(\psi_j) \subseteq t_{p-1}^j \in Sd(\sigma_{p-1})$
   $\Img((F_p^i)_\# (\psi_j)) = \Img(F_p^i \circ \psi_j) \subseteq F_p^i(\Img(\psi_j)) \subseteq F_p^i(t_{p-1}^j) \in Sd(\interior{\sigma_p})$,
@@ -345,15 +343,15 @@ un espacio topológico $\X$. Demostraremos una serie de propiedades, equivalente
 
 \begin{proposition}
   Sea $\X$ un espacio topológico. Entonces, para todo $p \geq 0$ existe un homomorfismo
-  \[Sd\colon S_p{(\X)} \to S_p{(\X)} \] homomorfismo, verificando:
+  \[Sd\colon S_p{(\X)} \to S_p{(\X)} \] verificando:
   \begin{itemize}
-    \item[a)] Si $\X$ es un convexo de un espacio euclídeo, $Sd_{|A_p(\X)} = Sd'$
-    \item[b)] $Sd \circ \partial = \partial \circ Sd$
-    \item[c)] $Sd \circ f_\# = f_\# \circ Sd \quad \forall f \colon \X \to \Y$ continua
+    \item[a)] Si $\X$ es un convexo de un espacio euclídeo, $Sd_{|A_p(\X)} = Sd'$,
+    \item[b)] $Sd \circ \partial = \partial \circ Sd$,
+    \item[c)] $Sd \circ f_\# = f_\# \circ Sd \quad \forall f \colon \X \to \Y$ continua,
     \item[d)] Existe un homomorfismo $\tau \colon \SX{p} \to S_{p+1}(\X)$ tal que ${\partial \tau + \tau \partial = Sd - Id_{S_p(\X)}}$
-              $\forall p \geq 0$ y $\tau f_\# = f_\# \tau \quad \forall f \colon \X \to \Y$ continua
+              $\forall p \geq 0$ y $\tau f_\# = f_\# \tau \quad \forall f \colon \X \to \Y$ continua,
     \item[e)] Si $\phi \in F_p(\X)$ y $Sd(\phi) = \sum_i n_i \phi_i$, entonces $\forall i \exists t_p^i \in Sd(\sigma_p)$ tal que
-              $\Img(\phi_i) \subseteq \phi(t_p^i)$
+              $\Img(\phi_i) \subseteq \phi(t_p^i)$.
 
   \end{itemize}
 \end{proposition}
@@ -373,25 +371,25 @@ un espacio topológico $\X$. Demostraremos una serie de propiedades, equivalente
     &= \phi_\#(Sd'(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# (\tau_{p-1}))) = \phi_\#(\sum\limits{i = 0}^p (-1)^i Sd' \circ (F_p^i)_\#(\tau_{p-1}))\\
     &= \text{(caso afín)} = \phi_\#(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# Sd'(\tau_{p-1})) = \sum\limits_{i = 0}^p (-1)^i (\phi \circ F_p^i)_\# Sd'(\tau_{p-1}) \\
     &= (\partial_i \phi)_\# (\sum\limits_{i = 0}^p (-1)^i Sd'(\tau_{p-1})) = \sum\limits_{i = 0}^p (-1)^i Sd(\partial_i \phi) = Sd(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
-    &= (Sd \circ \partial)(\phi)
+    &= (Sd \circ \partial)(\phi).
   \end{align*}
 
-  c) $(f_\# \circ Sd)(\phi) = f_\# \phi_\# Sd'(\tau_p) = (f \circ \phi)_\# Sd'(\tau_p) = Sd(f_\#(\phi))$
+  c) $(f_\# \circ Sd)(\phi) = f_\# \phi_\# Sd'(\tau_p) = (f \circ \phi)_\# Sd'(\tau_p) = Sd(f_\#(\phi))$.
 
-  d) Definimos $\tau(\phi) = \phi_\#(\tau'(\tau_p)) \quad \text{con} \quad \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X)$ \\
+  d) Definimos $\tau(\phi) = \phi_\#(\tau'(\tau_p)) \quad \text{con} \quad \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X)$. \\
   Entonces, se tiene:
   \begin{align*}
     &(\partial \tau + \tau \partial)(\phi) \partial(\phi_\# \tau'(\tau_p)) + \tau(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
     &= \phi_\#(\partial \tau'(\tau_p)) + \sum\limits_{i = 0}^p (-1)^i((\partial_i \phi)_\#(\tau'(\tau_{p-1})) = \phi_\#(\partial \tau'(\tau_p)) \\
     &+ \phi_\#(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# (\tau'(\tau_{p-1}))) = \text{caso afín} = \phi_\#(\partial \tau'(\tau_p)) \\
     &+ \phi_\#(\tau'(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\#(\tau_{p-1})) = \phi_\#(\partial \tau'(\tau_p)) + \phi_\#(\tau'\partial(\tau_p)) \\
-    &= \phi_\#(\partial \tau' + \tau' \partial)(\tau_p) = \text{caso afín} = \phi_\#(Sd' - Id)(\tau_p) = Sd(\phi) - \phi
+    &= \phi_\#(\partial \tau' + \tau' \partial)(\tau_p) = \text{caso afín} = \phi_\#(Sd' - Id)(\tau_p) = Sd(\phi) - \phi.
   \end{align*}
 
-  e) Como $Sd(\phi) = \phi_\#(Sd'(\tau_p))$, entonces si $Sd'(\tau_p) = \sum_i n_i \psi_i, \phi_i = \phi_\#(\psi_i)$
+  e) Como $Sd(\phi) = \phi_\#(Sd'(\tau_p))$, entonces si $Sd'(\tau_p) = \sum_i n_i \psi_i, \phi_i = \phi_\#(\psi_i)$.
 
   Como existe $t_p^i \in Sd(\sigma_p)$ tal que $\Img(\psi_i) \subseteq t_p^i$, entonces
-  \[\Img(\phi_i) = \Img(\phi_\#(\psi_i)) = \phi(\Img(\psi_i)) \subseteq \phi(t_p^i)\]
+  \[\Img(\phi_i) = \Img(\phi_\#(\psi_i)) = \phi(\Img(\psi_i)) \subseteq \phi(t_p^i).\]
 
   \begin{remark}
     Probar que si $\phi \in F_p(\X)$ y $Sd^n(\phi) = \sum_i n_i \phi_i \implies \forall i \hspace{0.2em} \exists t_p^i \in Sd^n(\sigma_p)$ tal que
@@ -429,33 +427,33 @@ Demostremos ya el teorema de subdivisión baricéntrica.
   Si $t_p \in Sd^{n(\phi)}(\sigma_p), diam(t_p) < \epsilon(\phi)$, luego existe $U \in \U$ con $\phi(t_p) \subseteq U$.
   En consecuencia, si $Sd^{n(\phi)}(\phi) = \sum_i n_i \phi_i$,  entonces, por una propiedad vista, $\Img(\phi_i) \subseteq \phi(t_p^i)$
   con $t_p^i \in Sd^{n(\phi)}(\sigma_p)$, por lo que existirá $U_i \in \U$ con $\Img(\phi_i) \subseteq \phi(t_p^i) \subseteq U_i$. \\
-  Así, $Sd^{n(\phi)}(\phi) \in S_p^\U(\X)$
+  Así, $Sd^{n(\phi)}(\phi) \in S_p^\U(\X)$.
 
-  Sea $m(\phi) = \inf\{n(\phi) \mid Sd^{n(\phi)}(\phi) \in S_p^\U(\X)\}$, que puede ser $0$, si, por ejemplo, $\phi \in S_p^\U(\X)$
+  Sea $m(\phi) = \inf\{n(\phi) \mid Sd^{n(\phi)}(\phi) \in S_p^\U(\X)\}$, que puede ser $0$, si, por ejemplo, $\phi \in S_p^\U(\X)$.
 
   Definimos $\psi \colon S_p(\X) \to S_p^\U(\X)$ por
-  \[\psi(\phi) = Sd^{m(\phi)}(\phi) - \sum\limits_{i = 0}^p (-1)^i \tau(Sd^{m(\partial_i(\phi))} + \dots + Sd^{m(\phi) - 1}) \partial_i \phi \]
+  \[\psi(\phi) = Sd^{m(\phi)}(\phi) - \sum\limits_{i = 0}^p (-1)^i \tau(Sd^{m(\partial_i(\phi))} + \dots + Sd^{m(\phi) - 1}) \partial_i \phi, \]
   y si $m(\partial_i \phi) = m (\phi)$, el sumando $i$ no aparece en la expresión de $\psi$.
 
   Hay que ver que está bien definido, para lo que comprobamos:
   \begin{itemize}
-    \item[i)] $m(\partial_i(\phi)) \leq m(\phi)$
-    \item[ii)] $\tau(S_{p-1}^\U(\X)) \subseteq S_p^\U(\X)$
+    \item[i)] $m(\partial_i(\phi)) \leq m(\phi)$,
+    \item[ii)] $\tau(S_{p-1}^\U(\X)) \subseteq S_p^\U(\X)$.
   \end{itemize}
 
   i) $Sd^n(\partial_i(\phi)) = \sum_\alpha n_\alpha \psi_\alpha$, con $\Img(\psi_\alpha) \subseteq (\partial_i \circ \phi)(t_{p-1}^\alpha), t_{p-1}^\alpha \in Sd^n(\sigma_{p-1})$. \\
   Como $\partial_i \phi = \phi \circ F_p^i$, se tiene:
-  \[ \Img(\phi_\alpha) \subseteq (\phi \circ F_p^i)(t_{p-1}^i) \subseteq \phi(\U_{p-1}^\alpha) \subseteq \phi((b(\sigma_p), \U_ {p-1}^\alpha)) = \phi(S_p^\alpha)\]
+  \[ \Img(\phi_\alpha) \subseteq (\phi \circ F_p^i)(t_{p-1}^i) \subseteq \phi(\U_{p-1}^\alpha) \subseteq \phi((b(\sigma_p), \U_ {p-1}^\alpha)) = \phi(S_p^\alpha),\]
   con $S_p^\alpha \in Sd^n(\sigma_p)$.
 
   Si $Sd^n(\phi) \in S_p^\U(\X)$, entonces $\phi(S_p^\alpha) \subseteq U_\alpha \in \U$, luego se verifica
-  \[ \Img(\psi_\alpha) \subseteq U_\alpha \in \U \implies Sd^n(\partial_i \phi) \in S_{p-1}^\U(\X) \]
-  De esta forma, $m(\partial_i \phi) = \inf\{n(\phi) \mid Sd^n(\partial_i \phi) \in S_{p-1}\U(\X)\} \leq m(\phi)$
+  \[ \Img(\psi_\alpha) \subseteq U_\alpha \in \U \implies Sd^n(\partial_i \phi) \in S_{p-1}^\U(\X). \]
+  De esta forma, $m(\partial_i \phi) = \inf\{n(\phi) \mid Sd^n(\partial_i \phi) \in S_{p-1}\U(\X)\} \leq m(\phi)$.
 
   ii) Como $\tau(\phi) = \phi_\# (\tau'(\tau_p))$, sea $\phi \colon \sigma_{p-1} \to \X$ continua con $\Img(\phi) \subseteq U \in \U$, esto es,
   un generador de $S_{p-1}^\U(\X)$. Entonces:
-  \[ \tau(\phi) = \phi_\#(\tau'(\tau_p)) = \phi_\#(\sum_i n_i \phi_i) = \sum_i n_i \phi_\#(\phi_i) \]
-  Como $\Img(\phi_\#(\phi_i)) \subseteq \Img(\phi) \subseteq U \in \U, \tau(\phi) \in S_p^\U(\X)$
+  \[ \tau(\phi) = \phi_\#(\tau'(\tau_p)) = \phi_\#(\sum_i n_i \phi_i) = \sum_i n_i \phi_\#(\phi_i). \]
+  Como $\Img(\phi_\#(\phi_i)) \subseteq \Img(\phi) \subseteq U \in \U, \tau(\phi) \in S_p^\U(\X)$, lo que concluye la demostración de ii).
 
   Una vez probada la buena definición de $\psi$, definimos:
   \begin{align*}
@@ -464,22 +462,21 @@ Demostremos ya el teorema de subdivisión baricéntrica.
   \end{align*}
   Vamos a ver que:
   \begin{itemize}
-    \item[a)] $\psi \circ i = Id_{S_p^\U(\X)}$
-    \item[b)] $i \circ \psi - Id_{\SX{p}} = \partial T - T \partial$
+    \item[a)] $\psi \circ i = Id_{S_p^\U(\X)}$,
+    \item[b)] $i \circ \psi - Id_{\SX{p}} = \partial T - T \partial$.
   \end{itemize}
   En tal caso, $i \circ \psi$ y la identidad serían aplicaciones de cadenas homotópicas, e inducirían los mismos homomorfismos en la homología.
   Esto, junto a que $\psi \circ i = Id$, nos dice que $i_* \colon H_p^{\U}(\X) \to H_p(\X)$ es un isomorfismo para todo $p$, con inverso $\psi_*$.
   Concluímos la demostración probando a) y b).
 
-  a) $(\psi \circ i)(\phi) = \psi(\phi)$ con $\phi \in F_p^\U(\X)$. Como $m(\phi) = 0$ en este caso, $\psi(\phi) = \phi - 0 = \phi$
+  a) $(\psi \circ i)(\phi) = \psi(\phi)$ con $\phi \in F_p^\U(\X)$. Como $m(\phi) = 0$ en este caso, $\psi(\phi) = \phi - 0 = \phi$.
 
   b) Sabemos que $\partial \tau + \tau \partial = Sd - Id$, por lo que:
-  \[ \partial \tau Sd - \tau Sd \partial = \partial \tau Sd - \tau \partial Sd = Sd^2 - Sd \]
+  \[ \partial \tau Sd - \tau Sd \partial = \partial \tau Sd - \tau \partial Sd = Sd^2 - Sd. \]
   Repitiendo este proceso sucesivamente, se tiene:
-  \[ \partial \tau Sd^{m - 1} - \tau Sd^{m-1} \partial = Sd^m - Sd^{m-1} \]
+  \[ \partial \tau Sd^{m - 1} - \tau Sd^{m-1} \partial = Sd^m - Sd^{m-1}. \]
   Si los sumamos todos, $\partial \tau(I + Sd + \dots + Sd^{m-1}) - \tau(I + Sd + \dots + Sd^{m-1}) \partial = Sd^m - Id$. \\
   De esta forma:
-
   \begin{align*}
     &(\partial T + T \partial)(\phi) = \partial \tau(I + Sd + \dots + Sd^{m-1}) \phi + T(\sum\limits_{i = 0}^p (-1)^i \partial_i(\phi)) \\
     &= \partial \tau(I + Sd + \dots + Sd^{m(\phi)-1}) \phi + \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
@@ -520,7 +517,8 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   \[ \dots \to H_p(U \cap V) \xrightarrow{G} H_p(U) \oplus H_p(V) \xrightarrow{H} H_p(\X) \xrightarrow{\Delta} H_{p-1}(U \cap V) \to \dots \]
   donde $G([c]) = (i_*[c], j_*[c]), \quad H([c_1], [c_2]) = k_*([c_1]) - l_*([c_2])$.
 
-  A esta sucesión la llamaremos la \textbf{sucesión de Mayer-Vietoris}.
+  A esta sucesión la llamaremos la \textbf{sucesión de Mayer-Vietoris}. Nos referiremos a $\Delta$ como el \textbf{homomorfismo de conexión}
+  de la sucesión de Mayer-Vietoris.
 
   Además, esta construcción es natural, es decir, si $(\Y, \{R, S\})$ está en las condiciones del teorema y $f \colon \X \to \Y$ es continua con
   $f(U) \subseteq R, f(V) \subseteq S$, entonces el diagrama resultante es conmutativo.
@@ -546,7 +544,7 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   $d_1 = \sum_i n_i \phi_i, d_2 = \sum_j m_j \psi_j, \hspace{0.2em}  \Img \phi_i \subseteq U, \Img \psi_j \subseteq V$.
 
   De esta forma, $d_1 = k_\#(d_1), -d_2 = l_\#(d_2)$, y $d = k_\#(d_1) - l_\#(-d_2)$.
-  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$, y si \\
+  Es claro que $k_\#(i_\#(c)) - l_\#(j_\#(c)) = 0$, y, por último, si $k_\#(c_1) - l_\#(c_2) = 0$, y si
   $c_1 = \sum_i n_i \phi_i,  c_2 = \sum_j m_j \psi_j$, entonces $\Img(\phi_i) \subseteq U \cap V, \Img(\psi_j) \subseteq U \cap V$,
   y así $c_1 = i_\#(c), c_2 = j_\#(c)$, de donde se sigue la exactitud.
 
@@ -589,9 +587,8 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   Sea $[c] \in H_p(\mathcal G)$ con $c \in \mathcal G_p$ y $\partial c = 0$. Como $g$ es sobreyectiva, $c = g(d), d \in \mathcal F_p$.
   Además, $0 = \partial c = \partial g(d) = g(\partial d)$, y así, $\partial d \in \Ker g = \Img f$, luego existe un único $e \in \mathcal E_{p+1}$
   tal que $f(e) = \partial d$, con $g(d) = c$. \\
-  Definimos $\Delta([c]) = [e]$.
+  Definimos $\Delta([c]) = [e]$. Veamos que está bien definido.
 
-  Veamos que está bien definido. \\
   Si $[c] = [c']$, existe $d'$ con $g(d') = c'$ y existe $e'$ con $f(e') = \partial d'$. Como $c - c' = \partial h, h \in \mathcal G_{p+1}$,
   entonces existe $h' \in \mathcal F_{p+1}$ tal que $g(h') = h$. De esta forma:
   \[ g(d') - g(d) = \partial g(h') \implies g(d' - d - \partial h') = 0 \]
@@ -640,22 +637,21 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
   Como $\frac{S_*^{\U}(\X)}{S_*^{\U'}(A)} = \frac{S_*(\X - \U) + S_*(\interior{A})}{S_*(A - \U) + S_*(\interior{A})} = \frac{S_*(\X-\U)}{S_*(A-\U)}$, se tiene
   directamente el resultado, y así, $j''$ es un isomorfismo.
 
-  Finalmente, debido a que $k_\# \colon S_*(\X-\U, A-\U) \to S_*(\X, A)$ es dada por \\
-  $k_\# = i'' \circ j'', k_* = i''_* \circ j''_*$ es un isomorfismo.
+  Finalmente, debido a que $k_\# \colon S_*(\X-\U, A-\U) \to S_*(\X, A)$ es dada por $k_\# = i'' \circ j'', k_* = i''_* \circ j''_*$ es un isomorfismo.
 \end{proof}
 
 \subsection{Homología de las esferas}
 
 Como última parte de este capítulo, vamos a calcular los grupos de homología de las esferas
-$n$-dimensionales. Lo haremos de dos formas: en la primera de ellas, utilizando resultados sobre pares
-y el teorema de escisión, mientras que en la segunda nos haremos valer de la sucesión de
-Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
+$n$-dimensionales. Lo haremos de dos formas: en la primera de ellas, utilizaremos resultados
+sobre pares y el teorema de escisión, mientras que en la segunda nos haremos valer de la
+sucesión de Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
 
 \begin{theorem}[Grupos de homología de las esferas]
   Sea $S^n$ la $n$-esfera en $\R^{n+1}$, de la que tomamos su representación asociada a la norma:
-  \[S^n = \{x = (x_1, \dots, x_{n+1}) \in \R^{n+1} \mid |x| = 1\} \]
+  \[S^n = \{x = (x_1, \dots, x_{n+1}) \in \R^{n+1} \mid |x| = 1\}. \]
 
-  Veamos que $H_p(S^n) = \begin{cases}  \Z & \text{ si } p = 0, n \\
+  Entonces se verifica que $H_p(S^n) = \begin{cases}  \Z & \text{ si } p = 0, n \\
                                          0 & \text{ en otro caso.} \end{cases}$
 \end{theorem}
 
@@ -666,14 +662,13 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
   $E_+^n = \{x \in \S^n \mid x_{n+1} \geq 0\}, \hspace{0.5em} E_-^n = \{x \in \S^n \mid x_{n+1} \leq 0\}$.
 
   Cada hemisferio es homeomorfo al disco cerrado $D^n$ mediante la proyección al plano $\{x \in \R^{n+1} \mid x_{n+1} = 0\}$,
-  por lo que es contráctil, y su grupo de homología es el mismo que el de $\R^n$. Además, la intersección de
+  por lo que es contráctil, y sus grupos de homología son los mismos que los de $\R^n$. Además, la intersección de
   ambos, $E_+^n \cap E_-^n = \{x \in S^n \mid x_{n+1} = 0\}$ es homeomorfa a $S^{n-1}$.
 
   Consideremos el par $(S^n, E_+^n)$ y $U = \{x \in S^n \mid x_{n+1} > \frac{1}{2}\} \subseteq S^n$ abierto. Como
   $\overline{U} = \{x \in S^n \mid x_{n+1} \geq \frac{1}{2}\} \subseteq E_+^n$, estamos en condiciones de aplicar
   el teorema de escisión, de donde se deduce:
   \[ H_*(S^n, E_+^n) \cong H_*(S^n - U, E_+^n - U) \]
-
   Es posible construir un retracto de $(S^n - U, E_+^n - U)$ a $(E_-^n, S^{n-1})$, por lo que sus
   homologías son isomorfas. Usando la equivalencia anterior, tenemos que $H_*(S^n, E_+^n) \cong H_*(E_-^n, S^{n-1})$.
 
@@ -683,9 +678,8 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
     &\dots \to 0 = H_1(E_+^n) \to H_1(S^n) \to H_1(S^n, E_+^n) \to H_0(E_+^n) = \Z \to \dots
   \end{align*}
 
-  Como $H_p(E_+^n) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$
-
-  utilizando que la sucesión es exacta, se tiene que:
+  Como $H_p(E_+^n) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$,
+  utilizando que la sucesión es exacta, se tiene que
   \[H_p(S^n) \cong H_p(S^n, E_+^n) \quad \forall p \geq 1\]
 
   Tomando la otra sucesión:
@@ -693,12 +687,11 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
     &\dots 0 = H_p(E_-^n) \to H_p(E_-^n, S^{n-1}) \to H_{p-1}(S^{n-1}) \to H_{p-1}(E_-^n) = 0 \to \dots \\
     &\dots 0 = H_1(E_-^n) \to H_1(E_-^n, S^{n-1}) \to H_0(S^{n-1}) \to H_0(E_-^n) \to \dots
   \end{align*}
-
   Con $H_0(S^{n-1}) = \begin{cases} \Z &\text{ si } n \geq 2 \\ \Z \oplus \Z &\text{ si } n = 1 \end{cases}$
 
   De esta forma, si $p \geq 2$, $H_p(E_-^n, S^{n-1}) \cong H_{p-1}(S^{n-1})$
 
-  Si $p = 1$, entonces distinguimos dos casos:
+  Si $p = 1$, distinguimos dos casos:
 
   \begin{itemize}
     \item Si $n = 1, H_p(E_-^n, S^{n-1}) \cong \Z$.
@@ -706,7 +699,7 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
   \end{itemize}
 
   Como $H_p(S^n, E_+^n) \cong H_{p-1}(E_-^n, S^{n-1})$, se sigue que:
-  \[ H_p(S^n) \cong H_{p-1}(S^{n-1}), p \geq 2 \]
+  \[ H_p(S^n) \cong H_{p-1}(S^{n-1}) \quad \forall p \geq 2 \]
   \[ H_1(S^n) \cong H_1(E_-^n, S^{n-1}) = \begin{cases} 0 &\text{ si } n \geq 2 \\ \Z &\text{ si } n = 1 \end{cases} \]
 
   Por tanto, distinguimos tres casos:
@@ -715,7 +708,7 @@ Mayer-Vietoris, llegando en ambas a las mismas conclusiones.
       p > n &\quad H_p(S^n) \cong \dots \cong H_{p-n}(S^0) = 0 \\
       p < n &\quad H_p(S^n) \cong \dots \cong H_1(S^{n-p+1}) = 0
   \end{align*}
-  Y tenemos el resultado.
+  lo que demuestra el resultado.
 \end{proof}
 
 Veamos ahora una deducción alternativa utilizando la sucesión de Mayer-Vietoris.
@@ -741,8 +734,7 @@ Veamos ahora una deducción alternativa utilizando la sucesión de Mayer-Vietori
   Como $U \cap V = S^1 - \{(0, 1), (0, -1)\}, H_0(U \cap V) \cong \Z \oplus \Z$, y sus elementos son de la forma
   $[ax + by]$, con $a,b \in \Z, x, y$ puntos en cada componente conexa de $U \cap V$. Se tiene que:
 
-  $G([ax + by]) = (i_*(ax + by), j_*(ax + by)) = (0, 0)$, de donde obtenemos \\
-  $[ax + by]_U = [ax + by]_V = 0$.
+  $G([ax + by]) = (i_*(ax + by), j_*(ax + by)) = (0, 0)$, de donde obtenemos $[ax + by]_U = [ax + by]_V = 0$.
 
   Además, $[ax + by]_U = [(a+b) x]_U$, ya que $[x]_U = [y]_U$ por ser $U$ arcoconexo. Por tanto, $a = -b$.
 
