@@ -29,7 +29,7 @@
 \RequirePackage{fix-cm} % fix some latex issues see: http://texdoc.net/texmf-dist/doc/latex/base/fixltx2e.pdf
 \documentclass[ titlepage,numbers=noenddot,headinclude,oneside, %1headlines,% letterpaper a4paper
                 footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
-                BCOR=5mm,paper=a4,fontsize=12pt,%13pt,a4paper,%
+                BCOR=5mm,paper=a4,fontsize=11pt,%13pt,a4paper,%
                 ngerman,spanish,%
                 ]{scrreprt}
 
@@ -83,7 +83,14 @@
 % Parte 1: Matemáticas.
 % Homología Singular
 
-\ctparttext{En esta parte, vamos a ver una introducción a la homología singular.}
+\ctparttext{En esta parte, vamos a ver una introducción a la homología singular.
+  Comenzaremos definiendo los grupos de homología singular de un espacio topológico,
+  estudiando algunas de sus propiedades para casos concretos. Seguiremos realizando
+  una construcción geométrica que nos permitirá demostrar el teorema de subdivisión
+  baricéntrica, resultado que nos lleva a la obtención de herramientas para el
+  cálculo de la homología, y las aplicaremos al caso particular de las esferas.
+  Finalmente, demostraremos resultados clasicos de topología haciéndonos valer
+  de nuevas construcciones, unidas a los resultados ya demostrados.}
 \part{Homología Singular}
 \include{Chapters/Chapter1}
 
@@ -99,6 +106,8 @@
 \include{Chapters/IntroduccionMCP}
 
 \include{Chapters/Algoritmos}
+
+\include{Chapters/Resultados}
 % ********************************************************************
 % Backmatter
 %*******************************************************
@@ -110,7 +119,7 @@
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
-\cleardoublepage\include{FrontBackmatter/Bibliography}
+%\cleardoublepage\include{FrontBackmatter/Bibliography}
 %\cleardoublepage\include{FrontBackmatter/Declaration}
 %\cleardoublepage\include{FrontBackmatter/Colophon}
 % ********************************************************************
