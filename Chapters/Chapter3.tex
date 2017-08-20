@@ -27,9 +27,9 @@ Comenzamos con un resultado consecuencia directa del cálculo de la homología d
 \end{proof}
 
 \begin{remark}
-  $\R^n$ y $\R^m$ tienen el mismo tipo de homotopía. Si $n \leq m$, podemos ver $\R^m$ como \\
+  $\R^n$ y $\R^m$ tienen el mismo tipo de homotopía. Si $n \leq m$, podemos ver $\R^m$ como
   $\R^m = \{(x, y) \mid x \in \R^n, y \in \R^{m-n}\}$, y se define
-  \[ H((x, y), t) = (1-t)(x, y) + t(x, 0) \]
+  \[ H((x, y), t) = (1-t)(x, y) + t(x, 0), \]
   homotopía entre ambos espacios, siendo $\R^n$ un retracto de $\R^m$.
 \end{remark}
 
@@ -74,7 +74,7 @@ del punto fijo de Brower.
 \begin{proof}
   Sea $h \colon D^n \to \R^n$, definida por:
   \[ h(x) = \begin{cases} f(2x) &\text{ si } |x| \leq \frac{1}{2} \\
-                          (2-2|x|)f(\frac{x}{|x|}) + (2|x| - 1)x &\text{ si } |x| \geq \frac{1}{2}  \end{cases} \]
+                          (2-2|x|)f(\frac{x}{|x|}) + (2|x| - 1)x &\text{ si } |x| \geq \frac{1}{2}, \end{cases} \]
   que es continua, ya que en $\frac{1}{2}$ ambas definiciones coinciden.
 
   Si $|x| = 1, h(x) = x$, y aplicando el corolario anterior, existe $y \in D^n$ tal que $h(y) = 0$. Distinguimos dos casos:
@@ -134,26 +134,28 @@ Definamos el grupo de homología local, herramienta que nos servirá para demost
 Vamos a calcular la homología local de $\R^n$.
 
 \begin{proposition}
-  $H_p(\R^n, \R^n - \{x\}) \cong \begin{cases} 0 &\text{ si } n \neq p \\ \Z &\text{ si } n = p \end{cases}$
+  $H_p(\R^n, \R^n - \{x\}) \cong \begin{cases} 0 &\text{ si } n \neq p \\ \Z &\text{ si } n = p. \end{cases}$
 \end{proposition}
 
 \begin{proof}
-  Si $p = 0$, ya sabemos que $H_0(\R^n, \R^n - \{x\}) = 0$. Supondremos $p \geq 1$.
+  Si $p = 0$, ya sabemos que $H_0(\R^n, \R^n - \{x\}) = 0$ por un resultado que vimos sobre pares. Supondremos $p \geq 1$.
 
   Consideramos la sucesión de homología del par, teniendo en cuenta que $\R^n - \{x\}$ y $S^{n-1}$ tienen el mismo tipo de homotopía.
 
   Si $p = 1$:
-  \[ 0 = H_1(\R^n) \xrightarrow{\pi_*} H_1(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_0(\R^n - \{x\}) \xrightarrow{i_*} H_0(\R^n) = \Z \to 0 \]
-  Si $n \geq 2, H_0(\R^n - \{x\}) \cong \Z$. Como $\Img \Delta = \Ker i_* = 0, \Ker \Delta = \Img \pi_* = 0$, entonces se tiene que
-  $H_1(\R^n, \R^n - \{x\}) = 0$.
-
-  Si $n = 1, H_0(\R^n - \{x\}) \cong \Z \oplus \Z$, luego $H_1(\R^n, \R^n - \{x\}) \cong \Z$.
+  \[ 0 = H_1(\R^n) \xrightarrow{\pi_*} H_1(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_0(\R^n - \{x\}) \xrightarrow{i_*} H_0(\R^n) = \Z \to 0. \]
+  \begin{itemize}
+    \item Si $n \geq 2, H_0(\R^n - \{x\}) \cong \Z$. Como $\Img \Delta = \Ker i_* = 0, \Ker \Delta = \Img \pi_* = 0$, entonces se tiene que
+          $H_1(\R^n, \R^n - \{x\}) = 0$.
+    \item Si $n = 1, H_0(\R^n - \{x\}) \cong \Z \oplus \Z$, luego $H_1(\R^n, \R^n - \{x\}) \cong \Z$.
+  \end{itemize}
 
   Si $p \geq 2$:
-  \[ 0 = H_p(\R^n) \xrightarrow{\pi_*} H_p(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_{p-1}(\R^n - \{x\}) \xrightarrow{i_*} H_{p-1}(\R^n) = 0 \]
-  Si $p \neq n, H_{p-1}(\R^n - \{x\}) = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$.
-
-  Si $p = n, H_{p-1}(\R^n - \{x\}) \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$.
+  \[ 0 = H_p(\R^n) \xrightarrow{\pi_*} H_p(\R^n, \R^n - \{x\}) \xrightarrow{\Delta} H_{p-1}(\R^n - \{x\}) \xrightarrow{i_*} H_{p-1}(\R^n) = 0. \]
+  \begin{itemize}
+    \item Si $n \neq p, H_{p-1}(\R^n - \{x\}) = 0$, luego $H_p(\R^n, \R^n - \{x\}) = 0$.
+    \item Si $n = p, H_{p-1}(\R^n - \{x\}) \cong \Z$, luego  $H_p(\R^n, \R^n - \{x\}) = \Z$.
+  \end{itemize}
 \end{proof}
 
 \begin{theorem}[Invarianza de la dimensión]
@@ -163,9 +165,9 @@ Vamos a calcular la homología local de $\R^n$.
 \begin{proof}
   Sea $\phi \colon O_1 \to O_2$ un homeomorfismo entre los abiertos, y sea $x \in O_1$. Como $O_1, O_2$ son entornos de $x, \phi(x)$,
   por la proposición anterior:
-  \[H_*(\R^n, \R^n - \{x\}) \cong H_*(\R^m, \R^m - \{\phi(x)\}) \]
+  \[H_*(\R^n, \R^n - \{x\}) \cong H_*(\R^m, \R^m - \{\phi(x)\}), \]
   y en particular
-  \[ \Z \cong H_n(\R^n, \R^n - \{x\}) \cong H_n(\R^m, \R^m - \{\phi(x)\}) \]
+  \[ \Z \cong H_n(\R^n, \R^n - \{x\}) \cong H_n(\R^m, \R^m - \{\phi(x)\}), \]
   de donde se deduce $n = m$.
 \end{proof}
 
@@ -187,12 +189,12 @@ Vamos a calcular la homología local de $\R^n$.
 Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarianza del borde.
 
 \begin{lemma}
-  Sean $H^n = \{x \in \R^n \mid x_n \geq 0 \}$ semiespacio de $\R^n$, $\partial H^n = Fr H^n = \{x \in \R^n \mid x_n = 0\}$.
-  Consideremos también $\interior{H^n} = \{x \in \R^n \mid x_n > 0\}$. Entonces, se verifica
+  Sean $H^n = \{x \in \R^n \mid x_n \geq 0 \}$ semiespacio de $\R^n$, $\partial H^n = Fr H^n = \{x \in \R^n \mid x_n = 0\}$
+  el borde de dicho semiespacio, y $\interior{H^n} = \{x \in \R^n \mid x_n > 0\}$ su interior. Entonces, se verifica
   \[H_p(H^n, H^n - \{x\}) =
     \begin{cases} \Z &\text{ si } p = n, x \in \interior{H^n} \\
                   0  &\text{ si } p \neq n, x \in \interior{H^n} \\
-                  0  &\text{ si } x \in \partial H^n  \end{cases} \]
+                  0  &\text{ si } x \in \partial H^n.  \end{cases} \]
 \end{lemma}
 
 \begin{proof}
@@ -207,7 +209,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 \begin{corollary}[Invarianza del borde]
   Sean $O_1 \subseteq H^n, O_2 \subseteq H^m$ abiertos homeomorfos. Entonces
   \begin{itemize}
-    \item [a)] Si $\phi \colon O_1 \to O_2$ es un homeomorfismo, $\phi(O_1 \cap \partial H^n) = O_2 \cap \partial H^m$.
+    \item [a)] Si $\phi \colon O_1 \to O_2$ es un homeomorfismo, $\phi(O_1 \cap \partial H^n) = O_2 \cap \partial H^m$,
     \item [b)] $n = m$.
   \end{itemize}
 \end{corollary}
@@ -231,10 +233,10 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 \begin{proposition}[Consecuencias]
   Se verifican los siguientes resultados sobre variedades topológicas con borde:
   \begin{itemize}
-    \item[a)] En cada componente conexa de $M, n(p)$ es constante, y la llamaremos la dimensión de dicha componente.
+    \item[a)] En cada componente conexa de $M, n(p)$ es constante, y la llamaremos la dimensión de dicha componente,
 
     \item[b)] Si $\partial M = \{p \in M \mid H_*(M, M - \{p\}) = 0\}$, entonces
-    \[ \partial M = \{p \in M \mid \forall (V_p, \phi_p), \phi_p(p) \in \partial H^n \cap O_p\} \]
+    \[ \partial M = \{p \in M \mid \forall (V_p, \phi_p), \phi_p(p) \in \partial H^n \cap O_p\}, \]
 
     \item[c)] Si tomamos $\interior{M} = M - \partial M$, entonces $\interior{M}$ tiene estructura de variedad topológica
     (sin borde) $n$-dimensional, y $\partial M$ tiene estructura de variedad topológica con borde $(n-1)$-dimensional.
@@ -256,7 +258,7 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
 
   Las estructuras se definen por:
   \begin{align*}
-    \interior{M} &\colon \{(V \cap \interior{M}, \phi_{|V \cap \interior{M}}) \mid (V, \phi) \text{ es una carta en }M\}. \\
+    \interior{M} &\colon \{(V \cap \interior{M}, \phi_{|V \cap \interior{M}}) \mid (V, \phi) \text{ es una carta en }M\}, \\
     \partial M &\colon   \{(V \cap \partial M,  \phi_{|V \cap \partial M}), \mid (V, \phi) \text{ es una carta en }M\}.
   \end{align*}
 
@@ -279,7 +281,7 @@ Vamos a definir el concepto de variedad diferenciable.
 
 \begin{proposition}
   Sea $A \subseteq S^n$ homeomorfo a $I^k$, con $0 \leq k \leq n$. Entonces:
-  \[ H_p(S^n - A) \cong \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases} \]
+  \[ H_p(S^n - A) \cong \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0. \end{cases} \]
 \end{proposition}
 
 \begin{proof}
@@ -294,7 +296,7 @@ Vamos a definir el concepto de variedad diferenciable.
   Sean $A^+, A^-$ las imágenes por $\phi$ de $I_+^k, I_-^k$ respectivamente.
   En $S^n - (A^+ \cap A^-)$ tomamos la descomposición $U = S^n - A^+, V = S^n - A^-$. Así,
   $U \cap V = S^n - A$, y por Mayer-Vietoris, se tiene:
-  \[ H_p(S^n - (A^+ \cap A^-)) \to H_{p-1}(S^n - A) \xrightarrow{(i_*^+, i_*^-)} H_{p-1}(S^n - A^+) \oplus H_{p-1}(S^n - A^-) \dots \]
+  \[ H_p(S^n - (A^+ \cap A^-)) \to H_{p-1}(S^n - A) \xrightarrow{(i_*^+, i_*^-)} H_{p-1}(S^n - A^+) \oplus H_{p-1}(S^n - A^-) \to \dotsb \]
 
   Como $A^+ \cap A^- \cong I^{k-1}$, por hipótesis de inducción \\
   \[H_p(S^n - (A^+ \cap A^-)) \cong \begin{cases} 0 &\text{ si } p > 0 \\
@@ -312,7 +314,7 @@ Vamos a definir el concepto de variedad diferenciable.
   Nos basta con tomar $A_1 = A^+$ o $A_1 = A^-$, dependiendo de si $i_*^+(\beta) = 0$ o $i_*^-(\beta) = 0$.
 
   Aplicamos el mismo razonamiento a $A_1$, con lo que obtenemos una sucesión
-  \[ A \supset A_1 \supset \dots \supset A_k \supset \dots \text{ con } A_i \cong I^k \hspace{0.2em} \forall i \]
+  \[ A \supset A_1 \supset \dots \supset A_k \supset \dotsb \text{ con } A_i \cong I^k \hspace{0.2em} \forall i \]
   tal que $\bigcap\limits_{i = 1}^\infty A_i \cong I^{k-1}$, y tal que si $i_m \colon S^n - A \xhookrightarrow{} S^n - A_m$
   es la inclusión, entonces $i_{m*}(\beta) \neq 0$.
 
@@ -326,7 +328,7 @@ Vamos a definir el concepto de variedad diferenciable.
 
   Si $d = \sum\limits_{i = 1}^r m_i \phi_i$, entonces $\bigcup\limits_{i = 1}^r \Img \phi_i$ es un compacto en $S^n - \bigcap\limits_{i = 1}^\infty A_i
   = \bigcup\limits_{i = 1}^\infty (S^n - A_i)$, luego por el teorema de Heine-Borel:
-  \[\bigcup\limits_{i = 1}^r \Img \phi_i \subseteq (S^n - A_i) \cup \dots \cup (S^n - A_{ik}) = S^n - A_m \]
+  \[\bigcup\limits_{i = 1}^r \Img \phi_i \subseteq (S^n - A_i) \cup \dots \cup (S^n - A_{ik}) = S^n - A_m, \]
   con $m = \max\{i_1, \dots, i_k\}$.
 
   Así, existe $e \in S_{p+1}(S^n - A_m)$ con $j_{m\#}(e) = d$. Por tanto, $j_{m\#} \circ i_{m\#} (\beta) = i_\#(\beta) = \partial d
@@ -338,9 +340,9 @@ Vamos a definir el concepto de variedad diferenciable.
 \begin{theorem}
   Sea $A \subseteq S^n$, $n \geq 2$, $A$ homeomorfo a $S^k$ con $0 \leq k < n$. Entonces:
 
-  Si $k \leq n-2, \quad H_p(S^n - A) = \begin{cases} 0 &\text{ si } p \neq 0, n-k-1 \\ \Z &\text{ si } p = 0, p = n-k-1 \end{cases}$
+  Si $k \leq n-2, \quad H_p(S^n - A) = \begin{cases} 0 &\text{ si } p \neq 0, n-k-1 \\ \Z &\text{ si } p = 0, p = n-k-1. \end{cases}$
 
-  Si $k = n-1, \quad    H_p(S^n - A) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z \oplus \Z &\text{ si } p = 0 \end{cases}$
+  Si $k = n-1, \quad    H_p(S^n - A) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z \oplus \Z &\text{ si } p = 0. \end{cases}$
 \end{theorem}
 
 \begin{proof}
@@ -358,10 +360,10 @@ Vamos a definir el concepto de variedad diferenciable.
   Aplicando Mayer-Vietoris a $S^n - (E_+^k \cap E_-^k)$, con $U = S^n - E_+^k, V = S^n - E_-^k$, se tiene:
   \begin{align*}
     &H_p(S^n - E_+^k) \oplus H_p(S^n - E_-^k) \to H_p(S^n - (E_+^k \cap E_-^k)) \to H_{p-1}(S^n - S^k) \\
-    &\to H_{p-1}(S^n - E_+^k) \oplus H_{p-1}(S^n - E_-^k)
+    &\to H_{p-1}(S^n - E_+^k) \oplus H_{p-1}(S^n - E_-^k).
   \end{align*}
   Si $p \geq 2$, se verifica $H_{p-1}(S^n - S^k) \cong H_p(S^n - (E_+^k \cap E_-^k)) \cong H_p(S^n - S^{k-1})$,
-  que por inducción es $\begin{cases} 0 &\text{ si } p \neq 0, n-k \\ \Z &\text{ si } p = 0, n-k \end{cases}$
+  que por inducción es $\begin{cases} 0 &\text{ si } p \neq 0, n-k \\ \Z &\text{ si } p = 0, n-k. \end{cases}$
 
   Llamando $q = p-1$, si $k = n-1$, como $p \geq 2$, $H_q(S^n - A) = 0 \quad \forall q \geq 1$.\\
   Si $k \leq n-2, n-k \geq 2$, y $H_q(S^n - A) = \begin{cases} \Z &\quad q = n-k-1 \\ 0 &\quad \text{en otro caso.} \end{cases}$
@@ -369,11 +371,11 @@ Vamos a definir el concepto de variedad diferenciable.
   Para $p = 1 (q = 0)$, tomamos la sucesión exacta
   \begin{align*}
     &0 \to H_1(S^n - (E_+^k \cap E_-^k)) \to H_0(S^n - S^k) \to H_0(S^n - E_+^k) \oplus H_0(S^n - E_-^k) \to \\
-    &\to H_0(S^n - (E_+^k \cap E_-^k)) \to 0
+    &\to H_0(S^n - (E_+^k \cap E_-^k)) \to 0.
   \end{align*}
   Como $H_0(S^n - E_+^k), H_0(S^n - E_-^k)$ y $H_0(S^n - (E_+^k \cap E_-^k)) \cong \Z$,
   se deduce que $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1 \\
-                                                                                                    \Z &\quad k < n - 1  \end{cases} $
+                                                                                                    \Z &\quad k < n - 1.  \end{cases} $
 \end{proof}
 
 \begin{theorem}[Separación de Jordan-Brower]
@@ -456,18 +458,19 @@ Se cumple que el primero de ellos es siempre la identidad. En el segundo caso, c
 generador de $H_n(S^n)$, necesariamente se tiene que $f_*([\alpha]) = n \times [\alpha], \quad n \in Z$.
 
 Definimos como el \textbf{grado} de $f$ a dicho entero $n$, y lo notamos $\Deg f$.
-\[ f_*([\alpha]) = \Deg f \times [\alpha] \]
+\[ f_*([\alpha]) = \Deg f \times [\alpha]. \]
 Veamos algunas de sus propiedades.
 
 \begin{proposition}[Propiedades]
   Se verifican las siguientes propiedades:
   \begin{itemize}
-    \item[a)] $\Deg Id = 1$.
-    \item[b)] $\Deg (g \circ f) = \Deg g \times \Deg f$.
-    \item[c)] $f \simeq g \implies \Deg f = \Deg g$. La implicación contraria también es cierta, el llamado Teorema de Hopf.
-    \item[d)] Si $f$ es una equivalencia homotópica, $\Deg f = \pm 1$ (en particular, es cierto si $f$ es homeomorfismo).
+    \item[a)] $\Deg Id = 1$,
+    \item[b)] $\Deg (g \circ f) = \Deg g \times \Deg f$,
+    \item[c)] $f \simeq g \implies \Deg f = \Deg g$,
+    \item[d)] Si $f$ es una equivalencia homotópica, $\Deg f = \pm 1$ (en particular, es cierto si $f$ es homeomorfismo),
     \item[e)] Si $\Deg f \neq 0 \implies f$ es sobreyectiva.
   \end{itemize}
+  La implicación contraria en la propiedad c) también es cierta, el llamado Teorema de Hopf, que no demostraremos.
 \end{proposition}
 
 \begin{proof}
@@ -483,7 +486,7 @@ Veamos algunas de sus propiedades.
     H_n(S^n)  \arrow{dr}{f'_*} \arrow{rr}{f_*} & & H_n(S^n)  \\
     & H_n(S^n - \{x\}) \cong 0 \arrow[hookrightarrow]{ur}{i_*}
   \end{tikzcd} \]
-  que nos da una descomposición de $f_*$ que tiene al la función nula como factor, lo cual es imposible.
+  dándonos una descomposición de $f_*$ que tiene al la función nula como factor, lo cual es imposible.
 \end{proof}
 
 \begin{lemma}
@@ -514,8 +517,8 @@ Veamos algunas de sus propiedades.
   \end{tikzcd} \]
 
   Así, tenemos las dos siguientes cadenas de igualdades:
-  \[\tau_*(\Delta([\alpha])) = \Delta(\tau_*([\alpha])) = \Delta(\Deg \tau \times [\alpha]) = \Deg \tau \times [x-y]\]
-  \[\tau_*(\Delta([\alpha])) = \tau_*([x-y]) = [\tau_\#(x) - \tau_\#(y)] = [y - x] \]
+  \[\tau_*(\Delta([\alpha])) = \Delta(\tau_*([\alpha])) = \Delta(\Deg \tau \times [\alpha]) = \Deg \tau \times [x-y],\]
+  \[\tau_*(\Delta([\alpha])) = \tau_*([x-y]) = [\tau_\#(x) - \tau_\#(y)] = [y - x], \]
   de donde se deduce $\Deg \tau = -1$.
 
   Supongamos ahora que el resultado es cierto hasta $n-1$, y lo probamos para $n$. Denotaremos como $\tau_{n-1}$ y $\tau_{n}$
@@ -536,8 +539,8 @@ Veamos algunas de sus propiedades.
   Por tanto, $\Deg \tau_n = -1$.
 \end{proof}
 
-Como consecuencia directa de este hecho, si consideramos la aplicación antípoda $-Id \colon S^n \to S^n$, entonces
-$\Deg (-Id) = \Det (-Id) = (-1)^{n+1}$.
+Como consecuencia directa de este hecho, si consideramos la aplicación $-Id \colon S^n \to S^n$, que lleva
+cada punto en su antípoda, se verifica $\Deg (-Id) = \Det (-Id) = (-1)^{n+1}$.
 
 Veamos un lema que nos permitirá demostrar dos resultados de aplicaciones sobre esferas de dimensión par,
 con los que terminaremos el capítulo.
@@ -558,7 +561,7 @@ con los que terminaremos el capítulo.
 \begin{proof}
   Supongamos que existe $f$ tal que para todo $x \in S^{2n}$, $f(x) \neq x$ y $f(x) \neq -x$. Entonces, por
   el lema anterior, $f \simeq -Id$ y $f \simeq Id$, luego $Id \simeq -Id$ y $\Deg (Id) = \Deg (-Id)$, lo que implica
-  $1 = -1$ contradicción.
+  $1 = -1$, y llegamos a una contradicción.
 \end{proof}
 
 \begin{corollary}
