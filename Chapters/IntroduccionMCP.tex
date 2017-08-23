@@ -8,7 +8,7 @@ Dado un grafo $G = (V, E)$, donde $V$ representa el conjunto de vértices
 y $E$ el conjunto de aristas, llamaremos un clique a un subgrafo de $G$
 en el que todos sus vértices están conectados entre sí. Llamaremos a los
 cliques \textbf{maximales} si no son subgrafo de un clique de mayor tamaño,
-y \textbf{máximos} si no existe ningún clique de mayor tamaño en el grafo. \\
+y \textbf{máximos} si no existe ningún clique de mayor tamaño en el grafo.
 Es claro que todos los cliques máximos son maximales, pero no al contrario.
 
 El problema del clique máximo, o \textit{maximum clique problem} en inglés (MCP),
@@ -18,84 +18,73 @@ que son el problema del conjunto independiente, en el que se intenta buscar el m
 conjunto de nodos no conectados entre sí, y el problema del recubrimiento por vértices,
 en el que buscamos el mínimo conjunto de nodos que cubran todas la aristas.
 
+% Intentar añadir un gráfico aquí, para explicar un poco.
+
 El problema del clique máximo lleva siendo estudiado desde segunda mitad del siglo XX, y fue sujeto
 de estudio en el segundo desafío de implementación de DIMACS, que tuvo lugar entre 1992
 y 1993, junto con el problema del coloreo de grafos y de satisfabilidad booleana (SAT).
 A día de hoy, se encuentran disponibles de forma libre las instancias utilizadas y los
 datos de los mejores cliques conocidos hasta la fecha.
 
-En 1977, Garey y Johnson demostraron que el problema es NP-difícil. En 1999, Hastad
-probó que, salvo que NP = ZPP, no existe ningún algoritmo capaz de aproximar MCP con
-factor $n^{1-\epsilon} \quad \forall \epsilon$, donde la clase ZPP (zero-error
-probabilistic polynomial time) es la clase de complejidad de los problemas
-reconocibles por algoritmos aleatorizados con complejidad polinómica.
+En 1979, Garey y Johnson \citep{garey:1979} demostraron que el problema es NP-difícil.
+En 1999, Hastad \citep{hastad:1999} probó que, salvo que NP = ZPP, no existe ningún
+algoritmo capaz de aproximar MCP con factor $n^{1-\epsilon} \quad \forall \epsilon$,
+donde la clase ZPP (zero-error probabilistic polynomial time) es la clase de complejidad
+de los problemas reconocibles por algoritmos aleatorizados con complejidad polinómica.
 
 Debido a esto, no es posible obtener algoritmos exactos ni que den una solución
 aproximada al problema, de ahí la necesidad del uso de algoritmos heurísticos para
 resolverlo.
 
+\section{Introducción a las metaheurísticas}\citep{melian:2003}\citep{herrera:2014}
 
-\section{Trabajo realizado}
+En Inteligencia Artificial, se emplea el término \textbf{heurística} para referirnos
+a una técnica, método o procedimiento de realizar una tarea, que no es producto de
+un análisis formal riguroso, sino del conocimiento experto sobre la tarea.
 
-En este trabajo he implementado distintos algoritmos, basados en diferentes
-metaheurísticas, para comprobar sus eficacia a la hora de resolver el problema.
-En varios de ellos se incluyen distintas variantes de la misma heurística, para
-analizar cómo afectan cambios en la toma de ciertas decisiones, o la estructura
-de elementos del problema.
+El uso de heurísticas es una parte fundamental en la resolución de problemas de
+optimización, pues usualmente estos serán lo bastante complejos como para no poder
+resolverlos de forma exacta en un tiempo razonable. Así, somos capaces de crear
+procedimientos heurísticos que obtienen soluciones cercanas al óptimo en un tiempo
+razonable.
 
-El objetivo final del trabajo es comparar todos los algoritmos implementados
-para comprobar empíricamente su eficacia, basándonos fundamentalmente en la
-calidad de las soluciones obtenidas por cada uno de ellos. Veremos como actúan
-sobre instancias similares del problema, y discutiremos su viabilidad a la
-hora de resolverlo, pues cabe esperar que ciertos algoritmos se comporten
-mejor que otros.
+Las heurísticas diseñadas para resolver un problema pueden ser más generales o más
+específicas que otras. Los métodos más específicos deben ser diseñados de forma
+distinta para cada problema, utilizando toda la información y el análisis teórico
+disponible sobre él. Bien diseñados, suelen tener un rendimiento más alto que las
+heurísticas generales. Por el contrario, las heurísticas más generales son más sencillas,
+adaptables y robustas, pues no dependen de forma tan fuerte del problema que se resuelve.
 
-Además de la calidad de las soluciones, tendremos en cuenta el tiempo de ejecución
-de los algoritmos, si bien no será un aspecto relevante a la hora de evaluarlos.
+Las metaheurísticas pueden ser vistas como estrategias de diseño generales para
+procedimientos heurísticos de alto rendimiento. Estas estrategias quedan por encima
+de las heurísticas convencionales, representando un \textit{nivel superior} de abstracción.
+El término metaheurística apareció por primera vez en un artículo de Fred Glover
+\citep{glover:1986}. Desde entonces, han surgido numerosas propuestas, mediante la
+aparición de pautas para diseñar procedimientos para resolver distintos problemas,
+los cuales, al ser extendidos a otros ámbitos, han adquirido la denominación de metaheurísticas.
 
-Las ideas detrás de cada algoritmo provienen de una combinación de mis conocimientos
-sobre la materia y el estudio que se lleva realizando sobre el problema durante décadas,
-reflejado en numerosos artículos, que han servido como base en la mayoría de implementaciones.
-Se referenciará en cada caso el material utilizado y cómo se ha adaptado a este trabajo.
+Podemos clasificar las metaheurísticas en los siguientes tipos:
+\begin{itemize}
+  \item Las metaheurísticas de relajación utilizan un modelo relajado del problema
+        original, que lo hace más fácil de resolver, y cuya solución facilita la
+        solución del problema original.
 
-\subsection{Implementación}
+  \item Las metaheurísticas de búsqueda siguen movimientos o transformaciones guiadas
+        para explorar el espacio de soluciones, aprovechando las estructuras de
+        entornos asociadas.
 
-La implementación del código de este trabajo ha sido realizada en el lenguaje de
-programación \textbf{Ruby}, usando su versión 2.3.0. Ruby es un lenguaje
-orientado a objetos, interpretado, con una sintaxis muy similar a la de \textbf{Python}.
-Está disponible para descarga bajo una licencia de software libre.
+  \item Las metaheurísticas constructivas tratan de obtener una solución a través
+        de un proceso de análisis y selección de sus componentes.
 
-He elegido este lenguaje por haber trabajado con él en varias ocasiones, y aporta
-simplicidad e intuitividad a la hora de programar los algoritmos, además de salir
-un poco de los lenguajes más utilizados en la carrera.
+  \item Las metaheurísticas evolutivas trabajan con un conjunto de soluciones que
+        va cambiando a lo largo del tiempo mediante el intercambio de información.
+\end{itemize}
 
-Al utilizar un lenguaje interpretado como es Ruby, cabe esperar unos
-tiempos de ejecución mayores que con otros lenguajes, debido a que no está hecho
-para ejecutar código lo más rápido posible. En el caso de querer tener en cuenta la
-velocidad, lenguajes compilados como \textbf{C++} serían más útiles que Ruby.
-
-El código implementado cumple varias funciones: la primera de ellas es llevar a
-memoria todas las instancias disponibles del problema. Para ello, he tenido que
-implementar un lector de ficheros que cree una matriz de adyacencia para cada archivo
-disponible. Estos archivos siguen una estructura determinada, que permite
-automatizar dicho proceso, no teniendo que considerar casos independientes.
-Cada archivo dará lugar a un problema, compuesto de una matriz de adyacencias,
-el número de nodos y aristas involucrados, y el nombre del grafo en cuestión.
-
-El segundo punto, y más importante, es la implementación de las heurísticas.
-Cada una de ellas está contenida en una clase propia, que contendrá uno o varios
-métodos para la resolución de los problemas generados a partir de los archivos.
-Adicionalmente, podrán contener métodos auxiliares para uso propio o de otras
-heurísticas, en caso de que utilicemos técnicas híbridas. Cada clase estará
-en un archivo independiente, y todas ellas se recogerán en un mismo módulo.
-
-Finalmente, existe un archivo adicional con métodos auxiliares, que pueden ser
-requeridos por varias heurísticas. La idea bajo su creación es encapsular
-operaciones importantes, que serán repetidas frecuentemente y en diversos
-escenarios, para facilitar el trabajo y la comprensión del código. Dichos
-métodos no se encuentran dentro de una clase, pero sí que están en un
-módulo aparte, para diferenciarlos de las implementaciones de las heurísticas.
-
+Las metaheurísticas pueden ser de uno o varios tipos, lo que daría lugar a metaheurísticas
+híbridas. También es posible encontrar metaheurísticas basadas en algún recurso que
+no se engloben en estos cuatro tipos, como las basadas en redes neuronales. Esta
+clasificación queda abierta a la interpretación, pudiendo ser modificada, y no
+debe tomarse nunca como definitiva o infalible.
 
 \section{El repositorio DIMACS}
 Las siglas DIMACS hacen referencia al centro de matemática discreta y computación
@@ -109,21 +98,107 @@ el objetivo de conseguir algoritmos de calidad.
 El problema del clique máximo fue, junto con el coloreo de grafos y el problema de satisfabilidad
 de cláusulas (SAT), protagonista del segundo desafío DIMACS, que tuvo lugar entre 1990 y 1991.
 Para el problema, se proporcionó un conjunto de instancias de grafos, que son de acceso público,
-y son las que utiliza la comunidad científica para evaluar nuevos algoritmos, que he utilizado
-para los míos. Pueden encontrarse en la URL \url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}.
+son las que utiliza la comunidad científica para evaluar nuevos algoritmos, y las que he utilizado
+para los considerados en este trabajo. Pueden encontrarse en la URL
+\url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}.
 
 En dicho repositorio podemos encontrar un total de $37$ grafos, de los cuales he tomado $35$.
-Ha quedado fuera los grafos \textit{MANN\_a81} y \textit{MANN_a45}, debido a que por su tamaño
+Ha quedado fuera los grafos \textit{MANN\_a81} y \textit{MANN\_a45}, debido a que por su tamaño
 los tiempos de ejecución eran muy elevados. Para ejecutar sobre ellos los algoritmos con los
-mismos parámetros que sobre el resto de grafos, se hubieran requerido de más de una semana. 
+mismos parámetros que sobre el resto de grafos, se hubiera requerido de más de una semana.
 
 Los grafos están subdivididos en distintos grupos, que hacen referencia al método de
 generación de los mismos. Debido a esto, es posible que algunos algoritmos muestren
 un buen comportamiento en ciertos tipos de grafos, y den peores resultados en grafos
 que correspondan a otra familia. Los métodos de generación de cada familia de grafos
-se pueden consultar en profundidad en la web del repositorio.
+se pueden consultar con detalle en la web del repositorio.
 
 En ciertas instancias se ha confirmado el valor del óptimo global, mientras que en
 otras solo se conoce una cota inferior a la mejor solución posible. Estos valores
 serán tomados como referencia a la hora de evaluar cada algoritmo implementado y
 determinar la calidad de las soluciones.
+
+\section{Objetivos}
+Los objetivos de este trabajo son los siguientes:
+
+\begin{itemize}
+  \item Recopilación de bibliografía sobre el problema del clique máximo y sobre
+        las posibles metaheurísticas a aplicar al problema. Con esto, queremos
+        aprovechar el conocimiento existente sobre el problema para tener una
+        base sobre la que trabajar, junto a un conjunto de técnicas que se pueden
+        utilizar para resolver el problema. Así, no solo se conocerá mejor el problema,
+        sino que será posible abordarlo de forma más eficiente.
+
+  \item Estudio y selección de las técnicas a utilizar. Buscaremos, de entre todas
+        las técnicas aplicables, aquellas que sean de interés a la hora de realizar
+        un posterior análisis.
+
+  \item Diseño e implementación de los algoritmos seleccionados. Tomaremos las
+        características de los algoritmos que nos interesen, y las modificaremos
+        para adaptarlas a la representación de problema, aprovechando la funcionalidad
+        del lenguaje de programación escogido.
+
+  \item Experimentación y estudio comparativo de los algoritmos implementados.
+        Una vez obtengamos los datos experimentales, compararemos los algoritmos
+        para comprobar empíricamente su funcionamiento, basándonos en la calidad
+        de las soluciones obtenidas por cada uno de ellos. Veremos cómo actúan
+        sobre el conjunto de instancias del problema y discutiremos su viabilidad
+        a la hora de resolverlo.
+\end{itemize}
+
+El primer objetivo se ha cumplido en cierta medida, pues, si bien se ha recopilado
+bibliografía referente al problema del clique máximo, esta se centraba en su gran
+mayoría en los métodos de resolución del problema, y no tanto en el estudio teórico
+del mismo.
+
+El segundo objetivo se ha cumplido en un grado alto, como se demuestra en la recopilación
+de algoritmos implementados que veremos en \autoref{ch:algoritmos}.
+
+El tercer objetivo se ha completado satisfactoriamente, como veremos en \autoref{ch:implementacion}.
+
+El cuarto objetivo también se ha completado de forma satisfactoria, y queda
+reflejado en \autoref{ch:resultados}.
+
+\section{Metodología y trabajo realizado}
+
+% Sin dar detalles de la implementación.
+Este trabajo se ha desarrollado siguiendo una metodología ágil, tratando de crear
+un proyecto desde cero e ir agregando distintas componentes de forma incremental.
+
+
+He implementado un programa que incluye los distintos algoritmos considerados,
+para comprobar sus eficacia a la hora de resolver el problema.
+En varios de ellos se incluyen distintas variantes de la misma heurística, para
+analizar cómo afectan cambios en la toma de ciertas decisiones, o la estructura
+de elementos del problema.
+
+Además de la calidad de las soluciones, tendremos en cuenta el tiempo de ejecución
+de los algoritmos, si bien no será un aspecto relevante a la hora de evaluarlos.
+
+Las ideas detrás de cada algoritmo provienen de una combinación de mis conocimientos
+sobre la materia y el estudio que se lleva realizando sobre el problema durante décadas,
+reflejado en numerosos artículos, que han servido como base en la mayoría de implementaciones.
+Se referenciará en cada caso el material utilizado y cómo se ha adaptado a este trabajo.
+
+\section{Organización}
+
+El resto de la memoria está organizada de la siguiente forma:
+
+Primero, introduciremos teóricamente los algoritmos considerados en este trabajo.
+Para ello, comenzaremos con un pequeño apartado donde se tratan elementos generales a
+todos ellos, seguido de un desglose de los algoritmos divididos según la metaheurística
+a la que pertenezcan, consistente en una introducción a la metaheurística correspondiente,
+seguida de cómo esta se adapta al problema del clique máximo, y concluyendo con los
+detalles de cada algoritmo.
+
+Posteriormente, trataremos la parte de implementación, en la que estudiaremos todo lo
+referente a la parte de programación de este trabajo: la organización de archivos,
+la lectura de datos y la implementación de las técnicas descritas con anterioridad,
+teniendo en cuenta el lenguaje de programación utilizado.
+
+Una vez introducidas y explicadas las técnicas que se han utilizado y su implementación,
+pasaremos a la sección de resultados, donde se expondrán los cálculos que cada algoritmo
+ha realizado sobre el conjunto de instancias. Seguidamente, se realizará un análisis
+de dichas técnicas, en los que evaluaremos si han tenido el comportamiento esperado y
+las causas de los resultados obtenidos. Finalmente, compararemos entre sí todas las
+técnicas implementadas, tratando de clasificarlas según su funcionamiento.
