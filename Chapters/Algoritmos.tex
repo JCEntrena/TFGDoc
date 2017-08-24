@@ -2,8 +2,9 @@
 \chapter{Algoritmos}\label{ch:algoritmos}
 %************************************************
 
-En este capítulo se tratarán los diferentes algoritmos considerados en el trabajo, desde su
-fundamento teórico hasta su implementación concreta.
+En este capítulo se tratarán los diferentes algoritmos considerados en el trabajo,
+hablando de la metaheurística en la que se engloban, viendo cómo esta se adapta al
+problema, y finalmente explicando las técnicas consideradas.
 
 \section{Consideraciones iniciales}
 
@@ -13,59 +14,98 @@ operador de vecindad, la función objetivo y la inicialización del programa.
 % Representación de la solución. Inicialización del programa (lectura). Operador vecino. Entorno. Función objetivo.
 
 Cada solución del problema será un clique que se encuentre dentro del grafo. Este clique estará representado
-por los nodos que contiene, de forma que las soluciones serán \textit{arrays} de la forma $[x_0, \dots, x_p]$.
+por los nodos que contiene, de forma que las soluciones serán conjuntos de la forma $\{x_0, \dots, x_p\}$,
+donde cada elemento $x_i$ representa un nodo del grafo, que está identificado de forma única por un índice.
 
 La función para medir la calidad de una solución (función objetivo) será el tamaño de cada clique, si bien
-se considerarán algunas variantes en ciertos algoritmos. No obstante, como el objetivo final el obtener un clique
+se considerarán algunas variantes en ciertos algoritmos. No obstante, como el objetivo final es obtener un clique
 del mayor tamaño posible, es lógico que el factor de peso en cualquier función objetivo sea el tamaño del mismo.
 
-Como operador de vecino tenemos tres distintos, los cuales aplicados sobre el clique nos permitirán obtener
-su entorno. El primero de ellos, al que llamaremos operador \textit{add}, consiste en añadir al clique un
-nuevo nodo que conserve la estructura de clique, esto es, que esté conectado con todos los nodos del clique.
-Usualmente tendremos calculado el conjunto de nodos que podemos añadir a cada clique con el que estemos trabajando.
-Llamaremos a dicho conjunto $C_0$ o posibles adiciones.
+Como operador de vecino tenemos tres distintos, los cuales aplicados sobre cada clique nos permitirán obtener su entorno.
+Los vemos con más detalle:
 
-El segundo operador, al que nos referiremos como \textit{swap}, consiste en intercambiar un nodo del clique
-con uno de fuera, de forma que se siga manteniendo la estructura. Para ello, el nodo que no pertenece al
-clique debe estar conectado con todos salvo uno de sus nodos, que será el nodo que saldrá del clique. Nos
-referiremos a este conjunto de nodos como posibles intercambios o $C_1$. Al igual que el anterior, también
-tendremos calculado dicho conjunto de nodos para cada clique con el que trabajemos.
+\subsection{Operador \textit{add}}
+
+El primer operador, al que llamaremos operador \textit{add}, consiste en añadir al clique un
+nuevo nodo que conserve la estructura de clique, esto es, que esté conectado con todos los
+nodos del clique. Usualmente tendremos calculado el conjunto de nodos que podemos añadir
+a cada clique con el que estemos trabajando. Llamaremos a dicho conjunto $C_0$ o posibles adiciones.
+
+Podemos ver el operador \textit{add} como una función encargada de añadir un nodo a un clique.
+Supondemos que el nodo $x$ que añadimos está en el conjunto $C_0$, por lo que el grafo resultante
+sigue siendo un clique.
+
+\begin{algorithm}[H]
+\caption{Operador \textit{add}}
+  \begin{algorithmic}
+  \Function{add}{clique, x}
+    \State $clique = clique \cup x$
+    \Return $clique$
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{Operador \textit{swap}}
+
+El segundo operador, al que nos referiremos como \textit{swap}, consiste en intercambiar un
+nodo del clique con uno de fuera, de forma que se siga manteniendo la estructura. Para ello,
+el nodo que no pertenece al clique debe estar conectado con todos salvo uno de sus nodos,
+que será el nodo que saldrá del clique. Nos referiremos a este conjunto de nodos como posibles
+intercambios o $C_1$. Al igual que el anterior, también tendremos calculado dicho conjunto de
+nodos para cada clique con el que trabajemos.
+
+Al igual que el anterior, podemos ver el operador como una función que actúa sobre un grafo y
+dos nodos, $in$, dentro del clique, y $out$, fuera de él. Nuevamente, suponemos que se mantiene
+la estructura de clique tras realizar las operaciones.
+
+\begin{algorithm}[H]
+\caption{Operador \textit{swap}}
+  \begin{algorithmic}
+  \Function{swap}{clique, in, out}
+    \State $clique = clique - in$
+    \State $clique = clique \cup out$
+    \Return $clique$
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{Operador \textit{drop}}
 
 Finalmente, el tercer operador de vecino será el operador \textit{drop}, que consiste simplemente en quitar
-un nodo del clique. Es claro que se mantiene la estructura de clique al aplicar este operador.
+un nodo del clique. En este caso no tenemos que preocuparnos por que el grafo resultante sea un clique,
+pues siempre que eliminemos nodos de un clique el resultado seguirá siendo otro clique.
+
+Viéndolo como una función, el funcionamiento sería el siguiente:
+
+\begin{algorithm}[H]
+\caption{Operador \textit{drop}}
+  \begin{algorithmic}
+  \Function{drop}{clique, x}
+    \State $clique = clique - x$
+    \Return $clique$
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Entorno}
 
 Estos serán los tres operadores que utilicemos, que definirán el entorno de una solución, compuesto por
-aquellas a las que se puede llegar mediante el uso de cualquiera de los tres. No obstante, no siempre se
+aquellas a las que se puede llegar mediante el uso de cualquiera de los tres, aunque no siempre se
 usarán los tres a la vez. El operador \textit{add} es esencial, pues nos permite ampliar el tamaño de un
 clique, por lo que siempre lo utilizaremos. Los otros dos operadores se usarán dependiendo del algoritmo,
 siendo el operador \textit{swap} bastante frecuente, y el \textit{drop} menos frecuente. Debido a esto,
 el entorno variará dependiendo de aquellos consideramos. Detallaremos en cada caso los operadores
-considerados y las razones principales.
-
-\subsection{Inicialización del programa}
-Antes de aplicar ningún algoritmo al conjunto de instancias, hay que resolver es la lectura de los
-archivos y la creación de las estructuras de datos correspondientes para cada grafo. Para ello,
-se ha creado el archivo \textit{reader.rb}, que contiene el método de lectura de los archivos.
-Cada uno de ellos dará lugar a un objeto de la clase \textbf{Problem}, que almacena el número de
-vértices, el número de arcos, la matriz de adyacencia y el nombre del archivo del que proviene el grafo.
-
-Para la lectura, simplemente recorreremos el directorio en el que están almacenados los archivos,
-y generaremos un problema por cada uno de ellos, marcando en la matriz de adyacencia los arcos
-que están conectados. Almacenaremos el conjunto de problemas en una variable, para tenerlos
-disponibles a la hora de aplicarles los algoritmos.
-
-El archivo \textit{reader.rb} también contendrá el método principal, desde donde se ejecutarán
-cada uno de los algoritmos. El cambio de algoritmo y el paso de parámetros se harán modificando
-el código correspondiente en el método \textit{main}.
+considerados y las razones principales de su elección.
 
 Pasamos ya a ver los algoritmos que se han incluido en este trabajo.
 
-\section{Algoritmos \textit{greedy}}
+\section{Algoritmos \textit{greedy}}\label{greedy}
 
 Los algoritmos voraces, o algoritmos \textit{greedy}, son aquellos que resuelven problemas tomando
 las decisiones óptimas en cada instante. Esto no lleva necesariamente a un óptimo global, pero puede
 aproximarlo de forma razonable en un periodo de tiempo generalmente muy pequeño. Este tipo de algoritmos
-basan sus decisiones en las decisiones que ya se han tomado, pero nunca en lo que podría suceder más
+basan sus decisiones inmediatas en las que ya se han tomado, pero nunca en lo que podría suceder más
 adelante.
 
 Por lo general, en los algoritmos \textit{greedy} tendremos un conjunto de candidatos, una función
@@ -92,9 +132,10 @@ considerando intercambios además de adiciones.
 
 A continuación, se detallan en más profundidad los dos algoritmos implementados:
 
-\subsection{Primer algoritmo}
+\subsection{Greedy básico}\label{greedy1}
 
-Este algoritmo es el enfoque más básico posible dentro de los algoritmos voraces para MCP.
+Este algoritmo es una implementación propia, que trata de crear un algoritmo lo más
+básico posible usando los conceptos esenciales de los algoritmos \textit{greedy}.
 Comenzando desde un clique vacío, añade nodos al clique, respetando la estructura, hasta
 que no se pueda añadir ninguno más. Para elegir el vértice que añadir, toma, de aquellos que
 pueden añadirse, el que tiene mayor número de adyacencias, usando el operador \textit{add}.
@@ -109,70 +150,77 @@ Vemos a continuación el pseudocódigo del algoritmo.
 \begin{algorithm}[H]
 \caption{Greedy}
   \begin{algorithmic}
+  \Function{greedy}{}
   \State $Clique = [ ]$
   \State $C_0 = $ Vértices
   \Repeat
     \State{Añadir $v \in C_0$ con más adyacencias}
     \State{Actualizar $C_0$}
   \Until{$C_0 = \emptyset$}
-  \State{Devolver clique}
+  \Return $clique$
+  \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
 
-\subsection{Segundo algoritmo}
+\subsection{Greedy adaptativo}\label{greedy2}
 
-En este algoritmo, se han seguido las ideas de Grosso, Locatelli y Della Croce, usando un algoritmo
-que nos permite deshacer, en cierta forma, decisiones tomadas anteriormente. La idea es no solo
-considerar aquellos vértices que pueden ser añadidos al clique, sino también tomar aquellos que
-pueden ser intercambiados por uno del clique, es decir, usar operadores \textit{add} y \textit{swap}.
+En este algoritmo, se han seguido las ideas de Grosso, Locatelli y Della Croce,
+\citep{grosso:2004} usando un algoritmo que nos permite deshacer, en cierta forma,
+decisiones tomadas anteriormente. La idea es no solo considerar aquellos vértices
+que pueden ser añadidos al clique, sino también tomar aquellos que pueden ser
+intercambiados por uno del clique, es decir, usar operadores \textit{add} y \textit{swap}.
 
-El criterio para elegir un nodo será el número de conexiones con el conjunto de posibles adiciones
-al clique, buscando maximizar este número. Así, al añadir el nodo al grafo, el tamaño del conjunto
-$C_0$ será el máximo de los posibles. Como dicho tamaño es una cota para el número de nodos que se
-pueden añadir al clique, nos interesa que sea lo más elevado posible.
+El criterio para elegir un nodo será el número de conexiones con el conjunto de
+posibles adiciones al clique, buscando maximizar este número. Así, al añadir el
+nodo al grafo, el tamaño del conjunto $C_0$ será el máximo de los posibles.
+Como dicho tamaño es una cota superior para el número de nodos que se pueden
+añadir al clique, nos interesa que sea lo más elevado posible.
 
-Antes de empezar a considerar intercambios, queremos que el clique tenga un tamaño mínimo.
-Se ha fijado dicho tamaño en $4$, valor a partir del cual se empiezan a considerar los
-intercambios y no solo las adiciones. Detendremos el algoritmo una vez lleguemos a un
-clique maximal, esto es, cuando el conjunto $C_0$ sea vacío. No obstante, se ha fijado
-un valor máximo de intercambios para evitar que el algoritmo se prolongue durante mucho tiempo.
-Una vez satisfecha alguna de estas condiciones, el clique que tengamos será ampliado
-hasta su límite usando movimientos \textit{add}, finalizando cuando no sea posible
-añadir más nodos. Esta ampliación se realiza por si el algoritmo se ha detenido al
-alcanzar el límite de intercambios, lo que significa que es posible añadir más nodos.
+Antes de empezar a considerar intercambios, queremos que el clique tenga un tamaño
+mínimo,  por lo que al principio consideraremos solo movimientos \textit{add} hasta
+alcanzar dicho tamaño. Se ha fijado el valor del tamaño mínimo en $4$ para todos
+los grafos, a partir del cual se empiezan a considerar los intercambios y no solo las
+adiciones. Detendremos el algoritmo una vez lleguemos a un clique maximal, esto es,
+cuando el conjunto $C_0$ sea vacío. No obstante, se ha fijado un valor máximo de
+intercambios para evitar que el algoritmo se prolongue durante mucho tiempo. De darse
+el caso en el que el algoritmo se detiene por alcanzar dicho límite, es posible que
+el clique que tengamos no sea maximal, por lo que será ampliado mediante movimientos
+\textit{add} hasta que no sea posible añadir más nodos.
 
-Para evitar repetición de intercambios, en el momento en el que se haga uno, guardaremos
+Para evitar repetición de intercambios, en el momento en el que se haga uno guardaremos
 el nodo que sale del clique, para no tenerlo en cuenta en la siguiente iteración.
 De no hacer esto, cabe la posibilidad de entrar en un bucle, en el que se
 intercambien dos nodos de forma indefinida hasta que se alcance el criterio de parada.
 
 Vemos a continuación el pseudocódigo de la parte adaptativa del algoritmo.
 
-
 \begin{algorithm}[H]
 \caption{Greedy adaptativo}
   \begin{algorithmic}
-  \State $Clique = [ ]$
+  \Function{greedy}{limite}
+  \State $clique = [ ]$
   \State $C_0 = $ Vértices
   \State $C_1 = [ ]$
   \State $i = 0$
+  \State $Swap = -1$
   \Repeat
     \State Tomar $v \in C_0 \cup C_1 - Swap$ que maximice adyacencias con $C_0$
     \If {$v \in C_0$}
-      \State Añadir $v$ a $Clique$
+      \State Añadir $v$ a $clique$
     \Else
       \State Hacer intercambio
       \State Actualizar $Swap$, $i += 1$
     \EndIf
     \State{Actualizar $C_0, C_1$}
   \Until{$C_0 = \emptyset$ o $i = limite$}
-  \State{Devolver clique}
+  \Return $clique$
+  \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
 
-\section{Búsqueda local}
+\section{Búsqueda local}\label{busquedalocal}
 
 Los algoritmos de búsqueda local son aquellos que se centran en el entorno de una
 solución para buscar nuevas soluciones que sean mejores que la anterior. Dicho entorno
@@ -180,16 +228,22 @@ viene dado por aquellas soluciones a las que se puede llegar desde la solución 
 partida mediante un \textbf{operador de vecindad}. Llamaremos a estas soluciones
 \textbf{soluciones vecinas}.
 
-Las distintas formas de recorrer el entorno y de aceptar soluciones vecinas da
+Las distintas formas de recorrer el entorno y de aceptar soluciones vecinas dan
 lugar a los distintos algoritmos de búsqueda local. El criterio de aceptación debe
-ser monótona, pues queremos que conduzca a soluciones cada vez mejores, finalizando
+ser monótono, pues queremos que conduzca a soluciones cada vez mejores, finalizando
 en un óptimo local. La búsqueda local básica busca mejorar el resultado con un elemento
-del entorno, terminando si este no existe y alcanzando un máximo local. Si queremos
-permitir que las soluciones puedan ser peores, existen algoritmos como el enfriamiento
-simulado o la búsqueda tabú. En cuando a la estructura de entornos, también puede ser
-variable, lo que nos llevaría a una búsqueda en entornos variables o, nuevamente,
-a una búsqueda tabú. Todo esto se hace con el objetivo de que nuestro algoritmo
-sea capaz de escapar de óptimos locales, y alcance el óptimo global.
+del entorno, terminando si este no existe y alcanzando un máximo local. Por tanto, se
+basa en una mejora paulatina de las soluciones, hasta que no es posible encontrar
+ninguna mejor.
+
+Habrá ocasiones en las que la monotonía no se exija de forma obligada, para permitir
+al algoritmo salir de óptimos locales. Debido a esto, existen algoritmos como el
+enfriamiento simulado o la búsqueda tabú, que son más flexibles en esta condición.
+
+La estructura de entornos también puede ser variable, lo que nos llevaría a una
+búsqueda en entornos variables (VNS) o, nuevamente, a una búsqueda tabú.
+Todo esto se hace con el objetivo de que nuestro  algoritmo sea capaz de escapar
+de óptimos locales, y alcance el óptimo global.
 
 Las técnicas de búsqueda local se utilizan no solo como heurísticas para resolver
 problemas, sino como complementos de otras. Por ejemplo, pueden ser utilizadas junto
@@ -198,10 +252,10 @@ de técnicas \textit{greedy} para explorar el espacio de soluciones de la soluci
 generada. También se usan en técnicas multiarranque como ILS o GRASP, que explicaremos
 más adelante.
 
-En este trabajo, se han implementado dos técnicas de búsqueda local, que difieren en la
-estructura de entornos y en el método de elección de candidatos. Asimismo, se ha implementado
-un algoritmo de enfriamiento simulado, y se han incorporado varias de las técnicas mencionadas
-anteriormente en otros algoritmos. Estas serán detalladas en cada caso.
+En este trabajo, se han implementado dos técnicas de búsqueda local, que difieren en
+la estructura de entornos y en el método de elección de candidatos. Asimismo, se han
+implementado dos algoritmos de enfriamiento simulado, y se han incorporado varias de
+las técnicas mencionadas anteriormente en otros algoritmos. Estas serán detalladas en cada caso.
 
 \subsection{Búsqueda local en MCP}
 
@@ -217,31 +271,38 @@ la posibilidad de eliminar elementos del clique se incluye para evitar que estos
 sean similares a los \textit{greedy}, buscando favorecer una búsqueda en el entorno.
 
 En el segundo algoritmo, solo se consideran movimientos \textit{add} y \textit{swap}.
-Si bien puede en principio puede parecer similar al algoritmo \textit{greedy} adaptativo
-detallado anteriormente, veremos que tiene varias diferencias fundamentales con respecto
-a este.
+En un principio, este algoritmo puede parecer similar al \textit{greedy} adaptativo
+detallado anteriormente, aunque veremos que tiene varias diferencias fundamentales
+con respecto a este.
 
 Veámoslos en más detalle.
 
-\subsection{Primer algoritmo}
+\subsection{1LS}\label{1ls}
 
-Este algoritmo se basa en las ideas de Katayama, Hamamoto y Narihisa. En él, se han considerado
-los tres movimientos básicos de la búsqueda local, \textit{add, swap} y \textit{drop}, dando
-distintas prioridades a cada uno de ellos. Como nuestro objetivo es construir un clique del
-mayor tamaño posible, añadiremos vértices siempre que podamos, tomando aquel que tenga más
-conexiones con el conjunto $C_0$ en caso de haber varios. Cuando no sea posible, intentaremos
-hacer un swap, siempre que este nos lleve a un escenario en el que podamos añadir más nodos
-al clique resultante. La elección de los nodos a intercambiar se hace mediante la técnica del
-primer mejor, esto es, tomamos el primero que encontremos. De no poder hacer ningún swap bajo
-estas condiciones, eliminaremos del clique el nodo que tenga menos adyacencias con todos los
-nodos del grafo.
+Este algoritmo se basa en las ideas de Katayama, Hamamoto y Narihisa \citep{katayama:2005},
+siendo una versión simplificada de su \textit{k-opt local search} para el caso $k = 1$.
+El algoritmo \textit{k-opt} consiste en tomar todas las posibles combinaciones de $k$
+movimientos para generar el entorno de un clique, y explorar este entorno siguiendo
+diversas técnicas (en este caso, una búsqueda local). La versión considerada en este
+trabajo toma $1$ como valor de $k$, por lo que nos referiremos al algoritmo por \textbf{1LS}.
+
+Para crear el entorno, se han considerado los tres movimientos básicos de la búsqueda local,
+\textit{add, swap} y \textit{drop}, dando distintas prioridades a cada uno de ellos. Como
+nuestro objetivo es construir un clique del mayor tamaño posible, añadiremos vértices siempre
+que podamos, tomando aquel que tenga más conexiones con el conjunto $C_0$ en caso de haber varios.
+Cuando no sea posible, intentaremos hacer un swap, siempre que este nos lleve a un escenario
+en el que podamos añadir más nodos al clique resultante. La elección de los nodos a intercambiar
+se hace mediante la técnica del primer mejor, esto es, tomamos el primero que encontremos.
+De no poder hacer ningún swap bajo estas condiciones, eliminaremos del clique el nodo que
+tenga menos adyacencias con todos los nodos del grafo.
 
 Para evitar que los nodos que eliminemos sean añadidos inmediatamente al clique, los iremos
 acumulando en una lista tabú. Los nodos de esta lista no se tendrán en cuenta a la hora de
-hacer un movimiento add. Así, nos aseguramos que el clique cambia, y que no entramos en
+hacer un movimiento add, lo que nos asegura que el clique cambia, pues evitamos entrar en
 un bucle en el que eliminamos un nodo y acto seguido lo volvemos a añadir al clique.
 Esta lista tabú será vaciada en el momento en el que se realice un movimiento que no sea
-quitar un nodo del clique, pues nos habremos asegurado de que el clique cambia.
+quitar un nodo del clique, ya que nos habremos asegurado de que el clique incluye al menos
+un nodo que no contenía antes de comenzar a eliminar nodos.
 
 Este algoritmo no tiene un criterio de parada inducido por el entorno, pues siempre podremos
 hacer alguno de los tres movimientos. Por tanto, es necesario establecer un límite, que este
@@ -263,20 +324,21 @@ con un algoritmo \textit{greedy} que añada nodos utilizando el mismo criterio q
 Vemos el pseudocódigo del algoritmo:
 
 \begin{algorithm}[H]
-\caption{Búsqueda local 1}
+\caption{1LS}
   \begin{algorithmic}
+  \Function{1LS}{clique, limite}
     \State $i = 0$
-    \State $Tabu = \emptyset$
+    \State $tabu = \emptyset$
     \State Calcular $C_0$ y $C_1$.
     \Repeat
       \If {$C_0$ no es vacío}
         \State Añadir el nodo de $C_0$ que tenga más conexiones con $C_0$.
-        \State $Tabu = \emptyset$
+        \State $tabu = \emptyset$
       \Else
         \State Buscar en $C_1$ el primer intercambio que nos da un $C_0$ no vacío.
         \If {El intercambio existe}
           \State Hacer intercambio
-          \State $Tabu = \emptyset$
+          \State $tabu = \emptyset$
           \State $i = i + 1$
         \Else
           \State Quitar el nodo del clique con más adyacencias en el grafo.
@@ -284,27 +346,27 @@ Vemos el pseudocódigo del algoritmo:
           \State $i = i + 1$
         \EndIf
       \EndIf
-      \State{Actualizar $C_0, C_1$, teniendo en cuenta $Tabu$.}
+      \State{Actualizar $C_0, C_1$, teniendo en cuenta $tabu$.}
     \Until{$i = limite$}
-    \State{Devolver mejor clique encontrado}
+    \Return Mejor clique encontrado
+    \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
-\subsection{Segundo algoritmo}
+\subsection{Dynamic Local Search}\label{dls}
 
 Este algoritmo está basado en la búsqueda local dinámica o DLS (del inglés, \textit{Dynamic Local Search}),
-propuesta por W. Pullan y H. Hoos en el año 2006, y en concreto, se basa en una adaptación hecha
-por A. Grosso, M. Locatelli y W. Pullan para un algoritmo de búsqueda local iterada, que veremos
-más adelante. Sigue una filosofía más simple que el anterior pues solo considera movimientos
+propuesta por W. Pullan y H. Hoos \citep{pullan:2006}, y en concreto, se basa en una adaptación hecha
+por A. Grosso, M. Locatelli y W. Pullan para un algoritmo de búsqueda local iterada \citep{grosso:2008},
+que veremos más adelante. Sigue una filosofía más simple que el anterior, pues solo considera movimientos
 \textit{add} y \textit{swap}, a los que volveremos a ordenar por prioridad. Además, incluye una
 lista tabú con los nodos que han salido del clique mediante un swap, evitando que vuelvan a entrar
-al clique y proporcionando diversidad. Limitaremos la longitud de esta lista a un 2\% del número
-de vértices en el grafo, para que no aloje un gran número de nodos.
+al clique y proporcionando diversidad.
 
 Nuestro entorno consistirá en el conjunto de posibles adiciones ($C_0$) y el conjunto de
 posibles intercambios ($C_1$), al que quitaremos la lista tabú. Como teóricamente, el entorno
-puede ser vacío, si se diera el caso el algoritmo finalizaría. No obstante, se ha establecido un
-límite de intercambios, pues en la práctica el entorno no tiene por qué ser vacío.
+puede ser vacío, si se diera el caso el algoritmo finalizaría. No obstante, se ha establecido
+un límite de intercambios, pues en la práctica el entorno no tiene por qué ser vacío.
 
 La prioridad entre movimientos es la siguiente: primero intentaremos añadir un elemento de
 $C_0$ que no esté en la lista tabú, comprobando si existe alguno, y tomando uno aleatorio
@@ -332,8 +394,9 @@ su entorno.
 Pasamos a ver el pseudocódigo del algoritmo:
 
 \begin{algorithm}[H]
-\caption{Búsqueda local 2 - DLS}
+\caption{DLS}
   \begin{algorithmic}
+    \Function{DLS}{clique, limite}
     \State $i = 0$
     \State $Tabu = \emptyset$
     \State Calcular $C_0$ y $C_1$.
@@ -348,13 +411,14 @@ Pasamos a ver el pseudocódigo del algoritmo:
         \State Añadir un nodo aleatorio de $C_0$.
       \EndIf
       \State Actualizar $C_0, C_1$
-      \State Entorno = $C_0 \cup (C_1 - Tabu)$
-    \Until{$i = limite$ o el entorno sea vacío.}
-    \State{Devolver mejor clique encontrado}
+      \State $entorno = C_0 \cup (C_1 - Tabu)$
+    \Until{$i = limite$ o $entorno = \emptyset$}
+    \Return Mejor clique encontrado
+    \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
-\section{Enfriamiento simulado}
+\section{Enfriamiento simulado}\label{enfriamiento}
 
 El enfriamiento simulado es un algoritmo de búsqueda en entornos, que incluye un
 criterio probabilístico de aceptación de soluciones basado en la termodinámica,
@@ -416,12 +480,12 @@ se ha implementado un algoritmo que utiliza las nociones básicas de enfriamient
 para ver sus diferencias con la búsqueda local, y un segundo algoritmo que recoge algunas
 ideas de un artículo sobre el problema.
 
-\subsection{Primer algoritmo}
+\subsection{Primer algoritmo}\label{enfriamiento1}
 
 Este algoritmo es una adaptación de una búsqueda local a un enfriamiento simulado, utilizando
 una función objetivo basada en el tamaño de los cliques. En concreto, el valor de cada clique
 es su tamaño más el número de vértices que contiene el conjunto $C_0$ dividido por el número
-de vértices totales.
+de vértices totales, que notaremos $N$.
 \[ f(C) = |C| + \frac{|C_0|}{N} \]
 De esta forma, conseguimos que cliques de mayor tamaño tengan siempre un valor mayor que
 aquellos con menor tamaño, lo que garantiza la convergencia a un óptimo local. En caso
@@ -449,6 +513,7 @@ Vemos una descripción del algoritmo en pseudocódigo.
 \begin{algorithm}[H]
 \caption{Enfriamiento Simulado}
   \begin{algorithmic}
+    \Function{SA}{}
     \State $T = 1$
     \State $T_{\text{final}} = 0.001$
     \State $\beta = 0.99$
@@ -467,13 +532,15 @@ Vemos una descripción del algoritmo en pseudocódigo.
       \Until{Entorno $= \emptyset$.}
       \State $T = T \times \beta$
     \Until{$T < T_{\text{final}}$}
-    \State{Ampliar mejor clique encontrado y devolver el resultado.}
+    \State Ampliar mejor clique encontrado
+    \Return mejor clique
+    \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
-\subsection{Segundo algoritmo}
+\subsection{Segundo algoritmo}\label{enfriamiento2}
 
-En el segundo algoritmo, se han adaptado las ideas de X. Geng, J. Xu, J. Xiao y L. Pan,
+En el segundo algoritmo, se han adaptado las ideas de X. Geng, J. Xu, J. Xiao y L. Pan \citep{geng:2007},
 que propusieron un algoritmo de enfriamiento simulado para MCP. Dicho algoritmo sigue
 un enfoque distinto al de este problema, pues intenta buscar cliques de un tamaño
 predeterminado, explorando el espacio de soluciones hasta que lo encuentra, o hasta
@@ -486,12 +553,12 @@ alcanzar un clique. Esto permite definir como función objetivo el número de ar
 que le faltan al grafo para ser un clique.
 
 Para poder adaptarme a este enfoque, he tenido que diseñar un algoritmo que se moviera
-entre grafos que no fueran un clique. He utilizado los mismos tres operadores \textit{add, swap}
-y \textit{drop}, pero en este caso, he permitido añadir cualquier nodo al clique o
-intercambiar dos nodos cualesquiera, sin necesidad de respetar la estructura de clique.
+entre grafos que no fueran necesariamente cliques. He utilizado los mismos tres operadores,
+\textit{add, swap} y \textit{drop}, pero en este caso, he permitido añadir cualquier nodo
+al grafo o intercambiar dos nodos cualesquiera, sin necesidad de que el resultado sea un clique.
 La exploración del nuevo entorno se hace igual que en el caso anterior, de forma aleatoria.
 
-Al principio tomé la mismo función objetivo que la propuesta en el artículo, consistente
+Al principio tomé la mismo función objetivo que la propuesta por Geng et al., consistente
 en el número de aristas necesarias para que el grafo sea un clique. Sin embargo, esta
 función no asegura una convergencia a soluciones de calidad; en particular, es ajena al
 tamaño de los cliques. Por esto, he usado la longitud de los grafos para corregir esta,
@@ -512,6 +579,9 @@ He vuelto a tomar los valores $T_{\text{inicial}} = 1, T_{\text{final}} = 0.001,
 vuelvo a añadir tantos nodos como sea posible al mejor clique encontrado, mediante un algoritmo
 \textit{greedy} que prioriza los nodos con más adyacencias, devolviendo el clique resultante.
 
+Dado que la principal diferencia con el anterior algoritmo son el espacio de
+búsqueda,  y la función objetivo, no se incluye pseudocódigo de este algoritmo,
+por ser similar al anterior.
 
 
 \section{Búsquedas multiarranque}
@@ -519,47 +589,53 @@ vuelvo a añadir tantos nodos como sea posible al mejor clique encontrado, media
 Las búsquedas multiarranque son un tipo de búsqueda local, que intentar salir de óptimos
 locales reiniciando la búsqueda para tomar otra solución de partida, buscando explorar
 una región distinta del espacio de soluciones. Dicha reinicialización de la búsqueda será
-la clave para distinguir entre búsquedas multiarranque, y podemos distinguir entre las siguientes:
+la clave para distinguir entre búsquedas multiarranque, y podemos clasificarlas como sigue:
 
-Búsqueda multiarrranque básica, que genera una solución inicial aleatoria y explora su entorno
-mediante búsqueda local, repitiendo el proceso hasta que se satisfaga una condición de parada.
-Es el método más sencillo, que no utiliza ningún tipo de información del problema, y equivale
-a aplicar una búsqueda local múltiples veces sobre distintas soluciones aleatorias de partida.
+\begin{itemize}
+  \item Búsqueda multiarranque básica, que genera una solución inicial aleatoria y explora su entorno
+        mediante búsqueda local, repitiendo el proceso hasta que se satisfaga una condición de parada.
+        Es el método más sencillo, que no utiliza ningún tipo de información del problema, y equivale
+        a aplicar una búsqueda local múltiples veces sobre distintas soluciones aleatorias de partida.
 
-Métodos constructivos de la solución inicial, donde esta varía en cada iteración. En este caso,
-la solución inicial se obtiene mediante una construcción, intentando conseguir soluciones de
-partida que sean de calidad. Intentaremos que las soluciones sean distintas en cada iteración,
-por lo que el proceso de construcción será usualmente aleatorizado. Una vez se tenga la solución
-inicial, se aplica búsqueda local, repitiendo hasta satisfacer una condición de parada,
-normalmente un número de iteraciones fijo de antemano.
+  \item Métodos constructivos de la solución inicial, donde esta varía en cada iteración. En este caso,
+        la solución inicial se obtiene mediante una construcción, intentando conseguir soluciones de
+        partida que sean de calidad. Intentaremos que las soluciones sean distintas en cada iteración,
+        por lo que el proceso de construcción será usualmente aleatorizado. Una vez se tenga la solución
+        inicial, se aplica búsqueda local, repitiendo hasta satisfacer una condición de parada,
+        normalmente un número de iteraciones fijo de antemano.
 
-Métodos basados en la modificación del óptimo encontrado, en los que el óptimo local se somete
-a una perturbación, dando lugar a una nueva solución de partida. Con esto utilizamos una
-solución ya calculada para proporcionar una nueva solución de partida, con la que intentaremos
-mejorar la calidad de la solución anterior. Nuevamente, repetiremos el proceso hasta alcanzar
-una condición, que habitualmente será un número de repeticiones dado.
+  \item Métodos basados en la modificación del óptimo encontrado, en los que el óptimo local se somete
+        a una perturbación, dando lugar a una nueva solución de partida. Con esto utilizamos una
+        solución ya calculada para proporcionar una nueva solución de partida, con la que intentaremos
+        mejorar la calidad de la solución anterior. Nuevamente, repetiremos el proceso hasta alcanzar
+        una condición, que habitualmente será un número de repeticiones dado.
+\end{itemize}
 
-En este trabajo he considerado dos algoritmos de este tipo; uno basado en construcción de
-la solución inicial, el algoritmo GRASP (\textit{Greedy Randomized Adaptative Search Procedure}),
-y otro basado en modificaciones, el algoritmo ILS (\textit{Iterated Local Search}).
-Vamos a detallarlos.
+En este trabajo he considerado dos tipos de algoritmos multiarranque; algoritmos GRASP
+(\textit{Greedy Randomized Adaptative Search Procedure}), basados en la construcción
+de la solución inicial, y algoritmos ILS (\textit{Iterated Local Search}), basados
+en modificaciones de la solución encontrada. Vamos a detallarlos.
 
-\subsection{GRASP}
+\subsection{GRASP}\label{grasp}
 
-El algoritmo GRASP, o \textit{greedy} aleatorizado, es un algoritmo multiarranque que consiste
-en repetir una fase de construcción de una solución, seguida de una búsqueda local en el entorno
-de dicha solución, hasta que se alcance una condición, que suele ser un límite de iteraciones
-o de tiempo de ejecución. El un algoritmo sencillo de programar, y su capacidad para obtener
-buenas soluciones está ligada a si los algoritmos \textit{greedy} y la búsqueda local ofrecen
-buenos resultados sobre el problema, pues está fundamentado en ellos. Fue introducido formalmente
-en 1989 (Feo, Resende), aunque la idea había sido descrita en 1987.
+El algoritmo GRASP \citep{feo:1995}, o \textit{greedy} aleatorizado, es un algoritmo
+multiarranque que consiste en repetir una fase de construcción de una solución,
+seguida de una búsqueda local en el entorno de dicha solución, hasta que se alcance
+una condición, que suele ser un límite de iteraciones o de tiempo de ejecución.
+Es un algoritmo sencillo de programar, y su capacidad para obtener buenas soluciones
+está ligada a si los algoritmos \textit{greedy} y la búsqueda local ofrecen buenos
+resultados sobre el problema, pues está fundamentado en ellos. Fue usado por primera
+vez en 1989 por T. A. Feo y M. G. C. Resende \citep{feo:1989}, aunque la idea había
+sido descrita en 1987 por J. P. Hart y A. W. Shogan \citep{hart:1987}.
 
 La construcción de la solución inicial sigue un procedimiento \textit{greedy}, en el cual,
 en lugar de proporcionar un único candidato como se haría en un algoritmo \textit{greedy}
-clásico, se proporcionan varios de los mejores, y de entre estos, elegiremos uno al azar.
-El número de candidatos a considerar puede dejarse como parámetro, o fijarse de antemano,
-quedando la decisión en manos del programador. Nótese que si el número de candidatos es
-$1$, el algoritmo será un \textit{greedy} puro.
+clásico, se proporciona una lista restringida de candidatos (RCL), que es un conjunto
+de los mejores candidato, tomados de entre todos los posibles, y de entre estos,
+elegiremos uno al azar. El tamaño de RCL es un parámetro, que dependiendo de su valor
+hace a la construcción más similar a un \textit{greedy} o a un algoritmo aleatorio,
+pues notemos que si el número de candidatos es $1$, el algoritmo será un \textit{greedy}
+puro, mientras que si es el tamaño de la lista de candidatos, el algoritmo será aleatorio \citep{herrera:2014}.
 
 Esta técnica se utiliza para proporcionar diversidad, pues esta se pierde al tomar soluciones
 iniciales generadas por algoritmos voraces. Así, seguimos obteniendo buenas soluciones de
@@ -587,7 +663,7 @@ mitad superior como conjunto de candidatos, y hago una elección aleatoria entre
 en la que todos tienen la misma probabilidad de ser elegidos. El proceso se repetirá hasta
 que $C_0$ sea vacío.
 
-La fase de búsqueda local utiliza los dos métodos ya implementados, lo que da lugar a
+La fase de búsqueda local utiliza los dos métodos ya implementados, 1LS y DLS, lo que da lugar a
 dos versiones del algoritmo, en las que solo varía la búsqueda local. Como estos métodos
 no se detienen en un óptimo, sino que necesitan un número de iteraciones máximo, he
 establecido como límite el número de vértices del grafo, para que se adapte al tamaño
@@ -602,38 +678,42 @@ Vemos el pseudocódigo del algoritmo y de la generación de soluciones iniciales
 \begin{algorithm}[H]
 \caption{GRASP}
   \begin{algorithmic}
+  \Function{GRASP}{limite}
+    \State $i = 0$
   \Repeat
     \State Obtener solución inicial.
     \State Aplicar búsqueda local a la solución inicial.
     \State Actualizar mejor solución.
-  \Until{Se alcance el número de iteraciones.}
-  \State{Devolver mejor solución obtenida.}
+    \State $i = i+1$
+  \Until{$i = limite$}
+  \Return mejor clique
+  \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
 \begin{algorithm}[H]
 \caption{Generación de soluciones aleatorias}
   \begin{algorithmic}
-    \State $Clique = \emptyset$
+    \State $clique = \emptyset$
     \State $C_0 =$ vértices
     \Repeat
       \State Ordenar $C_0$ por adyacencias.
       \State Tomar la mitad superior de $C_0$.
-      \State Añadir un elemento aleatorio a $Clique$.
+      \State Añadir un elemento aleatorio a $clique$.
       \State Recalcular $C_0$.
     \Until{$C_0 = \emptyset$}
-    \State Devolver $Clique$
+    \Return $clique$
   \end{algorithmic}
 \end{algorithm}
 
 
-\subsection{ILS}
+\subsection{ILS}\label{ils}
 
 La búsqueda local iterada, o ILS (del inglés, \textit{Iterated Local Search}), es
 un algoritmo de búsqueda local multiarranque basado en la perturbación de soluciones
-como método para obtener diversidad. Fue propuesta en 1998 por Thomas Stützle,
-y desde entonces se utiliza en la resolución de distintos problemas, entre los
-que se encuentra el problema del clique máximo.
+como método para obtener diversidad. Fue propuesta en 1998 por Thomas Stützle en
+su tesis doctoral \citep{stuztle:1998}, y desde entonces se utiliza en la resolución
+de distintos problemas, entre los que se encuentra el problema del clique máximo.
 
 El algoritmo ILS requiere de cuatro componentes principales: una solución inicial,
 un algoritmo de mutación de soluciones, un método de búsqueda local, y un criterio
@@ -660,6 +740,12 @@ método más usual es tener una función objetivo, pueden utilizarse otros, como
 selección aleatoria, una selección basada en combinaciones, o una basada en probabilidades,
 en la que podría utilizarse el algoritmo de Metrópolis, por ejemplo.
 
+La magnitud de la perturbación aplicada es muy importante a la hora de obtener
+buenos algoritmos. Una perturbación demasiado débil podría hacernos caer en los
+mismos óptimos locales de forma sucesiva, mientras que una perturbación demasiado
+fuerte nos haría perder información de la solución y actuaría de forma similar a
+un reinicio aleatorio \citep{herrera:2014}.
+
 \subsubsection{ILS en MCP}
 
 Es sencillo construir una búsqueda local iterada para el problema del clique máximo,
@@ -669,12 +755,13 @@ criterio de aceptación, una solución inicial y una función de mutación.
 \subsubsection{Algoritmo implementado}
 
 Se ha implementado un algoritmo que sigue la filosofía de la búsqueda local iterada
-básica basado en el propuesto por A. Grosso, M. Locatelli y W. Pullan, que usa el
-algoritmo de búsqueda local DLS, si bien se propusieron algunas modificaciones que
-aquí no se han tenido en cuenta. En mi caso, además de DLS, he utilizado el otro
-algoritmo de búsqueda local implementado, para comparar las diferencias entre ambos
-al ser utilizados por ILS. Vemos a continuación la función de mutación y el criterio
-de aceptación utilizados.
+básica basado en el propuesto por A. Grosso, M. Locatelli y W. Pullan \citep{grosso:2008},
+que usa el algoritmo de búsqueda local DLS \citep{pullan:2006}, si bien se propusieron
+algunas modificaciones que aquí no se han tenido en cuenta. Además de DLS he utilizado
+1LS, aprovechando que ya estaba implementado. Esto nos da dos algoritmos ILS distintos,
+que difieren únicamente en la búsqueda local.
+
+Vemos a continuación la función de mutación y el criterio de aceptación utilizados.
 
 El algoritmo para mutar un clique consiste en tomar un nodo que no se encuentre en él,
 eliminar del clique todos los nodos que no estén conectados a él, y finalmente añadir
@@ -697,6 +784,7 @@ Vemos el pseudocódigo del algoritmo:
 \begin{algorithm}[H]
 \caption{ILS}
   \begin{algorithmic}
+  \Function{ILS}{}
     \State Generar solución inicial.
     \State Aplicar búsqueda local.
     \Repeat
@@ -704,16 +792,18 @@ Vemos el pseudocódigo del algoritmo:
       \State Aplicar búsqueda local a la solución obtenida.
       \State Actualizar la mejor solución, si es necesario.
     \Until{Se alcance el número de iteraciones.}
-    \State{Devolver mejor solución obtenida.}
+    \Return mejor solución obtenida
+  \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
-\section{Algoritmos de colonia de hormigas}
+\section{Algoritmos de colonia de hormigas}\label{aco}
 
-Los \textbf{algoritmos de colonia de hormigas} o ACO (del inglés, \textit{Ant Colony Optimization})
-son una técnica de adaptación social, que se basa en el comportamiento de las colonias de
-hormigas, para tratar de encontrar caminos en grafos. Para ello, utilizará un recurso
-que emula a las feromonas que emiten las hormigas cuando se desplazan.
+Los \textbf{algoritmos de colonia de hormigas} \citep{dorigo:1996} o ACO
+(del inglés, \textit{Ant Colony Optimization}) son una técnica de adaptación social,
+que se basa en el comportamiento de las colonias de hormigas, para tratar de encontrar
+caminos en grafos. Para ello, utilizará un recurso que emula a las feromonas que
+emiten las hormigas cuando se desplazan.
 
 Las hormigas utilizan este rastro de feromonas para guiarse, pues poseen unos receptores
 capaces de captar la intensidad de dicho rastro. Dado su pésimo sentido de la vista,
@@ -743,38 +833,37 @@ complementar el uso de las feromonas con información heurística del problema,
 con el objetivo de crear un mecanismo probabilistico de construcción de soluciones
 que no solo se base en feromonas, sino que use más información disponible.
 
-Las hormigas serán las encargadas de ir recorriendo el grafo, utilizando la información
-de la que dispone para decidir a qué nodo moverse mediante una función de probabilidad.
+Las hormigas construirán un camino de forma incremental utilizando la información
+de la que disponen, comenzando desde un nodo aleatorio y eligiendo el siguiente
+mediante una función de probabilidad, que depende de los valores de feromona.
+
 Los nodos que compongan una solución serán reforzados con un aumento de feromonas, y
 se hará de forma que mejores soluciones reciban más cantidad de feromona.
-Se utiliza también un mecanismo de evaporación de feromona simulando al que ocurre en
+Se utiliza también un mecanismo de evaporación de feromona simulando el que ocurre en
 la naturaleza, que evita un crecimiento ilimitado de la misma. Para esto, se reducirán
 todos los rastros de feromona eliminando un parte de su valor actual, usualmente un
 porcentaje fijo. En la práctica, esto se traduce en evitar un estancamiento del algoritmo,
 debido a que los nodos más visitados tendrían altas probabilidades de repetirse en la
 siguiente solución.
 
-Por norma general, se lanzarán un número determinado de hormigas artificiales independientes,
-las cuales generan una solución cada una. Entre ellas, se toma la mejor, y esta será la
+Se lanzarán un número determinado de hormigas artificiales independientes, las
+cuales generan una solución cada una. Entre ellas, se toma la mejor, y esta será la
 que cambie los niveles de feromona. Este proceso se repite hasta que se satisfaga una
 condición de parada, que suele ser un número de iteraciones o un límite temporal.
 
 Existen numerosas variantes de las colonias de hormigas, dependiendo de la función de
 probabilidad, la actualización de feromonas, etcétera. En este trabajo he tomado el
 algoritmo más clásico, sin entrar en otros que requerirían de mayor experimentación
-para hacer ajustes sobre los parámetros.
-
-También es posible hibridar este método con otros, usualmente un algoritmo de búsqueda
-basado en entornos, como una búsqueda local o un enfriamiento simulado. La hibridación
-se lleva a cabo aplicando el método a cada hormiga de la colonia una vez ha construído su solución.
+para hacer ajustes sobre los parámetros. También es posible hibridar este método
+con otros, usualmente un algoritmo de búsqueda basado en entornos, como una búsqueda
+local o un enfriamiento simulado.
 
 \subsection{ACO en MCP}
 
 Al ser el problema del clique máximo un problema de grafos, los algoritmos de colonias
-de hormigas son fácilmente implementables, y se pueden esperar buenos resultados en su
-ejecución. Si bien en MCP no tratamos de recorrer un grafo, como se haría en el problema
-del viajante de comercio, el concepto es adaptable para trabajar con conjuntos de candidatos
-sobre los cuales realizamos una acción, como un \textit{add} o un \textit{swap}.
+de hormigas son fácilmente implementables, ya que adaptar el problema a una búsqueda
+de caminos en grafos es directo. Trabajaremos con conjuntos de candidatos sobre los
+cuales podremos una acción, como un \textit{add} o un \textit{swap}.
 
 En este trabajo, he considerado dos algoritmos de colonias de hormigas clásicos,
 lanzando una colonia de hormigas durante un número determinado de iteraciones y
@@ -784,13 +873,13 @@ La diferencia entre ambos algoritmos reside en la función de probabilidad;
 mientras que uno de ellos utiliza solo las feromonas, el segundo complementa
 el uso de las feromonas con información del grafo.
 
-\subsection{Primer algoritmo}
+\subsection{ACO básico}\label{aco1}
 
-El primer algoritmo implementa una colonia de hormigas básica, en la que un número
-fijo de hormigas crean una solución cada una, y la mejor es la que se tiene en cuenta
-para modificar los niveles de feromona. He considerado únicamente movimientos \textit{add},
-por lo que las hormigas irán recorriendo los nodos del conjunto $C_0$ hasta que
-este sea vacío.
+El primer algoritmo es una implementación propia, consistente en una colonia de
+hormigas de tamaño fijo, y en la que las hormigas crean una solución cada una,
+siendo la mejor la que se tiene en cuenta para modificar los niveles de feromona.
+He considerado únicamente movimientos \textit{add}, por lo que las hormigas irán
+recorriendo los nodos del conjunto $C_0$ hasta que este sea vacío.
 
 Cada hormiga comenzará desde un clique vacío y añadirá nodos del conjunto $C_0$ según
 una regla probabilística, que consiste en dar a cada nodo del conjunto una probabilidad
@@ -819,23 +908,22 @@ iteraciones, el algoritmo finaliza y devuelve la mejor solución encontrada.
 
 Se han fijado los valores $\beta = 0.925$, $\alpha = (5 \times |C| + N) / N$, donde
 $|C|$ es el tamaño del clique encontrado, y $N$ es el número de vértices del grafo.
-Para fijarlos, me he valido de la experimentación, tomando aquellos que daban mejores
-resultados en un conjunto reducido de instancias. No obstante, las diferencias
-eran mínimas entre todos los valores probados.
-
-El número de hormigas en cada iteración ha sido fijado a $50$, efectuándose un total
-de $40$ iteraciones.
+Para fijarlos, me he valido de la experimentación en instancias pequeñas del problema,
+tomando aquellos que daban mejores resultados. No obstante, las diferencias eran
+mínimas entre todos los valores probados. El número de hormigas en cada iteración
+ha sido fijado a $50$, efectuándose un total de $40$ iteraciones.
 
 Vemos el pseudocódigo del algoritmo:
 
 \begin{algorithm}[H]
-\caption{ACO 1}
+\caption{ACO básico}
   \begin{algorithmic}
+  \Function{ACO}{limite, limite hormigas}
     \State $T_{\text{final}} = 0.01$
     \State Inicializar constantes $\alpha, \beta$.
     \State $Mejor Clique = []$.
     \Repeat
-    \State $Hormigas = 0$.
+      \State $Hormigas = 0$.
       \State Establecer el mejor clique de la colonia al clique vacío.
       \Repeat
         \State $Clique = []$
@@ -848,64 +936,64 @@ Vemos el pseudocódigo del algoritmo:
         \Until{$C_0 = \emptyset$}
         \State Actualizar el mejor clique de la colonia si es necesario.
         \State $Hormigas = Hormigas + 1$.
-      \Until{$Hormigas = $ límite hormigas}
+      \Until{$Hormigas = límite hormigas$}
       \State Actualizar $Mejor Clique$ si es necesario.
       \State Evaporar feromona.
       \State Aportar feromona a los nodos del mejor clique de la colonia.
       \State $i = i+1$.
     \Until{$i = limite$}
-    \State{Devolver mejor clique encontrado.}
+    \Return{mejor clique}
+  \EndFunction
   \end{algorithmic}
 \end{algorithm}
 
 
-\subsection{Segundo algoritmo}
+\subsection{ACO con enfriamiento simulado}\label{aco-sa}
 
-Este algoritmo toma algunas de las ideas de X. Xu, J. Ma y J. Lei, que trata de
-mejorar el ACO básico considerando información relativa al clique para calcular
-las probabilidades de elegir un nodo. La única diferencia con el anterior está
-dicho cálculo, para el que utilizaremos una técnica de enfriamiento simulado,
-además del uso de los valores de feromona.
+Este algoritmo toma algunas de las ideas de X. Xu, J. Ma y J. Lei \citep{xu:2007},
+que trata de mejorar el ACO básico considerando información relativa al clique
+para calcular las probabilidades de elegir un nodo. La única diferencia con el
+anterior está dicho cálculo, para el que utilizaremos una técnica de enfriamiento
+simulado, además del uso de los valores de feromona.
 
-La probabilidad se compone de dos partes: la primera de ellas es idéntica a la
-anterior, un valor entre $0$ y $1$ obtenido de las feromonas de cada nodo en $C_0$,
-normalizando para que la suma total sea $1$. Además, sumaremos un valor que depende
+La probabilidad de cada nodo se compone de dos partes: la primera de ellas es idéntica
+a la anterior, un valor entre $0$ y $1$ obtenido de las feromonas de cada nodo en $C_0$
+normalizada, para que la suma total sea $1$. Además, sumaremos un valor que depende
 del grado de cada nodo, y estará multiplicado por una temperatura, de forma que la
 importancia de este término desciende en el tiempo. La fórmula para el cálculo
 de la probabilidad queda de la siguiente forma:
-\[ p(v_i) = \frac{\tau(v_i)}{\sum_{v_j \in C_0} \tau(v_j)} + T \frac{D(v_i)}{N} \]
+\[ p(v_i) = \frac{\tau(v_i)}{\sum\limits_{v_j \in C_0} \tau(v_j)} + T \frac{D(v_i)}{N} \]
 donde $\tau(v_i)$ es el valor de la feromona en el nodo $v_i$, $T$ es la temperatura,
 $N$ el número de nodos del grafo, y $D(v_i)$ es el grado de $v_i$. Una vez calculadas
-todas las probabilidades de los nodos de $C_0$, las normalizaremos para tener valores
-entre $0$ y $1$ y que la suma siga siendo $1$.
+todas las probabilidades de los nodos de $C_0$, volveremos a normalizarlas, para tener
+valores entre $0$ y $1$ y que la suma siga siendo $1$.
 
-La temperatura sigue un esquema de descenso geométrico similar al utilizado en los
-algoritmos de enfriamiento simulado, en los que la temperatura se multiplica por
-una constante $\gamma$ en cada iteración. Dicho valor se ha fijado a $\gamma = 0.95$.
-Los valores de $\alpha$ y $\beta$ siguen siendo los mismos que en el algoritmo anterior,
-al igual que el número de hormigas y de iteraciones, que son $50$ y $40$ respectivamente.
+La temperatura sigue un esquema de descenso geométrico similar al utilizado en
+\autoref{enfriamiento1}, \autoref{enfriamiento2}, en los que la temperatura se multiplica
+por una constante $\gamma$ en cada iteración, tomando $\gamma = 0.95$. Los valores
+de $\alpha$ y $\beta$ siguen siendo los mismos que en el algoritmo anterior, al
+igual que el número de hormigas y de iteraciones, que son $50$ y $40$ respectivamente.
 
 Puesto que solo cambia la función del cálculo de la probabilidad, no incluyo pseudocódigo
 de este algoritmo, por ser similar al anterior.
 
-\section{Algoritmos genéticos}
+\section{Algoritmos genéticos}\label{genetico}
 
 Los algoritmos genéticos entran dentro de la llamada \textbf{computación evolutiva},
 que está compuesta por modelos de evolución basados en poblaciones. Se basan en
-los procesos evolutivos que están presentes en la naturaleza, en los que dos padres
-combinan sus genes para producir hijos (usualmente dos), los cuales presentan
-características de ambos. Las diferencias entre generaciones pueden llevar a nuevas
-configuraciones que devengan en una mejor adaptación al entorno. Esto, en el ámbito
-que nos encontramos, se traduce en cambios que nos lleven mejores soluciones, pues
-estas se adaptan mejor al problema.
+los procesos evolutivos presentes en la naturaleza, en los que dos padres combinan
+sus genes para producir hijos, los cuales presentan características de ambos.
+Las diferencias entre generaciones pueden llevar a nuevas configuraciones que
+devengan en una mejor adaptación al entorno. Esto, en el ámbito que nos encontramos,
+se traduce en cambios que nos lleven mejores soluciones, pues estas se adaptan
+mejor al problema \citep{herrera:2014}.
 
 En los algoritmos genéticos, las poblaciones estarán formadas por soluciones al
 problema, que combinaremos dos a dos para producir descendientes que intenten mejorar
 a sus progenitores. Esta combinación de soluciones se produce mediante el llamado
 \textbf{operador de cruce}, que emula cómo los cromosomas se mezclan para producir
-una nueva generación. Este operador dependerá del problema y no tiene por qué ser único.
-El requisito fundamental es que se tome información de ambos progenitores para crear
-a sus descendientes.
+una nueva generación, y cuyo requisito fundamental es que se tome información de
+ambos progenitores para crear a sus descendientes.
 
 En la naturaleza, es posible que al combinar dos individuos se produzca una mutación,
 con lo cual el hijo tendría una característica que no ha adquirido de ninguno de sus
@@ -927,12 +1015,12 @@ en cuanto al número de veces que se puede reproducir un elemento, si bien podr�
 establecerse de considerarse necesario.
 
 De igual forma, existen diversos métodos para crear una nueva generación. Una de
-ellas sería que los hijos sustituyan a los padres, el llamado modelo generacional.
+ellas sería que los hijos sustituyan a los padres, el llamado modelo \textit{generacional}.
 En este caso, se crea una nueva población en cada iteración del ciclo. Es posible
 incluir elitismo, de forma que la mejor solución de la población pasa siempre a
 la siguiente generación, lo que nos permite conservarla siempre sin necesidad de
-almacenarla explícitamente. Otro modelo es el llamado estacionario, en el cual
-se eligen dos padres, que generan dos hijos, y estos compiten para pasar a la
+almacenarla explícitamente. Otro modelo es el llamado \textit{estacionario}, en
+el cual se eligen dos padres, que generan dos hijos, y estos compiten para pasar a la
 siguiente generación, pudiendo hacerlo con los padres o con la población en general.
 Este modelo ya es elitista, luego no necesita introducir elitismo explícitamente.
 
@@ -949,10 +1037,11 @@ en ir obteniendo nuevas generaciones hasta un criterio de parada determinado.
 En este caso, para el algoritmo implementado, se ha establecido un número fijo de
 iteraciones.
 
-\subsection{Algoritmo implementado}
+\subsection{Algoritmo implementado}\label{alg-genetico}
 
-El algoritmo genético implementado se basa en un modelo estacionario, en el que
-los dos descendientes compiten con sus padres para entrar en la nueva generación.
+El algoritmo genético implementado se basa en las ideas de S. Zhang, J. Wang, Q. Wu
+y J.Zhan \citep{zhang:2014}, que usa un modelo estacionario, en el que los dos
+descendientes compiten con sus padres para entrar en la nueva generación.
 Al principio, se creará una población de soluciones de forma aleatoria mediante
 un algoritmo \textit{greedy}, y a partir de aquí se irán generando nuevas soluciones.
 
@@ -980,9 +1069,37 @@ límite de iteraciones, que se ha fijado a $40$ en las ejecuciones realizadas.
 Estos parámetros pueden ser modificados para evaluar la funcionalidad del algoritmo
 bajo otras circunstancias.
 
-[Pseudocódigo aquí]
+Vemos el pseudocódigo del algoritmo.
 
-\section{Algoritmos meméticos}
+\begin{algorithm}[H]
+\caption{Genético}
+  \begin{algorithmic}
+  \Function{genetico}{iteraciones}
+    \State $P_{mutación} = 0.1$.
+    \State $P_{cruce} = 1$.
+    \State Crear población inicial aleatoria.
+    \State Mejor clique = mejor clique de la población.
+    \Repeat
+      \State $Nueva\_población = []$.
+      \Repeat
+        \State Extraer dos elementos aleatorios de la población.
+        \State Cruzar los dos elementos con probabilidad $P_{cruce}$.
+        \State Mutar primer hijo con probabilidad $P_{mutación}$.
+        \State Mutar segundo hijo con probabilidad $P_{mutación}$.
+        \State Reparar y completar primer hijo.
+        \State Reparar y completar segundo hijo.
+        \State Añadir los dos hijos a $Nueva\_población$.
+      \Until{$Poblacion = \emptyset$}
+      \State $Población = Nueva\_población$.
+      \State Actualizar mejor clique.
+    \Until{$i = iteraciones$}
+    \Return{mejor clique}
+  \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+
+\section{Algoritmos meméticos}\label{memeticos}
 
 Los algoritmos meméticos son el resultado de la combinación de algoritmos meméticos
 con búsqueda local. Tratan de aprovechar la buena capacidad de exploración de los
@@ -1001,25 +1118,24 @@ fases del algoritmo.
 
 \subsection{Meméticos en MCP}
 
-Debido a que disponemos de técnicas de búsqueda local y algoritmos genéticos, la
+Debido a que disponemos de técnicas de búsqueda local y un algoritmo genético, la
 implementación de un algoritmo memético consiste en tomar las decisiones correspondientes
 con respecto a la hibridación de ambas técnicas.
 
-\subsection{Algoritmo implementado}
+\subsection{Algoritmo implementado}\label{alg-memetico}
 
 En este trabajo, he optado por una combinación básica de dos algoritmos ya implementados,
-el algoritmo genético y la búsqueda local. De esta forma, se mantiene la estructura
-de algoritmo genético estacionario, introduciendo una búsqueda local al final de
-la creación de la nueva generación, lo que nos permite explorar su entorno antes de
-pasar a la siguiente.
+el algoritmo genético anterior y DLS como búsqueda local. De esta forma, se mantiene
+la estructura de algoritmo genético estacionario, introduciendo una búsqueda local
+al final de la creación de la nueva generación, lo que nos permite explorar su entorno
+antes de pasar a la siguiente.
 
 El desarrollo del algoritmo es muy simple, pues utiliza como base el algoritmo
 genético introducido anteriormente. Utiliza el mismo operador de cruce y mutación,
 y añade una búsqueda local después de que los hijos sean reducidos y ampliados.
 
-He utilizado la segunda búsqueda local introducida, \textit{DLS}, debido a su menor
-complejidad computacional, pues hibridar con la otra búsqueda local producía tiempos
-de ejecución demasiado elevados.
+He utilizado DLS y no 1LS debido a su menor complejidad computacional, pues hibridar
+con 1LS producía tiempos de ejecución demasiado elevados.
 
 Como parámetros, he tomado las mismas probabilidades de cruce y mutación, $1$ y $0.1$,
 y he establecido el límite de la búsqueda local en un octavo del número de nodos
