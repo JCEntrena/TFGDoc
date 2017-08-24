@@ -1,0 +1,331 @@
+%************************************************
+\chapter{Implementación}\label{ch:implementacion}
+%************************************************
+
+% Hablar de la implementación de los algoritmos, involucrando a Ruby.
+
+En este capítulo vamos a tratar la implementación del programa encargado de
+aplicar los algoritmos al conjunto de instancias. Comenzaremos introduciendo
+el lenguaje de programación utilizado, siguiendo con una descripción de la
+funcionalidad completa del programa, y concluyendo con un desglose de carácter
+más técnico de las partes que lo componen.
+
+\section{Lenguaje utilizado}
+
+La implementación del código de este trabajo ha sido realizada en el lenguaje de
+programación \textbf{Ruby}, usando su versión 2.3.0. Ruby es un lenguaje orientado
+a objetos, interpretado, con una sintaxis muy similar a la de \textbf{Python}.
+Está disponible para descarga bajo una licencia de software libre.
+
+He elegido este lenguaje por ser capaz de aportar simplicidad e intuitividad a
+la hora de programar los algoritmos. Como ya había trabajado con este lenguaje en
+ocasiones anteriores, conocía sus puntos fuertes, y he tratado de explotarlos
+lo máximo posible, para que el resultado sea un código legible y adaptable.
+
+%Además, sale de los lenguajes más utilizados en la carrera, lo que me permite incluir una herramienta menos usual.
+
+Al utilizar un lenguaje interpretado como es Ruby, cabe esperar unos
+tiempos de ejecución mayores que con otros lenguajes, debido a que no está hecho
+para ejecutar código lo más rápido posible. En el caso de querer realizar un programa
+capaz de ejecutar los algoritmos en el menor tiempo posible, lenguajes compilados
+como \textbf{C++} serían más útiles que Ruby.
+
+\section{Funcionalidad}
+
+El código implementado cumple varias funciones: la primera de ellas es llevar a
+memoria todas las instancias disponibles del problema. Para ello, he tenido que
+implementar un lector de ficheros que cree una matriz de adyacencia para cada archivo
+disponible. Estos archivos siguen una estructura determinada, que permite
+automatizar dicho proceso, no teniendo que considerar casos independientes.
+Cada archivo dará lugar a un problema, compuesto de una matriz de adyacencias,
+el número de nodos y aristas involucrados, y el nombre del grafo en cuestión.
+
+El segundo punto, y más importante, es la implementación de las heurísticas.
+Cada una de ellas está contenida en una clase propia, que contendrá uno o varios
+métodos para la resolución de los problemas generados a partir de los archivos.
+Adicionalmente, podrán contener métodos auxiliares para uso propio o de otras
+heurísticas, en caso de que utilicemos técnicas híbridas.
+
+Finalmente, existe un conjunto de funciones auxiliares, que pueden ser
+requeridas por varias heurísticas. La idea bajo su creación es encapsular
+operaciones importantes, que serán repetidas frecuentemente y en diversos
+escenarios, evitando repetición de código y sirviendo de ayuda para facilitar
+el trabajo y para la comprensión del código.
+
+
+\section{Inicialización y ejecución del programa}
+
+Antes de aplicar ningún algoritmo al conjunto de instancias, hay que resolver la
+lectura de los archivos y la creación de las estructuras de datos correspondientes
+para cada grafo. Estas operaciones se engloban en un método llamado \textit{readerMethod},
+que se encuentra en el archivo \textit{reader.rb}.
+
+Cada instancia del problema dará lugar a un objeto de la clase \textbf{Problem}, que
+almacena los datos de cada grafo: su nombre, número de vértices, número de aristas,
+su matriz de adyacencias y el orden de cada nodo, esto es, su número de adyacencias.
+
+El método de lectura de los archivos recorre el fichero en el que están almacenadas
+las instancias del problema, y por cada uno de ellos construye un objeto de la clase
+Problem. Dado que los ficheros siguen todos el mismo formato, es posible extraer
+los datos de cada grafo sin más que hacer una distinción de casos.
+
+La parte fundamental de la lectura, que es la creación de la matriz de adyacencias,
+se realiza partiendo de una matriz de ceros del tamaño adecuado, e iremos tomando
+los pares que se proporcionan en el archivo, que representan los nodos que están
+conectados, para marcarlos como unos en la matriz de adyacencias. Dado que los
+nodos comienzan su numeración desde el $1$ en los ficheros, y desde el $0$ en el
+programa (debido a que las estructuras de datos comienzan en el $0$), hemos de
+corregirlo a la hora de marcar las aristas en la matriz de adyacencias. Además,
+marcaremos todos los nodos como conectados con ellos mismos, pues será necesario
+para el correcto funcionamiento de algunas operaciones. Esto hace que todos los
+nodos de un clique pertenezcan a su conjunto $C_0$ asociado, por lo que cuando lo
+calculemos tendremos que quitar los nodos del propio clique.
+
+El número de adyacencias de cada nodo no lo proporciona el archivo del grafo,
+sino que hemos de calcularlo. Para ello, nos valemos de una función auxiliar
+programada con tal fin.
+
+El archivo \textit{reader.rb} también contendrá el método principal. En él, se
+ejecutarán el método de lectura y los algoritmos implementados que incluyamos,
+para lo que se debe añadir el código necesario. Además, se mostrarán por pantalla
+los resultados obtenidos, con la idea de poder redireccionarlos a un archivo de
+texto en el que almacenar los resultados.
+
+
+\section{Algoritmos}
+
+Todos los algoritmos implementados en el programa se encuentran recogidos en
+un mismo módulo, el módulo \textbf{Clique}, bajo el que también se encuentra el
+archivo \textit{reader.rb} detallado con anterioridad. Cada tipo de algoritmo
+estará dentro de una clase, y se separarán los distintos algoritmos del mismo
+tipo en métodos diferentes.
+
+\subsection{Consideraciones}
+
+Algunos algoritmos usan aleatoriedad en una o varias fases. Para conseguirla, se
+ha utilizado la clase \textbf{Random}, que proporciona un generador de números
+aleatorios. El método \textit{rand()} nos permite obtener un valor aleatorio
+dentro de un rango dado, pudiendo ser un número entero o real, lo que nos permite
+cubrir todas las necesidades en este aspecto.
+
+% Hablar de que no se usa información del grafo para construir una clase.
+
+\subsection{Algoritmos \textit{greedy}}
+
+Los dos algoritmos \textit{greedy} implementados se encuentran en el archivo
+\textit{greedy.rb}, dentro de la clase \textbf{Greedy}. El algoritmo \textit{greedy}
+básico está en el método \textit{solve}, mientras que el \textit{greedy} adaptativo
+se encuentra en el método \textit{solve2}. Ambos métodos reciben únicamente una
+instancia de la clase Problem como parámetro, el problema a resolver.
+
+Además, en este archivo también se encuentran los distintos algoritmos voraces
+encargados de completar cliques o de reparar grafos, utilizados en otras heurísticas.
+Son los siguientes:
+\begin{itemize}
+  \item \textit{complete_clique}, método que amplía un clique hasta que sea posible,
+        tomando de entre los candidatos aquel con más adyacencias.
+  \item \textit{complete_clique_random}, que, al igual que el anterior, amplía
+        un clique hasta que sea maximal, solo que en este caso elige de forma aleatoria.
+  \item \textit{solve_random}, método que crea un clique partiendo desde cero, usando
+        \textit{complete_clique_random}. Lo usaremos para generar soluciones iniciales
+        aleatorias.
+  \item \textit{repair}, método que elimina nodos de un grafo hasta que sea un clique.
+        Elimina el nodo con menor número de adyacencias.
+  \item \textit{repair_random}, con la misma función que el anterior, pero en este
+        caso elimina un nodo aleatorio.
+\end{itemize}
+
+\subsection{Búsqueda local}
+
+Los dos algoritmos de búsqueda local están en el archivo \textit{localsearch.rb},
+bajo la clase \textbf{LocalSearch}. Para la creación de la clase, solo es necesario
+crear un generador de números aleatorio, por lo que no hay que pasarle argumentos
+al constructor.
+
+La heurística 1LS está implementada en el método \textit{solve_with_solution}, y
+recibe como parámetro el elemento de la clase Problem a resolver, una solución
+de partida, y un límite de cambios.
+
+Por otra parte, la heurística DLS se encuentra en el método \textit{solve_dynamic}.
+Los parámetros serán los mismos que en el caso anterior: la instancia de la clase
+Problem a resolver, la solución de partida y el límite de cambios.
+
+Para la ejecución de cualquiera de los dos métodos partiendo desde el clique
+vacío, existe el método \textit{solve}, que será el que llamemos cuando queramos
+ejecutar uno de los dos algoritmos. Recibe como parámetros el problema que resolver
+y el número de cambios, que los pasará al algoritmo que ejecute, además del clique
+vacío como solución de partida.
+
+\subsection{Enfriamiento simulado}
+
+En el archivo \textit{simulatedannealing.rb} se encuentran los dos algoritmo de
+enfriamiento simulado considerados, en la clase \textbf{SA}. El constructor de
+clase no necesita parámetros, pues crea un generador de números aleatorios y
+una instancia de la clase Greedy, ya que el algoritmo de Geng et al. necesita
+las funciones para reparar y completar grafos.
+
+El algoritmo de enfriamiento simulado básico está implementado en el método
+\textit{solve}, que recibe como único parámetro el problema a resolver. Para el
+criterio de aceptación del algoritmo Metrópolis, genera un número aleatorio entre
+$0$ y $1$, y si es menor que el valor de la probabilidad, acepta la solución.
+Para tomar elementos aleatorios del entorno, se utiliza la función \textit{shuffle},
+que baraja los elementos del entorno, y toma un número aleatorio como semilla.
+
+El algoritmo de Geng et al. se encuentra en el método \textit{solve2}, que vuelve
+a tener como único parámetro el problema que se quiere resolver. Efectúa las mismas
+operaciones para el criterio de Metrópolis y para el baraje del entorno.
+
+Ambas funciones declaran los valores de las temperaturas y del parámetro $\beta$
+al inicio. Para cambialos, basta con modificar dichos valores en el código.
+
+\subsection{GRASP}
+
+El algoritmo GRASP está implementado en el archivo \textit{grasp.rb}, dentro de la
+clase \textbf{GRASP}. Además de un generador de números aleatorios, el constructor
+declara un objeto de la clase LocalSearch, que necesitaremos para aplicar el
+algoritmo de búsqueda local que consideremos.
+
+El método \textit{generate_random_solution} es el encargado de generar las soluciones
+iniciales pseudoaleatorias, tomando un problema como argumento. El tamaño de la
+lista restringida de candidatos está fijado por un valor en el código, que debemos
+cambiar en caso de querer aumentar o reducir el tamaño de dicha lista.
+
+Como los dos algoritmos implementados solo difieren en la búsqueda local utilizada,
+es posible implementar ambos utilizando un único método, y cambiar la búsqueda local
+para alternar entre uno u otro. El método \textit{solve} es el encargado de esto,
+recibiendo un problema y un número de iteraciones como parámetros. El número de
+cambios para el algoritmo de búsqueda local está declarado como una variable, que
+deberemos modificar si queremos variar su valor.
+
+\subsection{ILS}
+
+El algoritmo ILS se encuentra en el archivo \textit{ils.rb}, en la clase \textbf{ILS}.
+Su construcción no necesita parámetros, y se encarga de crear el generador de números
+aleatorios y un objeto de la clase LocalSearch para las búsquedas locales.
+
+La clase tiene un único método, \textit{solve}, que es el encargado de aplicar la
+búsqueda local y las permiutaciones a las soluciones obtenidas. Recibe el problema
+a resolver y el número de iteraciones. El límite para la búsqueda local es una
+variable, que modificaremos de ser necesario. Al igual que en el caso de GRASP,
+para cambiar la búsqueda local que aplicamos basta con cambiar la llamada al método
+de búsqueda local.
+
+\subsection{Algoritmos de colonia de hormigas}
+
+Los dos algoritmos de colonia de hormigas implementados están en el archivo \textit{aco.rb},
+dentro de la clase \textbf{ACO}. El constructor no recibe ningún parámetro, pues solo
+crea un generador de números aleatorios.
+
+Mi versión del algoritmo está en el método \textit{solve}, que recibe el problema que
+se quiere resolver y el número de iteraciones. El número de hormigas y el parámetro
+$\beta$, necesario para la evaporación de feromonas, se encuentran en el código,
+pudiendo cambiarse su valor de ser necesario.
+
+Para elegir cada nodo al que va una hormiga, una vez calculadas las probabilidades,
+se genera un valor aleatorio entre $0$ y $1$, y vamos tomando nodos, acumulando su
+valor de probabilidad, hasta que dicho valor supere el valor aleatorio generado.
+
+El algoritmo de Xu et al. se encuentra en el método \textit{solve2}, y, debido a que
+su estructura es igual que el algoritmo anterior, salvo el cálculo de las probabilidades,
+se le puede aplicar todo lo mencionado anteriormente.
+
+\subsection{Algoritmos genéticos}
+
+Tanto el algoritmo genético como el memético implementados se encuentran dentro de
+la clase \textbf{Genetics}, en el archivo \textit{genetics.rb}. El constructor
+de la clase no recibe ningún parámetro, y crea un generador de números aleatorios,
+un elemento de la clase LocalSearch y uno de la clase Greedy, que se usarán en el
+algoritmo memético y para completar o reparar las soluciones, respectivamente.
+
+El algoritmo genético de Zhang et al. está implementado en el método \textit{solve},
+que recibe el problema a resolver y el número de iteraciones. Tanto las probabilidades
+de cruce y mutación como el tamaño de la población se encuentran en el código, donde
+deben ser modificadas de ser necesario. Como en ocasiones anteriores, para decidir
+eventos que dependen de una probabilidad, se genera un número entre $0$ y $1$, y si
+este es menor que la probabilidad, el suceso se lleva a cabo. Este proceso se lleva
+a cabo en los mecanismo de cruce y de mutación, y además se usa también en el propio
+operador de cruce, donde los nodos que pertenecen solo a un padre van a cada uno de
+los hijos con probabilidad $0.5$.
+
+El algoritmo memético, implementado en \textit{solve_memetic}, funciona de la misma
+forma, aplicando búsqueda local al generar la nueva población, con un límite que
+también está en el código. Por lo demás, opera  igual que el genético, por lo que
+son aplicables las consideraciones anteriores.
+
+Además, existe un método privado para las mutaciones, llamado \textit{mutation}.
+Recibe como parámetro la solución a mutar y la matriz de adyacencias, y devuelve
+la solución mutada.
+
+
+\section{Métodos auxiliares}
+
+Además de los algoritmos, también se han implementado funciones que realizan
+cálculos necesarios en varios de los algoritmos, que han sido incluidas en un
+archivo adicional creado para almacenarlas. Estas funciones no se encuentran
+dentro de una clase, pero sí que están en un módulo distinto, el módulo \textbf{Algorithm},
+para diferenciarlas de las implementaciones de las heurísticas. Todas estas funciones
+se encuentran en el archivo \textit{algorithm.rb}, y las detallamos a continuación:
+
+\begin{itemize}
+  \item \textit{add}: Operador \textit{add}. Recibe un clique y un vértice, y añade
+        el vértice al clique. Supone que el vértice no está en el clique y que
+        se mantiene la estructura.
+
+  \item \textit{swap}: Operador \swap}. Recibe un clique, un vértice $v$ del conjunto
+        $C_1$, y la matriz de adyacencias. Busca el nodo dentro del clique que no está
+        conectado a $v$ y lo intercambia con $v$. De nuevo, suponemos que $v \in C_1$,
+        por lo que se puede hacer el intercambio.
+
+  \item \textit{swap_two}: Operador \textit{swap}. En este caso, se pasan como parámetros
+        el clique y los dos nodos a intercambiar, $p$ en $C_1$ y $q$ dentro del clique.
+        El método elimina $q$ del clique y mete $p$, suponiendo que se verifica lo
+        anterior y que $q$ es el único nodo del clique no conectado a $p$.
+
+  \item \textit{drop}: Operador \textit{drop}. Recibe un clique y un nodo, y elimina
+        dicho nodo del clique.
+
+  \item \textit{adjacencies}: Método que recibe un nodo y una matriz de adyacencias,
+        y devuelve el número de adyacencias de dicho nodo. Se utiliza para calcular
+        las adyacencias de todos los nodos al crear un problema.
+
+  \item \textit{connections}: Dados un nodo $n$, un conjunto de nodos $S$ y una matriz de
+        adyacencias, este método devuelve el número de nodos de $S$ conectados con $c$.
+
+  \item \textit{is_connected}: Recibe un nodo $n$, un conjunto de nodos $S$ y una matriz
+        de adyacencias, y devuelve si $n$ está conectado con todos los nodos de $S$.
+        Este método nos servirá para calcular el conjunto $C_0$.
+
+  \item \textit{is_connected_but_one}: Funciona igual que el anterior, pero comprueba
+        que el nodo $n$ esté conectado con todos los nodos de $S$ salvo uno. Nos servirá
+        para el cálculo del conjunto $C_1$.
+
+  \item \textit{connected}: Dados un nodo y una matriz de adyacencias, devuelve todos los
+        nodos del grafo conectados a él.
+
+  \item \textit{connected_with_all}: Dado un conjunto de nodos $S$ y una matriz de adyacencias,
+        usando el método \textit{is_connected}, devuelve el conjunto $M$, formado por los nodos
+        conectados con todos los de $S$, y elimina el conjunto $S$ de $M$, pues si $S$ es un clique,
+        $S \subseteq M$. Obtenemos por tanto el conjunto $C_0$, que será para lo que utilizemos
+        este método.
+
+  \item \textit{missing_one_connection}: Dado un conjunto de nodos $S$ y una matriz de adyacencias,
+        devuelve el conjunto de nodos conectados con todos los de $S$ salvo uno. Lo usaremos
+        para calcular el conjunto $C_1$ asociado a un clique.
+
+  \item \textit{one_connected_with_all}: Recibe una lista y una matriz de adyacencias, y
+        devuelve \textit{true} si existe un nodo fuera de la lista conectado a todos los
+        nodos de ella.
+
+  \item \textit{value} y \textit{value2}: Funciones objetivo utilizadas en los algoritmos
+        de enfriamiento simulado. Ambas reciben un grafo y una matriz de adyacencias, y
+        devuelven el valor calculado.
+
+  \item \textit{is_clique}: Función que recibe un grafo y una matriz de adyacencias, y
+        devuelve si dicho grafo es un clique o no.
+
+  \item \textit{print_solution}: Método para mostrar por pantalla una solución. Primero,
+        comprueba si es un clique con el función anterior y lo muestra. Después, imprime
+        su longitud. Además, imprime la solución y su longitud por la salida de error,
+        lo que permite redirigirlo a un archivo distinto a la hora de ejecutar el programa. 
+
+\end{itemize}
