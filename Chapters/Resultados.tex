@@ -1,0 +1,724 @@
+%************************************************
+\chapter{Resultados y análisis}\label{ch:resultados}
+%************************************************
+
+En este capítulo expondremos los resultados obtenidos por cada algoritmo sobre el
+conjunto de cliques que se ha considerado, y evaluaremos el funcionamiento individual
+de cada uno de ellos. Además, compararemos los algoritmos del mismo tipo para ver cómo
+afectan sus diferencias en los resultados.
+
+\section{Consideraciones}
+
+Para la toma de datos, he utilizado un portátil con el sistema operativo Antergos
+Linux 64-bit, con un procesador Intel Core i7-3610QM, que cuenta con $4$ núcleos
+y $2$ hebras por núcleo, con una frecuencia de reloj de $2.30$ gigahercios. Los
+algoritmos han sido ejecutados individualmente, sin uso de paralelismo, por lo que
+cada ejecución ha ocupado una sola hebra.
+
+Algunos de los algoritmos implementados en este trabajo cuentan con una o varias
+componentes aleatorias: elección de un elemento aleatorio, cálculo de un valor para
+aceptar o no una acción que depende de una probabilidad, etcétera. Debido a esto,
+para la obtención de resultados, se han realizado varias ejecuciones de estos algoritmos,
+de las cuales se ha tomado el mejor valor obtenido. He tomado el mejor, y no la media,
+porque representa el tamaño del clique que dicho algoritmo puede alcanzar en un
+número razonable de ejecuciones.
+
+En el caso de los algoritmos que no tienen componentes aleatorias, como su ejecución
+lleva siempre a la misma solución, el programa se ha ejecutado una única vez en
+cada caso. Estos algoritmos son los dos \textit{greedy} y 1LS. Además, los algoritmos
+ILS y GRASP que usan 1LS también se han ejecutado una única vez, aunque el método
+de obtención de soluciones iniciales tenga componentes aleatorias, debido a que su
+tiempo de ejecución es muy alto.
+
+El resto de algoritmos incluyen componentes aleatorias, y se han considerado un
+número variable de ejecuciones para cada uno de ellos, dependiendo del tiempo que
+tardasen. Se detallan a continuación:
+\begin{itemize}
+  \item DLS: 20 iteraciones.
+  \item Enfriamiento simulado: 10 iteraciones para cada algoritmos.
+  \item Colonia de hormigas: 10 iteraciones para cada algoritmo.
+  \item ILS con DLS: 10 iteraciones.
+  \item GRASP con DLS: 10 iteraciones.
+  \item Genético: 10 iteraciones.
+  \item Memético: 5 iteraciones.
+\end{itemize}
+
+\section{Análisis}
+
+A continuación, vamos a ver los resultados obtenidos por cada algoritmo en forma de tabla,
+para hacer un análisis de cada uno de ellos. Debido a la cantidad de algoritmos, estos
+han sido divididos según su tipo, en grupos de dos: dos \textit{greedy}, dos búsquedas
+locales, dos enfriamientos simulados, dos ILS, dos GRASP, dos algoritmos de colonia de
+hormigas y los algoritmos genético y memético. Para cada grupo, mostraremos los resultados
+y haremos un análisis individual y comparativo de los dos algoritmos que contiene.
+
+Las tablas tienen la siguiente disposición: la primera columna contiene cada uno de los
+grafos considerados. La segundo columna indica el tamaño del mejor clique conocido para
+cada grafo, notando con un asterisco los valores que están confirmados como óptimos
+globales. El resto de columnas contienen el tamaño del mejor clique encontrado para cada
+algoritmo, notado como |C|, y el tiempo de ejecución, que se ha tomado el valor medio en
+caso de haberse efectuado más de una ejecución.
+
+\subsection{Algoritmos \textit{greedy}}
+
+\begin{small}
+\begin{longtable}{l l l l l l}
+  \label{table:greedy}\\
+  & & \multicolumn{2}{c}{Greedy básico} & \multicolumn{2}{c}{Greedy adaptativo} \\ \cline{3-6}
+  Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+  \endhead
+  \endfoot
+  brock200\_2        & 12 & 7 & < 0.01 & 9 & 0.18 \\ \hline
+  brock200\_4        & 17 & 13 & 0.02 & 15 & 0.27 \\ \hline
+  brock400\_2        & 29 & 20 & 0.08 & 22 & 1.61 \\ \hline
+  brock400\_4        & 33 & 18 & 0.07 & 21 & 1.58 \\ \hline
+  brock800\_2        & 24 & 14 & 0.18 & 19 & 4.98 \\ \hline
+  brock800\_4        & 26 & 14 & 0.18 & 19 & 4.41 \\ \hline
+  C125.9             & 34* & 29 & 0.02 & 32 & 0.44 \\ \hline
+  C250.9             & 44* & 35 & 0.08 & 40 & 1.49 \\ \hline
+  C500.9             & 57 & 43 & 0.31 & 51 & 24.10 \\ \hline
+  C1000.9            & 68 & 51 & 1.16 & 56 & 126.73 \\ \hline
+  C2000.5            & 16* & 10 & 0.72 & 13 & 24.73 \\ \hline
+  C2000.9            & 80 & 56 & 4.39 & 66 & 1058.85 \\ \hline
+  C4000.5            & 18* & 12 & 2.86 & 15 & 3.64 \\ \hline
+  DSJC500\_5         & 13 & 8 & 0.05 & 11 & 0.07 \\ \hline
+  DSJC1000\_5        & 15 & 10 & 0.19 & 12 & 6.18 \\ \hline
+  gen200\_p0.9\_44   & 44 & 32 & 0.06 & 36 & 1.81 \\ \hline
+  gen200\_p0.9\_55   & 55 & 36 & 0.06 & 39 & 1.56 \\ \hline
+  gen400\_p0.9\_55   & 55 & 44 & 0.22 & 43 & 12.67 \\ \hline
+  gen400\_p0.9\_65   & 65 & 40 & 0.21 & 44 & 12.82 \\ \hline
+  gen400\_p0.9\_75   & 75 & 45 & 0.23 & 46 & 13.36 \\ \hline
+  hamming10-4        & 40 & 32 & 0.70 & 36 & 120.37 \\ \hline
+  hamming8-4         & 16 & 16 & 0.02 & 16 & 0.57 \\ \hline
+  keller4            & 11 & 8 & < 0.01 & 11 & 0.25 \\ \hline
+  keller5            & 27 & 17 & 0.29 & 24 & 45.48 \\ \hline
+  keller6            & 59 & 37 & 9.39 & 48 & 5575.49 \\ \hline
+  MANN\_a27          & 126 & 125 & 1.03 & 125 & 17.20 \\ \hline
+  p\_hat300-1        & 8 & 7 & 0.01 & 8 & 0.02 \\ \hline
+  p\_hat300-2        & 25 & 23 & 0.05 & 23 & 0.83 \\ \hline
+  p\_hat300-3        & 36 & 30 & 0.08 & 34 & 2.68 \\ \hline
+  p\_hat700-1        & 11 & 7 & 0.007 & 8 & 0.10 \\ \hline
+  p\_hat700-2        & 44 & 38 & 0.32 & 43 & 7.51 \\ \hline
+  p\_hat700-3        & 62* & 55 & 0.59 & 58 & 10.20 \\ \hline
+  p\_hat1500-1       & 12 & 8 & 0.32 & 11 & 0.44 \\ \hline
+  p\_hat1500-2       & 65* & 54 & 1.65 & 62 & 42.14 \\ \hline
+  p\_hat1500-3       & 94* & 75 & 2.88 & 87 & 94.61 \\ \hline
+  \caption{Resultados en algoritmos greedy.}
+\end{longtable}
+\end{small}
+
+Los resultados obtenidos por los dos algoritmos greedy han sido de un óptimo y una media
+de $73.2\%$ de tamaño para el greedy básico, y tres óptimos y un $84.9\%$ de media
+para el greedy adaptativo.
+
+Los resultados del algoritmo greedy básico muestran que este falla a la hora de
+alcanzar el óptimo en el conjunto de instancias, pues lo logra en solo una de las $35$.
+El tamaño medio manifiesta que no se obtienen soluciones de calidad, existiendo
+un amplio margen de mejora en la mayoría de instancias del problema. En cuanto a
+los tiempos, es un algoritmo rápido, que por lo general requiere menos de $1$
+segundo para ejecutarse, y que no supera los $10$ segundos en ningún caso.
+
+El greedy adaptativo logra mejorar o igualar los resultados obtenidos por el algoritmo
+anterior en todos los grafos, lo que confirma que ampliar el entorno con movimientos
+\textit{swap} mejora sensiblemente los resultados, aunque aumenta de forma considerable
+los tiempos de ejecución, llegando a superar la hora en \textit{keller6}. Aun así,
+en la mayoría de los grafos, la ejecución es rápida, no llegando a superar los $60$
+segundos.
+
+Si nos fijamos en sus resultados por separado, el porcentaje medio de tamaño de los
+cliques hallados y la obtención de únicamente $3$ óptimos, hacen que este algoritmo
+tampoco consiga buenos resultados si se aplica sin combinar con ningún otro.
+
+Dados estos resultados, queda patente que los algoritmos voraces implementados no
+son capaces de alcanzar buenas soluciones por sí solos. Aun así, los cliques
+obtenidos pueden servir como soluciones de partida para otros algoritmos que sean
+capaces de mejorar las carencias que tienen los \textit{greedy}. En este caso,
+si trabajamos con cliques de gran tamaño nos interesa un algoritmo más veloz como
+es el greedy básico. Si por el contrario los grafos son pequeños, a cambio de algo
+más de tiepo de ejecución, el algoritmo greedy adaptativo nos da soluciones de
+partida de más calidad.
+
+\subsection{Búsqueda local}
+
+\begin{small}
+  \begin{longtable}{l l l l l l}
+  \label{table:bl}\\
+    & & \multicolumn{2}{c}{1LS} & \multicolumn{2}{c}{DLS} \\ \cline{3-6}
+    Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+    \endhead
+    \endfoot
+    brock200\_2        & 12 & 9 & 0.36 & 11 & < 0.01   \\ \hline
+    brock200\_4        & 17 & 15 & 0.37 & 15 & 0.01   \\ \hline
+    brock400\_2        & 29 & 22 & 2.05 & 23 & 0.06   \\ \hline
+    brock400\_4        & 33 & 23 & 1.85 & 23 & 0.07   \\ \hline
+    brock800\_2        & 24 & 19 & 6.82 & 19 & 0.10   \\ \hline
+    brock800\_4        & 26 & 20 & 6.13 & 18 & 0.09   \\ \hline
+    C125.9             & 34* & 33 & 0.36 & 34 & 0.04   \\ \hline
+    C250.9             & 44* & 42 & 1.91 & 41 & 0.14   \\ \hline
+    C500.9             & 57 & 54 & 7.69 & 54 & 0.39   \\ \hline
+    C1000.9            & 68 & 63 & 32.02 & 62 & 1.62   \\ \hline
+    C2000.5            & 16* & 13 & 46.60 & 14 & 0.19  \\ \hline
+    C2000.9            & 80 & 72 & 179.76 & 68 & 3.63  \\ \hline
+    C4000.5            & 18* & 15 & 141.92 & 15 & 0.48   \\ \hline
+    DSJC500\_5         & 13 & 11 & 1.89 & 12 & 0.03   \\ \hline
+    DSJC1000\_5        & 15 & 13 & 8.28 & 13 & 0.05   \\ \hline
+    gen200\_p0.9\_44   & 44 & 39 & 1.01 & 43 & 0.08   \\ \hline
+    gen200\_p0.9\_55   & 55 & 39 & 1.01 & 55 & 0.12   \\ \hline
+    gen400\_p0.9\_55   & 55 & 50 & 5.03 & 49 & 0.35   \\ \hline
+    gen400\_p0.9\_65   & 65 & 45 & 9.12 & 49 & 0.37   \\ \hline
+    gen400\_p0.9\_75   & 75 & 49 & 5.83 & 75 & 0.37   \\ \hline
+    hamming10-4        & 40 & 36 & 19.48 & 40 & 0.68   \\ \hline
+    hamming8-4         & 16 & 16 & 0.50 & 16 & < 0.01   \\ \hline
+    keller4            & 11 & 11 & 0.22 & 11 & 0.01  \\ \hline
+    keller5            & 27 & 23 & 17.27 & 27 & 0.22   \\ \hline
+    keller6            & 59 & 51 & 556.38 & 50 & 4.97   \\ \hline
+    MANN\_a27          & 126 & 125 & 62.29 & 123 & 3.84   \\ \hline
+    p\_hat300-1        & 8 & 7 & 0.55 & 7 & < 0.01   \\ \hline
+    p\_hat300-2        & 25 & 25 & 1.35 & 25 & 0.05   \\ \hline
+    p\_hat300-3        & 36 & 34 & 1.67 & 36 & 0.13  \\ \hline
+    p\_hat700-1        & 11 & 9 & 2.76 & 9 & 0.02   \\ \hline
+    p\_hat700-2        & 44 & 44 & 11.17 & 43 & 0.39   \\ \hline
+    p\_hat700-3        & 62* & 60 & 28.40 & 61 & 0.76  \\ \hline
+    p\_hat1500-1       & 12 & 11 & 17.38 & 11 & 0.08   \\ \hline
+    p\_hat1500-2       & 65* & 64 & 132.85 & 63 & 1.85   \\ \hline
+    p\_hat1500-3       & 94* & 91 & 128.08 & 91 & 4.61   \\ \hline
+  \caption{Resultados en búsqueda local.}
+\end{longtable}
+\end{small}
+
+Los dos algoritmos de búsqueda local han dado unos resultados de $4$ óptimos y
+un $87.5\%$ de media para 1LS, y $9$ óptimos y un $91.0\%$ de media para DLS.
+
+Vemos como 1LS consigue mejorar los resultados obtenidos por ambos algoritmos
+\textit{greedy} tanto en número de óptimos como de tamaño medio de los grafos,
+lo que reafirma que la exploración del entorno es importante a la hora de buscar
+soluciones. No obstante, en vista de los resultados, estos siguen siendo mejorables
+en cuanto a la calidad de las soluciones encontradas. Los tiempos de ejecución no
+son excesivos, si bien en los grafos más grandes pueden extenderse un poco,
+rozando los $10$ minutos en \textit{keller6}. Aun así, en la mayoría de los grafos
+no se superan los $30$ segundos de tiempo de ejecución.
+
+DLS logra mejorar los resultados de 1LS, pues es capaz de alcanzar más óptimos,
+y de obtener un mayor tamaño medio. En este caso, se supera el $90\%$ de tamaño
+medio, por lo que tenemos un algoritmo que empieza a obtener soluciones satisfactorias.
+Los tiempos de ejecución son significativamente menores, lo cual era de esperar,
+ya que DLS, al contrario que ILS, no hace cálculos para la elección de candidatos,
+sino que dicha elección es aleatoria, lo que reduce la complejidad del algoritmo.
+Todas las ejecuciones se completan en menos de $5$ segundos, la mayoría de ellas
+requiriendo menos de $1$ segundo.
+
+Debido a la mejora en tiempos de ejecución y en resultados, podemos afirmar que
+DLS funciona mejor que 1LS al aplicarlo directamente sobre los grafos, y cabe esperar
+que también ofrezca mejores resultados cuando lo utilicemos en ILS y GRASP.
+Recordando el funcionamiento de los algoritmos, 1LS ordenaba los tres movimientos
+para obtener el entorno y trataba de aprovechar información del grafo para elegir
+entre los nodos candidatos, mientras que DLS no consideraba movimientos \textit{drop},
+y las elecciones eran aleatorias. Los resultados parecen apuntar a que el entorno
+considerado en DLS que el tomado en 1LS. Además, el uso de información inherente
+al grafo no parece aportar beneficio, si bien sería necesaria más experimentación
+para poder afirmarlo.
+
+\subsection{Enfriamiento simulado}
+
+\begin{small}
+\begin{longtable}{l l l l l l}
+  \label{table:sa}\\
+    & & \multicolumn{2}{c}{SA básico} & \multicolumn{2}{c}{SA adaptado} \\ \cline{3-6}
+    Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+    \endhead
+    \endfoot
+    brock200\_2        & 12 & 10 & 1.25 & 9 & 10.00 \\ \hline
+    brock200\_4        & 17 & 16 & 2.15 & 13 & 9.67 \\ \hline
+    brock400\_2        & 29 & 24 & 7.73 & 18 & 24.15 \\ \hline
+    brock400\_4        & 33 & 24 & 5.55 & 19 & 23.30 \\ \hline
+    brock800\_2        & 24 & 19 & 11.19 & 16 & 54.90 \\ \hline
+    brock800\_4        & 26 & 20 & 11.13 & 16 & 43.35 \\ \hline
+    C125.9             & 34* & 34 & 2.06 & 32 & 6.31 \\ \hline
+    C250.9             & 44* & 44 & 8.78 & 36 & 14.42 \\ \hline
+    C500.9             & 57 & 53 & 22.86 & 45 & 27.79 \\ \hline
+    C1000.9            & 68 & 63 & 44.07 & 52 & 57.76 \\ \hline
+    C2000.5            & 16* & 15 & 29.26 & 12 & 136.12 \\ \hline
+    C2000.9            & 80 & 71 & 83.85 & 57 & 133.82 \\ \hline
+    C4000.5            & 18* & 15 & 44.58 & 13 & 220.79 \\ \hline
+    DSJC500\_5         & 13 & 12 & 4.10 & 10 & 28.73 \\ \hline
+    DSJC1000\_5        & 15 & 14 & 9.28 & 11 & 60.67 \\ \hline
+    gen200\_p0.9\_44   & 44 & 44 & 5.29 & 33 & 11.50 \\ \hline
+    gen200\_p0.9\_55   & 55 & 55 & 6.18 & 37 & 10.82 \\ \hline
+    gen400\_p0.9\_55   & 55 & 51 & 9.95 & 43 & 19.63 \\ \hline
+    gen400\_p0.9\_65   & 65 & 65 & 21.35 & 44 & 24.56 \\ \hline
+    gen400\_p0.9\_75   & 75 & 75 & 13.42 & 44 & 23.98 \\ \hline
+    hamming10-4        & 40 & 40 & 52.06 & 30 & 61.17 \\ \hline
+    hamming8-4         & 16 & 16 & 5.23 & 12 & 13.84 \\ \hline
+    keller4            & 11 & 11 & 0.78 & 9 & 8.85 \\ \hline
+    keller5            & 27 & 25 & 6.38 & 21 & 48.53 \\ \hline
+    keller6            & 59 & 49 & 51.53 & 41 & 244.11 \\ \hline
+    MANN\_a27          & 126 & 121 & 12.68 & 122 & 17.65 \\ \hline
+    p\_hat300-1        & 8 & 8 & 1.22 & 7 & 18.32 \\ \hline
+    p\_hat300-2        & 25 & 25 & 4.16 & 21 & 15.20 \\ \hline
+    p\_hat300-3        & 36 & 36 & 7.03 & 32 & 16.92 \\ \hline
+    p\_hat700-1        & 11 & 10 & 3.65 & 8 & 39.18 \\ \hline
+    p\_hat700-2        & 44 & 44 & 22.02 & 37 & 41.78 \\ \hline
+    p\_hat700-3        & 62* & 62 & 28.50 & 52 & 41.75 \\ \hline
+    p\_hat1500-1       & 12 & 11 & 9.77 & 8 & 89.71 \\ \hline
+    p\_hat1500-2       & 65* & 65 & 62.62 & 51 & 94.75 \\ \hline
+    p\_hat1500-3       & 94* & 94 & 77.15 & 75 & 91.43 \\ \hline
+  \caption{Resultados en enfriamiento simulado.}
+\end{longtable}
+\end{small}
+
+El primer algoritmo de enfriamiento simulado ha obtenido unos resultados de $16$
+óptimos y un $93.5\%$ de media en el tamaño de los cliques, con respecto al máximo
+conocido.
+
+Estos resultados mejoran los obtenidos por ambos algoritmos de búsqueda local,
+tomando un entorno distinto y sin priorizar  ningún movimiento del entorno sobre
+otro, lo que podría ser una de las razones por la cual el algoritmo mejora los resultados.
+Además, el uso de técnicas de enfriamiento simulado podría ser el causante de que
+el algoritmo escape de un óptimo local y se dirija a una zona con mejores soluciones.
+
+El algoritmo consigue buenos resultados, superando ampliamente el $90\%$ de tamaño
+medio en el conjunto de instancias y alcanzando el óptimo en casi la mitad de ellas.
+
+El segundo algoritmo, con unos resultados de $0$ óptimos y un $75.7\%$ de tamaño
+medio, pone de manifiesto que la adaptación de las técnicas usadas en el trabajo de
+X. Geng, J. Xu, J. Xiao y L. Pan no da resultados satisfactorios.
+
+Dado que la exploración del entorno es aleatoria, como en el caso anterior, cabe
+plantearse si considerar grafos cualesquiera en lugar de cliques como espacio de
+soluciones es la causa de este mal rendimiento. La función objetivo, con componentes
+aparte del tamaño de los grafos, también podría ser causante de que el algoritmo
+no se dirija a las zonas del espacio de soluciones de mayor calidad. Además, la
+función de reducción  de grafos a cliques es otro factor a tener en cuenta, pues
+no tenemos garantizado que la reducción sea óptima, y añade otra etapa de pérdida
+de calidad en las soluciones.
+
+\subsection{ILS}
+
+\begin{small}
+\begin{longtable}{l l l l l l}
+  \label{table:ils}\\
+    & & \multicolumn{2}{c}{ILS - 1LS} & \multicolumn{2}{c}{ILS - DLS} \\ \cline{3-6}
+    Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+    \endhead
+    \endfoot
+    brock200\_2        & 12 & 10 & 4.36 & 10 & 0.12\\ \hline
+    brock200\_4        & 17 & 15 & 6.69 & 16 & 0.21\\ \hline
+    brock400\_2        & 29 & 24 & 34.90 & 24 & 0.89\\ \hline
+    brock400\_4        & 33 & 24 & 35.40 & 24 & 0.90\\ \hline
+    brock800\_2        & 24 & 18 & 116.12 & 19 & 1.72\\ \hline
+    brock800\_4        & 26 & 18 & 116.78 & 20 & 1.53\\ \hline
+    C125.9             & 34* & 34 & 6.91 & 34 & 0.55\\ \hline
+    C250.9             & 44* & 44 & 25.94 & 44 & 1.36\\ \hline
+    C500.9             & 57 & 57 & 124.56 & 55 & 3.72\\ \hline
+    C1000.9            & 68 & 61 & 514.84 & 63 & 10.28\\ \hline
+    C2000.5            & 16* & 12 & 547.22 & 14 & 2.59\\ \hline
+    C2000.9            & 80 & 72 & 2512.71 & 72 & 29.10\\ \hline
+    C4000.5            & 18* & 16 & 2489.99 & 15 & 6.50\\ \hline
+    DSJC500\_5         & 13 & 12 & 31.75 & 12 & 0.43\\ \hline
+    DSJC1000\_5        & 15 & 14 & 145.22 & 14 & 1.14\\ \hline
+    gen200\_p0.9\_44   & 44 & 39 & 14.99 & 40 & 0.98\\ \hline
+    gen200\_p0.9\_55   & 55 & 55 & 17.33 & 55 & 0.99\\ \hline
+    gen400\_p0.9\_55   & 55 & 51 & 82.47 & 51 & 2.43 \\ \hline
+    gen400\_p0.9\_65   & 65 & 49 & 71.32 & 65 & 2.48 \\ \hline
+    gen400\_p0.9\_75   & 75 & 75 & 134.14 & 75 & 2.98 \\ \hline
+    hamming10-4        & 40 & 38 & 315.82 & 40 & 3.94\\ \hline
+    hamming8-4         & 16 & 16 & 8.27 & 16 & 0.13\\ \hline
+    keller4            & 11 & 10 & 4.40 & 11 & 0.17 \\ \hline
+    keller5            & 27 & 23 & 180.97 & 25 & 2.91 \\ \hline
+    keller6            & 59 & 48 & 10034.52 & 54 & 58.89\\ \hline
+    MANN\_a27          & 126 & 126 & 1106.07 & 125 & 55.67 \\ \hline
+    p\_hat300-1        & 8 & 7 & 8.36 & 8 & 0.12 \\ \hline
+    p\_hat300-2        & 25 & 25 & 21.33 & 25 & 0.83\\ \hline
+    p\_hat300-3        & 36 & 36 & 26.64 & 36 & 1.24\\ \hline
+    p\_hat700-1        & 11 & 9 & 53.69 & 10 & 0.47\\ \hline
+    p\_hat700-2        & 44 & 44 & 179.95 & 44 & 4.36\\ \hline
+    p\_hat700-3        & 62* & 61 & 282.32 & 62 & 6.67 \\ \hline
+    p\_hat1500-1       & 12 & 10 & 255.15 & 10 & 1.24\\ \hline
+    p\_hat1500-2       & 65* & 65 & 1417.50 & 65 & 22.65\\ \hline
+    p\_hat1500-3       & 94* & 93 & 2167.37 & 94 & 35.91\\ \hline
+  \caption{Resutados en ILS.}
+\end{longtable}
+\end{small}
+
+El primer algoritmo ILS, que utiliza la primera búsqueda local, ha obtenido
+unos resultados de $11$ óptimos y $90.3\%$ de tamaño medio, mientras que el
+segundo ha obtenido $15$ óptimos y un $93.3\%$ de tamaño medio.
+
+Los resultados en ambos algoritmos mejoran sensiblemente los alcanzados en las
+respectivas búsquedas locales, lo que nos dice que el uso de técnicas de reinicialización
+es efectivo a la hora de salir de óptimos globales, obteniendo soluciones de partida
+que nos permiten explorar de forma más efectiva el espacio de soluciones y alcanzar
+mejores cliques.
+
+Ambos algoritmos son capaces de obtener soluciones de calidad, siendo mejor el que
+utiliza la segunda búsqueda local, lo cual era de esperar, pues esta funcionaba
+mejor que la primera.
+
+\subsection{GRASP}
+
+\begin{small}
+\begin{longtable}{l l l l l l}
+  \label{table:grasp}\\
+    & & \multicolumn{2}{c}{GRASP - 1LS} & \multicolumn{2}{c}{GRASP - DLS} \\ \cline{3-6}
+    Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+    \endhead
+    \endfoot
+    brock200\_2        & 12 & 11 & 4.38 & 11 & 0.28\\ \hline
+    brock200\_4        & 17 & 16 & 6.79 & 16 & 0.47\\ \hline
+    brock400\_2        & 29 & 24 & 33.76 & 23 & 2.21\\ \hline
+    brock400\_4        & 33 & 25 & 32.25 & 33 & 2.23\\ \hline
+    brock800\_2        & 24 & 19 & 116.77 & 19 & 4.78\\ \hline
+    brock800\_4        & 26 & 19 & 101.59 & 20 & 4.60\\ \hline
+    C125.9             & 34* & 34 & 5.90 & 34 & 0.99\\ \hline
+    C250.9             & 44* & 44 & 25.92 & 43 & 3.38\\ \hline
+    C500.9             & 57 & 53 & 114.25 & 53 & 12.17\\ \hline
+    C1000.9            & 68 & 63 & 575.84 & 63 & 36.31\\ \hline
+    C2000.5            & 16* & 15 & 598.26 & 15 & 16.16\\ \hline
+    C2000.9            & 80 & 71 & 2811.73 & 69 & 134.39\\ \hline
+    C4000.5            & 18* & 16 & 2561.37 & 16 & 58.44\\ \hline
+    DSJC500\_5         & 13 & 13 & 31.00 & 13 & 1.26\\ \hline
+    DSJC1000\_5        & 15 & 14 & 150.85 & 14 & 4.44\\ \hline
+    gen200\_p0.9\_44   & 44 & 44 & 17.04 & 44 & 2.24\\ \hline
+    gen200\_p0.9\_55   & 55 & 55 & 16.21 & 55 & 2.57\\ \hline
+    gen400\_p0.9\_55   & 55 & 51 & 78.42 & 49 & 8.42\\ \hline
+    gen400\_p0.9\_65   & 65 & 52 & 76.15 & 65 & 8.72\\ \hline
+    gen400\_p0.9\_75   & 75 & 75 & 94.38 & 75 & 9.98\\ \hline
+    hamming10-4        & 40 & 40 & 340.81 & 40 & 19.86\\ \hline
+    hamming8-4         & 16 & 16 & 8.46 & 16 & 0.47\\ \hline
+    keller4            & 11 & 11 & 4.47 & 11 & 0.33\\ \hline
+    keller5            & 27 & 26 & 200.16 & 27 & 7.50\\ \hline
+    keller6            & 59 & 54 & 8958.52 & 53 & 181.52\\ \hline
+    MANN\_a27          & 126 & 125 & 1453.48 & 125 & 79.18\\ \hline
+    p\_hat300-1        & 8 & 8 & 9.00 & 8 & 0.32\\ \hline
+    p\_hat300-2        & 25 & 25 & 21.48 & 25 & 1.46\\ \hline
+    p\_hat300-3        & 36 & 36 & 31.68 & 36 & 2.70\\ \hline
+    p\_hat700-1        & 11 & 9 & 54.35 & 11 & 1.51\\ \hline
+    p\_hat700-2        & 44 & 44 & 215.50 & 44 & 9.21\\ \hline
+    p\_hat700-3        & 62* & 62 & 303.31 & 62 & 18.55\\ \hline
+    p\_hat1500-1       & 12 & 10 & 266.69 & 11 & 5.94 \\ \hline
+    p\_hat1500-2       & 65* & 65 & 1600.58 & 65 & 48.06\\ \hline
+    p\_hat1500-3       & 94* & 94 & 2297.67 & 93 & 103.41\\ \hline
+  \caption{Resultados en GRASP.}
+\end{longtable}
+\end{small}
+
+Los resultados obtenidos por ambos algoritmos GRASP han sido de $16$ óptimos y un
+$93.5\%$ para el primer algoritmo, y $18$ óptimos y un $95.3\%$ para el segundo.
+
+Estos algoritmos son capaces de alcanzar el óptimo en aproximadamente un $50\%$ de
+los casos de estudio, reflejando un buen comportamiento general. Además, el segundo
+algoritmo, que usa DLS como búsqueda local, supera el $95\%$ de tamaño medio en los
+grafos, por lo que estamos ante un algoritmo capaz de dar buenas soluciones en
+general. El primer algoritmo también ofrece resultados de calidad, incluso mejorando
+los resultados obtenidos por el otro GRASP en grafos como \textit{C2000.9} o \textit{p\_hat1500-3}.
+
+Nuevamente, el uso de DLS como búsqueda local proporciona mejores resultados que
+si utilizamos la primera búsqueda local, lo que nos reafirma en su mejor comportamiento,
+tanto por separado como si se utiliza en técnicas multiarranque.
+
+Los dos algoritmos proporcionan mejores resultados que sus correspondientes versiones
+de búsqueda local iterada, lo que en un principio nos dice que el uso de soluciones
+pseudoaleatorias como solución de partida proporciona mejores resultados que el proceso
+de mutación utilizado en ILS. No obstante, dado que estos procesos pueden ser modificados,
+queda aun margen de mejora en ambos algoritmos, por lo que sería pronto para decir que,
+de forma general, GRASP funciona mejor que ILS en el problema del clique máximo.
+
+\subsection{Algoritmos de colonia de hormigas}
+
+\begin{small}
+\begin{longtable}{l l l l l l}
+  \label{table:aco}\\
+    & & \multicolumn{2}{c}{ACO básico} & \multicolumn{2}{c}{ACO + SA} \\ \cline{3-6}
+    Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+    \endhead
+    \endfoot
+    brock200\_2        & 12 & 12 & 2.24 & 12 & 2.56\\ \hline
+    brock200\_4        & 17 & 16 & 4.60 & 16 & 4.96\\ \hline
+    brock400\_2        & 29 & 22 & 17.35 & 22 & 18.92\\ \hline
+    brock400\_4        & 33 & 23 & 17.45 & 22 & 18.99\\ \hline
+    brock800\_2        & 24 & 19 & 25.39 & 19 & 27.56\\ \hline
+    brock800\_4        & 26 & 18 & 25.19 & 19 & 27.41\\ \hline
+    C125.9             & 34* & 34 & 17.12 & 34 & 14.18\\ \hline
+    C250.9             & 44* & 44 & 45.33 & 42 & 38.78\\ \hline
+    C500.9             & 57 & 53 & 111.15 & 50 & 104.84\\ \hline
+    C1000.9            & 68 & 55 & 264.30 & 54 & 268.65\\ \hline
+    C2000.5            & 16* & 14 & 42.72 & 14 & 46.29\\ \hline
+    C2000.9            & 80 & 60 & 724.77 & 60 & 748.91\\ \hline
+    C4000.5            & 18* & 15 & 98.38 & 16 & 116.37\\ \hline
+    DSJC500\_5         & 13 & 13 & 7.32 & 12 & 8.20\\ \hline
+    DSJC1000\_5        & 15 & 13 & 17.80 & 13 & 19.62\\ \hline
+    gen200\_p0.9\_44   & 44 & 41 & 32.81 & 39 & 27.14\\ \hline
+    gen200\_p0.9\_55   & 55 & 55 & 53.89 & 55 & 34.24\\ \hline
+    gen400\_p0.9\_55   & 55 & 49 & 89.14 & 46 & 77.33\\ \hline
+    gen400\_p0.9\_65   & 65 & 57 & 93.20 & 48 & 79.71\\ \hline
+    gen400\_p0.9\_75   & 75 & 75 & 112.08 & 65 & 85.24 \\ \hline
+    hamming10-4        & 40 & 33 & 68.76 & 32 & 72.97\\ \hline
+    hamming8-4         & 16 & 16 & 3.52 & 16 & 4.03\\ \hline
+    keller4            & 11 & 11 & 2.27 & 11 & 2.54\\ \hline
+    keller5            & 27 & 24 & 34.34 & 24 & 37.73\\ \hline
+    keller6            & 59 & 48 & 618.39 & 45 & 630.96\\ \hline
+    MANN\_a27          & 126 & 125 & 665.68 & 124 & 635.35\\ \hline
+    p\_hat300-1        & 8 & 8 & 1.88 & 8 & 2.19\\ \hline
+    p\_hat300-2        & 25 & 25 & 14.57 & 25 & 13.66\\ \hline
+    p\_hat300-3        & 36 & 36 & 32.46 & 35 & 28.17\\ \hline
+    p\_hat700-1        & 11 & 9 & 5.52 & 10 & 6.35\\ \hline
+    p\_hat700-2        & 44 & 44 & 70.94 & 43 & 64.89\\ \hline
+    p\_hat700-3        & 62* & 61 & 182.29 & 61 & 150.63\\ \hline
+    p\_hat1500-1       & 12 & 10 & 15.65 & 10 & 28.12 \\ \hline
+    p\_hat1500-2       & 65* & 44 & 195.39 & 54 & 203.79\\ \hline
+    p\_hat1500-3       & 94* & 87 & 567.45 & 82 & 524.60 \\ \hline
+  \caption{Resultados en algoritmos de colonia de hormigas.}
+\end{longtable}
+\end{small}
+
+Los algoritmos de colonia de hormigas han obtenido unos resultados de $12$ óptimos
+y un $89.7\%$ de tamaño medio el primero de ellos, y $7$ óptimos, con un $88.5\%$
+de tamaño medio el segundo.
+
+Ambos algoritmos ofrecen resultados similares, si bien el segundo, que añadía información
+del grafo al cálculo de probabilidades mediante enfriamiento simulado, es ligeramente
+peor, encontrando menos óptimos y con un porcentaje menor de tamaño medio. Esto nos
+lleva a pensar que es necesaria más experimentación para ver si añadir dicho término
+a la probabilidad es capaz de aportar mejores nodos a la construcción de soluciones.
+
+Los resultados del primer algoritmo son buenos, aunque queda por detrás de las búsquedas
+multiarranque y el primer enfriamiento simulado. Podría buscarse un método de mejora
+del algoritmo, como una hibridación con una búsqueda basada en entornos, para tratar
+de mejorar los resultados obtenidos, y así aprovechar mejor el comportamiento de las
+hormigas, intentando que estas construyan mejores soluciones.
+
+En el segundo algoritmo, si comparamos con el primero, se alcanzan soluciones de
+menor o igual tamaño en $31$ de los $35$ casos, por lo que el término añadido
+al cálculo de la probabilidad no parece haber tenido repercusión positiva en la
+obtención de soluciones. Habría que plantearse otra forma de cambiar la función de
+probabilidad para que se use la información del grafo de forma positiva.
+
+\subsection{Algoritmos genéticos}
+
+\begin{small}
+\begin{longtable}{l l l l l l}
+  \label{table:geneticos}\\
+    && \multicolumn{2}{c}{Genético} & \multicolumn{2}{c}{Memético} \\ \cline{3-6}
+    Grafo              & Clique & |C| & Tiempo (s) & |C| & Tiempo (s) \\ \hline
+    \endhead
+    \endfoot
+    brock200\_2        & 12 & 12 & 2.10 & 12 & 6.74\\ \hline
+    brock200\_4        & 17 & 17 & 4.02 & 17 & 13.11\\ \hline
+    brock400\_2        & 29 & 23 & 16.45 & 25 & 50.66\\ \hline
+    brock400\_4        & 33 & 25 & 16.44 & 33 & 51.26\\ \hline
+    brock800\_2        & 24 & 20 & 24.77 & 20 & 72.04\\ \hline
+    brock800\_4        & 26 & 19 & 24.16 & 20 & 77.78\\ \hline
+    C125.9             & 34* & 34 & 12.48 & 34 & 42.86\\ \hline
+    C250.9             & 44* & 42 & 33.91 & 44 & 143.46\\ \hline
+    C500.9             & 57 & 48 & 94.39 & 56 & 284.240\\ \hline
+    C1000.9            & 68 & 54 & 261.16 & 65 & 765.52\\ \hline
+    C2000.5            & 16* & 15 & 44.22 & 16 & 123.12\\ \hline
+    C2000.9            & 80 & 60 & 737.43 & 73 & 2128.81\\ \hline
+    C4000.5            & 18* & 12 & 115.13 & 17 & 297.26\\ \hline
+    DSJC500\_5         & 13 & 13 & 7.14 & 13 & 20.25\\ \hline
+    DSJC1000\_5        & 15 & 13 & 17.62 & 15 & 51.49\\ \hline
+    gen200\_p0.9\_44   & 44 & 40 & 24.00 & 44 & 78.15\\ \hline
+    gen200\_p0.9\_55   & 55 & 55 & 24.99 & 55 & 54.66\\ \hline
+    gen400\_p0.9\_55   & 55 & 46 & 68.00 & 55 & 233.02 \\ \hline
+    gen400\_p0.9\_65   & 65 & 47 & 69.90 & 65 & 216.87\\ \hline
+    gen400\_p0.9\_75   & 75 & 69 & 77.20 & 75 & 199.47\\ \hline
+    hamming10-4        & 40 & 34 & 75.71 & 40 & 205.56\\ \hline
+    hamming8-4         & 16 & 16 & 3.58 & 16 & 6.14\\ \hline
+    keller4            & 11 & 11 & 1.95 & 11 & 10.73\\ \hline
+    keller5            & 27 & 27 & 33.26 & 27 & 192.61\\ \hline
+    keller6            & 59 & 47 & 634.94 & 53 & 4265.78\\ \hline
+    MANN\_a27          & 126 & 125 & 646.76 & 125 & 1682.67\\ \hline
+    p\_hat300-1        & 8 & 8 & 1.92 & 8 & 6.20\\ \hline
+    p\_hat300-2        & 25 & 25 & 11.45 & 25 & 50.88\\ \hline
+    p\_hat300-3        & 36 & 36 & 25.37 & 36 & 85.84\\ \hline
+    p\_hat700-1        & 11 & 11 & 6.05 & 11 & 18.93\\ \hline
+    p\_hat700-2        & 44 & 44 & 81.02 & 44 & 270.53\\ \hline
+    p\_hat700-3        & 62* & 60 & 149.41 & 62 & 565.92\\ \hline
+    p\_hat1500-1       & 12 & 11 & 18.45 & 11 & 56.23\\ \hline
+    p\_hat1500-2       & 65* & 61 & 319.06 & 65 & 1472.25\\ \hline
+    p\_hat1500-3       & 94* & 86 & 615.29 & 94 & 2964.62\\ \hline
+  \caption{Resultados en algoritmos genéticos.}
+\end{longtable}
+\end{small}
+
+El algoritmo genético ha dado unos resultados de $13$ óptimos encontrados y un
+$90.5\%$ de tamaño medio de los cliques, mientras que su versión híbrida con la
+búsqueda local DLS ha encontrado $25$ óptimos, con un tamaño medio de un $97.3\%$,
+lo que lo convierte en el mejor de los algoritmos implementados en cuanto a resultados.
+Queda claro que usar una búsqueda local para mejorar la población del algoritmo
+genético ayuda a obtener mejores soluciones.
+
+Por sí solo, el algoritmo genético presenta un buen comportamiento, siendo capaz de
+encontrar buenas soluciones en el conjunto de instancias considerado. Realizar un
+ajuste más minucioso de los parámetros podría resultar en una mejora de los resultados,
+
+El algoritmo memético fruto de la combinación del genético y DLS logra mejorar
+considerablemente el funcionamiento del genético, proporcionando buenos resultados
+en el conjunto de instancias. El $97.3\%$ de tamaño medio nos indica que estamos
+ante un algoritmo capaz de encontrar buenas soluciones en media, y si nos fijamos
+en los grafos por separado, vemos que no hay ninguno en el que el rendimiento sea
+especialmente malo.
+
+Dado que la única diferencia que existe entre las dos versiones es el uso de búsqueda
+local, se manifiesta que su uso es capaz de mejorar buenos algoritmos, lo que nos
+lleva a considerar su uso para otros algoritmos, como podría ser un ACO, el cual
+daba unos resultados similares al genético.
+
+\section{Conclusiones}
+
+Hemos visto como los algoritmos \textit{greedy} no ha sido capaces de encontrar por
+sí solos buenas soluciones al problema, aunque aportan cliques que pueden ser utilizados
+por otros métodos como soluciones iniciales, y que además usan información de los
+grafos que podría ser beneficiosa frente a soluciones iniciales aleatorias.
+
+
+
+
+% Tablas sin tiempos
+\iffalse
+
+\begin{table}[H]
+\centering
+\caption{Resultados}
+\label{table:1}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+Grafo              & Mejor conocido & Greedy1 & Greedy2 & BL1 & BL2 & SA1 & SA2 \\ \hline
+brock200\_2        & 12 & 7 & 9 & 9 & 11 & 10 & 9 \\ \hline
+brock200\_4        & 17 & 13 & 15 & 15 & 15 & 16 & 13 \\ \hline
+brock400\_2        & 29 & 20 & 22 & 22 & 23 & 24 & 18 \\ \hline
+brock400\_4        & 33 & 18 & 21 & 23 & 23 & 24 & 19 \\ \hline
+brock800\_2        & 24 & 14 & 19 & 19 & 19 & 19 & 16 \\ \hline
+brock800\_4        & 26 & 14 & 19 & 20 & 18 & 20 & 16 \\ \hline
+C125.9             & 34* & 29 & 32 & 33 & 34 & 34 & 32 \\ \hline
+C250.9             & 44* & 35 & 40 & 42 & 41 & 44 & 36 \\ \hline
+C500.9             & 57 & 43 & 51 & 54 & 54 & 53 & 45 \\ \hline
+C1000.9            & 68 & 51 & 56 & 63 & 62 & 63 & 52 \\ \hline
+C2000.5            & 16* & 10 & 13 & 13 & 14 & 15 & 12 \\ \hline
+C2000.9            & 80 & 56 & 66 & 72 & 68 & 71 & 57 \\ \hline
+C4000.5            & 18* & 12 & 15 & 15 & 15 & 15 & 13 \\ \hline
+DSJC500\_5         & 13 & 8 & 11 & 11 & 12 & 12 & 10 \\ \hline
+DSJC1000\_5        & 15 & 10 & 12 & 13 & 13 & 14 & 11 \\ \hline
+gen200\_p0.9\_44   & 44 & 32 & 36 & 39 & 43 & 44 & 33 \\ \hline
+gen200\_p0.9\_55   & 55 & 36 & 39 & 39 & 55 & 55 & 37 \\ \hline
+gen400\_p0.9\_55   & 55 & 44 & 43 & 50 & 49 & 51 & 43 \\ \hline
+gen400\_p0.9\_65   & 65 & 40 & 44 & 45 & 49 & 65 & 44 \\ \hline
+gen400\_p0.9\_75   & 75 & 45 & 46 & 49 & 75 & 75 & 44 \\ \hline
+hamming10-4        & 40 & 32 & 36 & 36 & 40 & 40 & 30 \\ \hline
+hamming8-4         & 16 & 16 & 16 & 16 & 16 & 16 & 12 \\ \hline
+keller4            & 11 & 8 & 11 & 11 & 11 & 11 & 9 \\ \hline
+keller5            & 27 & 17 & 24 & 23 & 27 & 25 & 21 \\ \hline
+keller6            & 59 & 37 & 48 & 51 & 50 & 49 & 41 \\ \hline
+MANN\_a27          & 126 & 125 & 125 & 125 & 123 & 121 & 122 \\ \hline
+p\_hat300-1        & 8 & 7 & 8 & 7 & 7 & 8 & 7 \\ \hline
+p\_hat300-2        & 25 & 23 & 23 & 25 & 25 & 25 & 21 \\ \hline
+p\_hat300-3        & 36 & 30 & 34 & 34 & 36 & 36 & 32 \\ \hline
+p\_hat700-1        & 11 & 7 & 8 & 9 & 9 & 10 & 8 \\ \hline
+p\_hat700-2        & 44 & 38 & 43 & 44 & 43 & 44 & 37 \\ \hline
+p\_hat700-3        & 62* & 55 & 58 & 60 & 61 & 62 & 52 \\ \hline
+p\_hat1500-1       & 12 & 8 & 11 & 11 & 11 & 11 & 8 \\ \hline
+p\_hat1500-2       & 65* & 54 & 62 & 64 & 63 & 65 & 51 \\ \hline
+p\_hat1500-3       & 94* & 75 & 87 & 91 & 91 & 94 & 75 \\ \hline
+Óptimos            & 35  & 1  & 3  & 4  & 9  & 16 & 0  \\ \hline
+Aciertos           & 100\% & 75.5\% & 85.0\% & 88.5\% & 92.2\% & 94.9\% & 76.7\% \\ \hline
+Media aciertos     & 100\% & 73.2\% & 84.9\% & 87.5\% & 91.0\% & 93.5\% & 75.7\% \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Resultados}
+\label{table:2}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Grafo              & Mejor conocido & ILS1 & ILS2 & GRASP1 & GRASP2 \\ \hline
+brock200\_2        & 12 & 10 & 10 & 11 & 11 \\ \hline
+brock200\_4        & 17 & 15 & 16 & 16 & 16 \\ \hline
+brock400\_2        & 29 & 24 & 24 & 24 & 23 \\ \hline
+brock400\_4        & 33 & 24 & 24 & 25 & 33 \\ \hline
+brock800\_2        & 24 & 18 & 19 & 19 & 19 \\ \hline
+brock800\_4        & 26 & 18 & 20 & 19 & 20 \\ \hline
+C125.9             & 34* & 34 & 34 & 34 & 34 \\ \hline
+C250.9             & 44* & 44 & 44 & 44 & 43 \\ \hline
+C500.9             & 57 & 57 & 55 & 53 & 53 \\ \hline
+C1000.9            & 68 & 61 & 63 & 63 & 63 \\ \hline
+C2000.5            & 16* & 12 & 14 & 15 & 15 \\ \hline
+C2000.9            & 80 & 72 & 72 & 71 & 69 \\ \hline
+C4000.5            & 18* & 16 & 15 & 16 & 16 \\ \hline
+DSJC500\_5         & 13 & 12 & 12 & 13 & 13 \\ \hline
+DSJC1000\_5        & 15 & 14 & 14 & 14 & 14 \\ \hline
+gen200\_p0.9\_44   & 44 & 39 & 40 & 44 & 44 \\ \hline
+gen200\_p0.9\_55   & 55 & 55 & 55 & 55 & 55 \\ \hline
+gen400\_p0.9\_55   & 55 & 51 & 51 & 51 & 49 \\ \hline
+gen400\_p0.9\_65   & 65 & 49 & 65 & 52 & 65 \\ \hline
+gen400\_p0.9\_75   & 75 & 75 & 75 & 75 & 75 \\ \hline
+hamming10-4        & 40 & 38 & 40 & 40 & 40 \\ \hline
+hamming8-4         & 16 & 16 & 16 & 16 & 16 \\ \hline
+keller4            & 11 & 10 & 11 & 11 & 11 \\ \hline
+keller5            & 27 & 23 & 25 & 26 & 27 \\ \hline
+keller6            & 59 & 48 & 54 & 54 & 53 \\ \hline
+MANN\_a27          & 126 & 126 & 125 & 125 & 125 \\ \hline
+p\_hat300-1        & 8 & 7 & 8 & 8 & 8 \\ \hline
+p\_hat300-2        & 25 & 25 & 25 & 25 & 25 \\ \hline
+p\_hat300-3        & 36 & 36 & 36 & 36 & 36 \\ \hline
+p\_hat700-1        & 11 & 9 & 10 & 9 & 11 \\ \hline
+p\_hat700-2        & 44 & 44 & 44 & 44 & 44 \\ \hline
+p\_hat700-3        & 62* & 61 & 62 & 62 & 62 \\ \hline
+p\_hat1500-1       & 12 & 10 & 10 & 10 & 11 \\ \hline
+p\_hat1500-2       & 65* & 65 & 65 & 65 & 65 \\ \hline
+p\_hat1500-3       & 94* & 93 & 94 & 94 & 93 \\ \hline
+Óptimos            & 35  & 11 & 15 & 16 & 18 \\ \hline
+Aciertos           & 100\% & 92.6\% & 95.1\% & 94.6\% & 95.8\% \\ \hline
+Media aciertos     & 100\% & 90.3\% & 93.3\% & 93.5\% & 95.3\% \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Resultados}
+\label{table:3}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Grafo              & Mejor conocido & ACO1 & ACO2 & Genético & Memético \\ \hline
+brock200\_2        & 12 & 12 & 12 & 12 & 12 \\ \hline
+brock200\_4        & 17 & 16 & 16 & 17 & 17 \\ \hline
+brock400\_2        & 29 & 22 & 22 & 23 & 25 \\ \hline
+brock400\_4        & 33 & 23 & 22 & 25 & 33 \\ \hline
+brock800\_2        & 24 & 19 & 19 & 20 & 20 \\ \hline
+brock800\_4        & 26 & 18 & 19 & 19 & 20 \\ \hline
+C125.9             & 34* & 34 & 34 & 34 & 34 \\ \hline
+C250.9             & 44* & 44 & 42 & 42 & 44 \\ \hline
+C500.9             & 57 & 53 & 50 & 48 & 56 \\ \hline
+C1000.9            & 68 & 55 & 54 & 54 & 65 \\ \hline
+C2000.5            & 16* & 14 & 14 & 15 & 16 \\ \hline
+C2000.9            & 80 & 60 & 60 & 60 & 73 \\ \hline
+C4000.5            & 18* & 15 & 16 & 12 & 17 \\ \hline
+DSJC500\_5         & 13 & 13 & 12 & 13 & 13 \\ \hline
+DSJC1000\_5        & 15 & 13 & 13 & 13 & 15 \\ \hline
+gen200\_p0.9\_44   & 44 & 41 & 39 & 40 & 44 \\ \hline
+gen200\_p0.9\_55   & 55 & 55 & 55 & 55 & 55 \\ \hline
+gen400\_p0.9\_55   & 55 & 49 & 46 & 46 & 55 \\ \hline
+gen400\_p0.9\_65   & 65 & 57 & 48 & 47 & 65 \\ \hline
+gen400\_p0.9\_75   & 75 & 75 & 65 & 69 & 75 \\ \hline
+hamming10-4        & 40 & 33 & 32 & 34 & 40 \\ \hline
+hamming8-4         & 16 & 16 & 16 & 16 & 16 \\ \hline
+keller4            & 11 & 11 & 11 & 11 & 11 \\ \hline
+keller5            & 27 & 24 & 24 & 27 & 27 \\ \hline
+keller6            & 59 & 48 & 45 & 47 & 53 \\ \hline
+MANN\_a27          & 126 & 125 & 124 & 125 & 125 \\ \hline
+p\_hat300-1        & 8 & 8 & 8 & 8 & 8 \\ \hline
+p\_hat300-2        & 25 & 25 & 25 & 25 & 25 \\ \hline
+p\_hat300-3        & 36 & 36 & 35 & 36 & 36 \\ \hline
+p\_hat700-1        & 11 & 9 & 10 & 11 & 11 \\ \hline
+p\_hat700-2        & 44 & 44 & 43 & 44 & 44 \\ \hline
+p\_hat700-3        & 62* & 61 & 61 & 60 & 62 \\ \hline
+p\_hat1500-1       & 12 & 10 & 10 & 11 & 11 \\ \hline
+p\_hat1500-2       & 65* & 44 & 54 & 61 & 65 \\ \hline
+p\_hat1500-3       & 94* & 87 & 82 & 86 & 94 \\ \hline
+Óptimos            & 35  & 12 & 7 & 13 & 25 \\ \hline
+Aciertos           & 100\% & 89.6 \% & 87.4\% & 89.4\% & 97.6 \\ \hline
+Media aciertos     & 100\% & 89.7 \% & 88.5\% & 90.5\% & 97.3 \\ \hline
+\end{tabular}
+\end{table}
+
+\fi
