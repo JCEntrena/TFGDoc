@@ -104,7 +104,7 @@ tipo en métodos diferentes.
 
 Algunos algoritmos usan aleatoriedad en una o varias fases. Para conseguirla, se
 ha utilizado la clase \textbf{Random}, que proporciona un generador de números
-aleatorios. El método \textit{rand()} nos permite obtener un valor aleatorio
+aleatorios. El método \textit{rand} nos permite obtener un valor aleatorio
 dentro de un rango dado, pudiendo ser un número entero o real, lo que nos permite
 cubrir todas las necesidades en este aspecto.
 
@@ -121,17 +121,18 @@ instancia de la clase Problem como parámetro, el problema a resolver.
 Además, en este archivo también se encuentran los distintos algoritmos voraces
 encargados de completar cliques o de reparar grafos, utilizados en otras heurísticas.
 Son los siguientes:
+
 \begin{itemize}
-  \item \textit{complete_clique}, método que amplía un clique hasta que sea posible,
+  \item \textit{complete\_clique}, método que amplía un clique hasta que sea posible,
         tomando de entre los candidatos aquel con más adyacencias.
-  \item \textit{complete_clique_random}, que, al igual que el anterior, amplía
+  \item \textit{complete\_clique\_random}, que, al igual que el anterior, amplía
         un clique hasta que sea maximal, solo que en este caso elige de forma aleatoria.
-  \item \textit{solve_random}, método que crea un clique partiendo desde cero, usando
-        \textit{complete_clique_random}. Lo usaremos para generar soluciones iniciales
+  \item \textit{solve\_random}, método que crea un clique partiendo desde cero, usando
+        \textit{complete\_clique\_random}. Lo usaremos para generar soluciones iniciales
         aleatorias.
   \item \textit{repair}, método que elimina nodos de un grafo hasta que sea un clique.
         Elimina el nodo con menor número de adyacencias.
-  \item \textit{repair_random}, con la misma función que el anterior, pero en este
+  \item \textit{repair\_random}, con la misma función que el anterior, pero en este
         caso elimina un nodo aleatorio.
 \end{itemize}
 
@@ -142,11 +143,11 @@ bajo la clase \textbf{LocalSearch}. Para la creación de la clase, solo es neces
 crear un generador de números aleatorio, por lo que no hay que pasarle argumentos
 al constructor.
 
-La heurística 1LS está implementada en el método \textit{solve_with_solution}, y
+La heurística 1LS está implementada en el método \textit{solve\_with\_solution}, y
 recibe como parámetro el elemento de la clase Problem a resolver, una solución
 de partida, y un límite de cambios.
 
-Por otra parte, la heurística DLS se encuentra en el método \textit{solve_dynamic}.
+Por otra parte, la heurística DLS se encuentra en el método \textit{solve\_dynamic}.
 Los parámetros serán los mismos que en el caso anterior: la instancia de la clase
 Problem a resolver, la solución de partida y el límite de cambios.
 
@@ -185,7 +186,7 @@ clase \textbf{GRASP}. Además de un generador de números aleatorios, el constru
 declara un objeto de la clase LocalSearch, que necesitaremos para aplicar el
 algoritmo de búsqueda local que consideremos.
 
-El método \textit{generate_random_solution} es el encargado de generar las soluciones
+El método \textit{generate\_random\_solution} es el encargado de generar las soluciones
 iniciales pseudoaleatorias, tomando un problema como argumento. El tamaño de la
 lista restringida de candidatos está fijado por un valor en el código, que debemos
 cambiar en caso de querer aumentar o reducir el tamaño de dicha lista.
@@ -247,7 +248,7 @@ a cabo en los mecanismo de cruce y de mutación, y además se usa también en el
 operador de cruce, donde los nodos que pertenecen solo a un padre van a cada uno de
 los hijos con probabilidad $0.5$.
 
-El algoritmo memético, implementado en \textit{solve_memetic}, funciona de la misma
+El algoritmo memético, implementado en \textit{solve\_memetic}, funciona de la misma
 forma, aplicando búsqueda local al generar la nueva población, con un límite que
 también está en el código. Por lo demás, opera  igual que el genético, por lo que
 son aplicables las consideraciones anteriores.
@@ -271,12 +272,12 @@ se encuentran en el archivo \textit{algorithm.rb}, y las detallamos a continuaci
         el vértice al clique. Supone que el vértice no está en el clique y que
         se mantiene la estructura.
 
-  \item \textit{swap}: Operador \swap}. Recibe un clique, un vértice $v$ del conjunto
+  \item \textit{swap}: Operador \textit{swap}. Recibe un clique, un vértice $v$ del conjunto
         $C_1$, y la matriz de adyacencias. Busca el nodo dentro del clique que no está
         conectado a $v$ y lo intercambia con $v$. De nuevo, suponemos que $v \in C_1$,
         por lo que se puede hacer el intercambio.
 
-  \item \textit{swap_two}: Operador \textit{swap}. En este caso, se pasan como parámetros
+  \item \textit{swap\_two}: Operador \textit{swap}. En este caso, se pasan como parámetros
         el clique y los dos nodos a intercambiar, $p$ en $C_1$ y $q$ dentro del clique.
         El método elimina $q$ del clique y mete $p$, suponiendo que se verifica lo
         anterior y que $q$ es el único nodo del clique no conectado a $p$.
@@ -291,28 +292,28 @@ se encuentran en el archivo \textit{algorithm.rb}, y las detallamos a continuaci
   \item \textit{connections}: Dados un nodo $n$, un conjunto de nodos $S$ y una matriz de
         adyacencias, este método devuelve el número de nodos de $S$ conectados con $c$.
 
-  \item \textit{is_connected}: Recibe un nodo $n$, un conjunto de nodos $S$ y una matriz
+  \item \textit{is\_connected}: Recibe un nodo $n$, un conjunto de nodos $S$ y una matriz
         de adyacencias, y devuelve si $n$ está conectado con todos los nodos de $S$.
         Este método nos servirá para calcular el conjunto $C_0$.
 
-  \item \textit{is_connected_but_one}: Funciona igual que el anterior, pero comprueba
+  \item \textit{is\_connected\_but\_one}: Funciona igual que el anterior, pero comprueba
         que el nodo $n$ esté conectado con todos los nodos de $S$ salvo uno. Nos servirá
         para el cálculo del conjunto $C_1$.
 
   \item \textit{connected}: Dados un nodo y una matriz de adyacencias, devuelve todos los
         nodos del grafo conectados a él.
 
-  \item \textit{connected_with_all}: Dado un conjunto de nodos $S$ y una matriz de adyacencias,
-        usando el método \textit{is_connected}, devuelve el conjunto $M$, formado por los nodos
+  \item \textit{connected\_with\_all}: Dado un conjunto de nodos $S$ y una matriz de adyacencias,
+          usando el método \textit{is\_connected}, devuelve el conjunto $M$, formado por los nodos
         conectados con todos los de $S$, y elimina el conjunto $S$ de $M$, pues si $S$ es un clique,
         $S \subseteq M$. Obtenemos por tanto el conjunto $C_0$, que será para lo que utilizemos
         este método.
 
-  \item \textit{missing_one_connection}: Dado un conjunto de nodos $S$ y una matriz de adyacencias,
+  \item \textit{missing\_one\_connection}: Dado un conjunto de nodos $S$ y una matriz de adyacencias,
         devuelve el conjunto de nodos conectados con todos los de $S$ salvo uno. Lo usaremos
         para calcular el conjunto $C_1$ asociado a un clique.
 
-  \item \textit{one_connected_with_all}: Recibe una lista y una matriz de adyacencias, y
+  \item \textit{one\_connected\_with\_all}: Recibe una lista y una matriz de adyacencias, y
         devuelve \textit{true} si existe un nodo fuera de la lista conectado a todos los
         nodos de ella.
 
@@ -320,12 +321,12 @@ se encuentran en el archivo \textit{algorithm.rb}, y las detallamos a continuaci
         de enfriamiento simulado. Ambas reciben un grafo y una matriz de adyacencias, y
         devuelven el valor calculado.
 
-  \item \textit{is_clique}: Función que recibe un grafo y una matriz de adyacencias, y
+  \item \textit{is\_clique}: Función que recibe un grafo y una matriz de adyacencias, y
         devuelve si dicho grafo es un clique o no.
 
-  \item \textit{print_solution}: Método para mostrar por pantalla una solución. Primero,
+  \item \textit{print\_solution}: Método para mostrar por pantalla una solución. Primero,
         comprueba si es un clique con el función anterior y lo muestra. Después, imprime
         su longitud. Además, imprime la solución y su longitud por la salida de error,
-        lo que permite redirigirlo a un archivo distinto a la hora de ejecutar el programa. 
+        lo que permite redirigirlo a un archivo distinto a la hora de ejecutar el programa.
 
 \end{itemize}
