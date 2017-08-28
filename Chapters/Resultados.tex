@@ -37,8 +37,7 @@ tardasen. Se detallan a continuación:
   \item DLS: 20 iteraciones.
   \item Enfriamiento simulado: 10 iteraciones para cada algoritmos.
   \item Colonia de hormigas: 10 iteraciones para cada algoritmo.
-  \item ILS con DLS: 10 iteraciones.
-  \item GRASP con DLS: 10 iteraciones.
+  \item ILS y GRASP con DLS: 10 iteraciones.
   \item Genético: 10 iteraciones.
   \item Memético: 5 iteraciones.
 \end{itemize}
@@ -108,8 +107,8 @@ caso de haberse efectuado más de una ejecución.
 \end{small}
 
 Los resultados obtenidos por los dos algoritmos greedy han sido de un óptimo y una media
-de $73.2\%$ de tamaño para el greedy básico, y tres óptimos y un $84.9\%$ de media
-para el greedy adaptativo.
+de $73.2\%$ de tamaño para el \textit{greedy} básico, y tres óptimos y un $84.9\%$ de media
+para el \textit{greedy} adaptativo.
 
 Los resultados del algoritmo greedy básico muestran que este falla a la hora de
 alcanzar el óptimo en el conjunto de instancias, pues lo logra en solo una de las $35$.
@@ -123,13 +122,11 @@ anterior en todos los grafos, lo que confirma que ampliar el entorno con movimie
 \textit{swap} mejora sensiblemente los resultados, aunque aumenta de forma considerable
 los tiempos de ejecución, llegando a superar la hora en \textit{keller6}. Aun así,
 en la mayoría de los grafos, la ejecución es rápida, no llegando a superar los $60$
-segundos.
+segundos. Si nos fijamos en sus resultados por separado, el porcentaje medio de tamaño
+de los cliques hallados y la obtención de únicamente $3$ óptimos, hacen que este
+algoritmo tampoco consiga buenos resultados si se aplica sin combinar con ningún otro.
 
-Si nos fijamos en sus resultados por separado, el porcentaje medio de tamaño de los
-cliques hallados y la obtención de únicamente $3$ óptimos, hacen que este algoritmo
-tampoco consiga buenos resultados si se aplica sin combinar con ningún otro.
-
-Dados estos resultados, queda patente que los algoritmos voraces implementados no
+Estos resultados muestran que los algoritmos voraces implementados no
 son capaces de alcanzar buenas soluciones por sí solos. Aun así, los cliques
 obtenidos pueden servir como soluciones de partida para otros algoritmos que sean
 capaces de mejorar las carencias que tienen los \textit{greedy}. En este caso,
@@ -196,11 +193,11 @@ soluciones. No obstante, en vista de los resultados, estos siguen siendo mejorab
 en cuanto a la calidad de las soluciones encontradas. Los tiempos de ejecución no
 son excesivos, si bien en los grafos más grandes pueden extenderse un poco,
 rozando los $10$ minutos en \textit{keller6}. Aun así, en la mayoría de los grafos
-no se superan los $30$ segundos de tiempo de ejecución.
+no se superan los $30$ segundos.
 
-DLS logra mejorar los resultados de 1LS, pues es capaz de alcanzar más óptimos,
-y de obtener un mayor tamaño medio. En este caso, se supera el $90\%$ de tamaño
-medio, por lo que tenemos un algoritmo que empieza a obtener soluciones satisfactorias.
+DLS logra mejorar los resultados de 1LS, pues es capaz de alcanzar más óptimos
+y de obtener un mayor tamaño medio, que en este caso supera el $90\%$, por lo
+que tenemos un algoritmo que empieza a obtener soluciones satisfactorias.
 Los tiempos de ejecución son significativamente menores, lo cual era de esperar,
 ya que DLS, al contrario que ILS, no hace cálculos para la elección de candidatos,
 sino que dicha elección es aleatoria, lo que reduce la complejidad del algoritmo.
@@ -266,31 +263,34 @@ para poder afirmarlo.
 \end{longtable}
 \end{small}
 
-El primer algoritmo de enfriamiento simulado ha obtenido unos resultados de $16$
+El algoritmo de enfriamiento simulado básico ha obtenido unos resultados de $16$
 óptimos y un $93.5\%$ de media en el tamaño de los cliques, con respecto al máximo
-conocido.
+conocido, mientras que la adaptación del algoritmo de Geng et al. ha obtenido
+$0$ óptimos y un $75.7\%$ de tamaño medio.
 
-Estos resultados mejoran los obtenidos por ambos algoritmos de búsqueda local,
-tomando un entorno distinto y sin priorizar  ningún movimiento del entorno sobre
-otro, lo que podría ser una de las razones por la cual el algoritmo mejora los resultados.
-Además, el uso de técnicas de enfriamiento simulado podría ser el causante de que
-el algoritmo escape de un óptimo local y se dirija a una zona con mejores soluciones.
+Los resultados en el algoritmo básico mejoran los obtenidos por ambos algoritmos
+de búsqueda local, conviertiéndolo en una buena herramienta para resolver el problema,
+pues supera ampliamente el $90\%$ de tamaño medio, y alcanza el óptimo casi en la
+mitad de instancias. Recordemos que toma un entorno distinto al considerado en la
+bñusqueda local, sin priorizar ningún movimiento sobre otro. Esto, y el uso de
+técnicas de enfriamiento simulado podrían ser los causante de que el algoritmo
+mejore las búsquedas locales. Además, presenta unos tiempos de ejecución bajos,
+sin llegar a los $90$ segundos en ningún caso. Esto se debe a que el número de
+iteraciones no depende del grafo, sino que viene dado por la temperatura y es
+fijo en todos ellos.
 
-El algoritmo consigue buenos resultados, superando ampliamente el $90\%$ de tamaño
-medio en el conjunto de instancias y alcanzando el óptimo en casi la mitad de ellas.
-
-El segundo algoritmo, con unos resultados de $0$ óptimos y un $75.7\%$ de tamaño
-medio, pone de manifiesto que la adaptación de las técnicas usadas en el trabajo de
-X. Geng, J. Xu, J. Xiao y L. Pan no da resultados satisfactorios.
+Por otra parte, la adaptación del algoritmo de Geng et al. presenta unos resultados
+muy pobres, sin ser capaz de encontrar en óptimo en ningún caso. Podemos afirmar que
+falla a la hora de resolver el problema de forma satisfactoria.
 
 Dado que la exploración del entorno es aleatoria, como en el caso anterior, cabe
 plantearse si considerar grafos cualesquiera en lugar de cliques como espacio de
 soluciones es la causa de este mal rendimiento. La función objetivo, con componentes
 aparte del tamaño de los grafos, también podría ser causante de que el algoritmo
 no se dirija a las zonas del espacio de soluciones de mayor calidad. Además, la
-función de reducción  de grafos a cliques es otro factor a tener en cuenta, pues
-no tenemos garantizado que la reducción sea óptima, y añade otra etapa de pérdida
-de calidad en las soluciones.
+función de reducción de grafos a cliques es otro factor a tener en cuenta, pues
+no tenemos garantizado que la reducción sea óptima, y añade otra etapa de  posible
+pérdida de calidad en las soluciones.
 
 \subsection{ILS}
 
@@ -340,9 +340,9 @@ de calidad en las soluciones.
 \end{longtable}
 \end{small}
 
-El primer algoritmo ILS, que utiliza la primera búsqueda local, ha obtenido
-unos resultados de $11$ óptimos y $90.3\%$ de tamaño medio, mientras que el
-segundo ha obtenido $15$ óptimos y un $93.3\%$ de tamaño medio.
+El algoritmo ILS que utiliza 1LS, ha obtenido unos resultados de $11$ óptimos y
+un $90.3\%$ de tamaño medio, mientras que el que utiliza DLS ha obtenido $15$
+óptimos y un $93.3\%$ de tamaño medio.
 
 Los resultados en ambos algoritmos mejoran sensiblemente los alcanzados en las
 respectivas búsquedas locales, lo que nos dice que el uso de técnicas de reinicialización
@@ -350,9 +350,21 @@ es efectivo a la hora de salir de óptimos globales, obteniendo soluciones de pa
 que nos permiten explorar de forma más efectiva el espacio de soluciones y alcanzar
 mejores cliques.
 
-Ambos algoritmos son capaces de obtener soluciones de calidad, siendo mejor el que
-utiliza la segunda búsqueda local, lo cual era de esperar, pues esta funcionaba
-mejor que la primera.
+ILS + 1LS es capaz de obtener buenas soluciones, estando ligeramente por encima del
+$90\%$ de tamaño medio en cliques. Sus tiempos de ejecución empiezan a ser notablemente
+altos, con valores que llegan hasta casi $3$ horas en \textit{keller6}, debido a
+la repetición de 1LS en $20$ ocasiones. Para tratar de que este algoritmo pueda
+competir con el resto, habría que experimentar si se pueden mantener los resultados
+reduciendo el número de reinicializaciones, para así disminuir los tiempos de ejecución.
+
+ILS + DLS es mejor que la versión con 1LS tanto en resultados como en tiempos de
+ejecución, resultado que era de esperar, vistos los obtenidos en la búsqueda local.
+En este caso la ejecución no toma más de $60$ segundos en ninguno de los grafos,
+mejorando sensiblemente los tiempos del algoritmo anterior.
+
+Concluímos que ambos algoritmos son capaces de obtener soluciones de calidad,
+siendo mejor la versión con DLS por sus mejores resultados y menor tiempo de
+ejecución, lo cual era de esperar, pues DLS funcionaba mejor que 1LS.
 
 \subsection{GRASP}
 
@@ -403,25 +415,30 @@ mejor que la primera.
 \end{small}
 
 Los resultados obtenidos por ambos algoritmos GRASP han sido de $16$ óptimos y un
-$93.5\%$ para el primer algoritmo, y $18$ óptimos y un $95.3\%$ para el segundo.
+$93.5\%$ para la versión con 1LS, y $18$ óptimos y un $95.3\%$ para la versión con DLS.
 
 Estos algoritmos son capaces de alcanzar el óptimo en aproximadamente un $50\%$ de
-los casos de estudio, reflejando un buen comportamiento general. Además, el segundo
-algoritmo, que usa DLS como búsqueda local, supera el $95\%$ de tamaño medio en los
-grafos, por lo que estamos ante un algoritmo capaz de dar buenas soluciones en
-general. El primer algoritmo también ofrece resultados de calidad, incluso mejorando
-los resultados obtenidos por el otro GRASP en grafos como \textit{C2000.9} o \textit{p\_hat1500-3}.
+los casos de estudio, reflejando un buen comportamiento general. Además, la versión
+que usa DLS como búsqueda local supera el $95\%$ de tamaño medio en los grafos, por
+lo que estamos ante un algoritmo capaz de dar soluciones cercanas al óptimo.
+El algoritmo con 1LS también ofrece resultados de calidad, incluso mejorando los
+resultados obtenidos por el otro GRASP en grafos como \textit{C2000.9} o \textit{p\_hat1500-3}.
 
 Nuevamente, el uso de DLS como búsqueda local proporciona mejores resultados que
 si utilizamos la primera búsqueda local, lo que nos reafirma en su mejor comportamiento,
-tanto por separado como si se utiliza en técnicas multiarranque.
+tanto por separado como si se utiliza en técnicas multiarranque. Los tiempos de
+ejecución también favorecen a la versión con DLS, sobre todo en grafos con un mayor
+número de nodos, donde la mayor complejidad computacional de 1LS afecta notablemente
+a dichos tiempos. Ejemplos de esto son grafos como \textit{keller6, C4000.5} y \textit{C2000.9},
+en los que la versión con DLS tiene tiempos del orden de los minutos, y la versión
+con 1LS tiene tiempos del orden de horas.
 
 Los dos algoritmos proporcionan mejores resultados que sus correspondientes versiones
 de búsqueda local iterada, lo que en un principio nos dice que el uso de soluciones
 pseudoaleatorias como solución de partida proporciona mejores resultados que el proceso
 de mutación utilizado en ILS. No obstante, dado que estos procesos pueden ser modificados,
-queda aun margen de mejora en ambos algoritmos, por lo que sería pronto para decir que,
-de forma general, GRASP funciona mejor que ILS en el problema del clique máximo.
+queda aun margen de mejora en ambos algoritmos, por lo que sería pronto para decir que
+GRASP funciona mejor que ILS en el problema del clique máximo.
 
 \subsection{Algoritmos de colonia de hormigas}
 
@@ -472,26 +489,34 @@ de forma general, GRASP funciona mejor que ILS en el problema del clique máximo
 \end{small}
 
 Los algoritmos de colonia de hormigas han obtenido unos resultados de $12$ óptimos
-y un $89.7\%$ de tamaño medio el primero de ellos, y $7$ óptimos, con un $88.5\%$
-de tamaño medio el segundo.
+y un $89.7\%$ de tamaño medio la versión básica, y $7$ óptimos, con un $88.5\%$
+de tamaño medio la versión con enfriamiento simulado.
 
-Ambos algoritmos ofrecen resultados similares, si bien el segundo, que añadía información
-del grafo al cálculo de probabilidades mediante enfriamiento simulado, es ligeramente
-peor, encontrando menos óptimos y con un porcentaje menor de tamaño medio. Esto nos
-lleva a pensar que es necesaria más experimentación para ver si añadir dicho término
-a la probabilidad es capaz de aportar mejores nodos a la construcción de soluciones.
+Ambos algoritmos ofrecen resultados similares en cuanto al tamaño medio de los cliques
+encontrados, si bien la versión que añade información del grafo con enfrimiento simulado
+es ligeramente peor, encontrando menos óptimos y con un porcentaje menor de tamaño medio.
+Estos resultados indican que son necesarios cambios y más experimentación para ver si
+añadir dicho  término a la probabilidad es capaz de aportar mejores nodos a la
+construcción de soluciones.
 
-Los resultados del primer algoritmo son buenos, aunque queda por detrás de las búsquedas
-multiarranque y el primer enfriamiento simulado. Podría buscarse un método de mejora
-del algoritmo, como una hibridación con una búsqueda basada en entornos, para tratar
-de mejorar los resultados obtenidos, y así aprovechar mejor el comportamiento de las
-hormigas, intentando que estas construyan mejores soluciones.
+Los resultados del algoritmo básico son buenos, rozando el $90\%$ de tamaño medio,
+aunque queda por detrás de otras técnicas, como las búsquedas multiarranque o el
+enfriamiento simulado básico. Para tratar de mejorar su rendimiento, podríamos
+considerar añadir técnicas para construir un algoritmo híbrido, como una busqueda
+basada en entornos, aprovechando mejor el comportamiento de las hormigas e intentando
+que estas construyan mejores soluciones.
 
-En el segundo algoritmo, si comparamos con el primero, se alcanzan soluciones de
-menor o igual tamaño en $31$ de los $35$ casos, por lo que el término añadido
-al cálculo de la probabilidad no parece haber tenido repercusión positiva en la
-obtención de soluciones. Habría que plantearse otra forma de cambiar la función de
-probabilidad para que se use la información del grafo de forma positiva.
+En el algoritmo con enfriamiento simulado, si comparamos con el anterior, se
+alcanzan soluciones de menor o igual tamaño en $31$ de los $35$ casos, por lo que
+el término añadido al cálculo de la probabilidad no parece haber tenido repercusión
+positiva en la obtención de soluciones. Habría que plantearse otra forma de cambiar
+la función de probabilidad para que se use la información del grafo de forma positiva.
+
+Ambos algoritmos son similares en cuanto a tiempos, ya que la única diferencia es
+el cálculo añadido en la probabilidad en la versión con enfriamiento simulado,
+que no parece repercutir de forma significativa. En general, los tiempos no son
+muy extensos en todo el conjunto de grafos, aunque alcanzan valores un tanto altos
+en las instancias con más nodos.
 
 \subsection{Algoritmos genéticos}
 
@@ -549,38 +574,76 @@ Queda claro que usar una búsqueda local para mejorar la población del algoritm
 genético ayuda a obtener mejores soluciones.
 
 Por sí solo, el algoritmo genético presenta un buen comportamiento, siendo capaz de
-encontrar buenas soluciones en el conjunto de instancias considerado. Realizar un
-ajuste más minucioso de los parámetros podría resultar en una mejora de los resultados,
+encontrar soluciones aceptables en el conjunto de instancias considerado. Habría
+que experimentar con distintos parámetros tanto en probabilidades de cruce y mutación
+como en número de iteraciones y tamaño de población para poder realizar un ajuste más
+minucioso de los parámetros que conllevase una mejora de los resultados. También
+debería estudiarse la necesidad de reinicializar algunos individuos de la población,
+en caso de que estos fueran similares unos a otros, para introducir diversidad.
 
 El algoritmo memético fruto de la combinación del genético y DLS logra mejorar
-considerablemente el funcionamiento del genético, proporcionando buenos resultados
+considerablemente el funcionamiento del genético, proporcionando muy buenos resultados
 en el conjunto de instancias. El $97.3\%$ de tamaño medio nos indica que estamos
-ante un algoritmo capaz de encontrar buenas soluciones en media, y si nos fijamos
-en los grafos por separado, vemos que no hay ninguno en el que el rendimiento sea
-especialmente malo.
+ante un algoritmo capaz de encontrar soluciones cercanas al óptimo en todas las
+instancias, pues si nos fijamos en los grafos por separado, vemos que no hay ninguno
+en el que el rendimiento sea especialmente malo.
 
-Dado que la única diferencia que existe entre las dos versiones es el uso de búsqueda
-local, se manifiesta que su uso es capaz de mejorar buenos algoritmos, lo que nos
-lleva a considerar su uso para otros algoritmos, como podría ser un ACO, el cual
-daba unos resultados similares al genético.
+Dado que la única diferencia que existe entre las dos versiones es el uso de DLS,
+se pone de  manifiesto que es capaz de mejorar buenos algoritmos, lo que nos lleva
+a considerar su uso para otros algoritmos, como podría ser un ACO, el cual daba
+unos resultados similares al genético.
+
+\subsection{Comportamiento general}
+
+El conjunto de algoritmos implementados muestra, en general, un comportamiento dentro de
+lo esperado. Hemos visto como los algoritmos \textit{greedy} no son capaces de encontrar
+por sí solos buenas soluciones al problema, aunque aportan cliques que pueden ser utilizados
+por otros métodos como soluciones iniciales. La exploración del entorno hecha con búsquedas
+locales o enfriamiento simulado mejora estos resultados, si bien no todos los algoritmos de
+este tipo proporcionan buenas soluciones, como demuestra la adaptación de la idea de Geng
+et al. Estas soluciones pueden ser aun mejores si se utilizan técnicas multiarranque,
+hecho que respaldan los resultados de los algoritmos ILS y GRASP.
+
+Dado su amplio uso en problemas de grafos, y sus buenos resultados en general, cabía
+esperar que los algoritmos de colonia de hormigas funcionasen bien en este problema, y
+así ha sido, aunque sus resultados no han destacado especialmente. Por otra parte,
+algoritmos menos usuales en problemas de grafos como los genéticos, han mostrado un
+comportamiento bueno, en especial el algoritmo memético, claramente el mejor en
+cuanto a resultados de todos los considerados.
 
 \section{Conclusiones}
 
-Hemos visto como los algoritmos \textit{greedy} no ha sido capaces de encontrar por
-sí solos buenas soluciones al problema, aunque aportan cliques que pueden ser utilizados
-por otros métodos como soluciones iniciales, y que además usan información de los
-grafos que podría ser beneficiosa frente a soluciones iniciales aleatorias.
+Hemos estudiado de forma satisfactoria el funcionamiento de todos los algoritmos implementados,
+que pueden verse como un primer acercamiento al problema que nos permite evaluar las
+prestaciones de distintas formas de abordarlo. El trabajo ha sido provechoso en cuanto
+a resultados obtenidos, y puede utilizarse como base para futuros trabajos en esta materia.
+
+La línea de trabajo a seguir a partir de aquí podría ser una de las siguientes:
+\begin{itemize}
+  \item Enfatización en un tipo de algoritmos, experimentando con diversos cambios que
+        mejoren su funcionamiento. Dependiendo del tipo de algoritmo, podrían considerarse
+        estrategias de reinicialización, énfasis en ciertas fases de búsqueda de soluciones,
+        o búsqueda de nuevas medidas que clasifiquen mejor a las soluciones obtenidas, entre
+        muchas otras. De esta forma, se intentaría obtener un algoritmo más específico para
+        resolver el problema, con un mejor funcionamiento.
+
+  \item Ampliación del trabajo realizado. Existen numerosas técnicas que no se han implementado
+        en este trabajo, como la búsqueda tabú, la búsqueda en entornos variables, la búsqueda
+        dispersa, etc. Analizar su comportamiento nos daría más información sobre el problema,
+        aportando nuevas ideas para tratar de mejorar estos u otros algoritmos.
+\end{itemize}
 
 
 
 
+
+% ------------------------------------------------
 % Tablas sin tiempos
 \iffalse
 
 \begin{table}[H]
 \centering
 \caption{Resultados}
-\label{table:1}
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 Grafo              & Mejor conocido & Greedy1 & Greedy2 & BL1 & BL2 & SA1 & SA2 \\ \hline
@@ -628,7 +691,6 @@ Media aciertos     & 100\% & 73.2\% & 84.9\% & 87.5\% & 91.0\% & 93.5\% & 75.7\%
 \begin{table}[H]
 \centering
 \caption{Resultados}
-\label{table:2}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Grafo              & Mejor conocido & ILS1 & ILS2 & GRASP1 & GRASP2 \\ \hline
@@ -676,7 +738,6 @@ Media aciertos     & 100\% & 90.3\% & 93.3\% & 93.5\% & 95.3\% \\ \hline
 \begin{table}[H]
 \centering
 \caption{Resultados}
-\label{table:3}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 Grafo              & Mejor conocido & ACO1 & ACO2 & Genético & Memético \\ \hline
