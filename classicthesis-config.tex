@@ -87,7 +87,7 @@
     %style=authoryear-comp, % Author 1999, 2010
     %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
     sorting=nyt, % name, year, title
-    maxbibnames=3, % default: 3, et al.
+    maxbibnames=10, % default: 3, et al.
     %backref=true,%
     natbib=true % natbib compatibility mode (\citep and \citet still work)
 }{biblatex}
@@ -341,11 +341,6 @@
 \def\that{T}
 
 \usepackage{amssymb}
-% \newenvironment{proof}{\noindent{\textbf{Proof.}}}{\hfill$\blacksquare$\vs}
-
-% \newenvironment{remark}{\stepcounter{theorem} \noindent {\textbf{Remark
-% \thetheorem}.}
-% }{}
 
 % Custom commands - Taken from Alejandro García and modified by me.
 
@@ -446,3 +441,9 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage{algorithmicx}
+
+% Redefine return in algorithm (thanks, StackOverflow)
+\algrenewcommand{\algorithmicreturn}{\State \textbf{return}}
+
+% Tables
+\usepackage{longtable}
