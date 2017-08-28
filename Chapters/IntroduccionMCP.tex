@@ -160,20 +160,43 @@ El cuarto objetivo también se ha completado de forma satisfactoria, y queda
 reflejado en el \autoref{ch:resultados}.
 
 \section{Metodología y trabajo realizado}
-% Sin dar detalles de la implementación.
 
-(Aun por completar)
+Este trabajo se ha desarrollado siguiendo una metodología ágil, creando un proyecto
+desde cero y tratando de agregar distintas componentes de forma que la funcionalidad
+fuese aumentando paulatinamente. Así, cada vez que se añadía un nuevo componente,
+se buscaban los puntos comunes con el trabajo ya existente, y en caso de conflicto,
+se solucionaba adaptándo las partes más antiguas a los cambios, de forma que el
+funcionamiento de ellas fuese igual que antes de realizar dichos cambios.
 
-%Este trabajo se ha desarrollado siguiendo una metodología ágil, tratando de crear
-%un proyecto desde cero e ir agregando distintas componentes de forma incremental.
+De esta forma, fallos de diseño, o partes que se hubieran obviado en un principio,
+son arreglados en cuanto se detectan. Así, el proyecto es funcional desde el comienzo
+hasta que se termina, lo que ayuda a encontrar fallos de forma temprana y a comprobar
+que las soluciones a estos fallos cumplen con su cometido, pues siempre se puede
+testear el trabajo que esté finalizado.
 
-%He implementado un programa que incluye los distintos algoritmos considerados,
-%para comprobar sus eficacia a la hora de resolver el problema.
+El desarrollo del trabajo ha sido el siguiente:  
 
-%Las ideas detrás de cada algoritmo provienen de una combinación de mis conocimientos
-%sobre la materia y el estudio que se lleva realizando sobre el problema durante décadas,
-%reflejado en numerosos artículos, que han servido como base en la mayoría de implementaciones.
-%Se referenciará en cada caso el material utilizado y cómo se ha adaptado a este trabajo.
+El primer paso fue buscar información existente sobre el problema, lo que me llevó
+al repositorios DIMACS y a numerosos articulos publicados. Con esto, pude saber
+las líneas de trabajo que se siguen para su resolución y adquirir una base sobre
+la que empezar a trabajar, además de establecer un modelo del problema.
+
+Analizando la literatura disponible, pude comprobar la variedad de algoritmos
+que ya existían. De entre todos los estudiados, elegí los que me parecieron de
+mayor interés para profundizar sobre ellos, tomándolos total o parcialmente.
+
+Una vez seleccionados los algoritmos, tuve que ver cómo se adaptaban al modelo
+del problema considerado. Introduje los cambios necesarios para que estos funcionasen
+de la forma más similar posible a los originales.
+
+Después, pasé a la creación del programa encargado de la ejecución de los algoritmos.
+Implementé, siguiendo el modelo considerado, los algoritmos elegidos y todo lo relacionado
+con la inicialización del programa, la obtención de soluciones y la toma de tiempos.
+Una vez implementado el programa, hice pruebas sobre el conjunto de datos para comprobar
+que funcionase correctamente y corregir todos los errores que surgieran. Finalmente,
+pasé a la toma de datos ejecutando todos los algoritmos sobre las instancias consideradas,
+recopilando los datos necesarios para su posterior análisis.
+
 
 \section{Organización}
 
@@ -195,5 +218,7 @@ Una vez introducidas y explicadas las técnicas que se han utilizado y su implem
 pasaremos a la sección de resultados, donde se expondrán los cálculos que cada algoritmo
 ha realizado sobre el conjunto de instancias. Seguidamente, se realizará un análisis
 de dichas técnicas, en los que evaluaremos si han tenido el comportamiento esperado y
-las causas de los resultados obtenidos. Finalmente, compararemos entre sí todas las
-técnicas implementadas, tratando de clasificarlas según su funcionamiento.
+las causas de los resultados obtenidos. Compararemos entre sí todas las técnicas
+implementadas, tratando de clasificarlas según su funcionamiento. Finalizaremos la
+memoria con un apartado de conclusiones, que incluirá cómo este trabajo podría ser
+ampliado en el futuro.
