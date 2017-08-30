@@ -5,7 +5,7 @@
 \section{Introducción al problema}
 
 Dado un grafo $G = (V, E)$, donde $V$ representa el conjunto de vértices
-y $E$ el conjunto de aristas, llamaremos un clique a un subgrafo de $G$
+y $E$ el conjunto de aristas, llamaremos clique a un subgrafo de $G$
 en el que todos sus vértices están conectados entre sí. Llamaremos a los
 cliques \textbf{maximales} si no son subgrafo de un clique de mayor tamaño,
 y \textbf{máximos} si no existe ningún clique de mayor tamaño en el grafo.
@@ -31,7 +31,6 @@ En 1999, Hastad \citep{hastad:1999} probó que, salvo que NP = ZPP, no existe ni
 algoritmo capaz de aproximar MCP con factor $n^{1-\epsilon} \quad \forall \epsilon$,
 donde la clase ZPP (zero-error probabilistic polynomial time) es la clase de complejidad
 de los problemas reconocibles por algoritmos aleatorizados con complejidad polinómica.
-
 Debido a esto, no es posible obtener algoritmos exactos ni que den una solución
 aproximada al problema, de ahí la necesidad del uso de algoritmos heurísticos para
 resolverlo.
@@ -44,9 +43,9 @@ un análisis formal riguroso, sino del conocimiento experto sobre la tarea \cite
 
 El uso de heurísticas es una parte fundamental en la resolución de problemas de
 optimización, pues usualmente estos serán lo bastante complejos como para no poder
-resolverlos de forma exacta en un tiempo razonable. Así, somos capaces de crear
-procedimientos heurísticos que obtienen soluciones cercanas al óptimo en un tiempo
-razonable \citep{herrera:2014}.
+resolverlos de forma exacta en un tiempo razonable. Con ellas, seremos capaces de crear
+procedimientos que obtengan soluciones cercanas al óptimo en una fracción mínima del
+tiempo que le tomaría a un algoritmo exacto \citep{herrera:2014}.
 
 Las heurísticas diseñadas para resolver un problema pueden ser más generales o más
 específicas que otras. Los métodos más específicos deben ser diseñados de forma
@@ -57,9 +56,9 @@ adaptables y robustas, pues no dependen de forma tan fuerte del problema que se 
 
 Las metaheurísticas pueden ser vistas como estrategias de diseño generales para
 procedimientos heurísticos de alto rendimiento. Estas estrategias quedan por encima
-de las heurísticas convencionales, representando un \textit{nivel superior} de abstracción.
+de las heurísticas convencionales, representando un nivel superior de abstracción.
 El término metaheurística apareció por primera vez en un artículo de Fred Glover
-\citep{glover:1986}. Desde entonces, han surgido numerosas propuestas, mediante la
+\citep{glover:1986}, y desde entonces han surgido numerosas propuestas, mediante la
 aparición de pautas para diseñar procedimientos para resolver distintos problemas,
 los cuales, al ser extendidos a otros ámbitos, han adquirido la denominación de metaheurísticas.
 
@@ -81,10 +80,9 @@ Podemos clasificar las metaheurísticas en los siguientes tipos \citep{melian:20
 \end{itemize}
 
 Las metaheurísticas pueden ser de uno o varios tipos, lo que daría lugar a metaheurísticas
-híbridas. También es posible encontrar metaheurísticas basadas en algún recurso que
-no se engloben en estos cuatro tipos, como las basadas en redes neuronales. Esta
-clasificación queda abierta a la interpretación, pudiendo ser modificada, y no
-debe tomarse nunca como definitiva o infalible.
+híbridas. También es posible encontrar metaheurísticas que no se engloben en estos
+cuatro tipos, como las basadas en redes neuronales. Esta clasificación queda abierta
+a la interpretación, pudiendo ser modificada, y no debe tomarse nunca como definitiva o infalible.
 
 \section{El repositorio DIMACS}
 Las siglas DIMACS hacen referencia al centro de matemática discreta y computación
@@ -99,7 +97,7 @@ El problema del clique máximo fue, junto con el coloreo de grafos y el problema
 de cláusulas (SAT), protagonista del segundo desafío DIMACS, que tuvo lugar entre 1990 y 1991.
 Para el problema, se proporcionó un conjunto de instancias de grafos, que son de acceso público,
 son las que utiliza la comunidad científica para evaluar nuevos algoritmos, y las que he utilizado
-para los considerados en este trabajo. Pueden encontrarse en la URL
+para los considerados en este trabajo. Pueden encontrarse en
 \url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}.
 
 En dicho repositorio podemos encontrar un total de $37$ grafos, de los cuales he tomado $35$.
@@ -174,7 +172,7 @@ hasta que se termina, lo que ayuda a encontrar fallos de forma temprana y a comp
 que las soluciones a estos fallos cumplen con su cometido, pues siempre se puede
 testear el trabajo que esté finalizado.
 
-El desarrollo del trabajo ha sido el siguiente:  
+El desarrollo del trabajo ha sido el siguiente:
 
 El primer paso fue buscar información existente sobre el problema, lo que me llevó
 al repositorios DIMACS y a numerosos articulos publicados. Con esto, pude saber

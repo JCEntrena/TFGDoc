@@ -70,7 +70,7 @@ Problem. Dado que los ficheros siguen todos el mismo formato, es posible extraer
 los datos de cada grafo sin más que hacer una distinción de casos.
 
 La parte fundamental de la lectura, que es la creación de la matriz de adyacencias,
-se realiza partiendo de una matriz de ceros del tamaño adecuado, e iremos tomando
+se realiza partiendo de una matriz de ceros del tamaño adecuado, y tomando
 los pares que se proporcionan en el archivo, que representan los nodos que están
 conectados, para marcarlos como unos en la matriz de adyacencias. Dado que los
 nodos comienzan su numeración desde el $1$ en los ficheros, y desde el $0$ en el
@@ -89,7 +89,7 @@ El archivo \textit{reader.rb} también contendrá el método principal. En él, 
 ejecutarán el método de lectura y los algoritmos implementados que incluyamos,
 para lo que se debe añadir el código necesario. Además, se mostrarán por pantalla
 los resultados obtenidos, con la idea de poder redireccionarlos a un archivo de
-texto en el que almacenar los resultados.
+texto en el que almacenar dichos resultados.
 
 
 \section{Algoritmos}
@@ -243,10 +243,10 @@ que recibe el problema a resolver y el número de iteraciones. Tanto las probabi
 de cruce y mutación como el tamaño de la población se encuentran en el código, donde
 deben ser modificadas de ser necesario. Como en ocasiones anteriores, para decidir
 eventos que dependen de una probabilidad, se genera un número entre $0$ y $1$, y si
-este es menor que la probabilidad, el suceso se lleva a cabo. Este proceso se lleva
-a cabo en los mecanismo de cruce y de mutación, y además se usa también en el propio
-operador de cruce, donde los nodos que pertenecen solo a un padre van a cada uno de
-los hijos con probabilidad $0.5$.
+este es menor que la probabilidad, el suceso se lleva a cabo. Esto se utiliza en
+los mecanismos de cruce y de mutación, y además se usa también en el propio operador
+de cruce, donde los nodos que pertenecen solo a un padre van a cada uno de los
+hijos con probabilidad $0.5$.
 
 El algoritmo memético, implementado en \textit{solve\_memetic}, funciona de la misma
 forma, aplicando búsqueda local al generar la nueva población, con un límite que
