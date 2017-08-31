@@ -30,12 +30,12 @@ ILS y GRASP que usan 1LS también se han ejecutado una única vez, aunque el mé
 de obtención de soluciones iniciales tenga componentes aleatorias, debido a que su
 tiempo de ejecución es muy alto.
 
-El resto de algoritmos incluyen componentes aleatorias, y se han considerado un
+El resto de algoritmos incluyen componentes aleatorias, y se ha considerado un
 número variable de ejecuciones para cada uno de ellos, dependiendo del tiempo que
 tardasen. Se detallan a continuación:
 \begin{itemize}
   \item DLS: 20 iteraciones.
-  \item Enfriamiento simulado: 10 iteraciones para cada algoritmos.
+  \item Enfriamiento simulado: 10 iteraciones para cada algoritmo.
   \item Colonia de hormigas: 10 iteraciones para cada algoritmo.
   \item ILS y GRASP con DLS: 10 iteraciones.
   \item Genético: 10 iteraciones.
@@ -52,11 +52,13 @@ hormigas y los algoritmos genético y memético. Para cada grupo, mostraremos lo
 y haremos un análisis individual y comparativo de los dos algoritmos que contiene.
 
 Las tablas tienen la siguiente disposición: la primera columna contiene cada uno de los
-grafos considerados. La segundo columna indica el tamaño del mejor clique conocido para
+grafos considerados. La segunda columna indica el tamaño del mejor clique conocido para
 cada grafo, notando con un asterisco los valores que están confirmados como óptimos
 globales. El resto de columnas contienen el tamaño del mejor clique encontrado para cada
 algoritmo, notado como |C|, y el tiempo de ejecución, que se ha tomado el valor medio en
-caso de haberse efectuado más de una ejecución.
+caso de haberse efectuado más de una ejecución. Como medidas para evaluar a los grafos,
+he considerado el porcentaje medio de tamaño de los cliques encontrados, calculado como
+la media aritmética de los porcentajes en cada grafo, y el número de óptimos encontrados.
 
 \subsection{Algoritmos \textit{greedy}}
 
@@ -106,18 +108,18 @@ caso de haberse efectuado más de una ejecución.
 \end{longtable}
 \end{small}
 
-Los resultados obtenidos por los dos algoritmos greedy han sido de un óptimo y una media
+Los resultados obtenidos por los dos algoritmos \textit{greedy} han sido de un óptimo y una media
 de $73.2\%$ de tamaño para el \textit{greedy} básico, y tres óptimos y un $84.9\%$ de media
 para el \textit{greedy} adaptativo.
 
-Los resultados del algoritmo greedy básico muestran que este falla a la hora de
+Los resultados del algoritmo \textit{greedy} básico muestran que este falla a la hora de
 alcanzar el óptimo en el conjunto de instancias, pues lo logra en solo una de las $35$.
 El tamaño medio manifiesta que no se obtienen soluciones de calidad, existiendo
 un amplio margen de mejora en la mayoría de instancias del problema. En cuanto a
 los tiempos, es un algoritmo rápido, que por lo general requiere menos de $1$
 segundo para ejecutarse, y que no supera los $10$ segundos en ningún caso.
 
-El greedy adaptativo logra mejorar o igualar los resultados obtenidos por el algoritmo
+El \textit{greedy} adaptativo logra mejorar o igualar los resultados obtenidos por el algoritmo
 anterior en todos los grafos, lo que confirma que ampliar el entorno con movimientos
 \textit{swap} mejora sensiblemente los resultados, aunque aumenta de forma considerable
 los tiempos de ejecución, llegando a superar la hora en \textit{keller6}. Aun así,
@@ -131,8 +133,8 @@ son capaces de alcanzar buenas soluciones por sí solos. Aun así, los cliques
 obtenidos pueden servir como soluciones de partida para otros algoritmos que sean
 capaces de mejorar las carencias que tienen los \textit{greedy}. En este caso,
 si trabajamos con cliques de gran tamaño nos interesa un algoritmo más veloz como
-es el greedy básico. Si por el contrario los grafos son pequeños, a cambio de algo
-más de tiepo de ejecución, el algoritmo greedy adaptativo nos da soluciones de
+es el \textit{greedy} básico. Si por el contrario los grafos son pequeños, a cambio de algo
+más de tiempo de ejecución, el algoritmo \textit{greedy} adaptativo nos da soluciones de
 partida de más calidad.
 
 \subsection{Búsqueda local}
@@ -192,7 +194,7 @@ lo que reafirma que la exploración del entorno es importante a la hora de busca
 soluciones. No obstante, en vista de los resultados, estos siguen siendo mejorables
 en cuanto a la calidad de las soluciones encontradas. Los tiempos de ejecución no
 son excesivos, si bien en los grafos más grandes pueden extenderse un poco,
-rozando los $10$ minutos en \textit{keller6}. Aun así, en la mayoría de los grafos
+rozando los $10$ minutos en \textit{keller6}. Aun así, en la mayoría de los grafosgreedy
 no se superan los $30$ segundos.
 
 DLS logra mejorar los resultados de 1LS, pues es capaz de alcanzar más óptimos
@@ -206,14 +208,18 @@ requiriendo menos de $1$ segundo.
 
 Debido a la mejora en tiempos de ejecución y en resultados, podemos afirmar que
 DLS funciona mejor que 1LS al aplicarlo directamente sobre los grafos, y cabe esperar
-que también ofrezca mejores resultados cuando lo utilicemos en ILS y GRASP.
+que también ofrezca mejores resultados cuando lo utilicemos en ILS y GRASP. Aun así,
+exiten grafos, como \textit{C2000.9} o \textit{MANN\_a27} en los que 1LS proporciona
+resultados ligeramente mejores que DLS. Esto puede indicar que en grafos con una
+determinada estructura, 1LS pueda ser de más utilidad que DLS.
+
 Recordando el funcionamiento de los algoritmos, 1LS ordenaba los tres movimientos
 para obtener el entorno y trataba de aprovechar información del grafo para elegir
 entre los nodos candidatos, mientras que DLS no consideraba movimientos \textit{drop},
 y las elecciones eran aleatorias. Los resultados parecen apuntar a que el entorno
-considerado en DLS que el tomado en 1LS. Además, el uso de información inherente
-al grafo no parece aportar beneficio, si bien sería necesaria más experimentación
-para poder afirmarlo.
+considerado en DLS da mejores resultados que el tomado en 1LS. Además, el uso de
+información inherente al grafo no parece aportar beneficio, si bien sería necesaria
+más experimentación para poder afirmarlo.
 
 \subsection{Enfriamiento simulado}
 
@@ -272,8 +278,8 @@ Los resultados en el algoritmo básico mejoran los obtenidos por ambos algoritmo
 de búsqueda local, conviertiéndolo en una buena herramienta para resolver el problema,
 pues supera ampliamente el $90\%$ de tamaño medio, y alcanza el óptimo casi en la
 mitad de instancias. Recordemos que toma un entorno distinto al considerado en la
-bñusqueda local, sin priorizar ningún movimiento sobre otro. Esto, y el uso de
-técnicas de enfriamiento simulado podrían ser los causante de que el algoritmo
+búsqueda local, sin priorizar ningún movimiento sobre otro. Esto, y el uso de
+técnicas de enfriamiento simulado podrían ser los causantes de que el algoritmo
 mejore las búsquedas locales. Además, presenta unos tiempos de ejecución bajos,
 sin llegar a los $90$ segundos en ningún caso. Esto se debe a que el número de
 iteraciones no depende del grafo, sino que viene dado por la temperatura y es
@@ -281,16 +287,17 @@ fijo en todos ellos.
 
 Por otra parte, la adaptación del algoritmo de Geng et al. presenta unos resultados
 muy pobres, sin ser capaz de encontrar en óptimo en ningún caso. Podemos afirmar que
-falla a la hora de resolver el problema de forma satisfactoria.
+falla a la hora de resolver el problema de forma satisfactoria. Dado que la exploración
+del entorno es aleatoria, como en el caso anterior, cabe plantearse si considerar grafos
+cualesquiera en lugar de cliques como espacio de soluciones es la causa de este mal
+rendimiento. La función objetivo, con componentes aparte del tamaño de los grafos,
+también podría ser causante de que el algoritmo no se dirija a las zonas del espacio
+de soluciones de mayor calidad. Además, la función de reducción de grafos a cliques
+es otro factor a tener en cuenta, pues no tenemos garantizado que la reducción sea
+óptima, y añade otra etapa de posible pérdida de calidad en las soluciones.
 
-Dado que la exploración del entorno es aleatoria, como en el caso anterior, cabe
-plantearse si considerar grafos cualesquiera en lugar de cliques como espacio de
-soluciones es la causa de este mal rendimiento. La función objetivo, con componentes
-aparte del tamaño de los grafos, también podría ser causante de que el algoritmo
-no se dirija a las zonas del espacio de soluciones de mayor calidad. Además, la
-función de reducción de grafos a cliques es otro factor a tener en cuenta, pues
-no tenemos garantizado que la reducción sea óptima, y añade otra etapa de  posible
-pérdida de calidad en las soluciones.
+Con estos resultados qued comprobado que el algoritmo básico funciona mucho
+mejor que la adaptación del algoritmo de Geng et al.
 
 \subsection{ILS}
 
@@ -364,7 +371,7 @@ mejorando sensiblemente los tiempos del algoritmo anterior.
 
 Concluímos que ambos algoritmos son capaces de obtener soluciones de calidad,
 siendo mejor la versión con DLS por sus mejores resultados y menor tiempo de
-ejecución, lo cual era de esperar, pues DLS funcionaba mejor que 1LS.
+ejecución, resultado que es consistente con los obtenidos para DLS e ILS.
 
 \subsection{GRASP}
 
@@ -415,7 +422,8 @@ ejecución, lo cual era de esperar, pues DLS funcionaba mejor que 1LS.
 \end{small}
 
 Los resultados obtenidos por ambos algoritmos GRASP han sido de $16$ óptimos y un
-$93.5\%$ para la versión con 1LS, y $18$ óptimos y un $95.3\%$ para la versión con DLS.
+$93.5\%$ de tamaño medio para la versión con 1LS, y $18$ óptimos y un $95.3\%$ para
+la versión con DLS.
 
 Estos algoritmos son capaces de alcanzar el óptimo en aproximadamente un $50\%$ de
 los casos de estudio, reflejando un buen comportamiento general. Además, la versión
@@ -438,7 +446,8 @@ de búsqueda local iterada, lo que en un principio nos dice que el uso de soluci
 pseudoaleatorias como solución de partida proporciona mejores resultados que el proceso
 de mutación utilizado en ILS. No obstante, dado que estos procesos pueden ser modificados,
 queda aun margen de mejora en ambos algoritmos, por lo que sería pronto para decir que
-GRASP funciona mejor que ILS en el problema del clique máximo.
+GRASP funciona mejor que ILS en el problema del clique máximo. Sería necesaria más
+experimentación para poder sacar conclusiones a la hora de comparar ambas técnicas.
 
 \subsection{Algoritmos de colonia de hormigas}
 
@@ -516,7 +525,8 @@ Ambos algoritmos son similares en cuanto a tiempos, ya que la única diferencia 
 el cálculo añadido en la probabilidad en la versión con enfriamiento simulado,
 que no parece repercutir de forma significativa. En general, los tiempos no son
 muy extensos en todo el conjunto de grafos, aunque alcanzan valores un tanto altos
-en las instancias con más nodos.
+en las instancias con más nodos, siendo \textit{C2000.9} la que más tiempo requiere,
+unos $12$ minutos para cada uno de los dos algoritmos.
 
 \subsection{Algoritmos genéticos}
 
@@ -577,7 +587,7 @@ Por sí solo, el algoritmo genético presenta un buen comportamiento, siendo cap
 encontrar soluciones aceptables en el conjunto de instancias considerado. Habría
 que experimentar con distintos parámetros tanto en probabilidades de cruce y mutación
 como en número de iteraciones y tamaño de población para poder realizar un ajuste más
-minucioso de los parámetros que conllevase una mejora de los resultados. También
+minucioso, que conllevase una mejora de los resultados. También
 debería estudiarse la necesidad de reinicializar algunos individuos de la población,
 en caso de que estos fueran similares unos a otros, para introducir diversidad.
 
@@ -609,7 +619,9 @@ esperar que los algoritmos de colonia de hormigas funcionasen bien en este probl
 así ha sido, aunque sus resultados no han destacado especialmente. Por otra parte,
 algoritmos menos usuales en problemas de grafos como los genéticos, han mostrado un
 comportamiento bueno, en especial el algoritmo memético, claramente el mejor en
-cuanto a resultados de todos los considerados.
+cuanto a resultados de todos los considerados. Ajustar en ambos tipos de algoritmos
+los parámetros involucrados podría mejorar su comportamiento, sobre todo en el caso
+de los ACO, donde los resultados han sido algo peores. 
 
 \section{Conclusiones}
 
