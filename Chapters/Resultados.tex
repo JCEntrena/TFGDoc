@@ -621,7 +621,64 @@ algoritmos menos usuales en problemas de grafos como los genéticos, han mostrad
 comportamiento bueno, en especial el algoritmo memético, claramente el mejor en
 cuanto a resultados de todos los considerados. Ajustar en ambos tipos de algoritmos
 los parámetros involucrados podría mejorar su comportamiento, sobre todo en el caso
-de los ACO, donde los resultados han sido algo peores. 
+de los ACO, donde los resultados han sido algo peores.
+
+Para realizar una comparativa entre todos los algoritmos, vamos a clasificarlos en
+todos los grafos que se han considerado. Tomaremos los tres algoritmos que den mejores
+resultados en cuanto a tamaño del clique encontrado, y usaremos el tiempo para decidir
+en caso de empate. De esta forma, otorgaremos primer, segundo y trecer puesto para
+cada grafo, y, haciendo un recuento para todos los algoritmos, veremos como funcionan
+con respecto a los demas.
+
+A continuación se muestra
+
+\begin{small}
+\begin{longtable}{l l l l}
+  \label{table:posiciones}\\
+  \endhead
+  \endfoot
+    Grafo              & $1^{er}$ puesto & $2$º puesto & $3^{er}$ puesto \\ \hline
+    brock200\_2        & Genético & ACO básico & ACO + SA  \\  \hline
+    brock200\_4        & Genético & Memético & ILS + DLS  \\  \hline
+    brock400\_2        & Memético & ILS + DLS & SA básico  \\  \hline
+    brock400\_4        & GRASP + DLS & Memético & Genético  \\  \hline
+    brock800\_2        & Genético & Memético & DLS  \\  \hline
+    brock800\_4        & ILS + DLS & GRASP + DLS & 1LS  \\  \hline
+    C125.9             & DLS & ILS + DLS & GRASP + DLS  \\  \hline
+    C250.9             & ILS + DLS & SA básico & GRASP + 1LS  \\  \hline
+    C500.9             & ILS + 1LS & Memético & ILS + DLS \\  \hline
+    C1000.9            & Memético & ILS + DLS & 1LS  \\  \hline
+    C2000.5            & Memético & GRASP + DLS & SA básico  \\  \hline
+    C2000.9            & Memético & ILS + DLS & 1LS  \\  \hline
+    C4000.5            & Memético & GRASP + DLS & ACO + SA  \\  \hline
+    DSJC500\_5         & GRASP + DLS & Genético & ACO básico  \\  \hline
+    DSJC1000\_5        & Memético & ILS + DLS & GRASP + DLS  \\  \hline
+    gen200\_p0.9\_44   & GRASP + DLS & SA básico & GRASP + 1LS  \\  \hline
+    gen200\_p0.9\_55   & DLS & ILS + DLS & GRASP + DLS  \\  \hline
+    gen400\_p0.9\_55   & Memético & ILS + DLS & SA básico  \\  \hline
+    gen400\_p0.9\_65   & ILS + DLS & GRASP + DLS & SA básico  \\  \hline
+    gen400\_p0.9\_75   & DLS & ILS + DLS & GRASP + DLS  \\  \hline
+    hamming10-4        & DLS & ILS + DLS & GRASP + DLS  \\  \hline
+    hamming8-4         & DLS & Greedy básico & ILS + DLS  \\  \hline
+    keller4            & DLS & ILS + DLS & 1LS  \\  \hline
+    keller5            & DLS & GRASP + DLS & Genético  \\  \hline
+    keller6            & ILS + DLS & GRASP + 1LS & GRASP + DLS  \\  \hline
+    MANN\_a27          & ILS + 1LS & Greedy básico & DLS  \\  \hline
+    p\_hat300-1        & DLS & Greedy adaptativo & ILS + DLS  \\  \hline
+    p\_hat300-2        & DLS & ILS + DLS & 1LS  \\  \hline
+    p\_hat300-3        & DLS & ILS + DLS & GRASP + DLS  \\  \hline
+    p\_hat700-1        & GRASP + DLS & Genético & Memético  \\  \hline
+    p\_hat700-2        & ILS + DLS & GRASP + DLS & 1LS  \\  \hline
+    p\_hat700-3        & ILS + DLS & GRASP + DLS & SA básico  \\  \hline
+    p\_hat1500-1       & DLS & Greedy adaptativo & GRASP + DLS  \\  \hline
+    p\_hat1500-2       & ILS + DLS & GRASP + DLS & SA básico  \\  \hline
+    p\_hat1500-3       & ILS + DLS & SA básico & GRASP + 1LS  \\  \hline
+  \caption{Clasificación por grafos.}
+\end{longtable}
+\end{small}
+
+
+% Ránking. Medallero.
 
 \section{Conclusiones}
 
