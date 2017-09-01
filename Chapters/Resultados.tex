@@ -626,11 +626,9 @@ de los ACO, donde los resultados han sido algo peores.
 Para realizar una comparativa entre todos los algoritmos, vamos a clasificarlos en
 todos los grafos que se han considerado. Tomaremos los tres algoritmos que den mejores
 resultados en cuanto a tamaño del clique encontrado, y usaremos el tiempo para decidir
-en caso de empate. De esta forma, otorgaremos primer, segundo y trecer puesto para
+en caso de empate. De esta forma, otorgaremos primer, segundo y tercer puesto para
 cada grafo, y, haciendo un recuento para todos los algoritmos, veremos como funcionan
 con respecto a los demas.
-
-A continuación se muestra
 
 \begin{small}
 \begin{longtable}{l l l l}
@@ -710,28 +708,28 @@ que el resto de posiciones están más distribuidas entre todos los algoritmos. 
 algoritmo que no logra estar entre los tres mejores en ningún grafo es la adaptación del
 enfriamiento simulado de Geng et al., lo que nos reafirma en su mal comportamiento.
 
-En grafos más simples, donde el óptimo era alcanzado por varios algoritmos, los
+En grafos más simples, donde el óptimo es alcanzado por varios algoritmos, los
 algoritmos más veloces son los que ocupan los primeros puestos. Así, DLS es capaz
-de alcanzar 11 primeros puestos, gracias ser el algoritmo más rapido de entre los
+de alcanzar $11$ primeros puestos, gracias ser el algoritmo más rapido de entre los
 considerados, haciendo que siempre que alcance el óptimo se coloque en cabeza.
 Las versiones multiarranque de DLS también logran una gran presencia entre los tres
-mejores, dado que en grafos más complejos, son capaces de mejorar el comportamiento
-de DLS sin aumentar su tiempo de ejecución tanto como otros algoritmos
+mejores, ya que son capaces de mejorar el comportamiento de DLS en los grafos donde
+este no alcanza el óptimo, sin aumentar su tiempo de ejecución tanto como otros algoritmos.
 
 Es en los grafos complejos donde algoritmos como el genético o el memético logran
 diferenciarse del resto, pues, si bien son más lentos que los mencionados anteriormente,
-son capaces de alcanzar mejores soluciones. De esta forma, son capaces de colocarse
-entre los tres primeros, y usualmente en primer lugar, sobre todo el algoritmo memético,
-cuyos tiempos elevados le han hecho perder en la comparativa con búsquedas locales
-en caso de empate.
+son capaces de alcanzar mejores soluciones. De esta forma, los algoritmos genético y
+memético pueden estar entre los tres primeros, y usualmente en primer lugar, sobre
+todo el algoritmo memético, cuyos tiempos elevados le han hecho perder en la comparativa
+con búsquedas locales en caso de empate.
 
 Por tanto, con esta comparación, podemos decir que las búsquedas locales basadas en
 DLS y los algoritmos genéticos son los mejores algoritmos de todos los considerados.
-Los primeros destacan por su velocidad, y buena capacidad de resolución de un gran
+Los primeros destacan por su velocidad y buena capacidad de resolución de un gran
 número de instancias. Los segundos tratan de profundizar más en el espacio de soluciones
 a costa de mayores tiempos de ejecución, lo que les permite ganar calidad en los grafos
-donde algoritmos más simples no no trabajan tan bien. Otros algoritmos, como el
-enfriamiento simulado adaptado, o las búsquedas basadas en 1LS, también dan buenos
+donde algoritmos más simples no trabajan tan bien. Otros algoritmos, como el
+enfriamiento simulado simple, o las búsquedas basadas en 1LS, también dan buenos
 resultados en ciertas instancias, dando a entender que son algoritmos competitivos
 en ciertos escenarios.
 
