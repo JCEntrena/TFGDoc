@@ -73,7 +73,7 @@ del punto fijo de Brower.
 
 \begin{proof}
   Sea $h \colon D^n \to \R^n$, definida por:
-  \[ h(x) = \begin{cases} f(2x) &\text{ si } |x| \leq \frac{1}{2} \\
+  \[ h(x) = \begin{cases} f(2x) &\text{ si } |x| \leq \frac{1}{2}, \\
                           (2-2|x|)f(\frac{x}{|x|}) + (2|x| - 1)x &\text{ si } |x| \geq \frac{1}{2}, \end{cases} \]
   que es continua, ya que en $\frac{1}{2}$ ambas definiciones coinciden.
 
@@ -134,7 +134,7 @@ Definamos el grupo de homología local, herramienta que nos servirá para demost
 Vamos a calcular la homología local de $\R^n$.
 
 \begin{proposition}
-  $H_p(\R^n, \R^n - \{x\}) \cong \begin{cases} 0 &\text{ si } n \neq p \\ \Z &\text{ si } n = p. \end{cases}$
+  $H_p(\R^n, \R^n - \{x\}) \cong \begin{cases} 0 &\text{ si } n \neq p, \\ \Z &\text{ si } n = p. \end{cases}$
 \end{proposition}
 
 \begin{proof}
@@ -192,8 +192,8 @@ Pasemos ahora a un resultado que nos permitirá demostrar el teorema de invarian
   Sean $H^n = \{x \in \R^n \mid x_n \geq 0 \}$ semiespacio de $\R^n$, $\partial H^n = Fr H^n = \{x \in \R^n \mid x_n = 0\}$
   el borde de dicho semiespacio, y $\interior{H^n} = \{x \in \R^n \mid x_n > 0\}$ su interior. Entonces, se verifica
   \[H_p(H^n, H^n - \{x\}) =
-    \begin{cases} \Z &\text{ si } p = n, x \in \interior{H^n} \\
-                  0  &\text{ si } p \neq n, x \in \interior{H^n} \\
+    \begin{cases} \Z &\text{ si } p = n, x \in \interior{H^n}, \\
+                  0  &\text{ si } p \neq n, x \in \interior{H^n}, \\
                   0  &\text{ si } x \in \partial H^n.  \end{cases} \]
 \end{lemma}
 
@@ -281,7 +281,7 @@ Vamos a definir el concepto de variedad diferenciable.
 
 \begin{proposition}
   Sea $A \subseteq S^n$ homeomorfo a $I^k$, con $0 \leq k \leq n$. Entonces:
-  \[ H_p(S^n - A) \cong \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0. \end{cases} \]
+  \[ H_p(S^n - A) \cong \begin{cases} 0 &\text{ si } p > 0, \\ \Z &\text{ si } p = 0. \end{cases} \]
 \end{proposition}
 
 \begin{proof}
@@ -299,8 +299,8 @@ Vamos a definir el concepto de variedad diferenciable.
   \[ H_p(S^n - (A^+ \cap A^-)) \to H_{p-1}(S^n - A) \xrightarrow{(i_*^+, i_*^-)} H_{p-1}(S^n - A^+) \oplus H_{p-1}(S^n - A^-) \to \dotsb \]
 
   Como $A^+ \cap A^- \cong I^{k-1}$, por hipótesis de inducción \\
-  \[H_p(S^n - (A^+ \cap A^-)) \cong \begin{cases} 0 &\text{ si } p > 0 \\
-                                                \Z &\text{ si } p = 0 \end{cases}\]
+  \[H_p(S^n - (A^+ \cap A^-)) \cong \begin{cases} 0 &\text{ si } p > 0, \\
+                                                \Z &\text{ si } p = 0. \end{cases}\]
   Así, $(i_*^+, i_*^-)$ es un isomorfismo si $p > 0$, y un monomorfismo si $p = 0$.
 
   Supongamos ahora que el resultado no es cierto. Entonces, para $p > 0$ existe $[\alpha] \in H_p(S^n - A)$ con $[\alpha] \neq 0$, y
@@ -323,7 +323,7 @@ Vamos a definir el concepto de variedad diferenciable.
     S^n - A \arrow{dr}{i} \arrow{rr}{i_m} & & S^n - A_m \arrow{dl}{j_m} \\
     & S^n - \bigcap\limits_{i = 1}^\infty A_i
   \end{tikzcd} \]
-  Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción, entonces
+  Como $H_p(S^n - \bigcap\limits_{i = 1}^\infty A_i) = \begin{cases} 0 &\text{ si } p > 0, \\ \Z &\text{ si } p = 0 \end{cases}$ por inducción, entonces
   $0 = i_*(\beta) = [i_\#(\beta)]$, luego existe $d \in S_{p+1}(S^n - \bigcap\limits_{i = 1}^\infty A_i)$ con $\partial d = i_\#(\beta)$.
 
   Si $d = \sum\limits_{i = 1}^r m_i \phi_i$, entonces $\bigcup\limits_{i = 1}^r \Img \phi_i$ es un compacto en $S^n - \bigcap\limits_{i = 1}^\infty A_i
@@ -340,9 +340,9 @@ Vamos a definir el concepto de variedad diferenciable.
 \begin{theorem}
   Sea $A \subseteq S^n$, $n \geq 2$, $A$ homeomorfo a $S^k$ con $0 \leq k < n$. Entonces:
 
-  Si $k \leq n-2, \quad H_p(S^n - A) = \begin{cases} 0 &\text{ si } p \neq 0, n-k-1 \\ \Z &\text{ si } p = 0, p = n-k-1. \end{cases}$
+  Si $k \leq n-2, \quad H_p(S^n - A) = \begin{cases} 0 &\text{ si } p \neq 0, n-k-1, \\ \Z &\text{ si } p = 0, p = n-k-1. \end{cases}$
 
-  Si $k = n-1, \quad    H_p(S^n - A) = \begin{cases} 0 &\text{ si } p > 0 \\ \Z \oplus \Z &\text{ si } p = 0. \end{cases}$
+  Si $k = n-1, \quad    H_p(S^n - A) = \begin{cases} 0 &\text{ si } p > 0, \\ \Z \oplus \Z &\text{ si } p = 0. \end{cases}$
 \end{theorem}
 
 \begin{proof}
@@ -363,10 +363,10 @@ Vamos a definir el concepto de variedad diferenciable.
     &\to H_{p-1}(S^n - E_+^k) \oplus H_{p-1}(S^n - E_-^k).
   \end{align*}
   Si $p \geq 2$, se verifica $H_{p-1}(S^n - S^k) \cong H_p(S^n - (E_+^k \cap E_-^k)) \cong H_p(S^n - S^{k-1})$,
-  que por inducción es $\begin{cases} 0 &\text{ si } p \neq 0, n-k \\ \Z &\text{ si } p = 0, n-k. \end{cases}$
+  que por inducción es $\begin{cases} 0 &\text{ si } p \neq 0, n-k, \\ \Z &\text{ si } p = 0, n-k. \end{cases}$
 
   Llamando $q = p-1$, si $k = n-1$, como $p \geq 2$, $H_q(S^n - A) = 0 \quad \forall q \geq 1$.\\
-  Si $k \leq n-2, n-k \geq 2$, y $H_q(S^n - A) = \begin{cases} \Z &\quad q = n-k-1 \\ 0 &\quad \text{en otro caso.} \end{cases}$
+  Si $k \leq n-2, n-k \geq 2$, y $H_q(S^n - A) = \begin{cases} \Z &\quad q = n-k-1, \\ 0 &\quad \text{en otro caso.} \end{cases}$
 
   Para $p = 1 (q = 0)$, tomamos la sucesión exacta
   \begin{align*}
@@ -374,7 +374,7 @@ Vamos a definir el concepto de variedad diferenciable.
     &\to H_0(S^n - (E_+^k \cap E_-^k)) \to 0.
   \end{align*}
   Como $H_0(S^n - E_+^k), H_0(S^n - E_-^k)$ y $H_0(S^n - (E_+^k \cap E_-^k)) \cong \Z$,
-  se deduce que $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1 \\
+  se deduce que $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1, \\
                                                                                                     \Z &\quad k < n - 1.  \end{cases} $
 \end{proof}
 
