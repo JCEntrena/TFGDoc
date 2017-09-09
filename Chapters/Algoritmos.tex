@@ -25,7 +25,7 @@ pues queremos maximizarlo, y agregaremos otras componentes.
 Como \textbf{operador de vecino} tenemos tres distintos, los cuales aplicados sobre
 cada clique nos permitirán obtener su entorno. Los vemos con más detalle:
 
-\subsection{Operadores de vecino}
+\subsection{Operador \textit{add}}
 
 El primer operador, al que llamaremos operador \textit{add}, consiste en añadir al clique un
 nuevo nodo que conserve la estructura de clique, esto es, que esté conectado con todos los
@@ -45,6 +45,9 @@ sigue siendo un clique.
   \EndFunction
   \end{algorithmic}
 \end{algorithm}
+
+
+\subsection{Operador \textit{swap}}
 
 El segundo operador, al que nos referiremos como \textit{swap}, consiste en intercambiar un
 nodo del clique con uno de fuera, de forma que se siga manteniendo la estructura. Para ello,
@@ -67,6 +70,8 @@ la estructura de clique tras realizar las operaciones.
   \EndFunction
   \end{algorithmic}
 \end{algorithm}
+
+\subsection{Operador \textit{drop}}
 
 Finalmente, el tercer operador de vecino será el operador \textit{drop}, que consiste simplemente en quitar
 un nodo del clique. En este caso no tenemos que preocuparnos por que el grafo resultante sea un clique,
