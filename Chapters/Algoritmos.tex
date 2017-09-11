@@ -544,8 +544,8 @@ clique obtenido hasta el momento, reemplazándolo si su longitud fuera mayor. De
 del algoritmo continua explorando el entorno del grafo, repitiendo el método descrito.
 La temperatura vuelve a seguir un esquema de descenso geométrico.
 
-He vuelto a tomar los valores $T_{\text{inicial}} = 1, T_{\text{final}} = 0.001,
-\beta = 0.99$ para los parámetros del algoritmo. Una vez finaliza la fase de enfriamiento,
+He vuelto a tomar los valores $T_{\text{inicial}} = 1, T_{\text{final}} = 0.001$ y
+$\beta = 0.99$ para los parámetros del algoritmo. Una vez finaliza la fase de enfriamiento,
 vuelvo a añadir tantos nodos como sea posible al mejor clique encontrado, mediante un algoritmo
 \textit{greedy} que prioriza los nodos con más adyacencias, devolviendo el clique resultante.
 Dado que las principales diferencias con el anterior algoritmo son el espacio de búsqueda,
@@ -597,8 +597,8 @@ sido descrita en 1987 por J. P. Hart y A. W. Shogan \citep{hart:1987}.
 
 La construcción de la solución inicial sigue un procedimiento \textit{greedy}, en el cual,
 en lugar de proporcionar un único candidato como se haría en un algoritmo \textit{greedy}
-clásico, se proporciona una lista restringida de candidatos (RCL), que es un conjunto
-de los mejores candidato, tomados de entre todos los posibles, y de entre estos,
+clásico, se proporciona una lista restringida de candidatos (en inglés, \textit{restricted candidate list}, o RCL),
+que es un conjunto de los mejores candidato, tomados de entre todos los posibles, y de entre estos,
 elegiremos uno al azar. El tamaño de RCL es un parámetro, que dependiendo de su valor
 hace a la construcción más similar a un \textit{greedy} o a un algoritmo aleatorio,
 pues notemos que si el número de candidatos es $1$, el algoritmo será un \textit{greedy}
@@ -769,16 +769,16 @@ Las hormigas utilizan este rastro de feromonas para guiarse, pues poseen unos re
 capaces de captar la intensidad de dicho rastro. Dado su pésimo sentido de la vista,
 el uso de las feromonas es vital para que las hormigas se desplacen y sean capaces de
 localizar fuentes de alimento, volver al hormiguero, y que el resto de la colonia también
-sea capaz de llegar a la comida, siguiendo el rastro que las propia hormigas dejan.
+sea capaz de llegar a la comida, siguiendo el rastro que las propias hormigas dejan.
 Este rastro de feromonas no permanece de forma indefinida en el ambiente, sino que
 sufre un proceso de evaporación constante. De esta forma, caminos más cortos tenderán
 a una mayor concentración de feromonas, lo que incrementará el tránsito de hormigas,
 mientras que los más largos se verán más afectados por la evaporación, y así,
-recibirán menos aporte de feromonas, lo que a la larga hará que dejen de ser visitados.
+tendrán un menor nivel de feromonas, lo que a la larga hará que dejen de ser visitados.
 
 La elección por parte de una hormiga del camino que recorrer se fundamenta en un
 criterio probabilístico. La hormiga tiende a recorrer caminos en los que el rastro
-de feromona es mayor, aunque podrá ir por otros donde el rastro no sea tan intenso.
+de feromonas es mayor, aunque podrá ir por otros donde el rastro no sea tan intenso.
 
 Su fundamentación teórica hace que sea un algoritmo muy eficaz para problemas que
 requieren de construcción de caminos, como el problema del viajante de comercio.
@@ -786,7 +786,7 @@ En general, son algoritmos que funcionan bien cuando trabajan sobre estructuras
 similares a los grafos.
 
 Este comportamiento será trasladado a la optimización por colonia de hormigas,
-mediante la construcción de hormigas artificiales. Tendremos un rastro de feromona
+mediante la construcción de hormigas artificiales. Tendremos un rastro de feromonas
 artificial, que simula el que dejan las hormigas al recorrer un camino. Es posible
 complementar el uso de las feromonas con información heurística del problema,
 con el objetivo de crear un mecanismo probabilistico de construcción de soluciones
@@ -794,20 +794,20 @@ que no solo se base en feromonas, sino que use más información disponible.
 
 Las hormigas construirán un camino de forma incremental utilizando la información
 de la que disponen, comenzando desde un nodo aleatorio y eligiendo el siguiente
-mediante una función de probabilidad, que depende de los valores de feromona.
+mediante una función de probabilidad, que depende de los valores de feromonas.
 
 Los nodos que compongan una solución serán reforzados con un aumento de feromonas, y
-se hará de forma que mejores soluciones reciban más cantidad de feromona.
+se hará de forma que mejores soluciones reciban más cantidad de feromonas.
 Se utiliza también un mecanismo de evaporación de feromona simulando el que ocurre en
 la naturaleza, que evita un crecimiento ilimitado de la misma. Para esto, se reducirán
-todos los rastros de feromona eliminando un parte de su valor actual, usualmente un
+todos los rastros de feromonas eliminando un parte de su valor actual, usualmente un
 porcentaje fijo. En la práctica, esto se traduce en evitar un estancamiento del algoritmo,
 debido a que los nodos más visitados tendrían altas probabilidades de repetirse en la
 siguiente solución.
 
 Se lanzarán un número determinado de hormigas artificiales independientes, las
 cuales generan una solución cada una. Entre ellas, se toma la mejor, y esta será la
-que cambie los niveles de feromona. Este proceso se repite hasta que se satisfaga una
+que cambie los niveles de feromonas. Este proceso se repite hasta que se satisfaga una
 condición de parada, que suele ser un número de iteraciones o un límite temporal.
 
 Existen numerosas variantes de las colonias de hormigas, dependiendo de la función de
@@ -827,7 +827,7 @@ cuales podremos realizar una acción, como un \textit{add} o un \textit{swap}.
 En este trabajo, he considerado dos algoritmos de colonias de hormigas clásicos,
 lanzando una colonia de hormigas durante un número determinado de iteraciones y
 reforzando el nivel de feromonas en la mejor solución de cada iteración.
-La evaporación se realiza reduciendo un porcentaje fijo de feromona.
+La evaporación se realiza reduciendo un porcentaje fijo de feromonas.
 La diferencia entre ambos algoritmos reside en la función de probabilidad;
 mientras que uno de ellos utiliza solo el valor de feromona, el segundo complementa
 su uso con información del grafo.
@@ -844,9 +844,9 @@ Cada hormiga comenzará desde un clique vacío y añadirá nodos del conjunto $C
 una regla probabilística, que consiste en dar a cada nodo del conjunto una probabilidad
 proporcional a su feromona, normalizándola para obtener un valor entre $0$ y $1$, y
 conseguir que la suma de todas las probabilidades de los nodos de $C_0$ sea $1$.
-Para ello,  solo hemos de dividir el valor de la feromona de un nodo por la suma de
+Para ello, solo hemos de dividir el valor de la feromona de un nodo por la suma de
 los valores de los nodos de $C_0$. Inicialmente, la probabilidad será la misma para
-cada nodo,  por lo que no damos ventaja a ninguno y dejamos que sea el proceso el
+cada nodo, por lo que no damos ventaja a ninguno y dejamos que sea el proceso el
 que determine los mejores nodos.
 
 El proceso se repite hasta que la hormiga finaliza la creación de su clique, dando
@@ -912,7 +912,7 @@ Este algoritmo toma algunas de las ideas de X. Xu, J. Ma y J. Lei \citep{xu:2007
 que trata de mejorar el ACO básico considerando información relativa al clique
 para calcular las probabilidades de elegir un nodo. La única diferencia con el
 anterior está dicho cálculo, para el que utilizaremos una técnica de enfriamiento
-simulado, además del uso de los valores de feromona.
+simulado, además del uso de los valores de feromonas.
 
 La probabilidad de cada nodo se compone de dos partes: la primera de ellas es idéntica
 a la anterior, un valor entre $0$ y $1$ obtenido de las feromonas de cada nodo en $C_0$
@@ -921,7 +921,7 @@ del grado de cada nodo, y estará multiplicado por una temperatura, de forma que
 importancia de este término desciende en el tiempo. La fórmula para el cálculo
 de la probabilidad queda de la siguiente forma:
 \[ p(v_i) = \frac{\tau(v_i)}{\sum\limits_{v_j \in C_0} \tau(v_j)} + T \frac{D(v_i)}{N}, \quad v_i \in C_0 \]
-donde $\tau(v_i)$ es el valor de la feromona en el nodo $v_i$, $T$ es la temperatura,
+donde $\tau(v_i)$ es el valor de feromonas en el nodo $v_i$, $T$ es la temperatura,
 $N$ el número de nodos del grafo, y $D(v_i)$ es el grado de $v_i$. Una vez calculadas
 todas las probabilidades de los nodos de $C_0$, volveremos a normalizarlas, para tener
 valores entre $0$ y $1$ y que la suma siga siendo $1$.

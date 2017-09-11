@@ -18,8 +18,6 @@ que son el problema del conjunto independiente, en el que se intenta buscar el m
 conjunto de nodos no conectados entre sí, y el problema del recubrimiento por vértices,
 en el que buscamos el mínimo conjunto de nodos que cubran todas la aristas.
 
-% Intentar añadir un gráfico aquí, para explicar un poco.
-
 El problema del clique máximo lleva siendo estudiado desde segunda mitad del siglo XX, y fue sujeto
 de estudio en el segundo desafío de implementación de DIMACS, que tuvo lugar entre 1992
 y 1993, junto con el problema del coloreo de grafos y de satisfabilidad booleana (SAT).
@@ -47,7 +45,7 @@ resolverlos de forma exacta en un tiempo razonable. Con ellas, seremos capaces d
 procedimientos que obtengan soluciones cercanas al óptimo en una fracción mínima del
 tiempo que le tomaría a un algoritmo exacto \citep{herrera:2014}.
 
-Las heurísticas diseñadas para resolver un problema pueden ser más generales o más
+Las heurísticas aplicables a la hora de resolver un problema pueden ser más generales o más
 específicas que otras. Los métodos más específicos deben ser diseñados de forma
 distinta para cada problema, utilizando toda la información y el análisis teórico
 disponible sobre él. Bien diseñados, suelen tener un rendimiento más alto que las
@@ -95,15 +93,16 @@ el objetivo de conseguir algoritmos de calidad.
 
 El problema del clique máximo fue, junto con el coloreo de grafos y el problema de satisfabilidad
 de cláusulas (SAT), protagonista del segundo desafío DIMACS, que tuvo lugar entre 1990 y 1991.
-Para el problema, se proporcionó un conjunto de instancias de grafos, que son de acceso público,
-son las que utiliza la comunidad científica para evaluar nuevos algoritmos, y las que he utilizado
-para los considerados en este trabajo. Pueden encontrarse en
-\url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}.
+Para el problema, se proporcionó un conjunto de instancias de grafos, que son de acceso público
+y las que utiliza la comunidad científica para evaluar nuevos algoritmos. Debido a esto, he decidido
+utilizar estas instancias para evaluar los algoritmos considerados en este trabajo. Dichas instancias
+pueden encontrarse en \url{http://iridia.ulb.ac.be/~fmascia/maximum_clique/DIMACS-benchmark}.
 
 En dicho repositorio podemos encontrar un total de $37$ grafos, de los cuales he tomado $35$.
 Ha quedado fuera los grafos \textit{MANN\_a81} y \textit{MANN\_a45}, debido a que por su tamaño
 los tiempos de ejecución eran muy elevados. Para ejecutar sobre ellos los algoritmos con los
-mismos parámetros que sobre el resto de grafos, se hubiera requerido de más de una semana.
+mismos parámetros que sobre el resto de grafos, se hubiera requerido un tiempo estimado de más
+de una semana, lo que suponía una cifra demasiado alta en comparación con el resto.
 
 Los grafos están subdivididos en distintos grupos, que hacen referencia al método de
 generación de los mismos. Debido a esto, es posible que algunos algoritmos muestren
@@ -175,7 +174,7 @@ testear el trabajo que esté finalizado.
 El desarrollo del trabajo ha sido el siguiente:
 
 El primer paso fue buscar información existente sobre el problema, lo que me llevó
-al repositorios DIMACS y a numerosos articulos publicados. Con esto, pude saber
+al repositorios DIMACS y a numerosos artículos publicados. Con esto, pude saber
 las líneas de trabajo que se siguen para su resolución y adquirir una base sobre
 la que empezar a trabajar, además de establecer un modelo del problema.
 
