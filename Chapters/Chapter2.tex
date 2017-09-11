@@ -67,7 +67,7 @@ Antes de pasar a la demostración del teorema, necesitaremos introducir nuevos c
 de símplices singulares mediante la subdivisión baricéntrica de símplices, que nos llevan a poder dar una especie de
 inversa homotópica de la inclusión.
 
-\section{Subdivisión de símplices}
+\section{Subdivisión baricéntrica de símplices}
 
 Vamos a definir la subdivisión baricéntrica de símplices, para lo que necesitaremos
 definir el baricentro de un símplice.
@@ -268,8 +268,11 @@ a) $\partial \circ Sd' = Sd' \circ \partial$.
 b) Si $f \colon C \to C'$ es afín, entonces $f_\# \circ Sd' = Sd' \circ f_\#$.
 
 \begin{proof}
-  $(f_\# Sd')(\phi) = f_\#(\C_{b(\phi)} Sd'(\partial(\phi))) = \C_{f(b(\phi))} f_\# Sd'(\partial(\phi))\\ \stackrel{\text{h. de i}}{=}
-  \C_{f(b(\phi))} Sd'(f_\#(\partial(\phi))) = \C_{f(b(\phi))} Sd'(\partial(f_\#(\phi))) = Sd'(f_\#(\phi))$.
+  Hacemos el cálculo:
+  \begin{align*}
+    (f_\# Sd')(\phi) &= f_\#(\C_{b(\phi)} Sd'(\partial(\phi))) = \C_{f(b(\phi))} f_\# Sd'(\partial(\phi))  \\
+    &= \C_{f(b(\phi))} Sd'(f_\#(\partial(\phi))) = \C_{f(b(\phi))} Sd'(\partial(f_\#(\phi))) = Sd'(f_\#(\phi)).
+  \end{align*}
 \end{proof}
 
 c) Existe un homomorfismo $\tau' \colon A_p(C) \to A_{p+1}(C)$ tal que ${\partial \tau' + \tau' \partial = Sd' - Id_{A_p(C)}}$,
@@ -288,8 +291,9 @@ es decir, $Sd'$ es, como aplicación de cadenas, homotópica a la identidad.
   \end{align*}
   Definiendo $\tau'(\phi) = \C_{b(\phi)}(Sd'(\phi) - \phi - \tau'(\partial(\phi))$, entonces
   \begin{align*}
-    &\partial(\tau'(\phi)) = \partial \C_{b(\phi)}(Sd'(\phi) - \phi -\tau'(\partial(\phi))) = (Sd'(\phi) - \phi - \tau' \partial(\phi)) \\
-    &- \C_{b(\phi)} \partial(Sd'(\phi) - \phi - \tau'(\partial(\phi))) = Sd'(\phi) - \phi - \tau'(\partial(\phi)),
+    \partial(\tau'(\phi)) &= \partial \C_{b(\phi)}(Sd'(\phi) - \phi -\tau'(\partial(\phi))) \\
+    &= (Sd'(\phi) - \phi - \tau' \partial(\phi)) - \C_{b(\phi)} \partial(Sd'(\phi) - \phi - \tau'(\partial(\phi))) \\
+    &= Sd'(\phi) - \phi - \tau'(\partial(\phi)),
   \end{align*}
   lo que demuestra la igualdad que queríamos.
 \end{proof}
@@ -301,7 +305,7 @@ d) $\tau'$ es natural, esto es, si $f \colon C \to C'$ es afín, entonces $f_\# 
 
   Suponemos cierto hasta $p-1$. Sea $\phi \in F_p^A(C)$, entonces
   \begin{align*}
-    &f_\#(\tau'(\phi)) = f_\#(\C_{b(\phi)}(Sd'(\phi) - \phi - \tau'(\partial(\phi))) \\
+    f_\#(\tau'(\phi)) &= f_\#(\C_{b(\phi)}(Sd'(\phi) - \phi - \tau'(\partial(\phi))) \\
     &= \C_{f(b(\phi))} f_\#(Sd'(\phi) - \phi - \tau(\partial(\phi))) \\
     &= \C_{f(b(\phi))}(Sd'(f_\# \phi) - f_\# \phi - \tau'(f_\# \partial(\phi))) = \tau'(f_\#(\phi))
   \end{align*}
@@ -317,7 +321,7 @@ $\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) 
 \begin{proof}
   Para $p = 0$, $Sd'(\tau_0) = \tau_0 = \sigma_0$. Siendo $t_0^i = \sigma_0 = Sd'(\sigma_0)$.
 
-  Supuesto cierto hasta $p-1$, sea $Sd'(\tau_p) = \C_{b(\tau_p)} Sd'(\partial(\tau_p))$
+  Supuesto cierto hasta $p-1$, sea $Sd'(\tau_p) = \C_{b(\tau_p)} Sd'(\partial(\tau_p))$.
   \begin{align*}
     &\partial(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\tau_p) = \sum\limits_{i = 0}^p (-1)^i \tau_p \circ F_p^i = \text{(por ser la identidad)} \\
     &= \sum\limits_{i = 0}^p (-1)^i F_p^i \circ \tau_{p-1} = \sum\limits_{i = 0}^p (-1)^i(F_p^i)_\# (\tau_{p-1}) \text{. De esta forma:} \\
@@ -331,12 +335,10 @@ $\forall i \hspace{0.3em} \exists t_p^i \in Sd(\sigma_p)$ tal que $\Img(\phi_i) 
   luego $\Img((F_p^i)_\# (\psi_j)) \subseteq U_{p-1}^{i,j} \in Sd(\interior{\sigma_p})$.
 
   Así, $\Img(\C_{b(\tau_p)}(F_p^i)_\# (\phi_j)) \subseteq \C_{b(\tau_p)}(U_{p-1}^{i, j}) = (b(\sigma_p), t_0, \dots, t_{p-1}) \in Sd(\sigma_p)$\\
-  (Donde $U_{p-1}^{i,j} = (t_0, \dots, t_p)$).
+  (donde $U_{p-1}^{i,j} = (t_0, \dots, t_p)$).
 \end{proof}
 
-\section{Subdivisión de símplices singulares}
-
-% Introducción
+\section{Subdivisión baricéntrica de símplices singulares}
 
 Utilizando el caso afín ya estudiado, definiremos una subdivisión de símplices singulares de forma general sobre
 un espacio topológico $\X$. Demostraremos una serie de propiedades, equivalentes a las vistas anteriormente.
@@ -376,14 +378,15 @@ un espacio topológico $\X$. Demostraremos una serie de propiedades, equivalente
 
   c) $(f_\# \circ Sd)(\phi) = f_\# \phi_\# Sd'(\tau_p) = (f \circ \phi)_\# Sd'(\tau_p) = Sd(f_\#(\phi))$.
 
-  d) Definimos $\tau(\phi) = \phi_\#(\tau'(\tau_p)) \quad \text{con} \quad \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X)$. \\
+  d) Definimos $\tau(\phi) = \phi_\#(\tau'(\tau_p)) \text{ con } \phi_\# \colon S_{p+1}(\sigma_p) \to S_{p+1}(\X)$. \\
   Entonces, se tiene:
   \begin{align*}
-    &(\partial \tau + \tau \partial)(\phi) \partial(\phi_\# \tau'(\tau_p)) + \tau(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
-    &= \phi_\#(\partial \tau'(\tau_p)) + \sum\limits_{i = 0}^p (-1)^i((\partial_i \phi)_\#(\tau'(\tau_{p-1})) = \phi_\#(\partial \tau'(\tau_p)) \\
-    &+ \phi_\#(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# (\tau'(\tau_{p-1}))) = \text{caso afín} = \phi_\#(\partial \tau'(\tau_p)) \\
-    &+ \phi_\#(\tau'(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\#(\tau_{p-1})) = \phi_\#(\partial \tau'(\tau_p)) + \phi_\#(\tau'\partial(\tau_p)) \\
-    &= \phi_\#(\partial \tau' + \tau' \partial)(\tau_p) = \text{caso afín} = \phi_\#(Sd' - Id)(\tau_p) = Sd(\phi) - \phi.
+    (\partial \tau + \tau \partial)(\phi) &= \partial(\phi_\# \tau'(\tau_p)) + \tau(\sum\limits_{i = 0}^p (-1)^i \partial_i \phi) \\
+    &= \phi_\#(\partial \tau'(\tau_p)) + \sum\limits_{i = 0}^p (-1)^i((\partial_i \phi)_\#(\tau'(\tau_{p-1})) \\
+    &= \phi_\#(\partial \tau'(\tau_p)) + \phi_\#(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\# (\tau'(\tau_{p-1}))) = \text{(caso afín)} \\
+    &= \phi_\#(\partial \tau'(\tau_p)) + \phi_\#(\tau'(\sum\limits_{i = 0}^p (-1)^i (F_p^i)_\#(\tau_{p-1})) \\
+    &= \phi_\#(\partial \tau'(\tau_p)) + \phi_\#(\tau'\partial(\tau_p)) = \phi_\#(\partial \tau' + \tau' \partial)(\tau_p) = \text{(caso afín)} \\
+    &= \phi_\#(Sd' - Id)(\tau_p) = Sd(\phi) - \phi.
   \end{align*}
 
   e) Como $Sd(\phi) = \phi_\#(Sd'(\tau_p))$, entonces si $Sd'(\tau_p) = \sum_i n_i \psi_i, \phi_i = \phi_\#(\psi_i)$.
@@ -477,6 +480,7 @@ Demostremos ya el teorema de subdivisión baricéntrica.
   \[ \partial \tau Sd^{m - 1} - \tau Sd^{m-1} \partial = Sd^m - Sd^{m-1}. \]
   Si los sumamos todos, $\partial \tau(I + Sd + \dots + Sd^{m-1}) - \tau(I + Sd + \dots + Sd^{m-1}) \partial = Sd^m - Id$. \\
   De esta forma:
+
   \begin{align*}
     &(\partial T + T \partial)(\phi) = \partial \tau(I + Sd + \dots + Sd^{m-1}) \phi + T(\sum\limits_{i = 0}^p (-1)^i \partial_i(\phi)) \\
     &= \partial \tau(I + Sd + \dots + Sd^{m(\phi)-1}) \phi + \sum\limits_{i = 0}^p (-1)^i \tau(I + \dots + Sd^{m(\partial_i(\phi)) - 1} \partial_i \phi \\
@@ -540,7 +544,7 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Claramente, $(i_\#, j_\#)$ es inyectiva, pues las aplicaciones $i_\#, j_\#$ lo son.
 
-  Si $d \in S_p^U(\X)$, podemos expresar $d$ como una suma, $d = d_1 + d_2$, con \\
+  Si $d \in S_p^U(\X)$, podemos expresar $d$ como una suma, $d = d_1 + d_2$, con
   $d_1 = \sum_i n_i \phi_i, d_2 = \sum_j m_j \psi_j, \hspace{0.2em}  \Img \phi_i \subseteq U, \Img \psi_j \subseteq V$.
 
   De esta forma, $d_1 = k_\#(d_1), -d_2 = l_\#(d_2)$, y $d = k_\#(d_1) - l_\#(-d_2)$.
@@ -564,6 +568,12 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Como la sucesión exacta larga asociada a una corta es natural, se sigue directamente la naturalidad de la sucesión de Mayer-Vietoris.
 \end{proof}
+
+La sucesión de Mayer-Vietoris nos permite simplificar el cálculo de la homología singular de un espacio topológico $\X$, siempre
+que conozcamos los grupos de homología de los elementos de la descomposición. Esta cualidad nos resultará muy útil a la hora de
+calcular la homología de ciertos espacios, y en particular, la utilizaremos para el cálculo de la homología de las esferas.
+
+Veamos ahora el teorema de homología, que utilizamos previamente para la demostración de la existencia de la sucesión de Mayer-Vietoris.
 
 \begin{theorem}[Teorema de homología]
   Sean $\mathcal{E} = \{E_p, \partial\}, \mathcal{F} = \{F_p, \partial\}, \mathcal{G} = \{G_p, \partial\}$ complejos de cadenas. \\
@@ -597,6 +607,9 @@ Vamos a tratar ahora algunas de las principales consecuencias del teorema de sub
 
   Comprobar la exactitud y la naturalidad es repetir el mismo proceso que hemos hecho en otras ocasiones.
 \end{proof}
+
+Demostrado el teorema de homología, vamos a enunciar y demostrar el teorema de escisión, un resultado que nos permitirá
+simplificar el cálculo de la homología de un par. 
 
 \begin{theorem}[Teorema de escisión]
   Sea $(\X, A)$ un par, $U \subseteq A$ verificando $\overline{U} \subseteq \interior{A}$. Entonces la inclusión

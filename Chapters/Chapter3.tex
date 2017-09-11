@@ -138,7 +138,7 @@ Vamos a calcular la homología local de $\R^n$.
 \end{proposition}
 
 \begin{proof}
-  Si $p = 0$, ya sabemos que $H_0(\R^n, \R^n - \{x\}) = 0$ por un resultado que vimos sobre pares. Supondremos $p \geq 1$.
+  Si $p = 0$, ya sabemos que $H_0(\R^n, \R^n - \{x\}) = 0$ por la \autoref{prop1-17}. Supondremos $p \geq 1$.
 
   Consideramos la sucesión de homología del par, teniendo en cuenta que $\R^n - \{x\}$ y $S^{n-1}$ tienen el mismo tipo de homotopía.
 
@@ -357,7 +357,7 @@ Vamos a definir el concepto de variedad diferenciable.
   Entonces, $E_+^k$ y $E_-^k$ son homeomorfos a $I^k$, y $E_+^k \cap E_-^k \cong S^{k-1}$.
 
   Del resultado anterior y de la hipótesis de inducción, conocemos $H_*(S^k, E_+^k)$, $H_*(S^k, E_-^k)$ y $H_*(S^n - (E_+^k \cap E_-^k))$.
-  Aplicando Mayer-Vietoris a $S^n - (E_+^k \cap E_-^k)$, con $U = S^n - E_+^k, V = S^n - E_-^k$, se tiene:
+  Tomando la sucesión de Mayer-Vietoris de $S^n - (E_+^k \cap E_-^k)$, con $U = S^n - E_+^k, V = S^n - E_-^k$, se tiene:
   \begin{align*}
     &H_p(S^n - E_+^k) \oplus H_p(S^n - E_-^k) \to H_p(S^n - (E_+^k \cap E_-^k)) \to H_{p-1}(S^n - S^k) \\
     &\to H_{p-1}(S^n - E_+^k) \oplus H_{p-1}(S^n - E_-^k).
@@ -373,7 +373,7 @@ Vamos a definir el concepto de variedad diferenciable.
     &0 \to H_1(S^n - (E_+^k \cap E_-^k)) \to H_0(S^n - S^k) \to H_0(S^n - E_+^k) \oplus H_0(S^n - E_-^k) \to \\
     &\to H_0(S^n - (E_+^k \cap E_-^k)) \to 0.
   \end{align*}
-  Como $H_0(S^n - E_+^k), H_0(S^n - E_-^k)$ y $H_0(S^n - (E_+^k \cap E_-^k)) \cong \Z$,
+  Como $H_0(S^n - E_+^k), H_0(S^n - E_-^k)$ y $H_0(S^n - (E_+^k \cap E_-^k))$ son todos isomorfos a $\Z$,
   se deduce que $H_0(S^n - S^k) \cong \Z \oplus H_1(S^n - (E_+^k \cap E_-^k)) = \begin{cases} \Z \oplus \Z &\quad k = n-1, \\
                                                                                                     \Z &\quad k < n - 1.  \end{cases} $
 \end{proof}
@@ -457,8 +457,8 @@ $f_* \colon H_0(S^n) \to H_0(S^n)$ y $f_* \colon H_n(S^n) \to H_n(S^n)$.
 Se cumple que el primero de ellos es siempre la identidad. En el segundo caso, como $H_n(S^n) \cong \Z$, si $[\alpha]$ es un
 generador de $H_n(S^n)$, necesariamente se tiene que $f_*([\alpha]) = n \times [\alpha], \quad n \in Z$.
 
-Definimos como el \textbf{grado} de $f$ a dicho entero $n$, y lo notamos $\Deg f$.
-\[ f_*([\alpha]) = \Deg f \times [\alpha]. \]
+Definimos como el \textbf{grado} de $f$ a dicho entero $n$, y lo notamos $\Deg f$. Por tanto, se cumple que $f_*([\alpha]) = \Deg f \times [\alpha]$.
+
 Veamos algunas de sus propiedades.
 
 \begin{proposition}[Propiedades]
@@ -476,7 +476,7 @@ Veamos algunas de sus propiedades.
 \begin{proof}
   Las demostraciones son sencillas usando la definición. Probamos únicamente e).
 
-  Supongamos que $f$ no es sobreyectiva, luego existe $x \in S^n$ con $x \notin \Img f$. Así, tenemos el diagrama
+  Supongamos que $f$ no es sobreyectiva, es decir, existe $x \in S^n$ con $x \notin \Img f$. Así, tenemos el diagrama
   \[ \begin{tikzcd}
     S^n  \arrow{dr}{f'} \arrow{rr}{f} & & S^n  \\
     & S^n - \{x\} \arrow[hookrightarrow]{ur}{i}
