@@ -108,6 +108,7 @@
 %-------------------------------------------
 % Tikz
 \usepackage{tikz}
+\usepackage{tikz-3dplot}
 
 \usepackage{verbatim}
 \usetikzlibrary{arrows,shapes}
@@ -172,43 +173,117 @@
 \section{Homología Singular} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
 
-\subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+\subsection{Introducción} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 \begin{frame}
-\frametitle{Paragraphs of Text}
-Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
+\frametitle{Ideas}
 
-Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio. Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis. Vestibulum ultrices tincidunt libero, quis commodo erat ullamcorper id.
+Símplices y símplices singulares. Construcción de los grupos y definición de borde. Complejo de cadenas.
+Ciclos y bordes. Homología.
+
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Motivación}
+  \begin{itemize}
+    \item Construir la homología singular.
+    \item Obtener herramientas para calcularla.
+    \item Obtener resultados a partir de estas herramientas.
+  \end{itemize}
+
+\end{frame}
+
+
 
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Bullet Points}
-\begin{itemize}
-\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-\item Nam cursus est eget velit posuere pellentesque
-\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
-\end{itemize}
+  \frametitle{Objetivos}
+  Los objetivos que se plantearon antes del inicio del trabajo fueron los siguientes:
+  \begin{itemize}
+    \item Construcción de la homología singular y estudio de sus propiedades.
+    \item Cálculo de la homología singular de las esferas y obtención de aplicaciones.
+  \end{itemize}
+  Ambos objetivos se han cumplido de forma satisfactoria.
 \end{frame}
 
+
 %------------------------------------------------
+\subsection{Definiciones}
 
 \begin{frame}
-\frametitle{Blocks of Highlighted Text}
-\begin{block}{Block 1}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-\end{block}
+  \frametitle{Definiciones}
+  \begin{columns}[c]
 
-\begin{block}{Block 2}
-Pellentesque sed tellus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum quis magna at risus dictum tempor eu vitae velit.
-\end{block}
+    \column{.45\textwidth}
+    Un $p$-símplice es la envolvente convexa de $p-1$ puntos afínmente independientes.
+    Lo llamaremos estándar si sus puntos son de la forma $(0, \dots, 1, \dots, 0)$.
 
-\begin{block}{Block 3}
-Suspendisse tincidunt sagittis gravida. Curabitur condimentum, enim sed venenatis rutrum, ipsum neque consectetur orci, sed blandit justo nisi ac lacus.
-\end{block}
+    \column{.5\textwidth}
+    \begin{figure}
+      \tdplotsetmaincoords{70}{130}
+      \begin{tikzpicture}[tdplot_main_coords]
+        \def\laxis{3}
+        \def\ltriangle{1}
+        \def\ltick{.2}
+        %%% axes
+        \draw [->] (0,0,0) -- (\laxis,0,0) node [below] {$x$};
+        \draw [->] (0,0,0) -- (0,\laxis,0) node [right] {$y$};
+        \draw [->] (0,0,0) -- (0,0,\laxis) node [left] {$z$};
+        %%% axes ticks
+        \pgfmathtruncatemacro{\nticks}{floor(\laxis)-1}
+        \begin{scope}[
+          help lines,
+          every node/.style={inner sep=1pt,text=black}
+          ]
+          \foreach \coord in {1,...,\nticks} {
+            \draw (\coord,\ltick,0) -- ++(0,-\ltick,0) -- ++(0,0,\ltick)
+            node [pos=1,left] {\coord};
+            \draw (\ltick,\coord,0) -- ++(-\ltick,0,0) -- ++(0,0,\ltick)
+            node [pos=1,right] {\coord};
+            \draw (\ltick,0,\coord) -- ++(-\ltick,0,0) -- ++(0,\ltick,0)
+            node [at start,above right] {\coord};
+          }
+        \end{scope}
+        %%% figure
+        \filldraw [opacity=.33,red] (\ltriangle,0,0) -- (0,\ltriangle,0)
+        -- (0,0,\ltriangle) -- cycle;
+      \end{tikzpicture}
+      \caption{$2$-símplice estándar}
+    \end{figure}
+
+  \end{columns}
+
+\end{frame}
+
+%------------------------
+
+\begin{frame}
+  \frametitle{Definiciones}
+
+  Un p-símplice singular será una aplicación continua de un p-símplice a un espacio topológico.
+  Tomando un $\mathbb{Z}$-módulo sobre el conjunto de p-símplices singulares creamos el grupo
+  de p-cadenas singulares, $S_p(\mathbb{X})$.
+  \\~\\
+  Sobre el grupo de p-cadenas singulares podemos definir un homomorfismo de grupos borde $\partial$,
+  de forma que el borde de una p-cadena sea una (p-1)-cadena sin borde. Por tanto, el borde verifica
+  que $\partial^2$ es la aplicación cero.
+
+\end{frame}
+
+%---------------------------
+
+\begin{frame}
+  \frametitle{Definiciones}
+  Consideramos los ciclos y los bordes:
+  \begin{itemize}
+    \item $Z_p(\mathbb{X}) = \{c \in S_p(\mathbb{X}) \mid \partial(c) = 0\}$ p-ciclos.
+    \item $B_p(\mathbb{X}) = \{c \in S_p(\mathbb{X}) \mid \exists d \colon \partial(d) = c\}$ p-bordes.
+  \end{itemize}
+
+  Como $B_p \subseteq Z_p$, podemos tomar el cociente, el p-ésimo grupo de homología: \\~\\
+  \centerline{$H_p(\mathbb{X}) = \frac{Z_p(\mathbb{X})}{B_p(\mathbb{X})}$}
 \end{frame}
 
 %------------------------------------------------
@@ -231,69 +306,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ul
 \end{columns}
 \end{frame}
 
-%------------------------------------------------
-\section{Problema del clique máximo}
-%------------------------------------------------
 
-\subsection{Subsection Example}
-
-\begin{frame}
-
-  \tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-  \tikzstyle{selected vertex} = [vertex, fill=red!24]
-  \tikzstyle{edge} = [draw,thick,-]
-  \tikzstyle{weight} = [font=\small]
-  \tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
-  \tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
-
-  \begin{figure}
-  \begin{tikzpicture}[scale=1.7, auto,swap]
-      % Draw a 7,11 network
-      % First we draw the vertices
-      \foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(4,1)/c},
-                              {(0,0)/d}, {(3,0)/e}, {(0,-2)/f},
-                              {(2,-1)/g}, {(4,-1)/h}}
-          \node[vertex] (\name) at \pos {$\name$};
-      % Connect vertices with edges and draw weights
-      \foreach \source/ \dest /\weight in {b/a/, b/g/, c/b/, d/a/,
-                                           d/b/, e/b/, e/c/, e/d/,
-                                           f/d/, g/d/, g/e/, h/e/,
-                                           h/g/}
-          \path[edge] (\source) -- (\dest);
-      % Start animating the vertex and edge selection.
-      \foreach \vertex / \fr in {b/2,d/2,e/2,g/2}
-          \path<\fr-> node[selected vertex] at (\vertex) {$\vertex$};
-      % For convenience we use a background layer to highlight edges
-      % This way we don't have to worry about the highlighting covering
-      % weight labels.
-      \begin{pgfonlayer}{background}
-          \pause
-          \foreach \source / \dest / \fr in {b/d/1,b/e/1,b/g/1,d/e/1,d/g/1,e/g/1}
-              \path<\fr->[selected edge] (\source.center) -- (\dest.center);
-      \end{pgfonlayer}
-  \end{tikzpicture}
-  \end{figure}
-
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Table}
-\begin{table}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
-\end{frame}
-
-%------------------------------------------------
 
 \begin{frame}
 \frametitle{Theorem}
@@ -337,17 +350,273 @@ This statement requires citation \cite{p1}.
 \end{frame}
 
 %------------------------------------------------
+\section{Problema del clique máximo}
+%------------------------------------------------
 
-%% Bibliografía
+\subsection{Introducción}
+
 \begin{frame}
-\frametitle{Referencias}
-\footnotesize{
-  \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-    \bibitem[Smith, 2012]{p1} John Smith (2012)
-      \newblock Title of the publication
-      \newblock \emph{Journal Name} 12(3), 45 -- 678.
-  \end{thebibliography}
-}
+\frametitle{Descripción del problema}
+Llamamos clique a un grafo cuyos vértices están todos conectados entre sí. \\~\\
+
+Dado un grafo $G = (V, E)$, el problema del clique máximo consiste en buscar el clique de mayor
+tamaño dentro de $G$. \\~\\
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ejemplo}
+  \tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+  \tikzstyle{selected vertex} = [vertex, fill=red!24]
+  \tikzstyle{edge} = [draw,thick,-]
+  \tikzstyle{weight} = [font=\small]
+  \tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
+  \tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
+
+  \begin{figure}
+  \begin{tikzpicture}[scale=1.25, auto,swap]
+      % Draw a 7,11 network
+      % First we draw the vertices
+      \foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(4,1)/c},
+                              {(0,0)/d}, {(3,0)/e}, {(0,-2)/f},
+                              {(2,-1)/g}, {(4,-1)/h}}
+          \node[vertex] (\name) at \pos {$\name$};
+      % Connect vertices with edges and draw weights
+      \foreach \source/ \dest /\weight in {b/a/, b/g/, c/b/, d/a/,
+                                           d/b/, e/b/, e/c/, e/d/,
+                                           f/d/, g/d/, g/e/, h/e/,
+                                           h/g/}
+          \path[edge] (\source) -- (\dest);
+      % Start animating the vertex and edge selection.
+      \foreach \vertex / \fr in {b/2,d/2,e/2,g/2}
+          \path<\fr-> node[selected vertex] at (\vertex) {$\vertex$};
+      % For convenience we use a background layer to highlight edges
+      % This way we don't have to worry about the highlighting covering
+      % weight labels.
+      \begin{pgfonlayer}{background}
+          \pause
+          \foreach \source / \dest / \fr in {b/d/1,b/e/1,b/g/1,d/e/1,d/g/1,e/g/1}
+              \path<\fr->[selected edge] (\source.center) -- (\dest.center);
+      \end{pgfonlayer}
+  \end{tikzpicture}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+  Es un problema NP-difícil, y salvo que NP = ZPP no existen algoritmos capaces de aproximar el
+  problema con factor $1-\epsilon$ para ningún $\epsilon$ entre $0$ y $1$. \\~\\
+
+  Será necesario el uso de algoritmos heurísticos para resolverlo en un tiempo razonable.
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}
+  \frametitle{Objetivos}
+  Los objetivos planteados antes del inicio del trabajo fueron los siguientes:
+  \begin{itemize}
+    \item Recopilación de bibliografía sobre el trabajo y las heurísticas aplicables.
+    \item Estudio y selección de las técnicas a utilizar.
+    \item Diseño e implementación de los algoritmos.
+    \item Experimentación y estudio comparativo.
+  \end{itemize}
+  El primer objetivo se ha cumplido parcialmente. El resto de objetivos se han cumplido de forma satisfactoria.
+
+\end{frame}
+
+%---------------------------------------
+
+\subsection{Algoritmos}
+
+\begin{frame}
+  \frametitle{Algoritmos}
+  Implementados 14 algoritmos divididos en 7 categorías distintas: \textit{greedy}, búsqueda local,
+  enfriamiento simulado, ILS, GRASP, algoritmos de colonia de hormigas y algoritmos genéticos.
+  Cada categoría incluye dos algoritmos.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algoritmos \textit{greedy}}
+  Los algoritmos \textit{greedy} resuelven problemas tomando las decisiones óptimas en cada instante. \\~\\
+
+  Dos algoritmos implementados:
+  \begin{itemize}
+    \item \textit{Greedy} básico: primer acercamiento al problema con un algoritmo sencillo.
+    \item \textit{Greedy} adaptativo: algoritmo relajado que permite deshacer cambios. \cite{grosso:2004}
+  \end{itemize}
+
+\end{frame}
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{Búsqueda local}
+   La búsqueda local usa el entorno de una solución para buscar soluciones que mejoren a la actual.
+   Nos valdremos de los operadores \textit{add, swap} y \textit{drop} para crear el entorno. \\~\\
+
+  Dos algoritmos implementados:
+  \begin{itemize}
+    \item 1LS: Utiliza los tres operadores ordenados pror prioridad, favoreciendo add sobre swap y swap sobre drop.
+    \item DLS: Utiliza add y swap, junto a una lista tabú para evitar que los nodos que salgan vuelvan a entrar.
+  \end{itemize}
+
+\end{frame}
+
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{Enfriamiento simulado}
+   El enfriamiento simulado es un algoritmo de búsqueda en entornos que contiene un criterio probabilístico
+   de aceptación de soluciones basado en la termodinámica, el criterio de Metrópolis. Esto permite aceptar soluciones
+   peores para salir de óptimos locales. \\~\\
+
+  Dos algoritmos implementados:
+  \begin{itemize}
+    \item ES básico: Primer acercamiento, usando \textit{add, swap} y \textit{drop} y tomando un movimiento aleatorio.
+    \item ES adaptado: Trabaja con grafos cualesquiera y los reduce hasta obtener un clique. Considera \textit{add, swap} y \textit{drop},
+    con orden aleatorio, y una nueva función objetivo.
+  \end{itemize}
+
+\end{frame}
+
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{ILS}
+   La búsqueda local iterada es un algoritmo de búsqueda local multiarranque, que utiliza la perturbación de soluciones para
+   reinizializar la búsqueda y obtener diversidad. \\~\\
+
+   El método de reinicialización es añadir un nodo aleatorio a una solución final, eliminando todos los nodos que no estén
+   conectados a este. Como búsqueda local se ha utilizado 1LS y DLS, dando lugar a dos algoritmos.
+
+\end{frame}
+
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{GRASP}
+  GRASP es un algoritmo multiarranque consistente en repetir una fase de construcción de la solución inicial seguida de una búsqueda local.
+  La solución inicial se construye mendiante un algoritmo \textit{greedy} aleatorizado. \\~\\
+
+  Para la construcción de la solución inicial tomaremos el 50\% mejor de los nodos candidatos y elegiremos aleatoriamente.
+  De nuevo se utiliza 1LS y DLS para la fase de búsqueda local, lo que nos da dos algoritmos.
+
+\end{frame}
+
+
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{Algoritmos de colonia de hormigas}
+  Los ACO son una técnica basada en adaptación social que emulan el comportamiento de las hormigas. Utilizan un recurso basado en
+  la feromona para encontrar caminos en grafos.  \\~\\
+
+  Dos algoritmos implementados:
+  \begin{itemize}
+    \item ACO básico: Construye un clique añadiendo nodos, seleccionándolos con una probabilidad dependiente del nivel de feromona.
+    \item ACO con enfriamiento simulado: Añade a la probabilidad información del problema utilizando enfriamiento simulado, para
+          que su importancia descienda con el tiempo.
+ \end{itemize}
+
+\end{frame}
+
+
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{Algoritmos genéticos}
+  Los algoritmos genéticos son una metaheurística de poblaciones basada en los porcesos evolutivos presentes en la naturaleza.
+  Contarán con una población formada por soluciones, que se combinarán dos a dos para producir descendientes. \\~\\
+
+  Se ha implementado un algoritmo elitista, en el que dos hijos compiten con sus padres por entrar a la población.
+
+\end{frame}
+
+%-----------------------------------------
+
+\begin{frame}
+  \frametitle{Algoritmos meméticos}
+  Son el fruto de combinar los algoritmos genéticos con una búsqueda local.  \\~\\
+
+  Partiendo del algoritmo genético anterior, se ha aplicado DLS a todos los elementos de la población después de
+  los cruces, para tratar de mejorarla.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Implementación}
+
+  Todos los algoritmos se han implementado en \textbf{\emph{Ruby}}
+
+\end{frame}
+
+
+%-----------------------------------------
+
+\subsection{Resultados}
+
+\begin{frame}
+\frametitle{Resultados individuales}
+
+  \tiny
+  \begin{table}
+  \begin{tabular}{l l l}
+    \textbf{Algoritmo} & \textbf{Óptimos} & \textbf{Tamaño medio}  \\ \hline
+    Greedy básico          & 1  & 73.2\% \\ \hline
+    Greedy adaptativo      & 3  & 84.9\% \\ \hline
+    1LS                    & 4  & 87.5\% \\ \hline
+    DLS                    & 9  & 91.0\% \\ \hline
+    SA básico              & 16  & 93.5\% \\ \hline
+    SA adaptado            & 0  & 75.7\% \\ \hline
+    ILS + 1LS              & 11  & 90.3\% \\ \hline
+    ILS + DLS              & 15  & 93.3\%  \\ \hline
+    GRASP + 1LS            & 16  & 93.5\% \\ \hline
+    GRASP + DLS            & 18  & 95.3\% \\ \hline
+    ACO básico             & 12  & 89.7\% \\ \hline
+    ACO + SA               & 7  & 88.5\% \\ \hline
+    Genético               & 13  & 90.5\% \\ \hline
+    Memético               & 25  & 97.3\% \\ \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ránking}
+
+  \tiny
+  \begin{table}
+  \begin{tabular}{l l l l}
+    \textbf{Algoritmo} & \textbf{$1^{er}$ puesto} & \textbf{$2$º puesto} & \textbf{$3^{er}$ puesto} \\ \hline
+    Greedy básico          &  0  &  2  &  0  \\ \hline
+    Greedy adaptativo      &  0  &  2  &  0  \\ \hline
+    1LS                    &  0  &  0  &  6  \\ \hline
+    DLS                    &  11  &  0  &  2  \\ \hline
+    SA básico              &  0  &  3  &  6  \\ \hline
+    SA adaptado            &  0  &  0  &  0  \\ \hline
+    ILS + 1LS              &  2  &  0  &  0  \\ \hline
+    ILS + DLS              &  8  &  12  &  4  \\ \hline
+    GRASP + 1LS            &  0  &  1  &  3  \\ \hline
+    GRASP + DLS            &  4  &  8  &  8  \\ \hline
+    ACO básico             &  0  &  1  &  1  \\ \hline
+    ACO + SA               &  0  &  0  &  2  \\ \hline
+    Genético               &  3  &  2  &  2  \\ \hline
+    Memético               &  7  &  4  &  1  \\ \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+  \frametitle{Trabajo futuro}
+
+  \begin{itemize}
+    \item Enfatizar en un tipo de algoritmos, realizando cambios para mejorar su comportamiento.
+    \item Ampliar el trabajo con nuevas técnicas.
+  \end{itemize}
+
 \end{frame}
 
 %------------------------------------------------
@@ -356,6 +625,27 @@ This statement requires citation \cite{p1}.
 \Huge{\centerline{Fin.}}
 \end{frame}
 
+
+%------------------------------------------------
+
+%% Bibliografía
+\begin{frame}
+\frametitle{Referencias}
+\footnotesize{
+  \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+
+    \bibitem[Grosso et al, 2004]{grosso:2004}
+      \newblock Combining Swaps and Node Weights in an Adaptative Greedy Approach for the Maximum Clique Problem.
+      \newblock \emph{Journal of Heuristics} 10, 135--152.
+
+
+  \end{thebibliography}
+}
+\end{frame}
+
+
+
 %----------------------------------------------------------------------------------------
 
 \end{document}
+--
