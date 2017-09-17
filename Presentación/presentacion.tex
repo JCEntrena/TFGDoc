@@ -58,8 +58,8 @@
   %\usetheme{Pittsburgh}
   %\usetheme{Rochester}
   %\usetheme{Singapore}
-  \usetheme{Szeged}
-  %\usetheme{Warsaw}
+  %\usetheme{Szeged}
+  \usetheme{Warsaw}
 
   %% Selección de color
   % As well as themes, the Beamer class has a number of color themes
@@ -108,10 +108,31 @@
 %-------------------------------------------
 % Tikz
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usepackage{tikz-3dplot}
 
 \usepackage{verbatim}
 \usetikzlibrary{arrows,shapes}
+\usepackage{amsthm}
+\usepackage{accents}
+
+% Definitions
+
+\def\X{{\mathbb X}}
+\def\A{{\mathbb A}}
+\def\Y{{\mathbb Y}}
+\def\B{{\mathbb B}}
+\def\Z{{\mathbb Z}}
+\def\C{{\mathbb C}}
+\def\U{{\mathbb U}}
+
+\newcommand{\interior}[1]{\accentset{\smash{\raisebox{-0.12ex}{$\scriptstyle\circ$}}}{#1}\rule{0pt}{2.3ex}}
+
+% Counter
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
 
 % Sections
 \AtBeginSection{\frame{\sectionpage}}
@@ -175,14 +196,6 @@
 
 \subsection{Introducción} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
-\begin{frame}
-\frametitle{Ideas}
-
-Símplices y símplices singulares. Construcción de los grupos y definición de borde. Complejo de cadenas.
-Ciclos y bordes. Homología.
-
-\end{frame}
-
 
 \begin{frame}
   \frametitle{Motivación}
@@ -217,7 +230,7 @@ Ciclos y bordes. Homología.
   \begin{columns}[c]
 
     \column{.45\textwidth}
-    Un $p$-símplice es la envolvente convexa de $p-1$ puntos afínmente independientes.
+    Un $p$-símplice es la envolvente convexa de $p+1$ puntos afínmente independientes.
     Lo llamaremos estándar si sus puntos son de la forma $(0, \dots, 1, \dots, 0)$.
 
     \column{.5\textwidth}
@@ -261,14 +274,13 @@ Ciclos y bordes. Homología.
 
 \begin{frame}
   \frametitle{Definiciones}
-
   Un p-símplice singular será una aplicación continua de un p-símplice a un espacio topológico.
-  Tomando un $\mathbb{Z}$-módulo sobre el conjunto de p-símplices singulares creamos el grupo
-  de p-cadenas singulares, $S_p(\mathbb{X})$.
+  Tomando un $\mathbb{Z}$-módulo sobre el conjunto de p-símplices singulares $F_p(\X)$, creamos el grupo
+  de p-cadenas singulares, $S_p(\X) = \{\sum\limits_{\phi \in F_p(\X)} n_{\phi} \phi \mid n_{\phi} \in \mathbb Z,  \sum n_\phi < \infty\}$.
   \\~\\
-  Sobre el grupo de p-cadenas singulares podemos definir un homomorfismo de grupos borde $\partial$,
-  de forma que el borde de una p-cadena sea una (p-1)-cadena sin borde. Por tanto, el borde verifica
-  que $\partial^2$ es la aplicación cero.
+  Sobre el grupo de p-cadenas singulares podemos definir un homomorfismo de grupos $\partial$, al que llamamos borde,
+  de forma que $\partial^2$ es el homomorfismo cero. Esto nos dice que el borde de una p-cadena es
+  una (p-1)-cadena sin borde.
 
 \end{frame}
 
@@ -278,76 +290,106 @@ Ciclos y bordes. Homología.
   \frametitle{Definiciones}
   Consideramos los ciclos y los bordes:
   \begin{itemize}
-    \item $Z_p(\mathbb{X}) = \{c \in S_p(\mathbb{X}) \mid \partial(c) = 0\}$ p-ciclos.
-    \item $B_p(\mathbb{X}) = \{c \in S_p(\mathbb{X}) \mid \exists d \colon \partial(d) = c\}$ p-bordes.
+    \item $Z_p(\X) = \{c \in S_p(\X) \mid \partial(c) = 0\}$ p-ciclos.
+    \item $B_p(\X) = \{c \in S_p(\X) \mid \exists d \colon \partial(d) = c\}$ p-bordes.
   \end{itemize}
 
   Como $B_p \subseteq Z_p$, podemos tomar el cociente, el p-ésimo grupo de homología: \\~\\
-  \centerline{$H_p(\mathbb{X}) = \frac{Z_p(\mathbb{X})}{B_p(\mathbb{X})}$}
+  \centerline{$H_p(\X) = \frac{Z_p(\X)}{B_p(\X)}$}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Definiciones}
+  Dada una aplicación continua $f \colon \X \to \Y$, es posible definir el homomorfismo inducido en
+  la homología $f_* \colon H_p(\X) \to H_p(\Y)$.
+
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Multiple Columns}
-\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+  \frametitle{Definiciones}
+  Tomando un par $(\X, \A)$, con $\A \subseteq \X$, se puede definir $S_p(\X, \A) = \frac{S_p(\X)}{S_p(\A)}$,
+  el grupo de $p$-cadenas del par. \\~\\
 
-\column{.45\textwidth} % Left column and width
-\textbf{Heading}
-\begin{enumerate}
-\item Statement
-\item Explanation
-\item Example
-\end{enumerate}
+  De nuevo podemos tomar los ciclos y los bordes, que nos permiten definir la homología del par: \\~\\
+  \centerline{$H_p(\X, \A) = \frac{Z_p(\X, \A)}{B_p(\X, \A)}$}
 
-\column{.5\textwidth} % Right column and width
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-
-\end{columns}
 \end{frame}
-
 
 
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
+    \frametitle{Axiomas}
+    Para la construcción hecha, se verifican los axiomas de Eilenberg-Steenrod para la teoría de homología:
+    \begin{enumerate}
+      \item Identidad: si $i \colon (\X, \A) \to (\X, \A)$ es la identidad, entonces $i_*$ es la identidad.
+      \item Composición: si $f \colon (\X, \A) \to (\Y, \B), g \colon (\Y, \B) \to (\Z, \C)$ son aplicaciones continuas,
+            entonces $(g \circ f)_* = g_* \circ f_*$.
+    \seti
+
+    \end{enumerate}
+
 \end{frame}
 
-%------------------------------------------------
+\begin{frame}[fragile]
+  \frametitle{Axiomas}
+  \begin{enumerate}
+    \conti
+    \item Conmutatividad: si consideramos $f \colon (\X, \A) \to (\Y, \B)$, y $g \colon \A \to \B$ la restricción de $f$,
+          entonces $\partial \circ f_* = g_* \circ \partial$.
+    \seti
+    \end{enumerate}
+    \begin{center}
+      $ \begin{tikzcd}
+        H_p(\X, \A) \arrow{r}{f_*} \arrow{d}{\partial} & H_p(\Y, \B) \arrow{d}{\partial} \\
+        H_{p-1}(\A) \arrow{r}{g_*} & H_{p-1}(\B)
+      \end{tikzcd} $
+    \end{center}
 
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Verbatim}
-\begin{example}[Theorem Slide Code]
-\begin{verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Axiomas}
+  \begin{enumerate}
+    \conti
+    \item Exactitud: Dadas las inclusiones $i \colon \A \to \X, j \colon \X \to (\X, \A)$, la secuencia
+    \begin{center}
+      $ \begin{tikzcd}
+        \to H_p(\A) \arrow{r}{i_*} & H_p(\X) \arrow{r}{j_*} & H_p(\X, \A) \arrow{r}{\partial} & H_{p-1}(\A) \to
+      \end{tikzcd} $
+    \end{center}
+    es exacta, esto es, la imagen de cada homomorfismo de entrada coincide con el núcleo del homomorfismo de salida.
+    \seti
+  \end{enumerate}
+\end{frame}
+
+
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
-\end{frame}\end{verbatim}
-\end{example}
+  \frametitle{Axiomas}
+  \begin{enumerate}
+    \conti
+      \item Homotopía: Si $f, g \colon (\X, \A) \to (\Y, \B)$ son homotópicas, $f_* = g_*$.
+      \item Escisión: Si $U \subseteq \X$ verifica $\overline{U} \subseteq \A$, la inclusión $i \colon (\X - U, \A - U) \to (\X, \A)$
+            induce un isomorfismo en la homología.
+      \item Dimensión: $H_p(0) = 0 \quad \forall p \neq 0.$
+
+    \seti
+  \end{enumerate}
 \end{frame}
 
-%------------------------------------------------
+%--------------------------
+
+\subsection{Resultados}
 
 \begin{frame}
-\frametitle{Figure}
-Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%\begin{figure}
-%\includegraphics[width=0.8\linewidth]{test}
-%\end{figure}
+  \frametitle{Homología de las esferas}
+  Con los resultados obtenidos es posible calcular los grupos de homología de las esferas. \\~\\
+
+  \centerline{$H_p(S^n) = \begin{cases} \mathbb Z & p = 0, n,\\
+                                                0 & \text{en otro caso.} \end{cases}$}
 \end{frame}
 
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Citation}
-An example of the \verb|\cite| command to cite within the presentation:\\~
-
-This statement requires citation \cite{p1}.
-\end{frame}
 
 %------------------------------------------------
 \section{Problema del clique máximo}
@@ -422,6 +464,7 @@ tamaño dentro de $G$. \\~\\
     \item Diseño e implementación de los algoritmos.
     \item Experimentación y estudio comparativo.
   \end{itemize}
+  % Cambiar primer objetivo.
   El primer objetivo se ha cumplido parcialmente. El resto de objetivos se han cumplido de forma satisfactoria.
 
 \end{frame}
@@ -458,7 +501,7 @@ tamaño dentro de $G$. \\~\\
 
   Dos algoritmos implementados:
   \begin{itemize}
-    \item 1LS: Utiliza los tres operadores ordenados pror prioridad, favoreciendo add sobre swap y swap sobre drop.
+    \item 1LS: Utiliza los tres operadores ordenados por prioridad, favoreciendo add sobre swap y swap sobre drop.
     \item DLS: Utiliza add y swap, junto a una lista tabú para evitar que los nodos que salgan vuelvan a entrar.
   \end{itemize}
 
@@ -486,7 +529,7 @@ tamaño dentro de $G$. \\~\\
 \begin{frame}
   \frametitle{ILS}
    La búsqueda local iterada es un algoritmo de búsqueda local multiarranque, que utiliza la perturbación de soluciones para
-   reinizializar la búsqueda y obtener diversidad. \\~\\
+   reinicializar la búsqueda y obtener diversidad. \\~\\
 
    El método de reinicialización es añadir un nodo aleatorio a una solución final, eliminando todos los nodos que no estén
    conectados a este. Como búsqueda local se ha utilizado 1LS y DLS, dando lugar a dos algoritmos.
@@ -548,7 +591,7 @@ tamaño dentro de $G$. \\~\\
 \begin{frame}
   \frametitle{Implementación}
 
-  Todos los algoritmos se han implementado en \textbf{\emph{Ruby}}
+  Todos los algoritmos se han implementado en \textbf{\emph{Ruby}}.
 
 \end{frame}
 
