@@ -125,8 +125,17 @@
 \def\Z{{\mathbb Z}}
 \def\C{{\mathbb C}}
 \def\U{{\mathbb U}}
+\def\R{{\mathbb R}}
+
 
 \newcommand{\interior}[1]{\accentset{\smash{\raisebox{-0.12ex}{$\scriptstyle\circ$}}}{#1}\rule{0pt}{2.3ex}}
+
+\theoremstyle{theorem}
+\newtheorem{mytheorem}{Teorema}
+\newtheorem{mycorollary}{Corolario}
+\newtheorem{myproposition}{Proposición}
+\newtheorem{mylemma}{Lema}
+\newtheorem{mydefinition}{Definición}
 
 % Counter
 
@@ -169,7 +178,7 @@
 % Spanish
 \selectlanguage{spanish}
 % Para tikz
-\pgfdeclarelayer{background}
+\pgfdeclarelayer{background}\theoremstyle{definition}
 \pgfsetlayers{background,main}
 % Secciones
 \setbeamertemplate{section page}[mine]
@@ -202,7 +211,7 @@
   \begin{itemize}
     \item Construir la homología singular.
     \item Obtener herramientas para calcularla.
-    \item Obtener resultados a partir de estas herramientas.
+    \item Obtener resultados gracias al cálculo de la homología de las esferas  y a las herramientas obtenidas.
   \end{itemize}
 
 \end{frame}
@@ -231,11 +240,11 @@
 
     \column{.45\textwidth}
     Un $p$-símplice es la envolvente convexa de $p+1$ puntos afínmente independientes.
-    Lo llamaremos estándar si sus puntos son de la forma $(0, \dots, 1, \dots, 0)$.
+    Lo llamaremos estándar si sus puntos son de la forma $(0, \dots, 1, \dots, 0)$, y lo notaremos $\sigma_p$.
 
     \column{.5\textwidth}
     \begin{figure}
-      \tdplotsetmaincoords{70}{130}
+      \tdplotsetmaincoords{70}{135}
       \begin{tikzpicture}[tdplot_main_coords]
         \def\laxis{3}
         \def\ltriangle{1}
@@ -274,34 +283,46 @@
 
 \begin{frame}
   \frametitle{Definiciones}
-  Un p-símplice singular será una aplicación continua de un p-símplice a un espacio topológico.
-  Tomando un $\mathbb{Z}$-módulo sobre el conjunto de p-símplices singulares $F_p(\X)$, creamos el grupo
-  de p-cadenas singulares, $S_p(\X) = \{\sum\limits_{\phi \in F_p(\X)} n_{\phi} \phi \mid n_{\phi} \in \mathbb Z,  \sum n_\phi < \infty\}$.
+  Un $p$-símplice singular en un espacio topológico $\X$ será una aplicación continua de un $p$-símplice a $\X$.
+  Notaremos por $F_p(\X)$ al conjunto de todos los $p$-símplices singulares de $\X$. \\~\\
+
+  Dada una aplicación continua $f \colon \X \to \Y$, se puede definir $f_\# \colon F_p(\X) \to F_p(\Y)$ como
+  $f_\#(\phi) = f \circ \phi$. \\~\\
+
+  Tomando un $\mathbb{Z}$-módulo sobre $F_p(\X)$, creamos el grupo de $p$-cadenas singulares,
+  $S_p(\X) = \{\sum\limits_{\phi \in F_p(\X)} n_{\phi} \phi \mid n_{\phi} \in \mathbb Z,  \sum n_\phi < \infty\}$.
   \\~\\
-  Sobre el grupo de p-cadenas singulares podemos definir un homomorfismo de grupos $\partial$, al que llamamos borde,
-  de forma que $\partial^2$ es el homomorfismo cero. Esto nos dice que el borde de una p-cadena es
-  una (p-1)-cadena sin borde.
+
 
 \end{frame}
 
 %---------------------------
-
 \begin{frame}
   \frametitle{Definiciones}
-  Consideramos los ciclos y los bordes:
-  \begin{itemize}
-    \item $Z_p(\X) = \{c \in S_p(\X) \mid \partial(c) = 0\}$ p-ciclos.
-    \item $B_p(\X) = \{c \in S_p(\X) \mid \exists d \colon \partial(d) = c\}$ p-bordes.
-  \end{itemize}
+  Sobre el grupo de $p$-cadenas singulares podemos definir un homomorfismo de grupos $\partial$, al que llamaremos borde, dado por
+  \[ \partial \colon S_p(\X) \to S_{p-1}(\X) \quad \partial(\phi) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\phi) \]
+  donde $\partial_i$ es la aplicación que representa la $i$-ésima cara.
 
-  Como $B_p \subseteq Z_p$, podemos tomar el cociente, el p-ésimo grupo de homología: \\~\\
-  \centerline{$H_p(\X) = \frac{Z_p(\X)}{B_p(\X)}$}
+  \begin{mylemma}
+      $\partial \circ \partial \colon S_p(\X) \to S_{p-2}(\X)$ es el homomorfismo cero.
+  \end{mylemma}
+
 \end{frame}
 
+
 \begin{frame}
   \frametitle{Definiciones}
+  Consideramos los grupos de los ciclos y los bordes:
+  \begin{itemize}
+    \item $Z_p(\X) = \{c \in S_p(\X) \mid \partial(c) = 0\}$ $p$-ciclos.
+    \item $B_p(\X) = \{c \in S_p(\X) \mid \exists d \colon \partial(d) = c\}$ $p$-bordes.
+  \end{itemize}
+
+  Como $\partial^2 = 0$, $B_p \subseteq Z_p$, y podemos tomar el cociente, el $p$-ésimo grupo de homología:
+  \centerline{$H_p(\X) = \frac{Z_p(\X)}{B_p(\X)}$} \\~\\
+
   Dada una aplicación continua $f \colon \X \to \Y$, es posible definir el homomorfismo inducido en
-  la homología $f_* \colon H_p(\X) \to H_p(\Y)$.
+  la homología $f_* \colon H_p(\X) \to H_p(\Y)$ como $f_*([c]) = [f_\#(c)]$.
 
 \end{frame}
 
@@ -312,8 +333,11 @@
   Tomando un par $(\X, \A)$, con $\A \subseteq \X$, se puede definir $S_p(\X, \A) = \frac{S_p(\X)}{S_p(\A)}$,
   el grupo de $p$-cadenas del par. \\~\\
 
-  De nuevo podemos tomar los ciclos y los bordes, que nos permiten definir la homología del par: \\~\\
-  \centerline{$H_p(\X, \A) = \frac{Z_p(\X, \A)}{B_p(\X, \A)}$}
+  De nuevo podemos tomar los ciclos y los bordes, que nos permiten definir la homología del par:
+  \centerline{$H_p(\X, \A) = \frac{Z_p(\X, \A)}{B_p(\X, \A)}$} \\~\\
+
+  Tomando una aplicación de pares $f \colon (\X, \A) \to (\Y, \B)$, se construye el homomorfismo inducido
+  en la homología $f_* \colon H_p(\X, \A) \to H_p(\Y, \B)$.
 
 \end{frame}
 
@@ -323,55 +347,58 @@
     Para la construcción hecha, se verifican los axiomas de Eilenberg-Steenrod para la teoría de homología:
     \begin{enumerate}
       \item Identidad: si $i \colon (\X, \A) \to (\X, \A)$ es la identidad, entonces $i_*$ es la identidad.
-      \item Composición: si $f \colon (\X, \A) \to (\Y, \B), g \colon (\Y, \B) \to (\Z, \C)$ son aplicaciones continuas,
+      \item Composición: si $f \colon (\X, \A) \to (\Y, \B), g \colon (\Y, \B) \to (\Z, \C)$ son aplicaciones de pares,
             entonces $(g \circ f)_* = g_* \circ f_*$.
     \seti
-
     \end{enumerate}
 
 \end{frame}
+
 
 \begin{frame}[fragile]
   \frametitle{Axiomas}
   \begin{enumerate}
     \conti
-    \item Conmutatividad: si consideramos $f \colon (\X, \A) \to (\Y, \B)$, y $g \colon \A \to \B$ la restricción de $f$,
-          entonces $\partial \circ f_* = g_* \circ \partial$.
+    \item Exactitud: Dadas las inclusiones $i \colon \A \to \X, j \colon \X \to (\X, \A)$, existe un homomorfismo $\Delta$ tal que la secuencia
+    \begin{center}
+      $ \begin{tikzcd}
+        \to H_p(\A) \arrow{r}{i_*} & H_p(\X) \arrow{r}{j_*} & H_p(\X, \A) \arrow{r}{\Delta} & H_{p-1}(\A) \to
+      \end{tikzcd} $
+    \end{center}
+    es exacta, esto es, la imagen de cada homomorfismo de entrada coincide con el núcleo del homomorfismo de salida.
+    Llamaremos a $\Delta$ el homomorfismo de conexión, y a la sucesión, la sucesión exacta del par $(\X, \A)$.
+    \seti
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Axiomas}
+  \begin{enumerate}
+    \conti
+    \item Conmutatividad: si consideramos $f \colon (\X, \A) \to (\Y, \B)$ y $g \colon \A \to \B$ la restricción de $f$ en $\A$,
+          entonces $\Delta \circ f_* = g_* \circ \Delta$.
     \seti
     \end{enumerate}
     \begin{center}
       $ \begin{tikzcd}
-        H_p(\X, \A) \arrow{r}{f_*} \arrow{d}{\partial} & H_p(\Y, \B) \arrow{d}{\partial} \\
+        H_p(\X, \A) \arrow{r}{f_*} \arrow{d}{\Delta} & H_p(\Y, \B) \arrow{d}{\Delta} \\
         H_{p-1}(\A) \arrow{r}{g_*} & H_{p-1}(\B)
       \end{tikzcd} $
     \end{center}
 
 \end{frame}
 
-
-\begin{frame}[fragile]
-  \frametitle{Axiomas}
-  \begin{enumerate}
-    \conti
-    \item Exactitud: Dadas las inclusiones $i \colon \A \to \X, j \colon \X \to (\X, \A)$, la secuencia
-    \begin{center}
-      $ \begin{tikzcd}
-        \to H_p(\A) \arrow{r}{i_*} & H_p(\X) \arrow{r}{j_*} & H_p(\X, \A) \arrow{r}{\partial} & H_{p-1}(\A) \to
-      \end{tikzcd} $
-    \end{center}
-    es exacta, esto es, la imagen de cada homomorfismo de entrada coincide con el núcleo del homomorfismo de salida.
-    \seti
-  \end{enumerate}
-\end{frame}
-
-
 \begin{frame}
   \frametitle{Axiomas}
   \begin{enumerate}
     \conti
-      \item Homotopía: Si $f, g \colon (\X, \A) \to (\Y, \B)$ son homotópicas, $f_* = g_*$.
+      \item Homotopía: Si $f, g \colon (\X, \A) \to (\Y, \B)$ son aplicaciones de pares homotópicas, entonces $f_* = g_*$.
       \item Escisión: Si $U \subseteq \X$ verifica $\overline{U} \subseteq \A$, la inclusión $i \colon (\X - U, \A - U) \to (\X, \A)$
             induce un isomorfismo en la homología.
+            \begin{center}
+              $H_p(\X - U, \A - U) \cong H_p(\X, \A)$
+            \end{center}
       \item Dimensión: $H_p(0) = 0 \quad \forall p \neq 0.$
 
     \seti
@@ -386,8 +413,48 @@
   \frametitle{Homología de las esferas}
   Con los resultados obtenidos es posible calcular los grupos de homología de las esferas. \\~\\
 
-  \centerline{$H_p(S^n) = \begin{cases} \mathbb Z & p = 0, n,\\
-                                                0 & \text{en otro caso.} \end{cases}$}
+  \begin{mytheorem}[Grupos de homología de las esferas]
+    $H_p(S^n) = \begin{cases} \mathbb Z & p = 0, n,\\
+                                      0 & \text{en otro caso.} \end{cases}$
+  \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Punto fijo de Brower}
+  Gracias al cálculo de los grupos de homología de las esferas, podemos demostrar el teorema del punto fijo de Brower. \\~\\
+
+  \begin{mytheorem}[Punto fijo de Brower]
+    Toda aplicación $f \colon D^n \to D^n$ continua tiene un punto fijo.
+  \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Teoremas de invarianza}
+  Obtenemos resultados de invarianza, entre los que destacan el teorema de invarianza de la dimensión y
+  el teorema de invarianza del dominio.
+
+  \begin{mytheorem}[Invarianza de la dimensión]
+    Sean $O_1 \subseteq \R^n, O_2 \subseteq \R^m$ abiertos homeomorfos. Entonces $n = m$.
+  \end{mytheorem}
+
+  \begin{mytheorem}[Invarianza del dominio]
+    Sean $A_1, A_2 \subseteq S^n$ homeomorfos. Entonces $A_1$ es abierto de $S^n$ sí y solo sí $A_2$ es abierto de $S^n$.
+  \end{mytheorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Separación de Jordan-Brower}
+  \begin{mytheorem}[Separación de Jordan-Brower]
+    Sea $f \colon S^{n-1} \to S^n$ un embebimiento. Entonces $S^n - f(S^{n-1})$ tiene dos componentes conexas,
+    cuya frontera común es $f(S^{n-1})$.
+  \end{mytheorem}
+
+  Esto nos permite obtener una generalización del teorema de la curva de Jordan.
+
+  \begin{mycorollary}
+    Sea $f \colon S^{n-1} \to \R^n$ un embebimiento. Entonces $\R^n - f(S^{n-1})$ tiene dos componentes conexas,
+    y $f(S^{n-1})$ es la frontera común de ambas.
+  \end{mycorollary}
 \end{frame}
 
 
@@ -475,7 +542,7 @@ tamaño dentro de $G$. \\~\\
 
 \begin{frame}
   \frametitle{Algoritmos}
-  Implementados 14 algoritmos divididos en 7 categorías distintas: \textit{greedy}, búsqueda local,
+  Se han implementado 14 algoritmos divididos en 7 categorías distintas: \textit{greedy}, búsqueda local,
   enfriamiento simulado, ILS, GRASP, algoritmos de colonia de hormigas y algoritmos genéticos.
   Cada categoría incluye dos algoritmos.
 
@@ -501,8 +568,8 @@ tamaño dentro de $G$. \\~\\
 
   Dos algoritmos implementados:
   \begin{itemize}
-    \item 1LS: Utiliza los tres operadores ordenados por prioridad, favoreciendo add sobre swap y swap sobre drop.
-    \item DLS: Utiliza add y swap, junto a una lista tabú para evitar que los nodos que salgan vuelvan a entrar.
+    \item 1LS: Utiliza los tres operadores ordenados por prioridad, favoreciendo add sobre swap y swap sobre drop. \cite{kat:2005}
+    \item DLS: Utiliza add y swap, junto a una lista tabú para evitar que los nodos que salgan vuelvan a entrar. \cite{pullan:2006}
   \end{itemize}
 
 \end{frame}
@@ -519,7 +586,7 @@ tamaño dentro de $G$. \\~\\
   \begin{itemize}
     \item ES básico: Primer acercamiento, usando \textit{add, swap} y \textit{drop} y tomando un movimiento aleatorio.
     \item ES adaptado: Trabaja con grafos cualesquiera y los reduce hasta obtener un clique. Considera \textit{add, swap} y \textit{drop},
-    con orden aleatorio, y una nueva función objetivo.
+    con orden aleatorio, y una nueva función objetivo. \cite{geng:2007}
   \end{itemize}
 
 \end{frame}
@@ -560,7 +627,7 @@ tamaño dentro de $G$. \\~\\
   \begin{itemize}
     \item ACO básico: Construye un clique añadiendo nodos, seleccionándolos con una probabilidad dependiente del nivel de feromona.
     \item ACO con enfriamiento simulado: Añade a la probabilidad información del problema utilizando enfriamiento simulado, para
-          que su importancia descienda con el tiempo.
+          que su importancia descienda con el tiempo. \cite{xu:2007}
  \end{itemize}
 
 \end{frame}
@@ -570,10 +637,10 @@ tamaño dentro de $G$. \\~\\
 
 \begin{frame}
   \frametitle{Algoritmos genéticos}
-  Los algoritmos genéticos son una metaheurística de poblaciones basada en los porcesos evolutivos presentes en la naturaleza.
+  Los algoritmos genéticos son una metaheurística de poblaciones basada en los procesos evolutivos presentes en la naturaleza.
   Contarán con una población formada por soluciones, que se combinarán dos a dos para producir descendientes. \\~\\
 
-  Se ha implementado un algoritmo elitista, en el que dos hijos compiten con sus padres por entrar a la población.
+  Se ha implementado un algoritmo elitista, en el que dos hijos compiten con sus padres por entrar a la población. \cite{zhang:2014}
 
 \end{frame}
 
@@ -589,9 +656,13 @@ tamaño dentro de $G$. \\~\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Implementación}
+  \frametitle{Experimentación}
 
-  Todos los algoritmos se han implementado en \textbf{\emph{Ruby}}.
+  Los algoritmos se han implementado en \textbf{Ruby}, un lenguaje orientado a objetos, disponible bajo una
+  licencia de software libre. \\~\\
+
+  Para evaluar los algoritmos, se han tomado $35$ de las $37$ instancias de DIMACS, que son las utilizadas por
+  la comunidad científica para probar nuevos algoritmos.
 
 \end{frame}
 
@@ -681,9 +752,45 @@ tamaño dentro de $G$. \\~\\
       \newblock Combining Swaps and Node Weights in an Adaptative Greedy Approach for the Maximum Clique Problem.
       \newblock \emph{Journal of Heuristics} 10, 135--152.
 
+    \bibitem[Katayama et al, 2005]{kat:2005}
+      \newblock An Effective Local Search for the Maximum Clique Problem.
+      \newblock \emph{Information Processing Letters} 95, 503--511.
+
+    \bibitem[Pullan et al, 2006]{pullan:2006}
+      \newblock Dynamic Local Search for Maximum Clique Problem.
+      \newblock \emph{Journal of Artificial Intelligence Research} 25, 159--185.
+
+    \bibitem[Geng et al, 2007]{geng:2007}
+      \newblock A Simple Simulated Annealing Algorithm for the Maximum Clique Problem.
+      \newblock \emph{Information Sciences} 177, 5064--5071.
 
   \end{thebibliography}
 }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Referencias}
+  \footnotesize{
+    \begin{thebibliography}{99}
+
+      \bibitem[Xu et al, 2007]{xu:2007}
+        \newblock An Improved Ant Colony Optimization for the Maximum Clique Problem.
+        \newblock \emph{Third International Conference on Natural Computation}, 135--152.
+
+      \bibitem[Zhang et al, 2014]{zhang:2014}
+        \newblock A Fast Genetic Algorithm for Solving the Maximum Clique Problem.
+        \newblock \emph{10th International Conference on Natural Computation}, 764--768.
+
+      \bibitem[James W. Vick, 1973]{vick:1973}
+        \newblock Homology Theory. An Introduction to Algebraic Topology.
+        \newblock Academic Press, 1973.
+
+      \bibitem[W. S. Massey, 1972]{massey:1972}
+        \newblock Introducción a la topología algebraica.
+        \newblock Reverté, 1972.
+
+    \end{thebibliography}
+  }
 \end{frame}
 
 
