@@ -161,7 +161,7 @@
 %	TÍTULO
 %----------------------------------------------------------------------------------------
 
-\title[Homología Singular. Problema del clíque máximo.]{Introducción a la homología singular. Análisis y resolución del problema del clique máximo.} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Homología singular. Problema del clíque máximo.]{Introducción a la homología singular. Análisis y resolución del problema del clique máximo.} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{José Carlos Entrena Jiménez} % Your name
 \institute[UGR] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
@@ -200,7 +200,7 @@
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Homología Singular} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\section{Homología singular} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
 
 \subsection{Introducción} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
@@ -293,6 +293,8 @@
   $S_p(\X) = \{\sum\limits_{\phi \in F_p(\X)} n_{\phi} \phi \mid n_{\phi} \in \mathbb Z,  \sum n_\phi < \infty\}$.
   \\~\\
 
+  Se puede extender la definición de $f_\#$ de $F_p(\X)$ a $S_p(\X)$ por linealidad.
+
 
 \end{frame}
 
@@ -319,7 +321,7 @@
   \end{itemize}
 
   Como $\partial^2 = 0$, $B_p \subseteq Z_p$, y podemos tomar el cociente, el $p$-ésimo grupo de homología:
-  \centerline{$H_p(\X) = \frac{Z_p(\X)}{B_p(\X)}$} \\~\\
+  \centerline{$H_p(\X) = \frac{Z_p(\X)}{B_p(\X)} = \{[c] \mid c \in Z_p(\X)\}$} \\~\\
 
   Dada una aplicación continua $f \colon \X \to \Y$, es posible definir el homomorfismo inducido en
   la homología $f_* \colon H_p(\X) \to H_p(\Y)$ como $f_*([c]) = [f_\#(c)]$.
@@ -394,7 +396,7 @@
   \begin{enumerate}
     \conti
       \item Homotopía: Si $f, g \colon (\X, \A) \to (\Y, \B)$ son aplicaciones de pares homotópicas, entonces $f_* = g_*$.
-      \item Escisión: Si $U \subseteq \X$ verifica $\overline{U} \subseteq \A$, la inclusión $i \colon (\X - U, \A - U) \to (\X, \A)$
+      \item Escisión: Si $U \subseteq \X$ verifica $\overline{U} \subseteq \interior{\A}$, la inclusión $i \colon (\X - U, \A - U) \to (\X, \A)$
             induce un isomorfismo en la homología.
             \begin{center}
               $H_p(\X - U, \A - U) \cong H_p(\X, \A)$
@@ -514,7 +516,7 @@ tamaño dentro de $G$. \\~\\
 
 \begin{frame}
 
-  Es un problema NP-difícil, y salvo que NP = ZPP no existen algoritmos capaces de aproximar el
+  El problema del clique máximo es un problema NP-difícil, y salvo que NP = ZPP no existen algoritmos capaces de aproximar el
   problema con factor $1-\epsilon$ para ningún $\epsilon$ entre $0$ y $1$. \\~\\
 
   Será necesario el uso de algoritmos heurísticos para resolverlo en un tiempo razonable.
@@ -531,8 +533,8 @@ tamaño dentro de $G$. \\~\\
     \item Diseño e implementación de los algoritmos.
     \item Experimentación y estudio comparativo.
   \end{itemize}
-  % Cambiar primer objetivo.
-  El primer objetivo se ha cumplido parcialmente. El resto de objetivos se han cumplido de forma satisfactoria.
+
+  Los cuatro objetivos se han cumplido de forma satisfactoria.
 
 \end{frame}
 
@@ -674,6 +676,8 @@ tamaño dentro de $G$. \\~\\
 \begin{frame}
 \frametitle{Resultados individuales}
 
+Vemos los resultados que ofrece cada algoritmo por separado.
+
   \tiny
   \begin{table}
   \begin{tabular}{l l l}
@@ -698,6 +702,8 @@ tamaño dentro de $G$. \\~\\
 
 \begin{frame}
 \frametitle{Ránking}
+
+Establecemos un ránking fruto de la comparación de los resultados de todos los algoritmos grafo a grafo.
 
   \tiny
   \begin{table}

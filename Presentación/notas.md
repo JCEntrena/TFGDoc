@@ -19,7 +19,7 @@ Homología Singular.
 En esta parte, queremos estudiar la homología singular, para lo que necesitaremos primero construirla,
 y después ser capaces de calcularla en ciertos casos, que se hará usando herramientas que se obtienen
 a partir de su definición. Una vez tengamos esto, usaremos los grupos de homología de
-las esferas, que habremos calculado, para obtener nuevos resultados.  
+las esferas, que habremos calculado, para obtener nuevos resultados.    
 
 # Objetivos
 
@@ -68,7 +68,8 @@ topológico X y un subconjunto suyo A. Se definen los grupos de p-cadenas del pa
 entre los grupos de p-cadenas de X sobre los de A. La aplicación borde también puede tomarse aquí, y verifica
 las mismas propiedades, lo que permite volver a tomar el cociente de los ciclos sobre los bordes y definir
 la homología del par. Nuevamente, dada una aplicación de pares, que no es más que una aplicación continua que
-verifica que la imagen de A está contenida en B, se define el homomorfismo inducido en la homología igual
+verifica que la imagen de A está contenida en B, se define el homomorfismo inducido en la homología igual 	El 25 de septiembre (a partir de mediodía)
+Plazo de revisión o reclamaciones 	Del 26 al 2
 que en el caso anterior.
 
 # Axiomas
@@ -108,7 +109,7 @@ que se pueden obtener resultados. El primero de ellos será la homología de las
 que tanto sus grupos 0-ésimo como n-ésimo son isomorfos a Z, y en otro caso son cero.
 
 Usando la homología de las esferas podemos demostrar el teorema del punto fijo de Brower, por el cual se demuestra
-que toda función continua de un disco en sí mismo tiene un punto fijo.
+que toda función continua de un disco compacto en sí mismo tiene un punto fijo.
 
 Además, se pueden demostrar los llamados teoremas de invarianza, entre los que destacan el teorema de invarianza de
 la dimensión y el teorema de invarianza del dominio. El teorema de invarianza de la dimensión establece que si tenemos
@@ -138,7 +139,6 @@ El problema del clique máximo consiste en encontrar el clique de mayor tamaño 
 En este ejemplo podemos ver como existen varios cliques dentro del grafo, como el formado por los
 nodos a, b y d, o el clique máximo de tamaño cuatro formado por b, d, e y g.
 
-
 Se sabe que es un problema NP-difícil, y de hecho no es aproximable con factor 1 - épsilon salvo que
 la clase NP y la clase ZPP sean la misma, donde ZPP es la clase de complejidad de los problemas
 que se pueden reconocer con un algoritmo polinómico aleatorizado.
@@ -156,24 +156,12 @@ de información sobre el problema, tanto teórica como de las formas ya existent
 Como segundo objetivo tenemos el estudio de las técnicas obtenidas anteriormente y una selección
 de un número de ellas para implementar en este trabajo. El tercer objetivo es el diseño e
 implementación de estas técnicas, El último objetivo es ejecutar los algoritmos para obtener
-resultados y poder evaluarlos.
-
-De todos los objetivos, el primero se ha cumplido parcialmente, pues me he centrado más en la
-parte de las heurísticas que se aplican al problema que en la parte teórica. He priorizado
-los algoritmos por ser lo que se utiliza en el resto del trabajo. El resto de objetivos se
-han llevado a cabo satisfactoriamente, mediante el estudio de artículos que implementaban algoritmos,
-la elección de un total de 14 técnicas a implementar, su implementación, ejecución y análisis de resultados.
-
-Aquí no detallaré todo el trabajo realizado, sino que me centraré en hacer una descripción breve
-de todos los algoritmos y en ver los resultados que nos ofrecen. Para evaluar los resultados he utilizado
-los grafos del repositorio DIMACS, que son los que utiliza la comunidad científica a la hora de probar
-nuevos algoritmos.
+resultados y poder evaluarlos. Los cuatro se han cumplido de forma satisfactoria.
 
 # Algoritmos
 
-Paso ya a explicar los distintos algoritmos considerados para este trabajo. Como he dicho antes, he
-tomado 14 algoritmos, que están divididos en 7 categorías distintas, habiendo 2 algoritmos en cada
-una de ellas. Las vemos una a una:
+Paso ya a explicar los distintos algoritmos considerados para este trabajo. En total hay 14 algoritmos
+divididos en 7 categorías distintas, cada una con 2 algoritmos. Las vemos una a una:
 
 ## Greedy
 
@@ -183,10 +171,9 @@ nos permite aproximarlo de forma razonable en un periodo de tiempo pequeño, en 
 otros algoritmos. Distinguiremos entre algoritmos puros, que no permiten deshacer acciones
 ya realizadas, y algoritmos relajados, que sí lo permiten.
 
-El algoritmo básico trata de usar de forma sencilla los conceptos de los algoritmos greedy,
-proporcionando un algoritmo que nos permite hacernos una idea de cómo funcionan los greedy
-en este problema. Para resolverlo, parte desde un clique vacío y añade nodos hasta que no
-se pueden añadir más.
+El algoritmo básico trata de usar de forma sencilla los conceptos de los algoritmos greedy.
+Para resolver el problema, parte desde un clique vacío y añade nodos hasta que no se pueden
+añadir más.
 
 El segundo algoritmo difiere del primero en que permite hacer intercambios, además de añadir nodos.
 Esto hace que las decisiones tomadas se puedan deshacer, pues si un nodo ha entrado en el clique,
@@ -209,8 +196,8 @@ salvo que sea la única opción disponible. Se vuelve a dar prioridad a add sobr
 
 ## Enfriamiento simulado
 
-Los algoritmos de enfriamiento simulado también se basan en la búsqueda en el entornos, que difiere de
-la búsqueda local en que utiliza un criterio probabilístico para aceptar las soluciones del entorno,
+Los algoritmos de enfriamiento simulado también se basan en la búsqueda en el entornos, y difieren de
+la búsqueda local en que utilizan un criterio probabilístico para aceptar las soluciones del entorno,
 llamado el criterio de Metrópolis. Así, se permite aceptar soluciones peores, lo que puede hacer que el
 algoritmo escape de óptimos locales. Al principio permitiremos que se acepten soluciones peores con
 mayor frecuencia, para diversificar la búsqueda, mientras que al final la probabilidad será baja,
