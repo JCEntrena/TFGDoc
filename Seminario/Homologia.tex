@@ -1,0 +1,602 @@
+%%%
+% Plantilla de Presentación
+% Modificación de una plantilla de Latex de LaTeXTemplates para adaptarla
+% al castellano y a las necesidades de escribir informática y matemáticas.
+%
+% Tomada de https://github.com/M42/plantillas/blob/master/presentacion/presentacion.tex
+% Créditos a MRoman42 por la adaptación.
+% Más adaptaciones a mi gusto.
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y CONFIGURACIÓN DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+%% Configuración de la presentación
+\mode<presentation> {
+  %%% Selección de estilo
+  % The Beamer class comes with a number of default slide themes
+  % which change the colors and layouts of slides. Below this is a list
+  % of all the themes, uncomment each in turn to see what they look like.
+
+  %\usetheme{default}
+  %\usetheme{AnnArbor}
+  %\usetheme{Antibes}
+  %\usetheme{Bergen}
+  %\usetheme{Berkeley}
+  %\usetheme{Berlin}
+  %\usetheme{Boadilla}
+  %\usetheme{CambridgeUS}
+  %\usetheme{Copenhagen}
+  %\usetheme{Darmstadt}
+  %\usetheme{Dresden}
+  %\usetheme{Frankfurt}
+  %\usetheme{Goettingen}
+  %\usetheme{Hannover}
+  %\usetheme{Ilmenau}
+  %\usetheme{JuanLesPins}
+  %\usetheme{Luebeck}
+  %\usetheme{Madrid}
+  %\usetheme{Malmoe}
+  %\usetheme{Marburg}
+  %\usetheme{Montpellier}
+  %\usetheme{PaloAlto}
+  %\usetheme{Pittsburgh}
+  %\usetheme{Rochester}
+  %\usetheme{Singapore}
+  %\usetheme{Szeged}
+  \usetheme{Warsaw}
+
+  %% Selección de color
+  % As well as themes, the Beamer class has a number of color themes
+  % for any slide theme. Uncomment each of these in turn to see how it
+  % changes the colors of your current slide theme.
+
+  %\usecolortheme{albatross}
+  %\usecolortheme{beaver}
+  %\usecolortheme{beetle}
+  %\usecolortheme{crane}
+  %\usecolortheme{dolphin}
+  %\usecolortheme{dove}
+  %\usecolortheme{fly}
+  %\usecolortheme{lily}
+  %\usecolortheme{orchid}
+  %\usecolortheme{rose}
+  %\usecolortheme{seagull}
+  %\usecolortheme{seahorse}
+  \usecolortheme{whale}
+  %\usecolortheme{wolverine}
+
+  %% Configuración del pie de línea
+  %\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+  %\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+  %\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\setbeamertemplate{headline}{%
+\leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=2ex]{palette quaternary}%
+    \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}
+    \end{beamercolorbox}%
+  }
+}
+
+%% Fuentes de tamaño arbitrario
+\usepackage{lmodern}
+
+%% Gráficos
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%%% Castellano.
+% noquoting: Permite uso de comillas no españolas.
+% lcroman: Permite la enumeración con numerales romanos en minúscula.
+% fontenc: Usa la fuente completa para que pueda copiarse correctamente del pdf.
+\usepackage[english,spanish,es-noquoting,es-lcroman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\selectlanguage{spanish}
+
+%-------------------------------------------
+% Paquetes añadidos por JC.
+%-------------------------------------------
+% Tikz
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{tikz-3dplot}
+
+\usepackage{verbatim}
+\usetikzlibrary{arrows,shapes}
+\usepackage{amsthm}
+\usepackage{accents}
+
+% Definitions
+
+\def\X{{\mathbb X}}
+\def\A{{\mathbb A}}
+\def\Y{{\mathbb Y}}
+\def\B{{\mathbb B}}
+\def\Z{{\mathbb Z}}
+\def\C{{\mathbb C}}
+\def\U{{\mathbb U}}
+\def\R{{\mathbb R}}
+
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Img}
+
+\newcommand{\interior}[1]{\accentset{\smash{\raisebox{-0.12ex}{$\scriptstyle\circ$}}}{#1}\rule{0pt}{2.3ex}}
+
+\theoremstyle{theorem}
+\newtheorem{mytheorem}{Teorema}
+\newtheorem{mycorollary}{Corolario}
+\newtheorem{myproposition}{Proposición}
+\newtheorem{mylemma}{Lema}
+\newtheorem{mydefinition}{Definición}
+
+% Counter
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+% Sections
+\AtBeginSection{\frame{\sectionpage}}
+\newtranslation[to=spanish]{Section}{Sección}
+
+\defbeamertemplate{section page}{mine}[1][]{%
+  \begin{centering}
+    {\usebeamerfont{section name}\usebeamercolor[fg]{section name}#1}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=12pt,center]{part title}
+      \usebeamerfont{section title}\insertsection\par
+    \end{beamercolorbox}
+  \end{centering}
+}
+
+%----------------------------------------------------------------------------------------
+%	TÍTULO
+%----------------------------------------------------------------------------------------
+
+\title[Homología singular]{Introducción a la homología singular} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{José Carlos Entrena Jiménez} % Your name
+\institute[UGR] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+  Universidad de Granada \\ % Your institution for the title page
+  \medskip
+  \textit{jentrena@correo.ugr.es} \\ % Your email address
+  \medskip
+  \textit{github.com/JCEntrena}
+}
+\date{\today} % Date, can be changed to a custom date
+
+
+
+\begin{document}
+% Spanish
+\selectlanguage{spanish}
+% Para tikz
+\pgfdeclarelayer{background}\theoremstyle{definition}
+\pgfsetlayers{background,main}
+% Secciones
+\setbeamertemplate{section page}[mine]
+
+%% Diapositiva de título.
+\frame{\titlepage}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTACIÓN
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+%% Bibliografía
+\begin{frame}
+\frametitle{Referencias}
+\footnotesize{
+  \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+
+    \bibitem[James W. Vick, 1973]{vick:1973}
+      \newblock Homology Theory. An Introduction to Algebraic Topology.
+      \newblock Academic Press, 1973.
+
+    \bibitem[W. S. Massey, 1972]{massey:1972}
+      \newblock Introducción a la topología algebraica.
+      \newblock Reverté, 1972.
+
+  \end{thebibliography}
+}
+\end{frame}
+
+
+%% Diapositiva de contenidos.
+% Throughout your presentation, if you choose to use \section{} and \subsection{} commands,
+% these will automatically be printed on this slide as an overview of your presentation
+\begin{frame}
+  \frametitle{Contenidos} % Table of contents slide, comment this block out to remove it
+  \tableofcontents
+\end{frame}
+
+
+%------------------------------------------------
+
+\section{Introducción}
+
+
+\begin{frame}
+  \frametitle{¿Qué vamos a hacer?}
+  \begin{itemize}
+    \item Construir la homología singular.
+    \item Obtener resultados sencillos sobre la homología.
+    \item Obtener herramientas para calcularla.
+    \item Aplicarlas para calcular la homología de las esferas.
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+  \frametitle{¿Cómo lo vamos a hacer?}
+  \begin{itemize}
+    \item Construiremos la homología singular usando nociones geométricas y algebraicas.
+    \item Demostraremos resultados mediante nuevas definiciones y el uso de propiedades.
+  \end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+\section{Definiciones}
+
+\begin{frame}
+  \frametitle{Definiciones}
+  \begin{columns}[c]
+
+    \column{.45\textwidth}
+    Un $p$-símplice es la envolvente convexa de $p+1$ puntos afínmente independientes.
+    Lo llamaremos estándar si sus puntos son de la forma $(0, \dots, 1, \dots, 0)$, y lo notaremos $\sigma_p$.
+
+    \column{.5\textwidth}
+    \begin{figure}
+      \tdplotsetmaincoords{70}{135}
+      \begin{tikzpicture}[tdplot_main_coords]
+        \def\laxis{3}
+        \def\ltriangle{1}
+        \def\ltick{.2}
+        %%% axes
+        \draw [->] (0,0,0) -- (\laxis,0,0) node [below] {$x$};
+        \draw [->] (0,0,0) -- (0,\laxis,0) node [right] {$y$};
+        \draw [->] (0,0,0) -- (0,0,\laxis) node [left] {$z$};
+        %%% axes ticks
+        \pgfmathtruncatemacro{\nticks}{floor(\laxis)-1}
+        \begin{scope}[
+          help lines,
+          every node/.style={inner sep=1pt,text=black}
+          ]
+          \foreach \coord in {1,...,\nticks} {
+            \draw (\coord,\ltick,0) -- ++(0,-\ltick,0) -- ++(0,0,\ltick)
+            node [pos=1,left] {\coord};
+            \draw (\ltick,\coord,0) -- ++(-\ltick,0,0) -- ++(0,0,\ltick)
+            node [pos=1,right] {\coord};
+            \draw (\ltick,0,\coord) -- ++(-\ltick,0,0) -- ++(0,\ltick,0)
+            node [at start,above right] {\coord};
+          }
+        \end{scope}
+        %%% figure
+        \filldraw [opacity=.33,red] (\ltriangle,0,0) -- (0,\ltriangle,0)
+        -- (0,0,\ltriangle) -- cycle;
+      \end{tikzpicture}
+      \caption{$2$-símplice estándar}
+    \end{figure}
+
+  \end{columns}
+
+\end{frame}
+
+%------------------------
+
+\begin{frame}
+  \frametitle{Definiciones}
+  Un $p$-símplice singular en un espacio topológico $\X$ será una aplicación continua de un $p$-símplice a $\X$.
+  Notaremos por $F_p(\X)$ al conjunto de todos los $p$-símplices singulares de $\X$. \\~\\
+
+  Dada una aplicación continua $f \colon \X \to \Y$, se puede definir $f_\# \colon F_p(\X) \to F_p(\Y)$ como
+  $f_\#(\phi) = f \circ \phi$. \\~\\
+
+  Definimos la aplicación $F^i_p \colon \sigma_{p-1} \to \sigma_p$ por $F^i_p(t_0, \dots, t_{p-1}) =
+  (t_0, \dots, t_{i-1}, 0, t_i, \dots, t_{p-1})$. \\~\\
+
+  Nos permite definir la aplicación que llamaremos i-ésima cara $\partial_i \colon F_p(\X) \to F_{p-1}(\X)$ como
+  $\partial_i(\phi) = \phi \circ F^i_p$. \\~\\
+
+\end{frame}
+
+%---------------------------
+
+
+\begin{frame}
+  \frametitle{Definiciones}
+  Tomando un $\mathbb{Z}$-módulo sobre $F_p(\X)$, creamos el grupo de $p$-cadenas singulares,
+  $S_p(\X) = \{\sum\limits_{\phi \in F_p(\X)} n_{\phi} \phi \mid n_{\phi} \in \mathbb Z,  \sum n_\phi < \infty\}$. \\~\\
+
+  Sobre el grupo de $p$-cadenas singulares podemos definir un homomorfismo de grupos $\partial$, al que llamaremos borde, dado por
+  \[ \partial \colon S_p(\X) \to S_{p-1}(\X) \quad \partial(\phi) = \sum\limits_{i = 0}^p (-1)^i \partial_i(\phi) \]
+  \begin{mylemma}
+      $\partial \circ \partial \colon S_p(\X) \to S_{p-2}(\X)$ es el homomorfismo cero.
+  \end{mylemma}
+
+\end{frame}
+
+%-------------------------------
+
+\begin{frame}[fragile]
+  \frametitle{Definiciones}
+  Se puede extender la definición de $f_\#$ de $F_p(\X)$ a $S_p(\X)$ por linealidad. \\~\\
+
+  \begin{mylemma}
+    La aplicación $f_\#$ conmuta con el borde, esto es, $f_\# \circ \partial = \partial \circ f_\#$
+  \end{mylemma}
+
+  Esto hace conmutativo el diagrama:
+  \[
+    \begin{tikzcd}
+      \dots S_{p+1}(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & S_p(\X) \arrow{r}{\partial} \arrow{d}{f_\#} & S_{p-1}(\X) \arrow{d}{f_\#} \dots \\
+      \dots S_{p+1}(\Y) \arrow{r}{\partial}                 & S_p(\Y) \arrow{r}{\partial}                 & S_{p-1}(\Y) \dots
+    \end{tikzcd}
+  \]
+
+\end{frame}
+
+%--------------------------------
+
+
+\begin{frame}
+  \frametitle{Definiciones}
+  Consideramos los grupos de los ciclos y los bordes:
+  \begin{itemize}
+    \item $Z_p(\X) = \{c \in S_p(\X) \mid \partial(c) = 0\}$ $p$-ciclos.
+    \item $B_p(\X) = \{c \in S_p(\X) \mid \exists d \colon \partial(d) = c\}$ $p$-bordes.
+  \end{itemize}
+
+  Como $\partial^2 = 0$, $B_p \subseteq Z_p$, y podemos tomar el cociente, el $p$-ésimo grupo de homología:
+  \centerline{$H_p(\X) = \frac{Z_p(\X)}{B_p(\X)} = \{[c] \mid c \in Z_p(\X)\}$} \\~\\
+
+  Dada una aplicación continua $f \colon \X \to \Y$, es posible definir el homomorfismo inducido en
+  la homología $f_* \colon H_p(\X) \to H_p(\Y)$ como $f_*([c]) = [f_\#(c)]$. Si $f$ es un homeomorfismo,
+  $f_*$ será un isomorfismo.
+
+\end{frame}
+
+%------------------------------------------------
+
+\section{Homología de un punto. Homología y arcoconexión}
+
+\begin{frame}
+  \frametitle{Homología de un punto}
+  \begin{myproposition}
+    Dado $\X$ un espacio topológico formado por solo un punto, se verifica que:
+    \[H_p(\X) = \begin{cases} \Z &\quad \text{si } p = 0 \\
+                              0  &\quad \text{en otro caso.} \end{cases} \]
+  \end{myproposition}
+
+\end{frame}
+
+%------------------------------------------
+
+\begin{frame}
+  \frametitle{La homología singular y la arcoconexión}
+  \begin{myproposition}
+    Si $\X$ es un espacio topológico arcoconexo, entonces $H_0(\X) = \Z$.
+  \end{myproposition}
+
+  \begin{myproposition}
+    Sea $\X$ un espacio topológico, $\cup_\alpha \X_\alpha$ su descomposición en componentes arcoconexas. Entonces
+    \begin{itemize}
+      \item[a)] La función $i_{\alpha *} \colon H_p(\X_\alpha) \to H_p(\X)$ es un monomorfismo $\forall \alpha$.
+      \item[b)] $H_p(\X) = \bigoplus_\alpha i_{\alpha *}(H_p(\X_\alpha)) = \bigoplus_\alpha H_p(\X_\alpha)$.
+    \end{itemize}
+  \end{myproposition}
+\end{frame}
+
+%---------------------------------------
+
+\section{Invarianza homotópica de la homología singular}
+
+\begin{frame}
+  \frametitle{Lema de Poincaré}
+  \begin{myproposition}[Lema de Poincaré]
+    Sea $\X \subseteq \R$ estrellado desde algún punto. Entonces
+    \[ H_p(\X) = \begin{cases} \Z &\quad \text{si } p = 0 \\
+                              0  &\quad \text{en otro caso.} \end{cases} \]
+  \end{myproposition}
+
+\end{frame}
+
+%--------------------------------------
+
+\begin{frame}
+  \frametitle{Invarianza homotópica}
+
+  \begin{mytheorem}[Invarianza homotópica de la homología singular]
+    Sean $\X, \Y$ espacios topológicos, $f, g \colon \X \to \Y$ aplicaciones continuas. Si $f$ es homotópica a $g$,
+    entonces $f_* = g_*$, siendo $f_*, g_* \colon H_p(\X) \to H_p(\Y)$.
+  \end{mytheorem}
+
+  \begin{mycorollary}
+    Sean $\X, \Y$ espacios homotópicamente equivalentes. Entonces $H_p(\X) = H_p(\Y) \quad \forall p$.
+  \end{mycorollary}
+
+\end{frame}
+
+%---------------------------------------
+
+\section{Definición en pares}
+
+\begin{frame}
+  \frametitle{Homología en pares}
+  Tomando un par $(\X, \A)$, con $\A \subseteq \X$, se puede definir $S_p(\X, \A) = \frac{S_p(\X)}{S_p(\A)}$,
+  el grupo de $p$-cadenas del par, donde podemos volver a tomar el borde $\partial$. \\~\\
+
+  De nuevo podemos tomar los ciclos y los bordes, que nos permiten definir la homología del par:
+  \centerline{$H_p(\X, \A) = \frac{Z_p(\X, \A)}{B_p(\X, \A)}$} \\~\\
+
+  Tomando una aplicación de pares $f \colon (\X, \A) \to (\Y, \B)$, se construyen
+  \begin{itemize}
+    \item $f_\# \colon S_p(\X, \A) \to S_p(\Y, \B)$, con $f_\# \circ \partial = \partial \circ f_\#$.
+    \item $f_* \colon H_p(\X, \A) \to H_p(\Y, \B)$, homomorfismo inducido.
+  \end{itemize}
+
+\end{frame}
+
+%---------------------------------
+
+\begin{frame}
+  \frametitle{Trasladando los resultados}
+  Los resultados vistos de arcoconexión e invarianza homotópica tienen sus equivalentes en el caso de pares.
+
+  \begin{myproposition}
+    Si $\X$ es arcoconexo y $\A \neq \emptyset, H_0(\X, \A) = 0$.
+  \end{myproposition}
+
+  \begin{myproposition}
+    Sea $\cup_\alpha \X_\alpha$ la descomposición de $\X$ en componentes arcoconexas, $\A \subseteq \X$. Entonces
+    \begin{itemize}
+      \item[a)] La función $i_{\alpha *} \colon H_p(\X_\alpha, \X_\alpha \cap \A) \to H_p(\X, \A)$ es un monomorfismo $\forall \alpha$.
+      \item[b)] $H_p(\X, \A) = \bigoplus_\alpha H_p(\X_\alpha, \X_\alpha \cap \A)$.
+    \end{itemize}
+  \end{myproposition}
+
+
+\end{frame}
+
+%---------------------------------
+
+\begin{frame}
+  \frametitle{Trasladando los resultados}
+
+  Nuevamente, si $f$ es un homeomorfismo entre $\X$ e $\Y$, verificando $f(\A) = \B$, entonces $f_*$
+  es un isomorfismo entre los grupos de homología. \\~\\
+
+  \begin{myproposition}
+    Dos aplicaciones de pares $f$ y $g$ homotópicas inducen el mismo homomorfismo en la homología del par.
+  \end{myproposition}
+
+
+\end{frame}
+
+%----------------------------------
+
+\begin{frame}
+  \frametitle{Sucesión exacta de un par}
+  Notaremos por $\pi \colon S_p(\X) \to S_p(\X, \A)$ a la proyección. De igual forma, notaremos por
+  $i_\# \colon S_p(\A) \to S_p(\X)$ a la inclusión. \\~\\
+
+  Podemos definir la sucesión
+  \[ 0 \to S_*(\A) \xrightarrow{i_\#} S_*(\X) \xrightarrow{\pi} S_*(\X, \A) \to 0 \]
+  que verifica $\partial \circ i_\# = i_\# \circ \partial$ y $\partial \circ \pi = \pi \circ \partial$,
+  y donde se tiene $\Ker \pi = \Img i_\# = i_\#(S_*(\A))$. A estas sucesiones las llamaremos exactas.
+
+\end{frame}
+
+%----------------------------------
+
+\begin{frame}
+  \frametitle{Sucesión exacta de un par}
+  \begin{myproposition}[Sucesión exacta del par]
+    Podemos definir un homomorfismo $\Delta \colon H_p(\X, \A) \to H_{p-1}(\A)$ tal que
+    $\Img \Delta = \Ker i_*$ y $\Ker \Delta = \Img \pi_*$. \\~\\
+
+    A la sucesión así construída la llamaremos sucesión exacta del par $(\X, \A)$
+    \[ \dots H_{p+1}(\X, \A) \xrightarrow{\Delta} H_p(\A) \xrightarrow{i_*} H_p(\X) \xrightarrow{\pi_*} H_p(\X, \A) \xrightarrow{\Delta} H_{p-1}(\A) \dots \]
+  \end{myproposition}
+
+\end{frame}
+
+%----------------------------------
+
+\section{Teorema de subdivisión baricéntrica}
+
+\begin{frame}
+  \frametitle{Definiciones}
+  Si $\X$ es un espacio topológico y $\U$ es un recubrimiento suyo, se define
+  $F_p^\U(\X) = \{ \phi \in F_p \mid \exists U \in \U \colon \Img \phi \subseteq U \}$,
+  que es, por definición, subconjunto de $F_p(\X)$. \\~\\
+
+  Volveremos a tomar el grupo abeliano libre generado por $F_p^\U(\X)$, al que notaremos $S_p^\U(\X)$.
+  Claramente, es subgrupo de $S_p(\X)$. La restricción del borde $\partial$ a $S_p^\U(\X)$ define un borde en este espacio.  \\~\\
+
+  La inclusión $i \colon S_*^\U(\X) \to S_*(\X)$ induce un homomorfismo en la homología
+  \[ i_* \colon H_p(S_*^\U(\X)) \to H_p(\X) \]
+  donde $H_p(S_*^\U(\X)) = \frac{\Ker \partial}{\Img \partial}$
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Teorema de subdivisión baricéntrica}
+
+  \begin{mytheorem}[Teorema de subdivisión baricéntrica]
+    Sean $\X$ un espacio topológico y $\U$ un recubrimiento suyo tal que $\interior{\U} = \{\interior{U} \mid U \in \U\}$
+    también recubra a $\X$. Entonces la aplicación \[i_* \colon H_p(S_*^\U(\X)) \to H_p(\X)\] es un isomorfismo.
+  \end{mytheorem}
+
+\end{frame}
+
+%----------------------------------
+
+\section{Homología de las esferas}
+
+%----------------------------------
+
+
+\begin{frame}
+  \frametitle{Teorema de escisión}
+  \begin{mytheorem}[Teorema de escisión]
+    Sea $(\X, \A)$ un par, $U \subseteq \A$ verificando $\overline{U} \subseteq \interior{\A}$.
+    Entonces la inclusión
+    \[ i \colon (\X - U, \A - U) \to (\X, \A) \]
+    induce un isomorfismo en la homología.
+  \end{mytheorem}
+\end{frame}
+
+%------------------------------------
+
+\begin{frame}
+  \frametitle{Homología de las esferas}
+  Con el teorema de escisión es posible calcular los grupos de homología de las esferas. \\~\\
+
+  \begin{mytheorem}[Grupos de homología de las esferas]
+    $H_p(S^n) = \begin{cases} \mathbb Z & p = 0, n,\\
+                                      0 & \text{en otro caso.} \end{cases}$
+  \end{mytheorem}
+\end{frame}
+
+
+%-------------------------------------------------
+
+\begin{frame}
+\Huge{\centerline{Fin.}}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+--
